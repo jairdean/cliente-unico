@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<br />
+<h:panelGrid columns="2" columnClasses="etiqueta" headerClass="subtituloForm" rendered="#{permisoCtrl.visibleIngresosActividad}">
+
+<f:facet name="header">
+	<h:outputText value="#{etiquetas['perfil.financiero']}" />
+</f:facet>
+	<h:outputLabel value="#{etiquetas['ingreso.actividad.principal']}*"
+		for="txtAacividadP" />
+
+	<h:panelGrid columns="4">
+		<h:panelGroup>		
+		<h:inputText id="txtAacividadP"
+			value="#{personaNaturalCtrl.personaNatural.ingresoMensual.mntIngresoMensual}"
+			required="true" requiredMessage="#{mensajes['requerido']}" validatorMessage="Debe ingresar un valor mayor a cero">
+			<f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+		</h:inputText>
+		<rich:message for="txtAacividadP" />
+		</h:panelGroup>
+		<h:outputLabel value="#{etiquetas['total.egresos']}"
+			for="txtTotalEgresos" />
+		<h:inputText id="txtTotalEgresos"
+			value="#{personaNaturalCtrl.personaNatural.ingresoMensual.mntEgresoMensual}"
+			required="true" requiredMessage="#{mensajes['requerido']}" />
+		<rich:message for="txtTotalEgresos" />
+	</h:panelGrid>
+
+	<h:outputText value="#{etiquetas['otros.ingresos.especifique']}" />
+	<h:panelGrid columns="1">
+		<a4j:commandLink id="btnOtrosIngresos"
+			actionListener="#{personaNaturalCtrl.crearOtrosIngresos}" title="#{botones['nuevo']}" 
+			execute="tblOtroIngreso" render="pnlOtroIngreso" onclick="this.focus()">
+			<h:graphicImage value="/img/nuevo.png" />
+		</a4j:commandLink>
+		<a4j:outputPanel id="pnlOtroIngreso">
+			<rich:dataTable id="tblOtroIngreso"
+				value="#{personaNaturalCtrl.personaNatural.ingresoMensualAdicionalCollection}"
+				var="a"
+				rendered="#{not empty personaNaturalCtrl.personaNatural.ingresoMensualAdicionalCollection}">
+				<rich:column>
+					<f:facet name="header">#{etiquetas['fuente']}</f:facet>
+					<h:inputText value="#{a.fuenteIngresoAdicional}" maxlength="60" style="width:260px;"/>
+				</rich:column>
+				<rich:column style="text-align:center">
+					<f:facet name="header">#{etiquetas['monto']}</f:facet>
+					<h:inputText value="#{a.mntIngresoAdicional}" id="txtIngAdi" style="width:60px;"/>
+					<rich:message for="txtIngAdi"/>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">#{botones['eliminar']}</f:facet>
+					<a4j:commandLink render="pnlOtroIngreso"
+						actionListener="#{personaNaturalCtrl.eliminarOtroIngreso}"
+						immediate="true" rendered="#{a.secIngresoAdicional==null}">
+						<h:graphicImage value="/img/eliminar.png"
+							title="#{botones['eliminar']}" />
+					</a4j:commandLink>
+				</rich:column>
+			</rich:dataTable>
+		</a4j:outputPanel>
+	</h:panelGrid>
+
+	<h:outputText value="#{etiquetas['ingreso.anuales.personales']}"
+		for="txtIngresoAnual" />
+
+	<h:panelGrid columns="1">
+		<a4j:commandLink id="btnIngresoAnual"
+			actionListener="#{personaNaturalCtrl.crearIngresoAnual}" title="#{botones['nuevo']}" 
+			execute="tblIngresoAnual" render="pnalIngresoAnual" onclick="this.focus()">
+			<h:graphicImage value="/img/nuevo.png" />
+		</a4j:commandLink>
+		<a4j:outputPanel id="pnalIngresoAnual">
+			<rich:dataTable id="tblIngresoAnual"
+				value="#{personaNaturalCtrl.personaNatural.ingresoAnualCollection}"
+				var="b"
+				rendered="#{not empty personaNaturalCtrl.personaNatural.ingresoAnualCollection}">
+				<rich:column>
+					<f:facet name="header">#{etiquetas['anio']}</f:facet>
+					<h:inputText value="#{b.anio}" id="txtAnio" style="width:60px;">
+						<f:validateLongRange minimum="2000" maximum="2100" />
+					</h:inputText>
+					<rich:message for="txtAnio"/>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">#{etiquetas['monto']}</f:facet>
+					<h:inputText value="#{b.mntIngresoAnual}" id="txtMntIngAnual" style="width:60px;"/>
+					<rich:message for="txtMntIngAnual"/>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">#{botones['eliminar']}</f:facet>
+					<a4j:commandLink render="pnalIngresoAnual"
+						actionListener="#{personaNaturalCtrl.eliminarIngresoAnual}"
+						immediate="true" rendered="#{b.secIngresoAnual==null}">
+						<h:graphicImage value="/img/eliminar.png"
+							title="#{botones['eliminar']}" />
+					</a4j:commandLink>
+				</rich:column>
+			</rich:dataTable>
+		</a4j:outputPanel>
+	</h:panelGrid>
+</h:panelGrid></div>

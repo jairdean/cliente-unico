@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<script type="text/javascript">
+	
+<!--
+
+function casillaEmails(obj){
+
+	var totalEmails=document.getElementById("SSIPNForm:totalEmails").value;
+
+	for(j=0;j<totalEmails;j++){
+		var idEmailTemp="SSIPNForm:tblCorreo:"+j+":checkEmailPrincipal";
+		if(obj.id==idEmailTemp){
+				document.getElementById(idEmailTemp).checked=true;
+		}else{
+				document.getElementById(idEmailTemp).checked=false;
+		}
+	}
+
+}
+-->
+</script>
+
+	<h:panelGrid columns="2" columnClasses="etiqueta">
+
+
+		<h:outputText value="#{etiquetas['correo.electronico']}*" />
+
+		<h:panelGrid columns="1">
+			<a4j:commandLink id="btnCorreoElectronico"
+				title="#{botones['nueva.direccion.electronica']}"
+				actionListener="#{personaNaturalCtrl.crearCorreoElectronico}"
+				execute="tblCorreo" render="pnlCorreo" onclick="this.focus()">
+				<h:graphicImage value="/img/nuevo.png" />
+			</a4j:commandLink>
+			<a4j:outputPanel id="pnlCorreo">
+				<h:inputHidden id="totalEmails" readonly="true"
+					value="#{personaNaturalCtrl.personaNatural.persona.totalDireccionesElectronicasActivos}" />
+				<rich:dataTable id="tblCorreo"
+					value="#{personaNaturalCtrl.personaNatural.persona.direccionElectronicaActivosCollection}"
+					var="b"
+					rendered="#{not empty personaNaturalCtrl.personaNatural.persona.direccionElectronicaActivosCollection}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column style="text-align: center;">#{etiquetas['tipo']}</rich:column>
+							<rich:column style="text-align: center;">#{etiquetas['descripcion']}</rich:column>
+							<rich:column style="text-align: center;">
+									#{etiquetas['preferido']}
+									</rich:column>
+							<rich:column style="text-align: center;">#{botones['eliminar']}</rich:column>
+						</rich:columnGroup>
+
+					</f:facet>
+
+					<rich:column style="text-align: center;">
+						<h:selectOneMenu enableManualInput="true"
+							defaultLabel="#{etiquetas['seleccionar.uno']}"
+							value="#{b.tipoDireccionElectronica.codTipoDireccionElectronica}">
+							<f:selectItems
+								value="#{selectCtrl.tipoDireccionElectronicaItems}" />
+						</h:selectOneMenu>
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<h:inputText id="txtCorreoElectronico"
+							value="#{b.direccionElectronica}" maxlength="64" required="true"
+							requiredMessage="#{mensajes['requerido']}">
+							<f:validator validatorId="emailValidator" />
+							<f:ajax render="mensajeErrorEmail"></f:ajax>
+						</h:inputText>
+						<br />
+						<rich:message id="mensajeErrorEmail" for="txtCorreoElectronico" />
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<h:selectBooleanCheckbox id="checkEmailPrincipal"
+							value="#{b.principalTransient}" onclick="casillaEmails(this)" />
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<a4j:commandLink render="pnlCorreo"
+							actionListener="#{personaNaturalCtrl.eliminarCorreoElectronico}"
+							immediate="true">
+							<h:graphicImage value="/img/eliminar.png"
+								title="#{botones['eliminar']}" />
+						</a4j:commandLink>
+					</rich:column>
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:panelGrid>
+	</h:panelGrid>
+</div>

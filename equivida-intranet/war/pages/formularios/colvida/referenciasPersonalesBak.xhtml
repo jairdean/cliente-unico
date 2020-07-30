@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"><h:panelGrid columns="2" rendered="#{permisoCtrl.visibleReferenciasPersonales}">
+
+	
+	<rich:dataTable id="tblRefe"
+		value="#{personaNaturalCtrl.personaNatural.referenciaFormularioCollection}"
+		var="ref" width="100%" rowKeyVar="countRef">
+
+<rich:column rowspan="1" rendered="#{ref.familiarNoVivaUd=='S'}">
+<h:outputLabel value="#{etiquetas['referencia.familiar']} *"/>
+</rich:column>
+
+<rich:column rowspan="2" rendered="#{ref.familiarNoVivaUd=='N' and countRef==1}">
+<h:outputLabel value="#{etiquetas['referencias.personales']}" />
+
+</rich:column>
+
+
+		<rich:column style="text-align: center;">
+			<h:outputLabel value="#{etiquetas['nombre']}" />
+			<h:panelGrid columns="1">
+				<h:inputText id="txtNombreReferenciaFamiliar"
+					value="#{ref.denominacion}" maxlength="64" />
+				<rich:message for="txtNombreReferenciaFamiliar"/>
+			</h:panelGrid>
+		</rich:column>
+
+		<rich:column style="text-align: center;">
+			<h:outputLabel value="#{etiquetas['parentesco']}" />
+			<h:panelGrid columns="1" rendered="#{ref.familiarNoVivaUd=='S'}">
+				<h:selectOneMenu id="cmbParentesco"
+ value="#{ref.tipoParentescoRelacion.codTipoParentesco}" >
+  <f:selectItems
+   value="#{selectCtrl.tipoParentescoFamiliaresItems}" />
+
+</h:selectOneMenu> 
+</h:panelGrid>
+<h:panelGrid columns="1" rendered="#{ref.familiarNoVivaUd=='N'}">
+<h:selectOneMenu id="cmbParentescoNF"
+ value="#{ref.tipoParentescoRelacion.codTipoParentesco}">
+  <f:selectItems
+   value="#{selectCtrl.tipoParentescoFamiliaresYNoFamiliaresItems}" />
+</h:selectOneMenu> 
+		</h:panelGrid>	
+		</rich:column>
+
+		<rich:column style="text-align: center;">
+			<h:outputLabel value="#{etiquetas['telefonos']}" />
+			<h:panelGrid columns="2">
+				<h:inputText id="txtConvReferenciaFamiliar"
+					value="#{ref.nroTelefonoConvencional}" maxlength="16"/>
+				<h:inputText id="txtCelReferenciaFamiliar" 
+					value="#{ref.nroTelefonoCelular}" maxlength="16" />
+				<h:outputLabel value="#{etiquetas['convencional']}" />
+				<h:outputLabel value="#{etiquetas['celular']}" />
+			</h:panelGrid>
+		</rich:column>
+
+	</rich:dataTable>
+
+</h:panelGrid></div>

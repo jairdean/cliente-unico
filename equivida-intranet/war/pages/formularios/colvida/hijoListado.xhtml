@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<script type="text/javascript">
+	
+<!--
+
+function casillaEmails(obj){
+
+	var totalEmails=document.getElementById("SSIPNForm:totalEmails").value;
+
+	for(j=0;j<totalEmails;j++){
+		var idEmailTemp="SSIPNForm:tblHijos:"+j+":checkEmailPrincipal";
+		if(obj.id==idEmailTemp){
+				document.getElementById(idEmailTemp).checked=true;
+		}else{
+				document.getElementById(idEmailTemp).checked=false;
+		}
+	}
+
+}
+-->
+</script>
+
+
+
+
+
+
+
+
+
+	<h:panelGrid columns="2" columnClasses="etiqueta">
+
+
+		<h:outputText value="#{etiquetas['hijos']}" />
+
+		<h:panelGrid columns="1">
+			<a4j:commandLink id="btnHijo" title="#{botones['boton.hijo']}"
+				actionListener="#{personaNaturalCtrl.crearHijo}" execute="tblHijos"
+				render="pnlHijos" onclick="this.focus()">
+				<h:graphicImage value="/img/nuevo.png" />
+			</a4j:commandLink>
+			<a4j:outputPanel id="pnlHijos">
+
+				<rich:dataTable id="tblHijos"
+					value="#{personaNaturalCtrl.personaNatural.persona.hijos}" var="h"
+					rendered="#{not empty personaNaturalCtrl.personaNatural.persona.hijos}"
+					rowKeyVar="countHijo">
+					<f:facet name="header">
+						<rich:columnGroup>
+
+							<rich:column style="text-align: center;">#{etiquetas['nombres']}</rich:column>
+							<rich:column style="text-align: center;">
+									#{etiquetas['apellidos']}
+									</rich:column>
+							<rich:column style="text-align: center;">
+									#{etiquetas['fecha.nacimiento']}
+									</rich:column>
+							<rich:column style="text-align: center;">
+									#{etiquetas['ocupacion']}
+									</rich:column>
+							<rich:column style="text-align: center;">#{botones['eliminar']}</rich:column>
+						</rich:columnGroup>
+
+					</f:facet>
+
+
+
+					<rich:column style="text-align: center;">
+						<h:inputText id="txtHijoNombre" value="#{h.nombre}" maxlength="64"
+							required="true" requiredMessage="#{mensajes['requerido']}">
+							<f:ajax render="mensajeErrorNombre"></f:ajax>
+						</h:inputText>
+						<br />
+						<rich:message id="mensajeErrorNombre" for="txtHijoNombre" />
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<h:inputText id="txtHijoApellido" value="#{h.apellido}"
+							maxlength="64" required="true"
+							requiredMessage="#{mensajes['requerido']}">
+							<f:ajax render="mensajeErrorApellido"></f:ajax>
+						</h:inputText>
+						<br />
+						<rich:message id="mensajeErrorApellido" for="txtHijoApellido" />
+					</rich:column>
+
+
+					<rich:column style="text-align: center;">
+						<rich:calendar id="txtFechaNacimientoH" value="#{h.fchNacimiento}"
+							locale="#{sesionCtrl.locale}"
+							datePattern="#{aplicacionCtrl.formatDateForForm}"
+							enableManualInput="true" required="true"
+							requiredMessage="#{mensajes['requerido']}"></rich:calendar>
+						<rich:message for="txtFechaNacimientoH" />
+						<h:outputText value="#{etiquetas['fecha.ejemplo']}" />
+
+					</rich:column>
+
+
+					<rich:column style="text-align: center;">
+
+						<a4j:jsFunction name="seleccionarOcupacionHijo#{countHijo}"
+							execute="autoOcupacionHijo hijoHT "
+							action="#{personaNaturalCtrl.seleccionarOcupacionHijo}"
+							render="hijoAuto hijoHT "
+							oncomplete="document.getElementById('SSIPNForm:tblHijos:#{countHijo}:autoOcupacionHijoInput').focus();" />
+
+						<h:inputHidden id="hijoHT" value="#{h.ocupacion.ocupacion}" />
+
+						<rich:autocomplete mode="cachedAjax" minChars="1" autofill="false"
+							selectFirst="true" var="varOcupacion"
+							fetchValue="#{varOcupacion.codOcupacion}|#{varOcupacion.ocupacion}"
+							id="autoOcupacionHijo" required="false"
+							requiredMessage="#{mensajes['requerido']}"
+							autocompleteMethod="#{autocompleteCtrl.autocompleteOcupacion}"
+							value="#{h.ocupacion.ocupacion}"
+							onselectitem="eval('seleccionarOcupacionHijo#{countHijo}()');"
+							onblur="document.getElementById('SSIPNForm:tblHijos:#{countHijo}:autoOcupacionHijoInput').value=document.getElementById('SSIPNForm:tblHijos:#{countHijo}:hijoHT').value">
+							<rich:column>
+								<h:outputText value="#{varOcupacion.ocupacion}" />
+							</rich:column>
+						</rich:autocomplete>
+						<rich:message for="autoOcupacionHijo" />
+
+					</rich:column>
+
+
+
+					<rich:column style="text-align: center;">
+						<a4j:commandLink render="pnlHijos"
+							actionListener="#{personaNaturalCtrl.eliminarHijo}"
+							immediate="true">
+							<h:graphicImage value="/img/eliminar.png"
+								title="#{botones['eliminar']}" />
+						</a4j:commandLink>
+					</rich:column>
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:panelGrid>
+	</h:panelGrid>
+</div>

@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<script language="javascript" type="text/javascript">
+		function limitText(limitField, limitCount, limitNum) {
+			if (limitField.value.length > limitNum) {
+				limitField.value = limitField.value.substring(0, limitNum);
+			} else {
+				limitCount.value = limitNum - limitField.value.length;
+			}
+		}
+	</script>
+
+	<a4j:jsFunction rendered="#{permisoCtrl.visibleProfesionEmpleos}"
+		name="seleccionarProfesion" execute="autoProfesion autoProfesionHT"
+		action="#{personaNaturalCtrl.seleccionarProfesion}"
+		render="autoProfesion autoProfesionHT"
+		oncomplete="document.getElementById('SSIPNForm:autoProfesionInput').focus();" />
+	<h:inputHidden id="autoProfesionHT"
+		value="#{personaNaturalCtrl.personaNatural.profesion.profesion}" />
+
+	<a4j:jsFunction rendered="#{permisoCtrl.visibleProfesionEmpleos}"
+		name="seleccionarOcupacion" execute="autoOcupacion autoOcupacionHT"
+		action="#{personaNaturalCtrl.seleccionarOcupacion}"
+		render="autoOcupacion autoOcupacionHT cmbTipoRiesgo"
+		oncomplete="document.getElementById('SSIPNForm:autoOcupacionInput').focus();" />
+	<h:inputHidden id="autoOcupacionHT"
+		value="#{personaNaturalCtrl.personaNatural.ocupacion.ocupacion}" />
+
+	<h:panelGrid columns="2" columnClasses="etiqueta"
+		rendered="#{permisoCtrl.visibleProfesionEmpleos}">
+
+		<h:outputText value="#{etiquetas['profesion.oficio']}" />
+		<div />
+		<h:outputLabel value="#{etiquetas['profesion']}" for="autoProfesion" />
+		<h:panelGrid columns="2">
+
+			<rich:autocomplete mode="cachedAjax" minChars="1" autofill="false"
+				selectFirst="true" var="varProfesion"
+				fetchValue="#{varProfesion.secProfesion}|#{varProfesion.profesion}"
+				id="autoProfesion"
+				autocompleteMethod="#{autocompleteCtrl.autocompleteProfesion}"
+				value="#{personaNaturalCtrl.personaNatural.profesion.profesion}"
+				onselectitem="document.getElementById('SSIPNForm:autoProfesionInput').style.color='white';seleccionarProfesion();"
+				onblur="document.getElementById('SSIPNForm:autoProfesionInput').value=document.getElementById('SSIPNForm:autoProfesionHT').value">
+				<h:outputText value="#{varProfesion.profesion}" />
+			</rich:autocomplete>
+		</h:panelGrid>
+
+
+		<h:outputLabel value="#{etiquetas['ocupacion']} *" for="autoOcupacion" />
+		<h:panelGrid columns="3">
+			<rich:autocomplete mode="cachedAjax" minChars="1" autofill="false"
+				selectFirst="true" var="varOcupacion"
+				fetchValue="#{varOcupacion.codOcupacion}|#{varOcupacion.ocupacion}|#{varOcupacion.tipoRiesgo.codTipoRiesgo}|#{varOcupacion.tipoRiesgo.tipoRiesgo}"
+				id="autoOcupacion" required="true"
+				requiredMessage="#{mensajes['requerido']}"
+				autocompleteMethod="#{autocompleteCtrl.autocompleteOcupacion}"
+				value="#{personaNaturalCtrl.personaNatural.ocupacion.ocupacion}"
+				onselectitem="document.getElementById('SSIPNForm:autoOcupacionInput').style.color='white';seleccionarOcupacion();"
+				onblur="document.getElementById('SSIPNForm:autoOcupacionInput').value=document.getElementById('SSIPNForm:autoOcupacionHT').value">
+				<h:outputText value="#{varOcupacion.ocupacion}" />
+			</rich:autocomplete>
+			<h:selectOneMenu
+				value="#{personaNaturalCtrl.personaNatural.tipoRiesgo.codTipoRiesgo}"
+				id="cmbTipoRiesgo">
+				<f:selectItems value="#{selectCtrl.tipoRiesgoItems}" />
+			</h:selectOneMenu>
+			<rich:message for="autoOcupacion" />
+		</h:panelGrid>
+
+		<h:outputText value="#{etiquetas['empleos']}" />
+
+		<h:panelGrid columns="1">
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Seleccione tipo de empleo:" />
+				<h:selectOneMenu id="cmbTipoEmpNuevo"
+					value="#{personaNaturalCtrl.tipoEmpleoNuevo}">
+					<f:selectItem itemValue="-99" itemLabel="Seleccione..." />
+					<f:selectItems value="#{selectCtrl.tipoEmpleoItems}" />
+				</h:selectOneMenu>
+				<a4j:commandLink id="btnNuevoEmpleo"
+					actionListener="#{personaNaturalCtrl.crearEmpleo}"
+					title="#{botones['nuevo']}" execute="tblEmp cmbTipoEmpNuevo"
+					render="pnlEmp" onclick="this.focus()">
+					<h:graphicImage value="/img/nuevo.png" />
+				</a4j:commandLink>
+
+			</h:panelGrid>
+			<a4j:outputPanel id="pnlEmp">
+				<h:message for="cmbTipoEmpNuevo" style="color:#ff9800" />
+				<rich:dataTable id="tblEmp"
+					value="#{personaNaturalCtrl.personaNatural.empleoActivosCollection}"
+					var="e"
+					rendered="#{not empty personaNaturalCtrl.personaNatural.empleoActivosCollection}"
+					rowKeyVar="countDir">
+					<rich:column style="text-align: center;">
+						<a4j:jsFunction name="seleccionarAE#{countDir}"
+							execute="autoAE autoAEHT"
+							action="#{personaNaturalCtrl.seleccionarAE}"
+							render="autoAE autoAEHT"
+							oncomplete="document.getElementById('SSIPNForm:tblEmp:#{countDir}:autoAEInput').focus();" />
+						<h:inputHidden id="autoAEHT" value="#{e.actividadEconomicaNombre}" />
+						<f:facet name="header">#{etiquetas['tipo']}</f:facet>
+						<h:outputText value="#{etiquetas[e.tipoEmpleoNombre]}"
+							rendered="#{e.tipoEmpleo lt 0}" />
+						<h:outputText value="#{e.tipoEmpleoNombre}"
+							rendered="#{not (e.tipoEmpleo lt 0)}" />
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<f:facet name="header">
+							<h:outputLabel
+								value="#{etiquetas['empresa']}/#{etiquetas['tipo.negocio']}" />
+						</f:facet>
+						<h:panelGrid columns="1" id="gridNE">
+							<h:inputText id="txtNegocioEmpresa0"
+								value="#{e.negocioEmpresaNombre}" required="true"
+								requiredMessage="#{mensajes['requerido']}"
+								rendered="#{e.tipoEmpleo==-1}" />
+							<rich:message for="txtNegocioEmpresa0"
+								rendered="#{e.tipoEmpleo==-1}" />
+						</h:panelGrid>
+
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<f:facet name="header">
+							<h:outputLabel value="#{etiquetas['actividad.economica']} *" />
+						</f:facet>
+						<a4j:outputPanel id="pnlActividadEconomica">
+							<rich:autocomplete rendered="#{e.tipoEmpleo lt 0}"
+								mode="cachedAjax" minChars="1" autofill="false"
+								selectFirst="true" var="varAE"
+								fetchValue="#{varAE.codActividadEconomica}|#{varAE.actividadEconomica}"
+								id="autoAE" required="true"
+								requiredMessage="#{mensajes['requerido']}"
+								autocompleteMethod="#{autocompleteCtrl.autocompleteActividadEconomica}"
+								value="#{e.actividadEconomicaNombre}" inputClass="autoAct"
+								onselectitem="document.getElementById('SSIPNForm:tblEmp:#{countDir}:autoAEInput').style.color='white';if(document.getElementById('SSIPNForm:tblEmp:#{countDir}:txtMensajeActEco')){document.getElementById('SSIPNForm:tblEmp:#{countDir}:txtMensajeActEco').style.visibility='hidden'};eval('seleccionarAE#{countDir}()');"
+								onblur="document.getElementById('SSIPNForm:tblEmp:#{countDir}:autoAEInput').value=document.getElementById('SSIPNForm:tblEmp:#{countDir}:autoAEHT').value">
+								<rich:column>
+									<h:outputText value="#{varAE.actividadEconomica}" />
+								</rich:column>
+								<a4j:ajax render="pnlActividadEconomica"></a4j:ajax>
+							</rich:autocomplete>
+							<h:outputText value="#{e.tipoEmpleoNombre}"
+								rendered="#{not (e.tipoEmpleo lt 0)}" />
+							<rich:message for="autoAE" />
+							<h:outputText id="txtMensajeActEco"
+								value="#{mensajes['ingrese.actividad.economica']}"
+								style="color:#ff9800"
+								rendered="#{empty e.actividadEconomicaNombre and e.tipoEmpleo lt 0}" />
+						</a4j:outputPanel>
+
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<f:facet name="header">#{etiquetas['antiguedad.anios']}</f:facet>
+						<h:panelGrid columns="1">
+							<h:inputText value="#{e.tiempoEmpresa}" style="width:16px"
+								maxlength="3" id="txtAntig">
+								<f:validateDoubleRange minimum="0" maximum="99" />
+							</h:inputText>
+							<h:selectOneMenu value="#{e.codTiempo}">
+								<f:selectItems value="#{selectCtrl.antiguedadItems}" />
+							</h:selectOneMenu>
+
+							<rich:message for="txtAntig" />
+						</h:panelGrid>
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<f:facet name="header">#{etiquetas['cargo']}</f:facet>
+						<h:inputText id="txtCargo" value="#{e.cargo}" maxlength="32"
+							rendered="#{e.tipoEmpleo lt 0}" required="true"
+							requiredMessage="#{mensajes['requerido']}" />
+						<br />
+						<rich:message for="txtCargo" />
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<f:facet name="header">#{botones['eliminar']}</f:facet>
+						<a4j:commandLink render="pnlEmp"
+							actionListener="#{personaNaturalCtrl.eliminarEmpleo}"
+							immediate="true">
+							<h:graphicImage value="/img/eliminar.png"
+								title="#{botones['eliminar']}" />
+						</a4j:commandLink>
+					</rich:column>
+
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:panelGrid>
+		<h:outputText value="#{etiquetas['otro.empleo']}" for="txtOtroEmpleo" />
+
+		<h:panelGrid columns="1">
+			<a4j:commandLink id="btnOtroEmpleo"
+				actionListener="#{personaNaturalCtrl.crearOtroEmpleo}"
+				title="#{botones['nuevo']}" execute="tblOtroEmpleo"
+				render="pnlOtroEmpleo" onclick="this.focus()">
+				<h:graphicImage value="/img/nuevo.png" />
+			</a4j:commandLink>
+			<a4j:outputPanel id="pnlOtroEmpleo">
+				<rich:dataTable id="tblOtroEmpleo"
+					value="#{personaNaturalCtrl.personaNatural.otroEmpleoCollection}"
+					var="b"
+					rendered="#{not empty personaNaturalCtrl.personaNatural.otroEmpleoCollection}">
+					<rich:column>
+						<f:facet name="header">#{etiquetas['detalle']}</f:facet>
+						<h:panelGrid columns="2">
+							<h:inputText id="txtOtroEmpleoDetalle" value="#{b.detalle}"
+								required="true" requiredMessage="#{mensajes['requerido']}" />
+							<rich:message for="txtOtroEmpleoDetalle" />
+						</h:panelGrid>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">#{botones['eliminar']}</f:facet>
+						<a4j:commandLink render="pnlOtroEmpleo"
+							actionListener="#{personaNaturalCtrl.eliminarOtroEmpleo}"
+							immediate="true"
+							rendered="#{b.secOtroEmpleo==null or personaNaturalCtrl.nuevo}">
+							<h:graphicImage value="/img/eliminar.png"
+								title="#{botones['eliminar']}" />
+						</a4j:commandLink>
+					</rich:column>
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:panelGrid>
+	</h:panelGrid>
+
+	<h:panelGrid columns="2" columnClasses="labelTop"
+		rendered="#{permisoCtrl.visibleCualEstasActividades}">
+		<h:outputLabel value="#{etiquetas['cual.estas.actividades']} *" />
+
+		<rich:dataTable
+			value="#{personaNaturalCtrl.personaNatural.actividadFormularioCollection}"
+			var="a" id="tblOcupac" style="border:none">
+			<rich:column style="border:none">
+				<h:selectBooleanCheckbox id="chkActiv" value="#{a.seleccionado}"
+					onclick="this.focus()">
+					<a4j:ajax event="change" render="gridTxtDetalle"
+						execute="tblOcupac" />
+				</h:selectBooleanCheckbox>
+			</rich:column>
+
+			<rich:column style="border:none">
+				<h:outputLabel for="chkActiv" value="#{a.tipoActividad.actividad}" />
+			</rich:column>
+
+			<rich:column style="border:none">
+				<h:panelGrid columns="2" id="gridTxtDetalle">
+					<h:outputText value="#{a.tipoActividad.pregunta}"
+						rendered="#{a.tipoActividad.pregunta!='N' and a.seleccionado}" />
+					<h:inputText value="#{a.detalle}"
+						rendered="#{a.tipoActividad.pregunta!='N' and a.seleccionado}" />
+				</h:panelGrid>
+			</rich:column>
+		</rich:dataTable>
+
+
+		<h:outputLabel
+			value="#{etiquetas['detalle.funciones.principales.trabajo']}: *" />
+		<h:panelGrid columns="2">
+			<h:inputTextarea id="txtDetalleFunciones"
+				onkeydown="limitText(this,document.getElementById('countdownDF'),500);"
+				onkeyup="limitText(this,document.getElementById('countdownDF'),500);"
+				rows="6" cols="80"
+				value="#{personaNaturalCtrl.personaNatural.detalleActividadFuncion.detalleFunciones}"
+				required="true" requiredMessage="#{mensajes['requerido']}" />
+			<rich:message for="txtDetalleFunciones" />
+			<input type="hidden" id="countdownDF" name="countdownDF" value="500" />
+		</h:panelGrid>
+	</h:panelGrid>
+</div>

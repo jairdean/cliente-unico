@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:panelGrid columns="2">
+		<h:outputLabel value="#{etiquetas['tipo.identificacion']}:*"
+			for="txtTipoIdRepLegal" />
+		<h:outputLabel value="#{etiquetas['identificacion']}*"
+			for="txtIdentificacionRl" />
+
+		<h:selectOneMenu id="txtTipoIdRepLegal"
+			valueChangeListener="#{contratantePJCtrl.cambiarTipoIdentificacionRepLegalPJ}"
+			value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.tipoIdentificacion.codTipoIdentificacion}">
+			<f:selectItems value="#{contratantePJCtrl.tipoIdentificacionItems}" />
+			<f:ajax event="change" execute="@this" render="datosRepresentantePJ" />
+		</h:selectOneMenu>
+		<h:inputText id="txtIdentificacionRl" size="15" valueChangeListener="#{contratantePJCtrl.verificarSiExisteRepresentanteLegal}"
+			value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.identificacion}"
+			required="true" requiredMessage="#{mensajes['requerido']}">
+			<f:ajax execute="txtTipoIdRepLegal @this" render="msjTxtIdentificacionRl :formContratante:txtApellidoPaternoRl :formContratante:txtApellidoMaternoRl :formContratante:txtPrimerNombreRl :formContratante:txtSegundoNombreRl"></f:ajax>
+		</h:inputText>
+		<rich:message id="msjTxtIdentificacionRl" for="txtIdentificacionRl"/>
+	</h:panelGrid>
+
+	<a4j:outputPanel id="datosRepresentantePJ">
+
+		<a4j:outputPanel id="datorRepPN">
+			<h:panelGrid columns="5">
+				<h:outputLabel value="#{etiquetas['apellido.paterno']}*"
+					for="txtApellidoPaternoRl" />
+				<h:outputLabel value="#{etiquetas['apellido.materno']}"
+					for="txtApellidoMaternoRl" />
+				<h:outputLabel value="#{etiquetas['primer.nombre']}*"
+					for="txtPrimerNombreRl" />
+				<h:outputLabel value="#{etiquetas['segundo.nombre']}"
+					for="txtSegundoNombreRl" />
+				<h:outputLabel value=" " />
+
+				<h:panelGrid columns="2">
+					<h:inputText id="txtApellidoPaternoRl"
+						value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.apellidoPaterno}"
+						maxlength="24" size="30" />
+					<rich:message for="txtApellidoPaternoRl" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:inputText id="txtApellidoMaternoRl"
+						value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.apellidoMaterno}"
+						maxlength="24" size="30" />
+					<rich:message for="txtApellidoMaternoRl" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:inputText id="txtPrimerNombreRl"
+						value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.primerNombre}"
+						maxlength="16" size="30" />
+					<rich:message for="txtPrimerNombreRl" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:inputText id="txtSegundoNombreRl"
+						value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.segundoNombre}"
+						maxlength="16" size="30" />
+					<rich:message for="txtSegundoNombreRl" />
+				</h:panelGrid>
+				<a4j:commandButton value="#{botones['revisar.listas.reservadas']}"
+					action="#{contratantePJCtrl.verificarListasRepLegal}"
+					render=":formContratante :formRcs" execute=":formContratante:selTipoEmpresaGeneral :formContratante:tblDireccionesC txtTipoIdRepLegal txtIdentificacionRl txtApellidoPaternoRl txtApellidoMaternoRl txtPrimerNombreRl txtSegundoNombreRl">
+				</a4j:commandButton>
+			</h:panelGrid>
+			
+			<div class="rcs" style="#{contratantePJCtrl.styleDivRepLegalConyuge}">
+
+			<div class="linea-baja" style="width: 100%">
+				<h:outputText value="#{etiquetas['lugar.fecha.nacimiento']}" />
+			</div>
+
+			<h:panelGrid columns="6">
+				<h:outputText value="#{etiquetas['pais']}: *" />
+				<h:panelGrid columns="2">
+					<rich:autocomplete mode="cachedAjax" minChars="1" var="varPais"
+						fetchValue="#{varPais.pais}" id="autoPaisFN" required="true"
+						requiredMessage="#{mensajes['requerido']}"
+						autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+						value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.ciudadNacimiento.pais}">
+						<rich:column>
+							<h:outputText value="#{varPais.pais}" />
+						</rich:column>
+						<f:converter converterId="paisConverter"></f:converter>
+						<a4j:ajax />
+					</rich:autocomplete>
+					<rich:message for="autoPaisFN" />
+
+
+				</h:panelGrid>
+
+
+				<h:outputLabel value="#{etiquetas['ciudad']}: *" />
+				<h:panelGrid columns="2">
+					<rich:autocomplete id="autoCiudadFNRl" minChars="1"
+						selectFirst="true" mode="ajax" var="varCiudad" required="true"
+						requiredMessage="#{mensajes['requerido']}"
+						fetchValue="#{varCiudad.ciudad}"
+						autocompleteMethod="#{contratantePJCtrl.autocompleteCiudadPJ}"
+						value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.ciudadNacimiento}">
+						<rich:column>
+							<h:outputText value="#{varCiudad}" />
+						</rich:column>
+						<f:converter converterId="ciudadConverter"></f:converter>
+						<a4j:ajax />
+					</rich:autocomplete>
+					<rich:message for="autoCiudadFNRl" />
+				</h:panelGrid>
+
+				<h:outputLabel value="#{etiquetas['fecha.nacimiento']} *"
+					for="txtFechaNacimientoRl" />
+				<h:panelGrid columns="3">
+					<rich:calendar id="txtFechaNacimientoRl"
+						value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.fchNacimiento}"
+						locale="#{sesionCtrl.locale}"
+						datePattern="#{aplicacionCtrl.formatDateForForm}"
+						enableManualInput="true" required="true"
+						requiredMessage="#{mensajes['requerido']}"></rich:calendar>
+					<rich:message for="txtFechaNacimientoRl" />
+					<h:outputText value="#{etiquetas['fecha.ejemplo']}" />
+				</h:panelGrid>
+			</h:panelGrid>
+
+			<h:panelGrid columns="3" styleClass="margin-top-15">
+				<h:outputLabel value="#{etiquetas['nacionalidad']} *"
+					for="autoPaisNAC" />
+				<h:outputLabel value="#{etiquetas['genero']} *" for="selGeneroRl" />
+				<h:outputLabel value="#{etiquetas['estado.civil']} *"
+					for="selEstadoCivilRl" />
+
+				<h:panelGrid columns="2">
+					<rich:autocomplete mode="cachedAjax" minChars="1" autofill="false"
+						var="varPais" fetchValue="#{varPais.pais}" id="autoPaisNAC"
+						autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+						value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.paisNacionalidad}">
+						<rich:column>
+							<h:outputText value="#{varPais.pais}" />
+						</rich:column>
+						<f:converter converterId="paisConverter"></f:converter>
+						<a4j:ajax />
+					</rich:autocomplete>
+					<rich:message for="autoPaisNAC" />
+				</h:panelGrid>
+				<h:panelGrid columns="2" id="gridSexo">
+					<h:selectOneMenu id="selGeneroRl"
+						value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.sexo}">
+						<f:selectItems value="#{selectCtrl.generoItems}" />
+					</h:selectOneMenu>
+					<h:outputText value="#{mensajes['sugerencia.sexo']}"
+						style="color:#FF6633;font-weight:bold;font-size:14px"
+						rendered="#{contratantePJCtrl.sexoAdvertencia}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:selectOneMenu enableManualInput="true" id="selEstadoCivilRl"
+						value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.estadoCivil.codEstadoCivil}"
+						valueChangeListener="#{contratantePJCtrl.cambiarEstadoCivilPJ}"
+						required="true" requiredMessage="Requerido">
+						<f:selectItem itemValue="" itemLabel="Seleccione..." />
+						<f:selectItems value="#{selectCtrl.estadoCivilVisiblesItems}" />
+						<f:ajax render="formContratante" />
+					</h:selectOneMenu>
+					<rich:message for="selEstadoCivilRl" />
+				</h:panelGrid>
+			</h:panelGrid>
+			
+			</div>
+			
+		</a4j:outputPanel>
+	</a4j:outputPanel>
+</div>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/equivida-servicio"/>
+	<classpathentry kind="var" path="JBOSS_HOME_610/client/jboss-ejb-api_3.1_spec.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/saviasoft-persistence-util-4.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/equivida-smartdata-servicio"/>
+	<classpathentry kind="var" path="JBOSS_HOME_610/client/jboss-jaxrpc-api_1.1_spec.jar"/>
+	<classpathentry kind="var" path="JBOSS_HOME_610/server/equivida/lib/crea-asegurado.jar"/>
+	<classpathentry kind="lib" path="lib/axis.jar"/>
+	<classpathentry kind="var" path="JBOSS_HOME_610/client/log4j.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

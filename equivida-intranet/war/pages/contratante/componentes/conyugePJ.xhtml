@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<h:panelGrid columns="4" width="100%">
+
+		<h:outputLabel value="#{etiquetas['tipo.identificacion']}:*"
+			for="txtTipoIdRepLegalCon" />
+		<h:outputLabel value="#{etiquetas['identificacion']}*"
+			for="txtIdentificacionRlCon" />
+		<h:outputText value="" />
+		<h:outputText value="" />
+
+		<h:selectOneMenu id="txtTipoIdRepLegalCon"
+			value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.conyuge.tipoIdentificacion.codTipoIdentificacion}">
+			<f:selectItems value="#{contratanteCtrl.tipoIdentificacionItems}" />
+		</h:selectOneMenu>
+		<h:inputText id="txtIdentificacionRlCon"
+			value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.conyuge.identificacion}"
+			required="true" requiredMessage="#{mensajes['requerido']}" valueChangeListener="#{contratantePJCtrl.verificarSiExisteConyugeRl}">
+			<f:ajax execute="txtTipoIdRepLegalCon @this" render="idMesIdConyugeRl :formContratante:txtApellidoPaternoRlCon :formContratante:txtApellidoMaternoRlCon :formContratante:txtPrimerNombreRlCon :formContratante:txtSegundoNombreRlCon"></f:ajax>
+		</h:inputText>
+		<rich:message id="idMesIdConyugeRl" for="txtIdentificacionRlCon" />
+		<h:outputText value="" />
+
+		<h:outputLabel value="#{etiquetas['apellido.paterno']}*"
+			for="txtApellidoPaternoRlCon" />
+		<h:outputLabel value="#{etiquetas['apellido.materno']}"
+			for="txtApellidoMaternoRlCon" />
+		<h:outputLabel value="#{etiquetas['primer.nombre']}*"
+			for="txtPrimerNombreRlCon" />
+		<h:outputLabel value="#{etiquetas['segundo.nombre']}*"
+			for="txtSegundoNombreRlCon" />
+
+		<h:panelGrid columns="2">
+			<h:inputText id="txtApellidoPaternoRlCon"
+				value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.conyuge.apellidoPaterno}"
+				maxlength="24" />
+			<rich:message for="txtApellidoPaternoRlCon" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<h:inputText id="txtApellidoMaternoRlCon"
+				value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.conyuge.apellidoMaterno}"
+				maxlength="24" />
+
+			<rich:message for="txtApellidoMaternoRlCon" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<h:inputText id="txtPrimerNombreRlCon"
+				value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.conyuge.primerNombre}"
+				maxlength="16" />
+			<rich:message for="txtPrimerNombreRlCon" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<h:inputText id="txtSegundoNombreRlCon"
+				value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.conyuge.segundoNombre}"
+				maxlength="16" />
+
+			<a4j:commandButton value="#{botones['revisar.listas.reservadas']}"
+				action="#{contratantePJCtrl.verificarListasRepLegalConyuge}"
+				render=":formContratante :formRcs "
+				execute=":formContratante:selTipoEmpresaGeneral :formContratante:tblDireccionesRL txtTipoIdRepLegalCon txtIdentificacionRlCon txtApellidoPaternoRlCon txtApellidoMaternoRlCon txtPrimerNombreRlCon txtSegundoNombreRlCon">
+			</a4j:commandButton>
+
+		</h:panelGrid>
+
+	</h:panelGrid>
+	
+	<h:outputText value="#{contratantePJCtrl.conyugeDelConyuge}"
+			style="color:#FF6633;font-weight:bold;font-size:14px"
+			id="txtConyugeDelConyugeRl" />
+</div>

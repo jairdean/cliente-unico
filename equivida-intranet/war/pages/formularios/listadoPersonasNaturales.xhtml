@@ -1,0 +1,117 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/templates/general.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{etiquetas['listado.personas']}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="listadoPersonasForm" style="position: relative">
+		<h:outputText value="Guardado correctamente Cod. #{param.codigoSise}" rendered="#{param.codigoSise!=null}"/>
+		<h:outputText value="Error: #{param.error}" rendered="#{param.error!=null and param.error!=''}"/>
+		<rich:messages globalOnly="true"></rich:messages>
+			<a4j:repeat value="#{personaNaturalCtrl.errores}" var="e">
+			<h:outputText value="#{e}" style="color:red" /><br />
+			</a4j:repeat>
+		
+		
+			<h:panelGrid columns="5" style="margin-bottom:5px;">
+				<h:outputLabel value="#{etiquetas['identificacion']}" for="txtId" />
+				<h:inputText id="txtId" value="#{listadoPersonasNaturalesCtrl.numeroDocumento}" />
+				<h:panelGroup /><h:panelGroup /><h:panelGroup />
+				<h:outputLabel value="#{etiquetas['apellido.paterno']}"
+					for="txtApellidoP" />
+				<h:inputText id="txtApellidoP"
+					value="#{listadoPersonasNaturalesCtrl.apellidoPaterno}" />
+				<h:outputLabel value="#{etiquetas['apellido.materno']}"
+					for="txtApellidoM" />
+				<h:inputText id="txtApellidoM"
+					value="#{listadoPersonasNaturalesCtrl.apellidoMaterno}" />
+				<div />
+				<h:outputLabel value="#{etiquetas['primer.nombre']}"
+					for="txtPrimerNombre" />
+				<h:inputText id="txtPrimerNombre"
+					value="#{listadoPersonasNaturalesCtrl.primerNombre}" />
+				<h:outputLabel value="#{etiquetas['segundo.nombre']}"
+					for="txtSegundoNombre" />
+				<h:inputText id="txtSegundoNombre"
+					value="#{listadoPersonasNaturalesCtrl.segundoNombre}" />
+				<a4j:commandButton action="#{listadoPersonasNaturalesCtrl.search}"
+					render="itemsPanel" image="/img/view.png" title="Buscar">
+				</a4j:commandButton>
+			</h:panelGrid>
+
+			<a4j:outputPanel id="itemsPanel">
+			<f:subview rendered="#{listadoPersonasNaturalesCtrl.mostrarResultado}">
+			<h:outputText value="#{mensajes['no.existen.registros']}" styleClass="noRows"
+				rendered="#{empty listadoPersonasNaturalesCtrl.pager.list}" />
+				<h:panelGrid columns="5"
+					rendered="#{listadoPersonasNaturalesCtrl.pager.panelButtonsOn}">
+					<a4j:commandButton action="#{listadoPersonasNaturalesCtrl.pager.firstPage}"
+						value="#{buttons['first']}" render="itemsPanel"
+						disabled="#{!listadoPersonasNaturalesCtrl.pager.firstOn}"
+						image="/img/first.png" />
+					<a4j:commandButton
+						action="#{listadoPersonasNaturalesCtrl.pager.previousPage}"
+						value="#{buttons['previous']}" render="itemsPanel"
+						disabled="#{!listadoPersonasNaturalesCtrl.pager.backOn}"
+						image="/img/previous.png" />
+					<a4j:commandButton action="#{listadoPersonasNaturalesCtrl.pager.nextPage}"
+						value="#{buttons['next']}" render="itemsPanel"
+						disabled="#{listadoPersonasNaturalesCtrl.pager.nextOn}"
+						image="/img/next.png" />
+					<a4j:commandButton action="#{listadoPersonasNaturalesCtrl.pager.lastPage}"
+						value="#{buttons['last']}" render="itemsPanel"
+						disabled="#{listadoPersonasNaturalesCtrl.pager.lastOn}"
+						image="/img/last.png" />
+					<h:outputText
+						value="Total: #{listadoPersonasNaturalesCtrl.pager.totalIndex} registros" />
+				</h:panelGrid>
+				<rich:dataTable id="itemsTable"
+					rendered="#{!empty listadoPersonasNaturalesCtrl.pager.list}"
+					value="#{listadoPersonasNaturalesCtrl.pager.list}" var="p" rowKeyVar="count"
+					style="width:100%" width="100%">
+					<rich:column width="100">
+						<f:facet name="header">
+							<h:outputText value="#" />
+						</f:facet>
+						<h:outputText
+							value="#{count+1+listadoPersonasNaturalesCtrl.pager.initIndex}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['identificacion']}" />
+						</f:facet>
+						<h:outputText value="#{p.identificacion}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['apellidos']}" />
+						</f:facet>
+						<h:outputText value="#{p.apellidos}"></h:outputText>
+					</rich:column>
+						<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['nombres']}" />
+						</f:facet>
+						<h:outputText value="#{p.nombres}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:commandLink
+							action="#{listadoPersonasNaturalesCtrl.editarPersonaNatural}" id="btnEditarPN">
+							<h:graphicImage value="/img/edit.png"
+								title="#{botones['editar.persona.natural']}" />
+						</h:commandLink>
+					</rich:column>
+				</rich:dataTable>
+				
+				</f:subview>
+				
+			</a4j:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

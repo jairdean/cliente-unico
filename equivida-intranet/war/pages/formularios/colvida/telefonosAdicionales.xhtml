@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<h:panelGrid columns="2" columnClasses="etiqueta">
+
+		<h:outputLabel value="#{etiquetas['telefonos.adicionales']}" />
+		<h:panelGrid columns="1">
+			<a4j:commandLink id="btnTelefonoAdic"
+				title="#{botones['nuevo.telefono']}"
+				actionListener="#{personaNaturalCtrl.crearTelefonoAdicional}"
+				execute="tblTelefonoAdic" render="pnlTelefAdicional"
+				onclick="this.focus();">
+				<h:graphicImage value="/img/nuevo.png" />
+			</a4j:commandLink>
+			<a4j:outputPanel id="pnlTelefAdicional">
+				<h:inputHidden id="totalTelefonosAdicionales" readonly="true"
+					value="#{personaNaturalCtrl.personaNatural.persona.totalTelefonoSinDireccionesActivos}" />
+				<rich:dataTable id="tblTelefonoAdic"
+					value="#{personaNaturalCtrl.personaNatural.persona.telefonoSinDireccionActivosCollection}"
+					var="t"
+					rendered="#{not empty personaNaturalCtrl.personaNatural.persona.telefonoSinDireccionActivosCollection}"
+					rowKeyVar="countTA">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column style="text-align: center;">
+									#{etiquetas['tipo']}
+									</rich:column>
+							<rich:column style="text-align: center;">
+									#{etiquetas['pais']}
+									</rich:column>
+							<rich:column style="text-align: center;">
+									#{etiquetas['codigo.area']}
+									</rich:column>
+							<rich:column style="text-align: center;">
+									#{etiquetas['numero']}
+									</rich:column>
+							<rich:column style="text-align: center;">
+									#{etiquetas['ext']}
+									</rich:column>
+							<rich:column style="text-align: center;">
+									#{etiquetas['contacto.preferido']}
+									</rich:column>
+							<rich:column style="text-align: center;">
+									#{botones['eliminar']}
+									</rich:column>
+
+						</rich:columnGroup>
+					</f:facet>
+
+					<rich:column style="text-align: center;">
+
+						<a4j:jsFunction name="seleccionarPaisTA#{countTA}"
+							execute="autoPaisTA autoPaisTAHT"
+							action="#{personaNaturalCtrl.seleccionarPaisTA}"
+							render="autoPaisTA autoPaisTAHT"
+							oncomplete="document.getElementById('SSIPNForm:tblTelefonoAdic:#{countTA}:autoPaisTAInput').focus();" />
+						<h:inputHidden id="autoPaisTAHT" value="#{t.pais.pais}" />
+
+						<h:selectOneMenu enableManualInput="true"
+							value="#{t.tipoTelefono.codTipoTelefono}">
+							<f:selectItems
+								value="#{selectCtrl.tipoTelefonoSinDireccionItems}" />
+						</h:selectOneMenu>
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<h:panelGrid columns="2">
+							<rich:autocomplete mode="cachedAjax" minChars="1"
+								autofill="false" selectFirst="true" var="varPais"
+								fetchValue="#{varPais.codPais}|#{varPais.pais}" id="autoPaisTA"
+								required="true" requiredMessage="#{mensajes['requerido']}"
+								autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+								value="#{t.pais.pais}"
+								onselectitem="document.getElementById('SSIPNForm:tblTelefonoAdic:#{countTA}:autoPaisTAInput').style.color='white';eval('seleccionarPaisTA#{countTA}()');"
+								onblur="document.getElementById('SSIPNForm:tblTelefonoAdic:#{countTA}:autoPaisTAInput').value=document.getElementById('SSIPNForm:tblTelefonoAdic:#{countTA}:autoPaisTAHT').value">
+								<rich:column>
+									<h:outputText value="#{varPais.pais}" />
+								</rich:column>
+							</rich:autocomplete>
+							<rich:message for="autoPaisTA" />
+						</h:panelGrid>
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<h:inputText id="txtCodigoAreaAdi" size="3" value="#{t.codArea}"
+							maxlength="4" required="true"
+							requiredMessage="#{mensajes['requerido']}" />
+						<br />
+						<rich:message for="txtCodigoAreaAdi" />
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<h:inputText id="txtConvencionalAdic" value="#{t.nroTelefono}"
+							maxlength="12" required="true"
+							requiredMessage="#{mensajes['requerido']}">
+							<f:ajax event="blur" execute="tblTelefonoAdic"
+								render="mensajeErrorTllfAdic"
+								listener="#{personaNaturalCtrl.verificarTelefono}">
+							</f:ajax>
+						</h:inputText>
+						<br />
+						<rich:message id="mensajeErrorTllfAdic" for="txtConvencionalAdic" />
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<h:inputText id="txtExtAdic" size="3" value="#{t.extTelefono}"
+							maxlength="8" />
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<h:selectBooleanCheckbox id="checkTlfAdiPrincipal"
+							value="#{t.principal}" onclick="casillaTelefonos(this)" />
+					</rich:column>
+					<rich:column>
+						<a4j:commandLink render="pnlTelefAdicional"
+							actionListener="#{personaNaturalCtrl.eliminarTelefonoAdicional}"
+							immediate="true">
+							<h:graphicImage value="/img/eliminar.png"
+								title="#{botones['eliminar']}" />
+						</a4j:commandLink>
+					</rich:column>
+
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:panelGrid>
+
+	</h:panelGrid>
+</div>

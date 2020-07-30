@@ -1,0 +1,746 @@
+<STREAM>
+	<HEADER>
+		<ITRANSACCION>023</ITRANSACCION>
+	</HEADER>
+	<CUENTAS>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>07/11/2012</fecha_reserva>
+			<txt_concepto>PRIMA PROTECCION</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>0.00</imp_credito>
+			<imp_debito>4178.80</imp_debito>
+			<imp_saldo>4679.48</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>07/11/2012</fecha_reserva>
+			<txt_concepto>PRIMA COMERCIAL</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>4712.71</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>8858.28</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>08/12/2009</fecha_reserva>
+			<txt_concepto>PRIMA PROTECCION</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>0.00</imp_credito>
+			<imp_debito>2862.07</imp_debito>
+			<imp_saldo>1792.36</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>08/12/2009</fecha_reserva>
+			<txt_concepto>PRIMA COMERCIAL</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>4654.43</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4654.43</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>10/01/2012</fecha_reserva>
+			<txt_concepto>PRIMA PROTECCION</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>0.00</imp_credito>
+			<imp_debito>3804.96</imp_debito>
+			<imp_saldo>4000.13</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>10/01/2012</fecha_reserva>
+			<txt_concepto>PRIMA COMERCIAL</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>4653.20</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>7805.09</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>28/02/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.49</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1810.32</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>28/02/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>10.91</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3040.63</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>28/02/2013</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>0.06</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>16.07</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>29/02/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>14.45</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4028.09</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/01/2013</fecha_reserva>
+			<txt_concepto>DEBITO</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>0.00</imp_credito>
+			<imp_debito>4712.71</imp_debito>
+			<imp_saldo>0.14</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/04/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.54</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1823.38</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/04/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>10.99</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3062.57</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/04/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>14.55</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4057.14</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/06/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.59</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1836.53</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/06/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>11.06</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3084.66</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/06/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>14.66</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4086.41</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/09/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.66</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1856.44</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/09/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>11.18</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3118.08</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/09/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>14.82</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4130.70</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/11/2009</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>0.00</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>0.00</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/11/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.71</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1869.83</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/11/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>11.27</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3140.58</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/11/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>16.46</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4695.94</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/12/2010</fecha_reserva>
+			<txt_concepto>PRIMA PROTECCION</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>0.00</imp_credito>
+			<imp_debito>3511.82</imp_debito>
+			<imp_saldo>3011.85</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>30/12/2010</fecha_reserva>
+			<txt_concepto>PRIMA COMERCIAL</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>4653.84</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>6523.67</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/01/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.47</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1803.83</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/01/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>10.87</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3029.72</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/01/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>13.51</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4013.64</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/01/2013</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>15.87</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>16.01</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/03/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.52</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1816.84</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/03/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>10.95</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3051.58</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/03/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>14.50</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4042.59</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/05/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.56</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1829.94</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/05/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>11.03</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3073.60</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/05/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>14.61</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4071.75</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/07/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.61</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1843.14</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/07/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>11.10</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3095.76</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/07/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>14.71</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4101.12</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/08/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.64</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1849.78</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/08/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>11.14</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3106.90</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/08/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>14.76</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4115.88</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/10/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>6.68</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1863.12</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/10/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>11.23</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3129.31</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/10/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>14.87</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4145.57</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/12/2009</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>5.00</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>1797.36</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/12/2010</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>7.00</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3018.85</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/12/2011</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>11.31</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>3151.89</imp_saldo>
+		</CUENTA>
+		<CUENTA>
+			<txt_asegurado>RAUL JONAS BORAX ZAVALA</txt_asegurado>
+			<sucursal>QUITO</sucursal>
+			<ramo>VIDA PROVISION</ramo>
+			<nro_pol>1550000789</nro_pol>
+			<fecha_vigencia>15/11/2009</fecha_vigencia>
+			<sucursal>RAUL JONAS BORAX ZAVALA</sucursal>
+			<moneda>Dolares EE.UU</moneda>
+			<fecha_reserva>31/12/2012</fecha_reserva>
+			<txt_concepto>INTERESES</txt_concepto>
+			<pje_interes>null</pje_interes>
+			<imp_credito>16.91</imp_credito>
+			<imp_debito>0.00</imp_debito>
+			<imp_saldo>4712.85</imp_saldo>
+		</CUENTA>
+	</CUENTAS>
+	<ERROR>
+		<CODIGO>0</CODIGO>
+		<MENSAJE />
+	</ERROR>
+</STREAM>

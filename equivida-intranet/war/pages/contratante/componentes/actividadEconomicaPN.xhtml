@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<a4j:jsFunction name="seleccionarOcupacion" execute="autoOcupacion"
+		action="#{contratantePNCtrl.seleccionarOcupacion}"
+		render="autoOcupacion" />
+
+	<h:panelGrid columns="2" width="50%">
+		<h:outputLabel value="#{etiquetas['tipo.empleo']}*"
+			for="selTipoEmpleoPN" />
+		<h:outputLabel value="#{etiquetas['ocupacion']}*" for="autoOcupacion" />
+
+		<h:panelGrid columns="2">
+			<h:selectOneMenu enableManualInput="true" id="selTipoEmpleoPN"
+				value="#{contratantePNCtrl.personaNatural.tipoEmpleo}"
+				valueChangeListener="#{contratantePNCtrl.cambiarTipoOcupacionPN}"
+				required="true" requiredMessage="Requerido">
+				<f:selectItem itemValue="" itemLabel="Seleccione..." />
+				<f:selectItems value="#{contratanteCtrl.tipoEmpleoItems}" />
+				<f:ajax render="formContratante:detalleOcupacionPnl" />
+			</h:selectOneMenu>
+			<rich:message for="selTipoEmpleoPN" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="2">
+			<rich:autocomplete id="autoOcupacion" mode="cachedAjax" minChars="1"
+				autofill="false" selectFirst="true" var="varOcupacion"
+				fetchValue="#{varOcupacion.codOcupacion}|#{varOcupacion.ocupacion}|#{varOcupacion.tipoRiesgo.codTipoRiesgo}|#{varOcupacion.tipoRiesgo.tipoRiesgo}"
+				required="true" requiredMessage="#{mensajes['requerido']}"
+				autocompleteMethod="#{autocompleteCtrl.autocompleteOcupacion}"
+				value="#{contratantePNCtrl.personaNatural.ocupacion.ocupacion}"
+				onselectitem="seleccionarOcupacion();">
+				<h:outputText value="#{varOcupacion.ocupacion}" />
+			</rich:autocomplete>
+			<rich:message for="autoOcupacion" />
+		</h:panelGrid>
+	</h:panelGrid>
+
+	<a4j:outputPanel id="detalleOcupacionPnl">
+
+		<h:panelGrid columns="2" styleClass="margin-top-15"
+			rendered="#{contratantePNCtrl.personaNatural.showIndependienteTra}">
+			<h:outputLabel value="#{etiquetas['actividad.economica']}*" />
+			<a4j:outputPanel id="pnlActividadEconomica">
+				<a4j:jsFunction name="seleccionarEI" execute="autoAE"
+					action="#{contratantePNCtrl.seleccionarEI}"
+					render="pnlActividadEconomica"
+					oncomplete="document.getElementById('formContratante:txtCargoEi').focus();" />
+
+				<rich:autocomplete id="autoAE" mode="cachedAjax" minChars="1"
+					autofill="false" selectFirst="true" var="varAE"
+					fetchValue="#{varAE.codActividadEconomica}|#{varAE.actividadEconomica}"
+					required="true" requiredMessage="#{mensajes['requerido']}"
+					autocompleteMethod="#{autocompleteCtrl.autocompleteActividadEconomica}"
+					value="#{contratantePNCtrl.personaNatural.empleoIndependienteTra.nombreActividadEconomicaTr}"
+					inputClass="autoAct" onselectitem="seleccionarEI();">
+					<rich:column>
+						<h:outputText value="#{varAE.actividadEconomica}" />
+					</rich:column>
+					<a4j:ajax render="pnlActividadEconomica"></a4j:ajax>
+				</rich:autocomplete>
+				<rich:message for="autoAE" />
+				<h:outputText id="txtMensajeActEco"
+					value="#{mensajes['ingrese.actividad.economica']}"
+					style="color:#ff9800"
+					rendered="#{empty contratantePNCtrl.personaNatural.empleoIndependienteTra.nombreActividadEconomicaTr}" />
+			</a4j:outputPanel>
+
+			<h:outputLabel for="txtCargoEi" value="#{etiquetas['cargo']}*" />
+			<h:inputText id="txtCargoEi" size="50"
+				value="#{contratantePNCtrl.personaNatural.empleoIndependienteTra.cargo}"
+				maxlength="32" required="true"
+				requiredMessage="#{mensajes['requerido']}" />
+
+			<h:outputLabel value="#{etiquetas['antiguedad']}*" />
+			<h:panelGrid columns="2">
+				<h:panelGrid columns="2">
+					<h:inputText required="true"
+						requiredMessage="#{mensajes['requerido']}"
+						value="#{contratantePNCtrl.personaNatural.empleoIndependienteTra.tiempoEmpresa}"
+						style="width:25px" maxlength="3" id="txtAntig">
+						<f:validateDoubleRange minimum="0" maximum="99" />
+					</h:inputText>
+					<rich:message for="txtAntig" />
+				</h:panelGrid>
+
+				<h:selectOneMenu
+					value="#{contratantePNCtrl.personaNatural.empleoIndependienteTra.codTiempo}">
+					<f:selectItems value="#{selectCtrl.antiguedadItems}" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+
+		</h:panelGrid>
+
+
+
+		<h:panelGrid columns="2" styleClass="margin-top-15"
+			rendered="#{!contratantePNCtrl.personaNatural.showIndependienteTra}">
+
+			<h:outputLabel value="#{etiquetas['actividad.economica']}*" />
+			<a4j:outputPanel id="pnlActividadEconomicaED">
+				<a4j:jsFunction name="seleccionarED" execute="autoED"
+					action="#{contratantePNCtrl.seleccionarED}"
+					render="pnlActividadEconomicaED"
+					oncomplete="document.getElementById('formContratante:txtNegocioEmpresa').focus();" />
+
+				<rich:autocomplete id="autoED" mode="cachedAjax" minChars="1"
+					autofill="false" selectFirst="true" var="varED"
+					fetchValue="#{varED.codActividadEconomica}|#{varED.actividadEconomica}"
+					required="true" requiredMessage="#{mensajes['requerido']}"
+					autocompleteMethod="#{autocompleteCtrl.autocompleteActividadEconomica}"
+					value="#{contratantePNCtrl.personaNatural.empleoDependienteTra.nombreActividadEconomicaTr}"
+					inputClass="autoAct" onselectitem="seleccionarED();">
+					<rich:column>
+						<h:outputText value="#{varED.actividadEconomica}" />
+					</rich:column>
+					<a4j:ajax render="pnlActividadEconomicaED"></a4j:ajax>
+				</rich:autocomplete>
+				<rich:message for="autoED" />
+				<h:outputText id="txtMensajeActEcoDep"
+					value="#{mensajes['ingrese.actividad.economica']}"
+					style="color:#ff9800"
+					rendered="#{empty contratantePNCtrl.personaNatural.empleoDependienteTra.nombreActividadEconomicaTr}" />
+			</a4j:outputPanel>
+
+			<h:outputLabel for="txtNegocioEmpresa"
+				value="#{etiquetas['empresa']}/#{etiquetas['tipo.negocio']}*" />
+			<h:panelGrid columns="2">
+				<h:inputText id="txtNegocioEmpresa" size="50" maxlength="96"
+					value="#{contratantePNCtrl.personaNatural.empleoDependienteTra.negocioEmpresa}"
+					required="true" requiredMessage="#{mensajes['requerido']}" />
+				<rich:message for="txtNegocioEmpresa" />
+			</h:panelGrid>
+
+
+			<h:outputLabel for="txtCargoEd" value="#{etiquetas['cargo']}*" />
+			<h:panelGrid columns="2">
+				<h:inputText id="txtCargoEd" size="50"
+					value="#{contratantePNCtrl.personaNatural.empleoDependienteTra.cargo}"
+					maxlength="32" required="true"
+					requiredMessage="#{mensajes['requerido']}" />
+				<rich:message for="txtCargoEd" />
+			</h:panelGrid>
+
+			<h:outputLabel value="#{etiquetas['antiguedad']}*" />
+			<h:panelGrid columns="2">
+				<h:panelGrid columns="2">
+					<h:inputText
+						value="#{contratantePNCtrl.personaNatural.empleoDependienteTra.tiempoEmpresa}"
+						style="width:25px" maxlength="3" id="txtAntigEd">
+						<f:validateDoubleRange minimum="0" maximum="99" />
+					</h:inputText>
+					<rich:message for="txtAntigEd" />
+				</h:panelGrid>
+				<h:selectOneMenu
+					value="#{contratantePNCtrl.personaNatural.empleoDependienteTra.codTiempo}">
+					<f:selectItems value="#{selectCtrl.antiguedadItems}" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+
+		</h:panelGrid>
+	</a4j:outputPanel>
+</div>

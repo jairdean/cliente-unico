@@ -1,0 +1,10 @@
+#   JBoss Application Server
+jboss.home=/home/daniel/java/jboss/jboss-6.1.0.Final/
+jboss.server.configuration=equivida
+jboss.deploy.dir=${jboss.home}/server/${jboss.server.configuration}/deploy
+project.name=equivida-servicio
+project.version=1.1.0
+ejb.homologacion.module.name=homologacion-servicio
+ejb.smartdata.module.name=equivida-smartdata-servicio
+ejb.crmws.module.name=equivida-ws-crm
+javac.location=/usr/lib/jvm/java-6-openjdk-amd64/bin/javac

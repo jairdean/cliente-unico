@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ===================================================================== -->
+<!-- -->
+<!-- JBoss Server Configuration -->
+<!-- -->
+<!-- New ConnectionManager setup for Sybase ASE/ASA jConnect driver -->
+<!-- Thanks to Marc Zampetti <zampetti@aol.net> -->
+<!-- This is a minimal example. See the generic example for other stuff -->
+<!-- ===================================================================== -->
+
+<!-- See http://www.jboss.org/community/wiki/Multiple1PC for information 
+	about local-tx-datasource -->
+<!-- $Id: sise-ds.xml,v 1.1 2013-08-07 23:41:27 aarcos Exp $ -->
+
+
+<datasources>
+	<local-tx-datasource>
+		<jndi-name>siseDS</jndi-name>
+		<!-- Sybase jConnect URL for the database. NOTE: The hostname and port 
+			are made up values. The optional database name is provided, as well as some 
+			additinal Driver parameters. -->
+		<connection-url>jdbc:sybase:Tds:10.10.30.202:19601/vida3
+		</connection-url>
+		<driver-class>com.sybase.jdbc4.jdbc.SybDriver</driver-class>
+		<user-name>sa</user-name>
+		<password></password>
+
+		<check-valid-connection-sql>select 1</check-valid-connection-sql>
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>20</max-pool-size>
+		<idle-timeout-minutes>5</idle-timeout-minutes>
+
+		<metadata>
+			<type-mapping>Sybase</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+</datasources>

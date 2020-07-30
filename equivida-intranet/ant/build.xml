@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+
+<!-- =====================================================  -->
+<!-- Ant Build para el Proyecto equivida-intranet                -->
+<!-- Elaborado por Saviasoft                       		  	-->
+<!-- =====================================================  -->
+
+<project name="equivida-intranet" basedir="." default="warfile">
+
+	<property name="build.sysclasspath" value="last"/>
+	<property file="build.properties" />
+	<property name="app.dir" location=".." />
+	<property name="lib.dir" location="${app.dir}/lib" />
+	<property name="src.dir" location="${app.dir}/src" />
+	<property name="build.dir" location="${app.dir}/.classes" />
+	<property name="dist.dir" location="${app.dir}/dist" />
+	<property name="war.dir" location="${app.dir}/war" />
+
+	<property name="ejb.module.dir" location="../../${ejb.module.name}/dist" />
+	<property name="ejb.homologacion.module.dir" location="../../${ejb.homologacion.module.name}/dist" />
+	<property name="ejb.crmws.module.dir" location="../../${ejb.crmws.module.name}/dist" />
+
+	<!-- CLASSPATH for Web Application -->
+	<path id="master-classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${ejb.module.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${ejb.homologacion.module.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${ejb.crmws.module.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${jboss.home}/client">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${jboss.home}/server/${jboss.server.configuration}/deploy/jbossweb.sar">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${jboss.home}/common/lib">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${jboss.home}/server/${jboss.server.configuration}/lib">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${jboss.home}/server/${jboss.server.configuration}/deployers/jsf.deployer/Mojarra-2.0/jsf-libs">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="clean" description="Clean output dirs (build, dist)">
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+
+	<target name="build" description="Compile main source tree java files into class files, generate jar files">
+		<mkdir dir="${build.dir}" />
+
+		<javac destdir="${build.dir}" source="1.5" target="1.5" debug="true" deprecation="false" optimize="false" failonerror="true" fork="true" executable="${javac.location}">
+			<src path="${src.dir}" />
+			<classpath refid="master-classpath" />
+		</javac>
+
+		<!-- resources -->
+
+		<copy todir="${build.dir}" includeemptydirs="no">
+			<fileset dir="${src.dir}">
+				<patternset>
+					<include name="**/*.properties" />
+				</patternset>
+			</fileset>
+		</copy>
+	</target>
+
+
+	<target name="warfile" depends="build" description="Build the web application archive">
+		<mkdir dir="${dist.dir}" />
+
+		<war warfile="${dist.dir}/${project.name}-${project.version}.war" webxml="${war.dir}/WEB-INF/web.xml">
+
+			<!-- Include the JSPs and other documents -->
+			<fileset dir="${war.dir}" excludes="WEB-INF/**" />
+
+			<!-- Bring in Spring-specific XML configuration files -->
+			<webinf dir="${war.dir}/WEB-INF">
+				<!-- We've already included this -->
+				<exclude name="web.xml" />
+			</webinf>
+
+			<!-- Include the compiled classes -->
+			<classes dir="${build.dir}" />
+
+			<!-- LIBRARIES -->
+			<lib dir="${lib.dir}">
+				<include name="*.jar" />
+			</lib>
+		</war>
+	</target>
+
+	<target name="deploy-war" depends="warfile">
+
+		<copy file="${dist.dir}/${project.name}-${project.version}.war" todir="${jboss.deploy.dir}" />
+
+	</target>
+
+	<target name="undeploy-war">
+
+		<delete file="${jboss.deploy.dir}/${project.name}-${project.version}.war">
+		</delete>
+
+	</target>
+
+	<target name="clean-jboss" description="elimina archivos temp del jboss">
+		<delete dir="${jboss.deploy.dir}/../data" />
+		<delete dir="${jboss.deploy.dir}/../tmp" />
+		<delete dir="${jboss.deploy.dir}/../log" />
+		<delete dir="${jboss.deploy.dir}/../work" />
+	</target>
+</project>

@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<div class="linea-baja" style="width: 100%">
+		<h:outputText value="#{etiquetas['datos.empresa']}" />
+	</div>
+
+	<h:panelGrid columns="2" width="50%">
+		<h:outputLabel value="#{etiquetas['pais.origen']} *"
+			for="autoPaisOrigenEmp" />
+		<h:outputLabel value="#{etiquetas['sector.mercado']} *"
+			for="selSectorMercado" />
+
+		<h:panelGrid columns="2">
+			<rich:autocomplete mode="cachedAjax" minChars="1" var="varPais"
+				fetchValue="#{varPais.pais}" id="autoPaisOrigenEmp" required="true"
+				requiredMessage="#{mensajes['requerido']}"
+				autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+				value="#{contratantePJCtrl.personaJuridica.pais}">
+				<rich:column>
+					<h:outputText value="#{varPais.pais}" />
+				</rich:column>
+				<f:converter converterId="paisConverter"></f:converter>
+				<a4j:ajax />
+			</rich:autocomplete>
+			<rich:message for="autoPaisFN" />
+		</h:panelGrid>
+		<h:selectOneMenu id="selSectorMercado"
+			value="#{contratantePJCtrl.personaJuridica.sectorMercado.codSectorMercado}">
+			<f:selectItems value="#{contratantePJCtrl.sectorMercadoItems}" />
+		</h:selectOneMenu>
+	</h:panelGrid>
+
+	<h:panelGrid columns="3" styleClass="margin-top-15" width="100%"
+		columnClasses="col-vertical-top-border,col-vertical-top-border,col-vertical-top-border">
+		<h:panelGrid columns="1">
+			<h:outputLabel
+				value="#{etiquetas['sbs.nivel']} 3 #{etiquetas['actividad.economica']}" />
+
+			<a4j:outputPanel id="pnlActividadEconomicaPJ">
+				<a4j:jsFunction name="seleccionarEI" execute="autoAEPJ"
+					action="#{contratantePJCtrl.seleccionarActividad}"
+					render="pnlActividadEconomicaPJ txtSbsNivel2 txtSbsNivel1" />
+
+				<rich:autocomplete id="autoAEPJ" mode="cachedAjax" minChars="1"
+					autofill="false" selectFirst="true" var="varAE"
+					fetchValue="#{varAE.codActividadEconomica}|#{varAE.actividadEconomica}"
+					required="true" requiredMessage="#{mensajes['requerido']}"
+					autocompleteMethod="#{autocompleteCtrl.autocompleteActividadEconomica}"
+					value="#{contratantePJCtrl.personaJuridica.actividadEconomica.actividadEconomica}"
+					inputClass="autoAct" onselectitem="seleccionarEI();">
+					<rich:column>
+						<h:outputText value="#{varAE.actividadEconomica}" />
+					</rich:column>
+					<a4j:ajax render="pnlActividadEconomicaPJ"></a4j:ajax>
+				</rich:autocomplete>
+
+				<rich:message for="autoAEPJ" />
+
+			</a4j:outputPanel>
+
+		</h:panelGrid>
+
+		<h:panelGrid columns="1">
+			<h:outputLabel value="#{etiquetas['sbs.nivel']} 2" for="txtSbsNivel2" />
+
+			<h:outputText id="txtSbsNivel2" style="font-weight:bold"
+				value="#{contratantePJCtrl.personaJuridica.actividadEconomica.actividadEconomicaNivel2Transient}" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="1">
+			<h:outputLabel value="#{etiquetas['sbs.nivel']} 1" for="txtSbsNivel1" />
+
+			<h:outputText id="txtSbsNivel1" style="font-weight:bold"
+				value="#{contratantePJCtrl.personaJuridica.actividadEconomica.actividadEconomicaNivel1Transient}" />
+		</h:panelGrid>
+	</h:panelGrid>
+
+	<h:panelGrid columns="5" styleClass="margin-top-15" width="100%"
+		columnClasses="col-vertical-top-border,col-vertical-top-border,col-vertical-top-border,col-vertical-top-border,col-vertical-top-border">
+		<h:panelGrid columns="1">
+			<h:outputLabel value="#{etiquetas['tiempo.mercado']} *"
+				for="txtTiempoEnMercado" />
+			<h:panelGrid columns="2">
+				<h:outputText id="txtTiempoEnMercado"
+					value="#{contratantePJCtrl.personaJuridica.tiempoMercado}" />#{etiquetas['anios']}
+				</h:panelGrid>
+		</h:panelGrid>
+		<h:panelGrid columns="1">
+			<h:outputLabel value="#{etiquetas['ingresos.anuales']} *"
+				for="txtIngresosAnuales" />
+
+			<h:inputText id="txtIngresosAnuales"
+				value="#{contratantePJCtrl.personaJuridica.perfilFinancieroJuridicaTransient.ingresos}"
+				maxlength="10" validatorMessage="#{mensajes['numero.mayor.cero.menor.a']}" required="true"
+				requiredMessage="#{mensajes['requerido']}">
+				<f:validateDoubleRange minimum="0.01" maximum="1000000000000"></f:validateDoubleRange>
+				</h:inputText>
+
+			<rich:message for="txtIngresosAnuales" />
+		</h:panelGrid>
+		<h:panelGrid columns="1">
+			<h:outputLabel value="#{etiquetas['moneda.ingreso']} *"
+				for="txtMonedaIngreso" />
+
+			<h:outputText id="txtMonedaIngreso" value="USD" />
+		</h:panelGrid>
+		<h:panelGrid columns="1">
+			<h:outputLabel value="#{etiquetas['total.activos']} *"
+				for="txtTotalActivos" />
+
+			<h:inputText id="txtTotalActivos"
+				value="#{contratantePJCtrl.personaJuridica.perfilFinancieroJuridicaTransient.activos}"
+				maxlength="10" validatorMessage="#{mensajes['numero.mayor.cero.menor.a']}" required="true"
+				requiredMessage="#{mensajes['requerido']}">
+				<f:validateDoubleRange minimum="0.01" maximum="1000000000000"></f:validateDoubleRange>
+				</h:inputText>
+				<rich:message for="txtTotalActivos" />
+		</h:panelGrid>
+		<h:panelGrid columns="1">
+			<h:outputLabel value="#{etiquetas['total.pasivos']} *"
+				for="txtTotalPasivos" />
+
+			<h:inputText id="txtTotalPasivos"
+				value="#{contratantePJCtrl.personaJuridica.perfilFinancieroJuridicaTransient.pasivos}"
+				maxlength="10" validatorMessage="#{mensajes['numero.mayor.cero.menor.a']}" required="true"
+				requiredMessage="#{mensajes['requerido']}">
+				<f:validateDoubleRange minimum="0.01" maximum="1000000000000"></f:validateDoubleRange>
+				</h:inputText>
+				<rich:message for="txtTotalPasivos" />
+		</h:panelGrid>
+	</h:panelGrid>
+
+	<h:panelGrid columns="4" styleClass="margin-top-15" width="100%"
+		columnClasses="col-vertical-top-border,col-vertical-top-border,col-vertical-top-border,col-vertical-top-border">
+
+		<h:panelGroup>
+			<h:outputLabel value="#{etiquetas['fecha.corte']} *"
+				for="calFechaCorte" />
+
+			<h:panelGrid columns="3">
+				<rich:calendar id="calFechaCorte"
+					value="#{contratantePJCtrl.personaJuridica.perfilFinancieroJuridicaTransient.fchCorte}"
+					locale="#{sesionCtrl.locale}"
+					datePattern="#{aplicacionCtrl.formatDateForForm}"
+					enableManualInput="true" required="true"
+					requiredMessage="#{mensajes['requerido']}">
+					<a4j:ajax render=":formContratante:txtTiempoEnMercado"
+						event="change"></a4j:ajax>
+					<a4j:ajax render=":formContratante:txtTiempoEnMercado"
+						event="inputchange"></a4j:ajax>
+				</rich:calendar>
+				<rich:message for="calFechaCorte" />
+				<h:outputText value="#{etiquetas['fecha.ejemplo']}" />
+			</h:panelGrid>
+		</h:panelGroup>
+		<h:panelGroup>
+			<h:outputLabel value="#{etiquetas['fecha.constitucion']} *"
+				for="calFechaConstitucion" />
+
+			<h:panelGrid columns="3">
+				<rich:calendar id="calFechaConstitucion"
+					value="#{contratantePJCtrl.personaJuridica.fchConstitucion}"
+					locale="#{sesionCtrl.locale}"
+					datePattern="#{aplicacionCtrl.formatDateForForm}"
+					enableManualInput="true" required="true"
+					requiredMessage="#{mensajes['requerido']}">
+					<a4j:ajax render=":formContratante:txtTiempoEnMercado"
+						event="change"></a4j:ajax>
+					<a4j:ajax render=":formContratante:txtTiempoEnMercado"
+						event="inputchange"></a4j:ajax>
+				</rich:calendar>
+				<rich:message for="calFechaConstitucion" />
+				<h:outputText value="#{etiquetas['fecha.ejemplo']}" />
+			</h:panelGrid>
+		</h:panelGroup>
+	</h:panelGrid>
+
+	<!-- Se inluye pagina con codigo para ingreso de accionistas -->
+	<ui:include src="accionistaPJ.xhtml" />
+</div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<local-tx-datasource>
+		<jndi-name>datasmartDS</jndi-name>
+		<connection-url> jdbc:db2://10.10.52.151:55000/EQUIDBDB
+		</connection-url>
+		<driver-class>com.imb.db2.jcc.DB2Driver
+		</driver-class>
+
+		<!-- desarrollo -->
+		<user-name>databook</user-name>
+		<password>dbeq_desa</password>
+
+	</local-tx-datasource>
+</datasources>

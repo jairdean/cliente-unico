@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+	<h:outputScript>
+        function customFilterPep(subString, value) {
+            if (subString.length >= 1) {
+                if (value.indexOf(subString) != -1)
+                    return true;
+            } else
+                return false;
+        };
+    </h:outputScript>
+    
+  <h:outputStylesheet>
+#formContratante\:tblPersonaPepPJ .rf-sel-cntr{
+width:540px;
+}
+#formContratante\:tblPersonaPepPJ .rf-sel-inp{
+width:525px;
+}
+                </h:outputStylesheet>
+
+	
+	<h:panelGrid columns="2">
+
+	<h:outputText value="#{etiquetas['considera.persona.pep']}" />
+
+	<h:selectOneRadio
+		value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.respuestaPep}" onclick="this.focus()">
+		<f:selectItems value="#{selectCtrl.selectSN}" />
+		<f:ajax event="change" render="tblPersonaPepContainerPJ" execute="@this" listener="#{contratantePJCtrl.ponerPep}" />
+	</h:selectOneRadio>
+</h:panelGrid>
+	<h:panelGrid columns="1" id="tblPersonaPepContainerPJ">
+		<a4j:commandLink id="btnPersonaPepPJ"	
+			actionListener="#{contratantePJCtrl.crearPersonaPEP}"
+			execute="tblPersonaPepPJ" render="pnlPersonaPepPJ" rendered="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.respuestaPep==personaNaturalCtrl.respuestaSiCodigo}" onclick="this.focus()">
+			<h:graphicImage value="/img/nuevo.png" title="#{buttons['new']} PEP" />
+		</a4j:commandLink>
+		<a4j:outputPanel id="pnlPersonaPepPJ" rendered="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.respuestaPep==personaNaturalCtrl.respuestaSiCodigo}">
+			<rich:dataTable id="tblPersonaPepPJ"
+				value="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.personaPeCollectionActivosCollection}"
+				var="personaPepVar"
+				rendered="#{not empty contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.personaPeCollectionActivosCollection}" rowKeyVar="countDir">
+					<f:facet name="header">
+					<rich:columnGroup>
+					<rich:column>#{etiquetas['tipo']}</rich:column>
+					<rich:column>#{etiquetas['institucion']}</rich:column>
+					<rich:column>#{botones['eliminar']}</rich:column>
+					</rich:columnGroup>
+					</f:facet>
+				<rich:column>
+					<rich:select enableManualInput="true" clientFilterFunction="customFilterPep" id="cmbCatPep"
+						value="#{personaPepVar.categoriaPpe.codCategoriaPpe}" listWidth="800">
+						<f:selectItems value="#{selectCtrl.categoriaPepItems}" />
+					</rich:select>
+				</rich:column>
+
+				<rich:column>
+						<h:inputText id="txtOrgEnt" style="width:264px" value="#{personaPepVar.organismoEntidad}" required="true" requiredMessage="#{mensajes['requerido']}" maxlength="48"/>
+						<rich:message for="txtOrgEnt"/>
+				</rich:column>
+
+				<rich:column>
+					<a4j:commandLink render="pnlPersonaPepPJ" immediate="true" actionListener="#{contratantePJCtrl.eliminarPersonaPep}">
+						<h:graphicImage value="/img/eliminar.png"
+							title="#{botones['eliminar']}" />
+					</a4j:commandLink>
+				</rich:column>
+			</rich:dataTable>
+		</a4j:outputPanel>
+	</h:panelGrid>
+
+</div>

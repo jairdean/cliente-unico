@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="MasegHeaderWsImplService" targetNamespace="http://impl.ws.sise.equivida.com/" xmlns:ns1="http://ws.sise.equivida.com/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://impl.ws.sise.equivida.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:import location="http://localhost:8080/sise-servicio-1.0/MasegHeaderWsImpl?wsdl=MasegHeaderWs.wsdl" namespace="http://ws.sise.equivida.com/">
+    </wsdl:import>
+  <wsdl:binding name="MasegHeaderWsImplServiceSoapBinding" type="ns1:MasegHeaderWs">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ws_sise_insert_maseg_header_edm">
+      <soap:operation soapAction="" style="rpc" />
+      <wsdl:input name="ws_sise_insert_maseg_header_edm">
+        <soap:body namespace="http://ws.sise.equivida.com/" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ws_sise_insert_maseg_header_edmResponse">
+        <soap:body namespace="http://ws.sise.equivida.com/" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MasegHeaderWsImplService">
+    <wsdl:port binding="tns:MasegHeaderWsImplServiceSoapBinding" name="MasegHeaderWsImplPort">
+      <soap:address location="http://localhost:8080/sise-servicio-1.0/MasegHeaderWsImpl" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

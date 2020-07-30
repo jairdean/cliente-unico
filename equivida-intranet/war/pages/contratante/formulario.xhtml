@@ -1,0 +1,235 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/templates/generalContratante.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{etiquetas['contratante']}" />
+	</ui:define>
+
+	<ui:define name="content">
+	
+	<rich:popupPanel id="popupRcs" modal="true" resizeable="false"
+			height="200" width="480">
+			<f:facet name="header">
+				<h:outputText value="#{botones['mensaje']}" />
+			</f:facet>
+			<h:form id="formRcs">
+				<br />
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/img/rechazar.png" />
+					<h:outputText value="#{sesionCtrl.mensajeRcsDto.mensajeInterfaz}"
+						style="font-size:1.2em" />
+				</h:panelGrid>
+				<br />
+				<input type="button" value="#{botones['aceptar']}"
+					onclick="window.location.href='../index?faces-redirect=true'" />
+			</h:form>
+		</rich:popupPanel>
+
+		<h:form id="formContratante" style="position: relative">
+			<!-- Se pone el componente oculto para el caso de edicion -->
+			<h:inputHidden value="#{contratanteCtrl.controlEdicion}" />
+
+			<rich:messages id="mensajesError" globalOnly="true" escape="false"
+				style="width:50%" />
+
+			<a4j:outputPanel id="datosDefinicionPnl">
+				<h:panelGrid id="tblDatosId" columns="2"
+					rendered="#{!contratanteCtrl.verformularioPJ and !contratanteCtrl.verformularioPN}">
+					<h:outputLabel value="#{etiquetas['tipo.persona']}:*"
+						for="txtTipoPersona" />
+					<h:selectOneMenu id="txtTipoPersona"
+						value="#{contratanteCtrl.tipoPersona}">
+						<f:selectItems value="#{selectCtrl.tipoPersonaItems}" />
+					</h:selectOneMenu>
+
+					<h:outputLabel value="#{etiquetas['tipo.identificacion']}:*"
+						for="txtTipoIdentificacion" />
+					<h:selectOneMenu id="txtTipoIdentificacion"
+						value="#{contratanteCtrl.tipoIdentificacion}">
+						<f:selectItems
+							value="#{contratanteCtrl.tipoIdentificacionContratanteItems}" />
+					</h:selectOneMenu>
+
+					<h:outputLabel value="#{etiquetas['identificacion.abrev']}:*"
+						for="txtId" />
+					<h:panelGrid columns="3">
+						<h:inputText id="txtId" value="#{contratanteCtrl.identificacion}"
+							maxlength="13" />
+						<a4j:commandButton value="Crear"
+							action="#{contratanteCtrl.verificarSiExisteContratante}"
+							execute="datosDefinicionPnl"
+							render="datosDefinicionPnl datosFormulario" />
+						<rich:message for="txtId"></rich:message>
+					</h:panelGrid>
+				</h:panelGrid>
+			</a4j:outputPanel>
+
+			<a4j:outputPanel id="datosFormulario">
+				<h:panelGroup rendered="#{contratanteCtrl.verformularioPJ}">
+					<ui:include src="componentes/personaJuridica.xhtml" />
+				</h:panelGroup>
+
+
+<h:panelGroup rendered="#{contratanteCtrl.verformularioPN}">
+					<ui:include src="componentes/personaNatural.xhtml" />
+				</h:panelGroup>
+				
+				<h:panelGroup id="panelRcs">
+				
+				<f:subview
+					rendered="#{sesionCtrl.mensajeRcsDto!=null and not sesionCtrl.mensajeRcsDto.puedeContinuar}">
+
+					<script type="text/javascript">
+					#{rich:component('popupRcs')}.show();
+				</script>
+
+				</f:subview>
+				
+				</h:panelGroup>
+				
+			</a4j:outputPanel>
+
+		</h:form>
+
+		<script type="text/javascript">
+<!--
+			function openExitoMPPN(jsfSinError, jsfErrorOrdinal){
+	  			var e = document.getElementById('formContratante:mostrarRcsPopUp').value;
+	  			var sinErrorStr = jsfSinError.toString();
+	  			//Se valida que no existan errores de JSF
+	  			if(sinErrorStr == 'true'){
+	  				if(e == 'false'){
+	  					#{rich:component('popupExitoPN')}.show();
+	  				}
+	  			}
+	  		}
+
+function openExitoMPPJ(jsfSinError, jsfErrorOrdinal){
+		var e = document.getElementById('formContratante:mostrarRcsPopUpJ').value;
+		var sinErrorStr = jsfSinError.toString();
+		//Se valida que no existan errores de JSF
+		if(sinErrorStr == 'true'){
+			if(e == 'false'){
+				#{rich:component('popupExitoPJ')}.show();
+			}
+		}
+	}
+
+
+function casillaDireccion(obj){
+		var totalDirecciones=document.getElementById("formContratante:totalDireccionesPN").value;
+			for(i=0;i<totalDirecciones;i++){
+				var idTemp="formContratante:tblDireccionesPN:"+i+":checkPrincipalPN";
+					if(obj.id==idTemp){
+						document.getElementById(idTemp).checked=true;
+					}else{
+						document.getElementById(idTemp).checked=false;
+						}
+					}	
+	
+			}
+
+
+function casillaTelefonos(obj){
+
+	var totalDirecciones=document.getElementById("formContratante:totalDireccionesPN").value;
+
+	//por cada direccion
+	for(countDir=0;countDir<totalDirecciones;countDir++){
+		var totalTelefonos=document.getElementById("formContratante:tblDireccionesPN:"+countDir+":totalTelefonos").value;
+		for(i=0;i<totalTelefonos;i++){
+			var idTlfTemp="formContratante:tblDireccionesPN:"+countDir+":tblTelefonoPN:"+i+":checkTlfPrincipal";
+			if(obj.id==idTlfTemp){
+					document.getElementById(idTlfTemp).checked=true;
+			}else{
+					document.getElementById(idTlfTemp).checked=false;	
+			}
+		}	
+	}
+
+}
+
+
+function casillaDireccionC(obj){
+		var totalDirecciones=document.getElementById("formContratante:totalDireccionesC").value;
+			for(i=0;i<totalDirecciones;i++){
+				var idTemp="formContratante:tblDireccionesC:"+i+":checkPrincipal";
+					if(obj.id==idTemp){
+						document.getElementById(idTemp).checked=true;
+					}else{
+						document.getElementById(idTemp).checked=false;
+						}
+					}	
+	
+			}
+
+
+function casillaTelefonosC(obj){
+
+	var totalDirecciones=document.getElementById("formContratante:totalDireccionesC").value;
+
+	//por cada direccion
+	for(countDir=0;countDir<totalDirecciones;countDir++){
+		var totalTelefonos=document.getElementById("formContratante:tblDireccionesC:"+countDir+":totalTelefonos").value;
+		for(i=0;i<totalTelefonos;i++){
+			var idTlfTemp="formContratante:tblDireccionesC:"+countDir+":tblTelefonoC:"+i+":checkTlfPrincipal";
+			if(obj.id==idTlfTemp){
+					document.getElementById(idTlfTemp).checked=true;
+			}else{
+					document.getElementById(idTlfTemp).checked=false;	
+			}
+		}	
+	}
+
+}
+
+
+	function casillaDireccionRL(obj){
+		var totalDirecciones=document.getElementById("formContratante:totalDireccionesRL").value;
+			for(i=0;i<totalDirecciones;i++){
+				var idTemp="formContratante:tblDireccionesRL:"+i+":checkPrincipal";
+					if(obj.id==idTemp){
+						document.getElementById(idTemp).checked=true;
+					}else{
+						document.getElementById(idTemp).checked=false;
+						}
+					}	
+	
+			}
+
+
+function casillaTelefonosRL(obj){
+
+	var totalDirecciones=document.getElementById("formContratante:totalDireccionesRL").value;
+
+	//por cada direccion
+	for(countDir=0;countDir<totalDirecciones;countDir++){
+		var totalTelefonos=document.getElementById("formContratante:tblDireccionesRL:"+countDir+":totalTelefonos").value;
+		for(i=0;i<totalTelefonos;i++){
+			var idTlfTemp="formContratante:tblDireccionesRL:"+countDir+":tblTelefono:"+i+":checkTlfPrincipal";
+			if(obj.id==idTlfTemp){
+					document.getElementById(idTlfTemp).checked=true;
+			}else{
+					document.getElementById(idTlfTemp).checked=false;	
+			}
+		}	
+	}
+
+}
+
+
+
+
+
+
+-->
+
+
+
+		</script>
+	</ui:define>
+</ui:composition>

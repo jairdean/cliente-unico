@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+
+<!-- =====================================================  -->
+<!-- Ant Build para el Proyecto homologacion-servicio       -->
+<!-- Elaborado por Saviasoft                       		  	-->
+<!-- =====================================================  -->
+
+<project name="homologacion-servicio" default="jar" basedir=".">
+
+	<property file="build.properties" />
+	<property name="app.dir" location=".." />
+
+	<!-- Directorio con clases compiladas -->
+	<property name="classes.dir" location="${app.dir}/build/classes" />
+
+	<property name="dist.dir" location="${app.dir}/dist" />
+	<property name="lib.dir" location="${app.dir}/lib" />
+
+	<property name="src.dir" location="${app.dir}/src" />
+
+	<target name="init">
+		<path id="build.classpath">
+			<fileset dir="${jboss.home}/client">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${jboss.home}/lib/endorsed">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${jboss.home}/common/lib">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${jboss.home}/server/${jboss.server.configuration}/lib">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+		</path>
+	</target>
+
+	<target name="clean">
+		<delete dir="${dist.dir}" />
+		<delete dir="${classes.dir}" />
+	</target>
+
+	<target name="build" depends="init" description="Compila las clases">
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${classes.dir}/META-INF" />
+		<javac destdir="${classes.dir}" debug="on" deprecation="on" optimize="off"  target="1.6" source="1.6" encoding="ISO-8859-1" fork="true" executable="${javac.location}" includeantruntime="false">
+			<src path="${src.dir}" />
+			<classpath refid="build.classpath" />
+			<!-- Descomentar si se quieren ver los Warnings -->
+			<!--compilerarg value="-Xlint:unchecked"/-->
+		</javac>
+		<copy todir="${classes.dir}">
+			<fileset file="${src.dir}/import.sql" />
+		</copy>
+		<copy todir="${classes.dir}/META-INF">
+			<fileset dir="${src.dir}/META-INF" />
+		</copy>
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}">
+				<patternset>
+					<include name="**/*.vm" />
+					<include name="**/*.properties" />
+				</patternset>
+			</fileset>
+		</copy>
+
+	</target>
+
+	<target name="jar" depends="clean, build" description="Crea un JAR">
+		<mkdir dir="${dist.dir}" />
+		<jar jarfile="${dist.dir}/${project.name}-${project.version}.jar">
+			<fileset dir="${classes.dir}" />
+		</jar>
+	</target>
+	
+	<target name="doc" description="generate documentation">
+	    <javadoc sourcepath="${src.dir}" destdir="${doc.dir}" useexternalfile="true"/>
+	</target>
+
+	<!-- deploy-datasource -->
+	<target name="deploy-ds" description="Copia el archivo ds en el directorio deploy del server">
+		<echo>Copia datasourcess...</echo>
+		<copy file="../datasource/homologacion-ds.xml" todir="${jboss.deploy.dir}" />
+	</target>
+
+	<!-- ========================================= -->
+	<!-- deploy - deploy artifact to server        -->
+	<!-- ========================================= -->
+
+	<target name="deploy" depends="jar" description="Copia el archivo JAR en el directorio deploy del server">
+		<copy file="${dist.dir}/${project.name}-${project.version}.jar" todir="${jboss.deploy.dir}" />
+	</target>
+
+	<!-- ========================================= -->
+	<!-- undeploy - undeploy artifact from server        -->
+	<!-- ========================================= -->
+
+	<target name="undeploy" description="Quita el archivo JAR en el directorio deploy del server">
+		<delete file="${jboss.deploy.dir}/${project.name}-${project.version}.jar" />
+	</target>
+</project>

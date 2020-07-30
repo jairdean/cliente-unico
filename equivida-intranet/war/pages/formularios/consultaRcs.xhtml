@@ -1,0 +1,317 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/templates/general.xhtml">
+	<ui:define name="title">
+		<h:outputText
+			value="#{etiquetas['consulta.coincidencias.lista.reservada']}" />
+	</ui:define>
+
+	<ui:define name="content">
+
+ <script type="text/javascript">
+
+        function abrirPopupAprobar(data) {
+            var status = data.status; // Can be "begin", "complete" or "success".
+
+            switch (status) {
+                case "begin": // Before the ajax request is sent.
+                    // ...
+                    break;
+
+                case "complete": // After the ajax response is arrived.
+                    // ...
+                    break;
+
+                case "success": // After update of HTML DOM based on ajax response..
+                	#{rich:component('popupAprobar')}.show();
+                    break;
+            }
+        }
+
+  function abrirPopupRechazar(data) {
+            var status = data.status; // Can be "begin", "complete" or "success".
+
+            switch (status) {
+                case "begin": // Before the ajax request is sent.
+                    // ...
+                    break;
+
+                case "complete": // After the ajax response is arrived.
+                    // ...
+                    break;
+
+                case "success": // After update of HTML DOM based on ajax response..
+                	#{rich:component('popupRechazar')}.show();
+                    break;
+            }
+        }
+        </script>
+
+		<h:outputText value="No tiene permiso para ingresar a este url"
+			rendered="#{not permisoCtrl.puedeConsultarHistoricoRcs}" />
+		<h:form id="rcsForm"
+			rendered="#{permisoCtrl.puedeConsultarHistoricoRcs}">
+
+			<h:messages id="msjGlobales" globalOnly="true"
+				errorClass="mensajeError" infoClass="mensajeInfo" />
+
+			<h:panelGrid columns="8" id="gridFiltros">
+				<h:outputLabel value="#{etiquetas['usuario.ingreso']}" for="txtUsuario" />
+				<h:selectOneMenu id="txtUsuario" value="#{rcsCtrl.pager.idUsuario}">
+					<f:selectItem itemValue="" itemLabel="Todos" />
+					<f:selectItems value="#{rcsCtrl.usuarioCreacionItems}" />
+				</h:selectOneMenu>
+				<h:outputLabel value="#{etiquetas['fecha.desde']}" />
+
+				<rich:calendar value="#{rcsCtrl.pager.fechaDesde}"
+					locale="#{sesionCtrl.locale}"
+					datePattern="#{aplicacionCtrl.formatDateForForm}"
+					enableManualInput="true"></rich:calendar>
+
+				<h:outputLabel value="#{etiquetas['fecha.hasta']}" />
+				<rich:calendar value="#{rcsCtrl.pager.fechaHasta}"
+					locale="#{sesionCtrl.locale}"
+					datePattern="#{aplicacionCtrl.formatDateForForm}"
+					enableManualInput="true"></rich:calendar>
+
+				<h:commandButton action="#{rcsCtrl.buscar}"
+					image="/img/view.png"
+					title="Buscar">
+				</h:commandButton>
+
+				<h:commandLink action="#{rcsCtrl.exportarExcel}" title="Exportar">
+					<h:graphicImage value="/img/hoja-calculo.png" />
+				</h:commandLink>
+
+				<h:outputLabel value="#{etiquetas['estado']}" for="txtEstado" />
+				<h:selectOneMenu id="txtEstado"
+					value="#{rcsCtrl.pager.codEstadoRcs}">
+					<f:selectItem itemValue="" itemLabel="Todos" />
+					<f:selectItems value="#{selectCtrl.estadoRcsItems}" />
+				</h:selectOneMenu>
+
+			</h:panelGrid>
+
+			<a4j:outputPanel id="itemsPanel">
+
+				<h:outputText value="#{mensajes['no.existen.registros']}"
+					styleClass="noRows" rendered="#{empty rcsCtrl.pager.list}" />
+
+				<h:panelGrid columns="5" rendered="#{rcsCtrl.pager.panelButtonsOn}">
+					<a4j:commandButton action="#{rcsCtrl.pager.firstPage}"
+						value="#{buttons['first']}" render="itemsPanel"
+						disabled="#{!rcsCtrl.pager.firstOn}" image="/img/first.png" />
+					<a4j:commandButton action="#{rcsCtrl.pager.previousPage}"
+						value="#{buttons['previous']}" render="itemsPanel"
+						disabled="#{!rcsCtrl.pager.backOn}" image="/img/previous.png" />
+					<a4j:commandButton action="#{rcsCtrl.pager.nextPage}"
+						value="#{buttons['next']}" render="itemsPanel"
+						disabled="#{rcsCtrl.pager.nextOn}" image="/img/next.png" />
+					<a4j:commandButton action="#{rcsCtrl.pager.lastPage}"
+						value="#{buttons['last']}" render="itemsPanel"
+						disabled="#{rcsCtrl.pager.lastOn}" image="/img/last.png" />
+					<h:outputText value="Total: #{rcsCtrl.pager.totalIndex} registros" />
+				</h:panelGrid>
+
+				<rich:dataTable id="itemsTable"
+					rendered="#{not empty rcsCtrl.pager.list}"
+					value="#{rcsCtrl.pager.list}" var="rcs" rowKeyVar="count"
+					style="width:100%" width="100%">
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#" />
+						</f:facet>
+						<h:outputText value="#{count+1+rcsCtrl.pager.initIndex}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['identificacion.abrev']}" />
+						</f:facet>
+						<h:outputText value="#{rcs.identificacion}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['nombre']}" />
+						</f:facet>
+						<h:panelGrid id="gridRiesgo">
+							<h:commandLink action="#{rcsCtrl.verDetalle}">
+								<h:outputText
+									value="#{rcs.denominacion}" />
+								<a4j:ajax render="itemsTable" />
+							</h:commandLink>
+							<h:panelGrid rendered="#{rcs.mostrarRiesgoLista}">
+								<rich:dataTable rendered="#{not empty rcsCtrl.riesgoDtoLista}"
+									value="#{rcsCtrl.riesgoDtoLista}" var="riesgo"
+									rowKeyVar="countR" style="width:100%" width="100%">
+									<rich:column>
+										<h:outputText value="#{riesgo.file}" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{riesgo.listing}" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{riesgo.score}" />
+									</rich:column>
+								</rich:dataTable>
+							</h:panelGrid>
+						</h:panelGrid>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['usuario.ingreso']}" />
+						</f:facet>
+						<h:outputText value="#{rcs.usrCreacion}">
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['fecha.ingreso']}" />
+						</f:facet>
+						<h:outputText value="#{rcs.tsCreacion}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-5" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['tipo']}" />
+						</f:facet>
+						<h:outputText value="#{rcs.estadoRcsEnumTransient.etiqueta}"
+							title="#{rcs.identificacionConyuge}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['persona']}" />
+						</f:facet>
+						<h:outputText value="#{rcs.controlRcsEnumTransient.etiqueta}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['estado']}" />
+						</f:facet>
+						<h:panelGrid columns="2" rendered="#{rcs.estadoRcs.aprobado or rcs.estadoRcs.rechazado}">
+						<h:outputText value="#{rcs.estadoRcs.estado}" style="color:green;font-size:12px"
+							rendered="#{rcs.estadoRcs.aprobado}" />
+						<h:outputText value="#{rcs.estadoRcs.estado}" style="color:red;font-size:12px"
+							rendered="#{rcs.estadoRcs.rechazado}" />						
+							 <h:graphicImage value="/img/info.png" title="#{rcs.comentario}" style="width:20px"/>
+						</h:panelGrid>
+
+						<h:outputText value="PENDIENTE"
+							rendered="#{rcs.estadoRcs.pendiente}" />
+						
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['usuario.modificacion']}" />
+						</f:facet>
+						<h:outputText value="#{rcs.usrModificacion}" rendered="#{rcs.estadoRcs.aprobado or rcs.estadoRcs.rechazado}">
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['fecha.modificacion']}" />
+						</f:facet>
+						<h:outputText value="#{rcs.tsModificacion}" rendered="#{rcs.estadoRcs.aprobado or rcs.estadoRcs.rechazado}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-5" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{etiquetas['acciones']}" />
+						</f:facet>
+						<h:panelGrid columns="2" rendered="#{rcs.estadoRcs.pendiente}">
+						<h:commandLink action="#{rcsCtrl.abrirPopupAprobar}"
+							title="#{etiquetas['aprobar']}">
+							<h:graphicImage value="/img/aprobar.png" style="width:24px"/>
+							<f:ajax render=":formAprobar" onevent="abrirPopupAprobar" />
+						</h:commandLink>
+						<h:commandLink action="#{rcsCtrl.abrirPopupRechazar}"
+							title="#{etiquetas['rechazar']}" style="margin-left:8px">
+							<h:graphicImage value="/img/rechazar.png" style="width:24px"/>
+							<f:ajax render=":formRechazar" onevent="abrirPopupRechazar" />
+						</h:commandLink>
+						</h:panelGrid>
+					</rich:column>
+				</rich:dataTable>
+
+			</a4j:outputPanel>
+
+		</h:form>
+
+		<rich:popupPanel id="popupAprobar" modal="true" resizeable="false"
+			height="200" width="480">
+			<f:facet name="header">
+				<h:outputText value="#{buttons['mensaje']}" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:outputLink value="#"
+					onclick="#{rich:component('popupAprobar')}.hide(); return false;">
+                    X
+                </h:outputLink>
+			</f:facet>
+			<h:form id="formAprobar">
+				<h:messages errorClass="mensajeError" infoClass="mensajeInfo" />
+				<h:panelGrid>
+			#{etiquetas['comentario']}
+			<h:inputText value="#{rcsCtrl.rcs.comentario}" maxlength="200"
+						size="70" />
+				</h:panelGrid>
+				<br />
+				<br />
+				<a4j:commandButton value="#{botones['aprobar']}"
+					action="#{rcsCtrl.aprobar}" render="@form :rcsForm:itemsPanel" execute="@form" />
+				<a4j:commandButton value="#{botones['cancelar']}"
+					onclick="#{rich:component('popupAprobar')}.hide();return false;" />
+				<f:subview rendered="#{not rcsCtrl.mostrarPopupAprobar}">
+					<script>
+			#{rich:component('popupAprobar')}.hide();
+			</script>
+				</f:subview>
+			</h:form>
+
+
+
+		</rich:popupPanel>
+
+		<rich:popupPanel id="popupRechazar" modal="true" resizeable="false"
+			height="200" width="480">
+			<f:facet name="header">
+				<h:outputText value="#{buttons['mensaje']}" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:outputLink value="#"
+					onclick="#{rich:component('popupRechazar')}.hide(); return false;">
+                    X
+                </h:outputLink>
+			</f:facet>
+			<h:form id="formRechazar">
+				<h:messages errorClass="mensajeError" infoClass="mensajeInfo" />
+				<h:panelGrid>
+			#{etiquetas['comentario']}
+			<h:inputText value="#{rcsCtrl.rcs.comentario}" maxlength="200"
+						size="70" />
+				</h:panelGrid>
+				<br />
+				<br />
+				<a4j:commandButton value="#{botones['rechazar']}"
+					action="#{rcsCtrl.rechazar}" render="@form :rcsForm:itemsPanel"
+					execute="@form" />
+				<a4j:commandButton value="#{botones['cancelar']}"
+					onclick="#{rich:component('popupRechazar')}.hide();return false;" />
+
+				<f:subview rendered="#{not rcsCtrl.mostrarPopupRechazar}">
+					<script>
+			#{rich:component('popupRechazar')}.hide();
+			</script>
+				</f:subview>
+			</h:form>
+
+
+
+		</rich:popupPanel>
+	</ui:define>
+</ui:composition>

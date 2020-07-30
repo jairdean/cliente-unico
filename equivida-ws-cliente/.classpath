@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="test-ws-cliente"/>
+	<classpathentry kind="src" path="src-mpersona_telef2"/>
+	<classpathentry kind="src" path="src-mpersona_telef"/>
+	<classpathentry kind="src" path="src-maseg-header"/>
+	<classpathentry kind="src" path="src-mpersona"/>
+	<classpathentry kind="src" path="src-mpersona-juridica"/>
+	<classpathentry kind="src" path="src-mpersonadir"/>
+	<classpathentry kind="src" path="src-mpersona2"/>
+	<classpathentry kind="src" path="src-mpersonadir2"/>
+	<classpathentry kind="src" path="src-conducto-pago"/>
+	<classpathentry kind="src" path="src-maseg-header2"/>
+	<classpathentry kind="src" path="src-cumulo-pago"/>
+	<classpathentry kind="src" path="src-crm-actualizar-persona"/>
+	<classpathentry kind="src" path="src-calidad-emails5"/>
+	<classpathentry kind="src" path="src-calidad-telefono4"/>
+	<classpathentry kind="src" path="src-calidad-nombres4"/>
+	<classpathentry kind="src" path="src-databook"/>
+	<classpathentry kind="src" path="src-crea-asegurado"/>
+	<classpathentry kind="src" path="src-riesgo4"/>
+	<classpathentry kind="src" path="src-contratante"/>
+	<classpathentry kind="src" path="src-contratante-dir"/>
+	<classpathentry kind="src" path="src-contratante-telf"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="lib/axis.jar" sourcepath="/home/juan/.m2/repository/axis/axis/1.4/axis-1.4-sources.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.commons.logging_1.0.4.v201005080501.jar"/>
+	<classpathentry kind="lib" path="lib/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="lib/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="lib/javax.wsdl_1.6.2.v201005080631.jar"/>
+	<classpathentry kind="lib" path="lib/saaj.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,15 @@
+Consideraciones para compilación con apache ant:
+
+- Copiar carpeta JBOSS_HOME/server/default a Copiar carpeta JBOSS_HOME server/equivida
+- Copiar lib/* a JBOSS_HOME/server/equivida/lib/
+- Copiar ant/build.properties.ejemplo a ant/build.properties y cambiar los 
+  datos de acuerdo a la maquina.
+- Instalar Apache Ant http://ant.apache.org/
+	LINUX: # apt-get install ant
+- Ejecutar tarea ant 'jar'. Para lo cual en consola nos ubicamos en equivida-servicio/ant
+  y ejecutamos lo siguiente:
+  $ ant jar
+
+  Con lo cual el archivo jar generado se encuentra en equivida-servicio/dist/ 
+  
+Para subir la aplicacion en el ambiente de desarrollo o producción, ver manual técnico.

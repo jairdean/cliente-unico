@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:panelGrid columns="2" rendered="#{permisoCtrl.visibleEstadoCliente}">
+
+		<h:outputText value="#{etiquetas['estado.persona']}" />
+
+		<h:panelGrid columns="1">
+			<a4j:commandLink id="btnEstado" title="#{botones['nuevo']}"
+				actionListener="#{personaNaturalCtrl.crearEstadoPersona}"
+				execute="tblEstado" render="pnlEstado" onclick="this.focus()">
+				<h:graphicImage value="/img/nuevo.png" />
+			</a4j:commandLink>
+			<a4j:outputPanel id="pnlEstado">
+				<rich:dataTable id="tblEstado"
+					value="#{personaNaturalCtrl.personaNatural.estadoPersonaCollection}"
+					var="ep"
+					rendered="#{not empty personaNaturalCtrl.personaNatural.estadoPersonaCollection}">
+
+					<rich:column style="text-align: center;">
+						<f:facet name="header">#{etiquetas['estado.persona']}</f:facet>
+						<h:selectOneMenu value="#{ep.tipoEstado.codEstado}">
+							<f:selectItems value="#{selectCtrl.tipoEstadoPersonaItems}" />
+						</h:selectOneMenu>
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<f:facet name="header">#{etiquetas['observacion']}</f:facet>
+						<h:inputText value="#{ep.observaciones}" style="width:160px" maxlength="124"/>
+					</rich:column>
+
+					<rich:column style="text-align: center;">
+						<f:facet name="header">#{botones['eliminar']}</f:facet>
+						<a4j:commandLink render="pnlEstado"
+							actionListener="#{personaNaturalCtrl.eliminarEstadoPersona}"
+							immediate="true" rendered="#{ep.secEstadoPersona==null}">
+							<h:graphicImage value="/img/eliminar.png"
+								title="#{botones['eliminar']}" />
+						</a4j:commandLink>
+					</rich:column>
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:panelGrid>
+	</h:panelGrid>
+</div>

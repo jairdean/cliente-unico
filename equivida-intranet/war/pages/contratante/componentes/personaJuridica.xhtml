@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<fieldset class="fieldset-form">
+		<legend class="fieldset-legent">
+			<h:outputText value="#{etiquetas['datos.empresa']}" />
+		</legend>
+
+		<h:panelGrid columns="3" width="70%">
+			<h:outputLabel value="#{etiquetas['tipo.identificacion']}"
+				for="txtTipoIdPJ" />
+			<h:outputLabel value="#{etiquetas['identificacion']}" for="txtIdPJ" />
+			<h:outputLabel value="#{etiquetas['tipo.persona']}"
+				for="txtTipoPersonaPJ" />
+
+			<h:outputText id="txtTipoIdPJ"
+				value="#{contratantePJCtrl.personaJuridica.tipoIdentificacion.tipoIdentificacion}" />
+			<h:outputText id="txtIdPJ"
+				value="#{contratantePJCtrl.personaJuridica.identificacion}" />
+			<h:outputText id="txtTipoPersonaPJ"
+				value="#{contratantePJCtrl.tipoPersona.descripcion}" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="1">
+			<h:outputLabel value="#{etiquetas['tipo.empresa']}:*"
+				for="selTipoEmpresaGeneral" />
+			<h:selectOneMenu id="selTipoEmpresaGeneral"
+				value="#{contratantePJCtrl.personaJuridica.tipoPersonaJuridica.codTipoPersonaJuridica}">
+				<f:selectItems value="#{contratantePJCtrl.tipoPersonaItems}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="#{etiquetas['razon.social']}:*"
+				for="txtRazonSocial" />
+			<h:panelGrid columns="3">
+				<h:inputText id="txtRazonSocial" size="100" required="true"
+					requiredMessage="#{mensajes['requerido']}"
+					value="#{contratantePJCtrl.personaJuridica.razonSocial}"
+					maxlength="1000" />
+				<rich:message for="txtRazonSocial"></rich:message>
+				<a4j:commandButton value="#{botones['revisar.listas.reservadas']}"
+					action="#{contratantePJCtrl.verificarListasJuridica}"
+					render=":formContratante :formRcs"
+					execute="txtRazonSocial selTipoEmpresaGeneral">
+				</a4j:commandButton>
+			</h:panelGrid>
+
+		</h:panelGrid>
+
+		<div class="rcs" style="#{contratantePJCtrl.styleDivRepLegal}">
+
+			<ui:include src="direccionContratantePJ.xhtml" />
+
+			<h:panelGrid columns="2" styleClass="margin-top-15">
+
+				<h:outputLabel
+					value="#{etiquetas['correo.electronico.facturacion.electronica']}*"
+					for="txtCorreoFactura" />
+
+				<h:outputLabel value="#{etiquetas['celular']}" for="txtCelularPN" />
+
+				<h:panelGrid columns="1">
+					<h:inputText id="txtCorreoFactura" required="true"
+						requiredMessage="#{mensajes['requerido']}"
+						value="#{contratantePJCtrl.personaJuridica.persona.emailFacturacionElectronicaTra.direccionElectronica}"
+						maxlength="500" size="50">
+
+						<f:ajax render="msjTxtCorreoFactura" />
+						<f:validator validatorId="emailValidator" />
+
+					</h:inputText>
+					<rich:message id="msjTxtCorreoFactura" for="txtCorreoFactura" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+
+					<h:inputText id="txtCodigoAreaPJ" size="3"
+						value="#{contratantePJCtrl.personaJuridica.persona.noCelularSoloTra.codArea}"
+						maxlength="4" />
+
+
+					<h:inputText id="txtCelularPJ"
+						value="#{contratantePJCtrl.personaJuridica.persona.noCelularSoloTra.nroTelefono}"
+						maxlength="8">
+						<f:ajax render="msjTxtCelularPJ" />
+						<f:validator validatorId="telefonoValidator" />
+
+					</h:inputText>
+
+					<h:outputText value=" " />
+
+					<rich:message id="msjTxtCelularPJ" for="txtCelularPJ" />
+
+				</h:panelGrid>
+
+			</h:panelGrid>
+
+		</div>
+	</fieldset>
+
+	<div class="rcs" style="#{contratantePJCtrl.styleDivRepLegal}">
+
+		<fieldset class="fieldset-form">
+			<legend class="fieldset-legent">
+				<h:outputText value="#{etiquetas['datos.rep.legal.apoderado']}" />
+			</legend>
+
+			<ui:include src="datosRepresentantePJ.xhtml" />
+			
+
+			<div class="rcs" style="#{contratantePJCtrl.styleDivRepLegalConyuge}">
+	
+				<ui:include src="personaPEPPJ.xhtml" />
+
+				<ui:include src="direccionPJ.xhtml" />
+
+			</div>
+		</fieldset>
+
+	</div>
+
+	<div class="rcs" style="#{contratantePJCtrl.styleDivRepLegalConyuge}">
+
+		<a4j:outputPanel id="opDatosConyuge">
+			<a4j:outputPanel
+				rendered="#{contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.estadoCivil.codEstadoCivil eq 2 or contratantePJCtrl.personaJuridica.representante.personaNaturalTransient.estadoCivil.codEstadoCivil eq 5}">
+				<fieldset class="fieldset-form">
+					<legend class="fieldset-legent">
+						<h:outputText value="#{etiquetas['conyuge']}" />
+					</legend>
+
+					<ui:include src="conyugePJ.xhtml" />
+				</fieldset>
+			</a4j:outputPanel>
+		</a4j:outputPanel>
+
+	</div>
+
+
+	<div class="rcs" style="#{contratantePJCtrl.styleDivTodoFormulario}">
+
+		<fieldset class="fieldset-form">
+			<legend class="fieldset-legent">
+				<h:outputText value="#{etiquetas['informacion.financiera']}" />
+			</legend>
+
+			<ui:include src="informacionFinancieraPJ.xhtml" />
+		</fieldset>
+		<h:panelGrid id="bar-botones">
+			<h:panelGrid columns="2"
+				style="#{contratantePJCtrl.styleDivBotonGuardar}">
+				<a4j:commandButton id="btnGuardarPJ"
+					actionListener="#{contratantePJCtrl.guardarPJ}"
+					title="#{botones['guardar']}" image="/img/btnGuardar.png"
+					rendered="#{permisoCtrl.ingresoPersona}"
+					disabled="#{not contratanteCtrl.habilitarBtnGuardarContratante}"
+					render="mostrarRcsPopUpJ rcsOutputPanelJ popupExitoPJ"
+					oncomplete="openExitoMPPJ(#{facesContext.maximumSeverity==null},#{facesContext.maximumSeverity.ordinal});"
+					onclick="if(!confirm('Esta a punto de guardar, continuar?')){return false};">
+				</a4j:commandButton>
+			</h:panelGrid>
+		</h:panelGrid>
+
+	</div>
+
+	<h:inputHidden id="mostrarRcsPopUpJ"
+		value="#{contratantePJCtrl.muestraRcsPopUp}" />
+
+	<a4j:outputPanel id="rcsOutputPanelJ">
+		<rich:popupPanel id="popupRcsPJ" modal="true" resizeable="false"
+			height="200" width="480" show="#{contratantePJCtrl.muestraRcsPopUp}">
+			<f:facet name="header">
+				<h:outputText value="#{botones['mensaje']}" />
+			</f:facet>
+			<br />
+			<div style="text-align: center;">
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/img/rechazar.png" />
+					<h:outputText value=" #{sesionCtrl.mensajeRcsDto.mensajeInterfaz}"
+						style="font-size: 15px;" />
+				</h:panelGrid>
+				<br /> <input type="button" value="#{botones['aceptar']}"
+					onclick="window.location.href='#{facesContext.externalContext.requestContextPath}/pages/contratante/seleccionContratante.jsf?faces-redirect=true'" />
+			</div>
+		</rich:popupPanel>
+	</a4j:outputPanel>
+
+	<rich:popupPanel id="popupExitoPJ" modal="true" resizeable="false"
+		height="200" width="480">
+		<f:facet name="header">
+			<h:outputText value="#{etiquetas['exito']}" />
+		</f:facet>
+		<br />
+		<div style="text-align: center;">
+			<h:panelGrid columns="2">
+				<h:graphicImage value="/img/aprobar.png" />
+				<h:outputText value=" #{mensajes['guardado.exito']}"
+					style="font-size: 20px;" />
+
+				<h:outputText value=" " />
+				<h:outputFormat value="#{mensajes['id.sistema.sise']}"
+					escape="false" style="font-size: 15px;">
+					<f:param value="#{contratantePJCtrl.idSise}" />
+				</h:outputFormat>
+			</h:panelGrid>
+			<br /> <br /> <input type="button" value="#{botones['continuar']}"
+				onclick="window.location.href='#{facesContext.externalContext.requestContextPath}/pages/contratante/formulario.jsf?faces-redirect=true'" />
+		</div>
+	</rich:popupPanel>
+</div>

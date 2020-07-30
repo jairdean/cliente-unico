@@ -1,0 +1,16 @@
+Instalar las fuentes, en algunas versiones de java 6.
+
+# apt-get install dejagnu
+# apt-get install fonts-dejavu fonts-dejavu-core fonts-dejavu-extra
+# apt-get install ttf-dejavu ttf-dejavu-core ttf-dejavu-extra ming-fonts-dejavu
+# apt-get install mgltools-dejavu
+
+Y anadir:
+
+-Ddb2.jcc.charsetDecoderEncoder=3
+
+
+Caso contrario da el error:
+
+SQL Error: -4220, SQLState: null
+2019-09-20 21:20:46,442 ERROR [org.hibernate.util.JDBCExceptionReporter] (http-0.0.0.0-8080-4) [jcc][t4][1065][12306][4.25.1301] Caught java.io.CharConversionException.  See attached Throwable for details. ERRORCODE=-4220, SQLSTATE=null

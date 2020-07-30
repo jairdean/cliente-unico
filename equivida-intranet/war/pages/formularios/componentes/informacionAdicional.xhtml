@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:panelGrid columns="3" rendered="#{permisoCtrl.visibleConduceMoto}"
+	columnClasses="etiqueta">
+
+	<h:outputLabel value="#{etiquetas['conduce.moto']}" />
+	<h:selectOneRadio
+		value="#{personaNaturalCtrl.personaNatural.informacionAdicional.conduceMoto}" onclick="this.focus()">
+		<f:selectItems value="#{selectCtrl.selectSN}"/>
+		<f:ajax event="change" render="gridConduceMoto"/>
+	</h:selectOneRadio>
+
+<h:panelGrid columns="5" id="gridConduceMoto">
+
+<div style="width:100px"/>
+
+	<h:outputLabel value="#{etiquetas['cilindraje']}*" for="txtCilindraje" rendered="#{personaNaturalCtrl.personaNatural.informacionAdicional.conduceMoto=='S'}"/>
+	<h:panelGrid columns="2" id="tblTxtCilindraje" rendered="#{personaNaturalCtrl.personaNatural.informacionAdicional.conduceMoto=='S'}">
+		<h:inputText id="txtCilindraje" maxlength="5" style="width:60px"
+			value="#{personaNaturalCtrl.personaNatural.informacionAdicional.cilindraje}"
+			required="#{personaNaturalCtrl.personaNatural.informacionAdicional.conduceMoto=='S'}" requiredMessage="#{mensajes['requerido']}">
+		<f:validateDoubleRange minimum="1" maximum="20000" />
+</h:inputText>
+		<rich:message for="txtCilindraje" />
+	</h:panelGrid>
+
+	<h:outputLabel value="#{etiquetas['tipo.uso']}*" for="txtTipoUso" rendered="#{personaNaturalCtrl.personaNatural.informacionAdicional.conduceMoto=='S'}"/>
+	<h:panelGrid columns="2" id="tblTxtTipoUso" rendered="#{personaNaturalCtrl.personaNatural.informacionAdicional.conduceMoto=='S'}">
+		<h:inputText id="txtTipoUso" maxlength="30"
+			value="#{personaNaturalCtrl.personaNatural.informacionAdicional.uso}"
+			required="#{personaNaturalCtrl.personaNatural.informacionAdicional.conduceMoto=='S'}" requiredMessage="#{mensajes['requerido']}" />
+		<rich:message for="txtTipoUso" />
+	</h:panelGrid>
+
+</h:panelGrid>
+
+</h:panelGrid>
+
+<h:panelGrid columns="3" 
+	columnClasses="etiqueta" rendered="#{permisoCtrl.visibleHaTenidoAccidentes}">
+
+	<h:outputLabel value="#{etiquetas['ha.tenido.accidentes']}" />
+	<h:selectOneRadio
+		value="#{personaNaturalCtrl.personaNatural.informacionAdicional.respuestaSN}" onclick="this.focus()">
+		<f:selectItems value="#{selectCtrl.selectSN}" />
+		<f:ajax event="change" render="gridTieneAccidentes"/>
+	</h:selectOneRadio>
+
+
+<h:panelGrid columns="3" id="gridTieneAccidentes">
+
+<div style="width:100px"/>
+
+
+	<h:outputLabel value="#{etiquetas['detalle']} *" rendered="#{personaNaturalCtrl.personaNatural.informacionAdicional.respuestaSN=='S'}"/>
+	<h:panelGrid columns="2" id="tblTxtAccidentes" rendered="#{personaNaturalCtrl.personaNatural.informacionAdicional.respuestaSN=='S'}">
+		<h:inputTextarea id="txtAccidentes" rows="3" cols="60"
+			value="#{personaNaturalCtrl.personaNatural.informacionAdicional.accidentes}"
+			required="#{personaNaturalCtrl.personaNatural.informacionAdicional.respuestaSN=='S'}" requiredMessage="#{mensajes['requerido']}">
+ <f:validateLength maximum = "1000"/>
+</h:inputTextarea>
+		<rich:message for="txtAccidentes" />
+	</h:panelGrid>
+
+</h:panelGrid>
+
+</h:panelGrid>
+
+<h:panelGrid columns="2" 
+	columnClasses="etiqueta" rendered="#{permisoCtrl.visiblePilotoRealizaEstudios}">
+
+	<h:outputLabel value="#{etiquetas['es.piloto.realiza.estudios']}" />
+	<h:selectOneRadio
+		value="#{personaNaturalCtrl.personaNatural.informacionAdicional.piloto}" onclick="this.focus()">
+		<f:selectItems value="#{selectCtrl.selectSN}" />
+	</h:selectOneRadio>
+
+
+
+</h:panelGrid></div>

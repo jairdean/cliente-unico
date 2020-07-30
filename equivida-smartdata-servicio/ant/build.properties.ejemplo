@@ -1,0 +1,7 @@
+#   JBoss Application Server
+jboss.home=/home/juan/java/jboss/jboss-6.1.0.Final/
+jboss.server.configuration=equivida
+jboss.deploy.dir=${jboss.home}/server/${jboss.server.configuration}/deploy
+project.name=equivida-smartdata-servicio
+project.version=1.1.0
+javac.location=/usr/lib/jvm/java-6-openjdk-amd64/bin/javac

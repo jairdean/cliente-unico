@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<!-- biometrica -->
+	<h:panelGrid columns="4" rendered="#{permisoCtrl.visibleBiometrica}">
+		<h:outputLabel value="#{etiquetas['estatura']}*" for="txtEstatura" />
+		<h:panelGroup>
+			<h:inputText id="txtEstatura"
+				value="#{personaNaturalCtrl.personaNatural.biometrica.estatura}"
+				size="3" maxlength="5" required="true"
+				requiredMessage="#{mensajes['requerido']}">
+				<f:validateDoubleRange maximum="3" minimum="0" />
+			</h:inputText>mt.
+	<rich:message for="txtEstatura" />
+		</h:panelGroup>
+
+		<h:outputLabel value="#{etiquetas['peso']}*" />
+		<h:panelGrid columns="6">
+			<h:inputText id="txtPesoKilos"
+				value="#{personaNaturalCtrl.personaNatural.biometrica.pesoKilos}"
+				style="width:30px" maxlength="6" size="3" required="true"
+				requiredMessage="#{mensajes['requerido']}">
+				<f:validateDoubleRange maximum="600" minimum="0" />
+				<f:ajax event="blur"
+					listener="#{personaNaturalCtrl.calcularEnLibras}"
+					render="txtPesoKilos txtPesoLibras" />
+			</h:inputText>Kg.
+		<rich:message for="txtPesoKilos" />
+
+			<h:inputText id="txtPesoLibras"
+				value="#{personaNaturalCtrl.personaNatural.biometrica.pesoLibras}"
+				onchange="document.getElementById('SSIPNForm:txtPesoKilos').value=0"
+				style="width:30px" maxlength="3" required="true"
+				requiredMessage="#{mensajes['requerido']}">
+				<f:validateLongRange maximum="600" minimum="0" />
+				<f:ajax event="blur"
+					listener="#{personaNaturalCtrl.calcularEnKilos}"
+					render="txtPesoKilos txtPesoLibras"
+					execute="txtPesoKilos txtPesoLibras" />
+			</h:inputText>Lb.
+
+
+	<rich:message for="txtPesoLibras" />
+		</h:panelGrid>
+
+
+		<h:outputLabel value="#{etiquetas['peso.perdidos.ultimo.anio']}" />
+		<h:panelGrid columns="6">
+			<h:inputText id="txtKgP"
+				value="#{personaNaturalCtrl.personaNatural.biometrica.perdidosUltAnioKilos}"
+				size="3" maxlength="6">
+				<f:validateDoubleRange maximum="600" minimum="0" />
+				<f:ajax event="blur"
+					listener="#{personaNaturalCtrl.calcularPerdidosEnLibras}"
+					render="txtKgP txtLbP" />
+			</h:inputText>Kg.
+	<rich:message for="txtKgP" />
+
+			<h:inputText id="txtLbP"
+				value="#{personaNaturalCtrl.personaNatural.biometrica.perdidosUltAnioLibras}"
+				onchange="document.getElementById('SSIPNForm:txtKgP').value=0"
+				size="3" maxlength="5">
+				<f:validateLongRange maximum="200" minimum="0" />
+				<f:ajax event="blur"
+					listener="#{personaNaturalCtrl.calcularPerdidosEnKilos}"
+					render="txtKgP txtLbP" execute="txtKgP txtLbP" />
+			</h:inputText>Lb.
+	<rich:message for="txtLbP" />
+
+
+		</h:panelGrid>
+
+		<h:outputLabel value="#{etiquetas['presion.arterial']}"
+			for="txtPresionArterial" />
+		<h:panelGroup>
+			<h:inputText id="txtPresionArterial"
+				value="#{personaNaturalCtrl.personaNatural.biometrica.presionArterial}"
+				size="8" maxlength="15">
+			</h:inputText>
+			<rich:message for="txtPresionArterial" />
+		</h:panelGroup>
+
+
+	</h:panelGrid>
+
+	<rich:dataTable rendered="#{permisoCtrl.visibleHabitoPersona}"
+		id="preguntasTabla"
+		value="#{personaNaturalCtrl.habitoEnfermedadPorPersonaLista}"
+		var="habitoEnfRow" rowKeyVar="count">
+		<rich:column style="width:50%">
+			<f:facet name="header">
+				<h:outputText value="#{etiquetas['pregunta']}" />
+			</f:facet>
+			<h:outputText value="#{habitoEnfRow.tipoHabitoEnfermedad.tipoHabito}"></h:outputText>
+		</rich:column>
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value="#{etiquetas['respuesta']}" />
+			</f:facet>
+			<h:selectOneRadio value="#{habitoEnfRow.respuesta}"
+				onclick="this.focus()">
+				<f:selectItems value="#{selectCtrl.selectSN}" />
+				<f:selectItem itemValue="I" itemLabel="No aplica" />
+				<f:ajax render="pnlAfirmativo"></f:ajax>
+			</h:selectOneRadio>
+
+			<h:panelGrid id="pnlAfirmativo">
+				<f:subview
+					rendered="#{(not empty habitoEnfRow.detalleHabitoEnfermedadFormularioCollection and habitoEnfRow.tipoHabitoEnfermedad.codTipoHabito!=28) or (habitoEnfRow.respuesta=='S' and habitoEnfRow.tipoHabitoEnfermedad.codTipoHabito==28)}">
+
+					<h:outputLabel value="#{etiquetas['caso.afirmativo.peq']}:"
+						style="FONT-SIZE: xx-small;text-align:left;" />
+
+					<rich:dataTable id="preguntasTabla"
+						value="#{habitoEnfRow.detalleHabitoEnfermedadFormularioCollection}"
+						var="preguntaRow" style="border:none">
+						<rich:column style="border:none">
+							<h:panelGrid columns="3">
+								<h:outputText
+									value="#{preguntaRow.preguntaHabitoEnfermedad.pregunta}"></h:outputText>
+								<h:inputText id="txtDetNotNumerico"
+									value="#{preguntaRow.detalle}" size="50"
+									rendered="#{not preguntaRow.preguntaHabitoEnfermedad.numerico}"
+									required="#{habitoEnfRow.respuesta=='S'}"
+									requiredMessage="#{mensajes['requerido']}">
+									<a4j:ajax execute="@this" render="msjPregNotNum" />
+								</h:inputText>
+								<h:inputText id="txtDetNumerico"
+									value="#{preguntaRow.detalleDouble}" size="5"
+									required="#{habitoEnfRow.respuesta=='S'}"
+									requiredMessage="#{mensajes['requerido']}"
+									rendered="#{preguntaRow.preguntaHabitoEnfermedad.numerico}">
+									<f:validator validatorId="bindableDoubleRangeValidator" />
+									<f:attribute name="minimum"
+										value="#{preguntaRow.preguntaHabitoEnfermedad.limiteInferiorDouble}" />
+									<f:attribute name="maximum"
+										value="#{preguntaRow.preguntaHabitoEnfermedad.limiteSuperiorDouble}" />
+									<a4j:ajax execute="@this" render="msjPregNum" />
+								</h:inputText>
+								<rich:message id="msjPregNum" for="txtDetNumerico"
+									rendered="#{preguntaRow.preguntaHabitoEnfermedad.numerico}" />
+								<rich:message id="msjPregNotNum" for="txtDetNotNumerico"
+									rendered="#{not preguntaRow.preguntaHabitoEnfermedad.numerico}" />
+							</h:panelGrid>
+						</rich:column>
+
+
+
+					</rich:dataTable>
+				</f:subview>
+			</h:panelGrid>
+
+
+		</rich:column>
+	</rich:dataTable>
+
+
+
+</div>

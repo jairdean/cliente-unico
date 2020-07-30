@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:panelGrid columns="2"
+		rendered="#{permisoCtrl.visibleReferenciasPersonales}"
+		headerClass="subtituloForm">
+
+		<f:facet name="header">
+			<h:outputLabel value="#{etiquetas['referencias.personales']}" />
+		</f:facet>
+
+		<rich:dataTable id="tblRefe"
+			value="#{personaNaturalCtrl.personaNatural.referenciaFormularioCollection}"
+			var="ref" width="100%" rowKeyVar="countRef">
+
+			<rich:column style="text-align: center;">
+				<h:outputLabel value="#{etiquetas['nombre']}" />
+				<h:panelGrid columns="1">
+					<h:inputText id="txtNombreReferenciaFamiliar"
+						value="#{ref.denominacion}" maxlength="64" />
+					<rich:message for="txtNombreReferenciaFamiliar" />
+				</h:panelGrid>
+			</rich:column>
+
+			<rich:column style="text-align: center;">
+				<h:outputLabel value="#{etiquetas['parentesco']}" />
+				<h:panelGrid columns="1" rendered="#{ref.familiarNoVivaUd=='S'}">
+					<h:selectOneMenu id="cmbParentesco"
+						value="#{ref.tipoParentescoRelacion.codTipoParentesco}">
+						<f:selectItems value="#{selectCtrl.tipoParentescoFamiliaresItems}" />
+
+					</h:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid columns="1" rendered="#{ref.familiarNoVivaUd=='N'}">
+					<h:selectOneMenu id="cmbParentescoNF"
+						value="#{ref.tipoParentescoRelacion.codTipoParentesco}">
+						<f:selectItems
+							value="#{selectCtrl.tipoParentescoFamiliaresYNoFamiliaresItems}" />
+					</h:selectOneMenu>
+				</h:panelGrid>
+			</rich:column>
+
+			<rich:column style="text-align: center;">
+				<h:outputLabel value="#{etiquetas['telefonos']}" />
+				<h:panelGrid columns="2">
+					<h:inputText id="txtConvReferenciaFamiliar"
+						value="#{ref.nroTelefonoConvencional}" maxlength="16" />
+					<h:inputText id="txtCelReferenciaFamiliar"
+						value="#{ref.nroTelefonoCelular}" maxlength="16" />
+					<h:outputLabel value="#{etiquetas['convencional']}" />
+					<h:outputLabel value="#{etiquetas['celular']}" />
+				</h:panelGrid>
+			</rich:column>
+
+		</rich:dataTable>
+	</h:panelGrid>
+
+	<h:panelGrid columns="2"
+		rendered="#{permisoCtrl.visibleReferenciasPersonales}"
+		headerClass="subtituloForm">
+		<f:facet name="header">
+			<h:outputText value="#{etiquetas['referencias.comerciales']}" />
+		</f:facet>
+		<rich:dataTable id="tblRefeComercial"
+			value="#{personaNaturalCtrl.personaNatural.referenciaComercialFormularioCollection}"
+			var="ref" width="100%" rowKeyVar="countRef">
+
+			<rich:column>
+				<h:outputLabel value="#{etiquetas['entidad']}" />
+				<h:panelGrid columns="1">
+					<h:inputText id="txtEntidadRef" value="#{ref.entidadReferencia}"
+						maxlength="64" />
+					<rich:message for="txtEntidadRef" />
+				</h:panelGrid>
+			</rich:column>
+
+			<rich:column>
+				<h:outputLabel value="#{etiquetas['monto']}" />
+				<h:panelGrid columns="1">
+					<h:inputText id="txtMontoRef" value="#{ref.mntReferencia}" />
+					<rich:message for="txtMontoRef" />
+				</h:panelGrid>
+			</rich:column>
+
+			<rich:column>
+				<h:outputLabel value="#{etiquetas['telefonos']}" />
+				<h:panelGrid columns="1">
+					<h:inputText id="txtTelfRef" value="#{ref.tlfEntidad}"
+						maxlength="16" />
+					<rich:message for="txtTelfRef" />
+				</h:panelGrid>
+			</rich:column>
+
+		</rich:dataTable>
+
+	</h:panelGrid>
+
+	<h:panelGrid columns="2"
+		rendered="#{permisoCtrl.visibleReferenciasPersonales}"
+		headerClass="subtituloForm">
+		<f:facet name="header">
+			<h:outputText value="#{etiquetas['referencias.bancarias']}" />
+		</f:facet>
+
+
+
+		<rich:dataTable id="tblRefeBancaria"
+			value="#{personaNaturalCtrl.personaNatural.referenciaBancariaFormularioCollection}"
+			var="refb" width="100%" rowKeyVar="countRef">
+
+			<rich:column>
+				<h:outputLabel value="#{etiquetas['institucion.tarjeta']}" />
+				<h:panelGrid columns="1">
+					<h:selectOneMenu
+						value="#{refb.institucionFinanciera.secInstitucionFinanciera}">
+						<f:selectItem itemValue="-1" itemLabel="Seleccione" />
+						<f:selectItems value="#{selectCtrl.institucionFinancieraItems}" />
+						<f:ajax event="change"
+							listener="#{personaNaturalCtrl.ponerTipoInstitucion}"
+							render="cmbTipoCuenta"></f:ajax>
+					</h:selectOneMenu>
+				</h:panelGrid>
+			</rich:column>
+
+			<rich:column>
+				<h:outputLabel value="#{etiquetas['tipo.cuenta']}" />
+				<h:panelGrid columns="1">
+				<h:selectOneMenu id="cmbTipoCuenta"
+					value="#{refb.tipoServicioInstFin.secTipoServicioInstFin}">
+					<f:selectItem itemValue="-1" itemLabel="Seleccione" />
+					<f:selectItems value="#{refb.tipoServicioInsFinItems}" />
+				</h:selectOneMenu>
+				</h:panelGrid>
+			</rich:column>
+
+		</rich:dataTable>
+
+	</h:panelGrid>
+</div>

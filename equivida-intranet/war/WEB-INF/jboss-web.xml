@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+
+	<!-- produccion -->
+	<security-domain>java:/jaas/equivida-ldap</security-domain>
+
+	<!-- local -->
+	<!-- 
+	<security-domain>java:/jaas/equivida-ldap2</security-domain> 
+  	-->
+  	
+	<!-- desarrollo -->
+	<context-root>/equivida-intranet</context-root>
+
+	<!-- produccion -->
+	<!-- context-root>/zzl-intranet</context-root -->
+	<!-- virtual-host>ifi.virtual.vps-host.net </virtual-host -->
+
+</jboss-web>

@@ -1,0 +1,256 @@
+/*
+
+Hoja de estilos para Equivida 1.0
+Daniel Cardenas - Saviasoft Cia. Ltda.
+daniel.cardenas@saviasoft.com
+
+*/
+a {
+	font-size: 14px;
+}
+
+body {
+	background-color: #eee;
+	font-size: 12px;
+	font-family: Verdana, Arial, SunSans-Regular, Sans-Serif;
+	color: #555;
+	padding: 0;
+	margin: 0;
+	display: block;
+}
+
+img {
+	border: none;
+}
+
+#container {
+	width: 1185px;
+	margin: 0 auto;
+	margin: 0 auto;
+	background-color: #fff;
+}
+
+#content {
+	min-height: 360px;
+	height: auto;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+#content .mensajeError {
+	color: red;
+	font-size: 1.1em;
+}
+
+#content .mensajeInfo {
+	color: #25aae1;
+	font-size: 1.1em;
+}
+
+/* for Internet Explorer */
+/*\*/
+* html #content {
+	height: 360px;
+}
+
+/**/
+#header {
+	background-color: #0070bc;
+	border-bottom: 5px solid #a9ccec;
+	color: #fff;
+}
+
+#header a {
+	color: #fff;
+	font-size: 12px;
+}
+
+#header a:hover {
+	text-decoration: none;
+}
+
+.headerGridCol {
+	text-align: right;
+}
+
+#footer {
+	background-color: #0070bc;
+	color: #fff;
+	height: 20px;
+	border-top: 5px solid #a9ccec;
+	text-align: center;
+}
+
+#copyright {
+	margin-top: 4px;
+	font-size: 10px;
+}
+
+div.titlePage {
+	font-size: 18px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	color: #0070bc;
+	font-weight: bold;
+	border-bottom: 1px dotted #a9ccec;
+	letter-spacing: 2px;
+}
+
+.boton {
+	height: 50px;
+	width: 100px;
+}
+
+.etiqueta {
+	width: 160px;
+}
+
+.textoForm {
+	width: 340px;
+}
+
+.rf-fu-lst {
+	height: 56px;
+}
+
+.rf-fu-itm {
+	border: none;
+}
+
+.labelTop {
+	vertical-align: top;
+}
+
+.rf-fu {
+	
+}
+
+.subtituloForm {
+	text-align: left;
+	color: #0070BC;
+	letter-spacing: 2px;
+}
+
+input.autoAct {
+	width: 250px;
+}
+
+.rf-au-lst-scrl {
+	max-height: 300px !important;
+	width: 460px !important
+}
+
+.noRows {
+	font-weight: bold;
+	display: block;
+	margin-top: 16px;
+}
+
+.footerTable {
+	text-align: right;
+}
+
+select:disabled {
+	color: #000000;
+}
+
+input:disabled.inp-dis {
+  background-color: #ddd;
+  background-image: none;
+}
+
+.info-no-existe {
+	background-color: #FFCCFF;
+}
+
+.info-diferente {
+	background-color: #FFFFCC;
+}
+
+.col-5per {
+	width: 5%;
+}
+
+.col-10per {
+	width: 10%;
+}
+
+.col-20per {
+	width: 20%;
+}
+
+.col-25per {
+	width: 25%;
+}
+
+.col-30per {
+	width: 30%;
+}
+
+.col-40per {
+	width: 40%;
+}
+
+.col-50per {
+	width: 50%;
+}
+
+.col-60per {
+	width: 60%;
+}
+
+.col-70per {
+	width: 70%;
+}
+
+.col-80per {
+	width: 80%;
+}
+
+.col-20per-top {
+	width: 25%;
+	vertical-align: top;
+}
+
+.col-40per-top {
+	width: 40%;
+	vertical-align: top;
+}
+
+.col-center {
+	text-align: center;
+}
+
+.col-vertical-top {
+	vertical-align: top;
+}
+
+.col-vertical-top-border {
+	vertical-align: top;
+	border: 1px solid #C0C0C0;
+}
+
+.fieldset-form {
+	margin-top: 15px;
+	border-radius: 10px;
+}
+
+.fieldset-legent {
+	font-size: 16px;
+	color: #0070bc;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+
+.linea-baja {
+	font-size: 14px;
+	color: #a9ccec;
+	margin-top: 15px;
+	font-weight: bold;
+	border-bottom: 1px dotted #a9ccec;
+	letter-spacing: 2px;
+}
+
+.margin-top-15 {
+	margin-top: 15px;
+}

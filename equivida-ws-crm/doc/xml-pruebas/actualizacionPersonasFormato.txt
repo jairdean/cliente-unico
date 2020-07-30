@@ -1,0 +1,11 @@
+- aumentan campos de entrada (nrodoc, nombre1, nombre2, ap1, ap2, estado civil, etc...)
+
+si mandan secuencial?
+
+SI:
+- actualizar cliente unico y devolver ok
+	- encolar la actualizacion en el sise (NUEVO REQUERIMIENTO) 
+
+NO: 
+- ingresar en db2 (persona, persona natural) y devolver ok (con las repectivas validaciones)
+	- encolar el ingreso/actualizacion en el sise (NUEVO REQUERIMIENTO, que pasa si no ejecuta el sise se dana la homologacion)

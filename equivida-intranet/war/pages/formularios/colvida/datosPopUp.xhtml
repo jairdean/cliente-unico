@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:panelGrid columns="4" width="100%"
+		columnClasses="etiqueta,textoForm,etiqueta" id="popUpDatosGenerales"
+		headerClass="subtituloForm">
+		<f:facet name="header">
+			<h:panelGrid columns="2">
+				<a4j:commandButton image="/img/copiar.png" execute="@this"
+					immediate="true"
+					actionListener="#{personaNaturalCtrl.pasarDatosPersonales}"
+					render="SSIPNForm:datosPersonalesNomApe SSIPNForm:autoPaisFN SSIPNForm:txtFechaNacimiento SSIPNForm:gridSexo tblFloatPanel" />
+				<h:outputLabel value="#{etiquetas['datos.generales']}:" />
+			</h:panelGrid>
+		</f:facet>
+		<h:outputLabel value="#{etiquetas['apellido.paterno']}:"
+			for="popUpTxtApellidoP" />
+		<h:outputText id="popUpTxtApellidoP"
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloApellidoPaterno}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.apellidoPaterno}" />
+		<h:outputLabel value="#{etiquetas['apellido.materno']}:"
+			for="popUpTxtApellidoM" />
+		<h:outputText id="popUpTxtApellidoM"
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloApellidoMaterno}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.apellidoMaterno}" />
+
+		<h:outputLabel value="#{etiquetas['primer.nombre']}:"
+			for="popUpTxtPrimerNombre" />
+		<h:outputText id="popUpTxtPrimerNombre"
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloPrimerNombre}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.primerNombre}" />
+		<h:outputLabel value="#{etiquetas['segundo.nombre']}:"
+			for="popUpTxtSegundoNombre" />
+		<h:outputText id="popUpTxtSegundoNombre"
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloSegundoNombre}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.segundoNombre}" />
+
+		<h:outputLabel value="#{etiquetas['genero']}:" />
+		<h:selectOneMenu
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloSexo}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.sexo}"
+			disabled="true">
+			<f:selectItems value="#{selectCtrl.generoItems}" />
+		</h:selectOneMenu>
+		<h:outputLabel for="popUpTxtFechaNacimiento"
+			value="#{etiquetas['fecha.nacimiento']}:" />
+		<h:outputText id="popUpTxtFechaNacimiento"
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloFchNacimiento}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.fchNacimiento}">
+			<f:convertDateTime pattern="dd/MM/yyyy" />
+		</h:outputText>
+
+		<h:outputText value="#{etiquetas['pais']}:" />
+		<h:outputText
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloPaisNacionalidad}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.paisNacionalidad.pais}" />
+		<h:outputText value="#{etiquetas['fecha.fallecimiento']}:" />
+		<h:outputText
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloFchFallecimiento}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.fchFallecimiento}">
+			<f:convertDateTime pattern="dd/MM/yyyy" />
+		</h:outputText>
+	</h:panelGrid>
+
+	<h:panelGrid columns="4" width="100%"
+		columnClasses="etiqueta,textoForm,etiqueta,textoForm"
+		id="popUpEstadoCivil" headerClass="subtituloForm">
+		<f:facet name="header">
+			<h:panelGrid columns="2">
+				<a4j:commandButton image="/img/copiar.png" execute="@this"
+					immediate="true"
+					actionListener="#{personaNaturalCtrl.pasarEstadoCivil}"
+					render="SSIPNForm:pnlConyuge SSIPNForm:estadoCivilSel" />
+				<h:outputLabel value="#{etiquetas['estado.civil']}:" />
+			</h:panelGrid>
+		</f:facet>
+		<h:outputLabel value="#{etiquetas['estado.persona']}:" />
+		<h:selectOneMenu disabled="true"
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloEstadoCivil}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.estadoCivil.codEstadoCivil}">
+			<f:selectItems value="#{selectCtrl.estadoCivilVisiblesItems}" />
+		</h:selectOneMenu>
+		<h:outputText value="" />
+		<h:outputText value="" />
+
+		<h:outputLabel
+			rendered="#{personaNaturalCtrl.personaNaturalPopUp.tieneConyuge}"
+			value="#{etiquetas['identificacion']} #{etiquetas['conyuge']}:" />
+		<h:outputLabel
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloConyuge}"
+			rendered="#{personaNaturalCtrl.personaNaturalPopUp.tieneConyuge}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.conyuge.identificacion}" />
+		<h:outputText value=""
+			rendered="#{personaNaturalCtrl.personaNaturalPopUp.tieneConyuge}" />
+		<h:outputText value=""
+			rendered="#{personaNaturalCtrl.personaNaturalPopUp.tieneConyuge}" />
+
+		<h:outputLabel
+			rendered="#{personaNaturalCtrl.personaNaturalPopUp.tieneConyuge}"
+			value="#{etiquetas['conyuge']}:" />
+		<h:outputText
+			styleClass="#{personaNaturalCtrl.personaNaturalPopUp.estiloConyuge}"
+			rendered="#{personaNaturalCtrl.personaNaturalPopUp.tieneConyuge}"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.conyuge.nombresApellidosConyugeIncompleto}" />
+	</h:panelGrid>
+
+	<h:panelGrid columns="1" id="popUpUbicacionGeografica"
+		headerClass="subtituloForm">
+		<f:facet name="header">
+			<h:outputLabel value="#{etiquetas['ubicacion.geografica']}:" />
+		</f:facet>
+		<a4j:repeat id="repetirDireccion"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.persona.direccionCollection}"
+			var="d">
+			<h:panelGrid columns="2">
+				<a4j:commandButton image="/img/copiar.png" execute="@this"
+					immediate="true"
+					actionListener="#{personaNaturalCtrl.pasarUbicacionGeografica}"
+					render="SSIPNForm:pnlDirecciones" />
+
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="4" id="popUpUbicacionGeograficaDetalle"
+						columnClasses="etiqueta,textoForm,etiqueta,textoForm">
+						<h:outputLabel value="#{etiquetas['tipo']}:" />
+						<h:selectOneMenu disabled="true"
+							value="#{d.tipoDireccion.codTipoDireccion}">
+							<f:selectItems value="#{selectCtrl.tipoDireccionItems}" />
+						</h:selectOneMenu>
+
+						<h:outputLabel value="#{etiquetas['pais']}:" />
+						<h:outputText
+							value="#{personaNaturalCtrl.personaNaturalPopUp.paisNacionalidad.pais}" />
+
+						<h:outputLabel value="#{etiquetas['provincia']}:" />
+						<h:outputText value="#{d.canton.provincia.provincia}" />
+						<h:outputLabel value="#{etiquetas['canton']}:" />
+						<h:outputText value="#{d.canton.canton}" />
+
+						<h:outputLabel value="#{etiquetas['parroquia']}:" />
+						<h:outputText value="#{d.parroquia}" />
+						<h:outputLabel value="#{etiquetas['direccion']}:" />
+						<h:outputText value="#{d.direccionCompleta}" />
+
+						<h:outputLabel value="#{etiquetas['referencia']}:" />
+						<h:outputText value="#{d.referencia}" />
+					</h:panelGrid>
+
+					<rich:dataTable value="#{d.direccionTelefonoCollection}" var="t">
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="#{etiquetas['tipo']}" />
+							</f:facet>
+							<h:selectOneMenu enableManualInput="true"
+								value="#{t.telefono.tipoTelefono.codTipoTelefono}"
+								disabled="true">
+								<f:selectItems value="#{selectCtrl.tipoTelefonoItems}" />
+							</h:selectOneMenu>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="#{etiquetas['codigo.area']}" />
+							</f:facet>
+							<h:outputText value="#{t.telefono.codArea}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="#{etiquetas['numero']}" />
+							</f:facet>
+							<h:outputText value="#{t.telefono.nroTelefono}" />
+						</rich:column>
+					</rich:dataTable>
+
+				</h:panelGrid>
+			</h:panelGrid>
+		</a4j:repeat>
+	</h:panelGrid>
+
+	<h:panelGrid columns="1" id="popUpContactabilidad"
+		headerClass="subtituloForm" rendered="false">
+		<f:facet name="header">
+			<h:outputLabel value="#{etiquetas['contactabilidad']}:" />
+		</f:facet>
+		<rich:dataTable id="popUpTblTelefono"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.persona.telefonoSinDireccionCollection}"
+			var="t">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{etiquetas['pasar']}" />
+				</f:facet>
+				<a4j:commandButton image="/img/copiar.png" execute="@this"
+					immediate="true"
+					actionListener="#{personaNaturalCtrl.pasarTelefonoSinDireccion}"
+					render="SSIPNForm:pnlTelefAdicional" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{etiquetas['tipo']}" />
+				</f:facet>
+				<h:selectOneMenu enableManualInput="true"
+					value="#{t.tipoTelefono.codTipoTelefono}" disabled="true">
+					<f:selectItems value="#{selectCtrl.tipoTelefonoItems}" />
+				</h:selectOneMenu>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{etiquetas['codigo.area']}" />
+				</f:facet>
+				<h:outputText value="#{t.codArea}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{etiquetas['numero']}" />
+				</f:facet>
+				<h:outputText value="#{t.nroTelefono}" />
+			</rich:column>
+		</rich:dataTable>
+	</h:panelGrid>
+
+	<h:panelGrid columns="1" id="popUpEmpleoDependiente"
+		headerClass="subtituloForm">
+		<f:facet name="header">
+			<h:outputLabel value="#{etiquetas['empleo.dependiente']}:" />
+		</f:facet>
+
+		<h:panelGrid columns="2" columnClasses="etiqueta,textoForm">
+			<h:outputLabel value="#{etiquetas['profesion']}" />
+			<h:outputText
+				value="#{personaNaturalCtrl.personaNaturalPopUp.profesion.profesion}" />
+		</h:panelGrid>
+
+		<rich:dataTable id="popUpTblEmpleoDependiente"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.empleoDependienteCollection}"
+			var="item">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{etiquetas['pasar']}" />
+				</f:facet>
+				<a4j:commandButton image="/img/copiar.png" execute="@this"
+					immediate="true"
+					actionListener="#{personaNaturalCtrl.pasarEmpleoDependiente}"
+					render="SSIPNForm:pnlEmp txtAacividadP" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputLabel
+						value="#{etiquetas['empresa']}/#{etiquetas['tipo.negocio']}" />
+				</f:facet>
+				<h:outputText value="#{item.negocioEmpresa}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{etiquetas['cargo']}" />
+				</f:facet>
+				<h:outputText value="#{item.cargo}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{etiquetas['salario']}" />
+				</f:facet>
+				<h:outputText value="#{item.salarioTr}">
+					<f:convertNumber type="currency" currencySymbol="$" />
+				</h:outputText>
+			</rich:column>
+			<rich:column style="text-align: center;">
+				<f:facet name="header">
+					<h:outputText
+						value="#{etiquetas['antiguedad.anios']} (#{etiquetas['anios']})" />
+				</f:facet>
+				<h:outputText value="#{item.tiempoEmpresa}" />
+			</rich:column>
+		</rich:dataTable>
+	</h:panelGrid>
+
+	<h:panelGrid columns="1" id="popUpEmpleoIndependiente"
+		headerClass="subtituloForm">
+		<f:facet name="header">
+			<h:outputLabel value="#{etiquetas['empleo.independiente']}:" />
+		</f:facet>
+
+		<rich:dataTable id="popUpTblEmpleoIndependiente"
+			value="#{personaNaturalCtrl.personaNaturalPopUp.empleoIndependienteCollection}"
+			var="item">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{etiquetas['pasar']}" />
+				</f:facet>
+				<a4j:commandButton image="/img/copiar.png" execute="@this"
+					immediate="true"
+					actionListener="#{personaNaturalCtrl.pasarEmpleoIndependiente}"
+					render="SSIPNForm:pnlEmp" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputLabel value="#{etiquetas['tipo.empleo']}" />
+				</f:facet>
+				<h:outputText value="#{item.razonSocialTr}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{etiquetas['actividad.economica']}" />
+				</f:facet>
+				<h:outputText value="#{item.nombreActividadEconomicaTr}" />
+			</rich:column>
+			<rich:column style="text-align: center;">
+				<f:facet name="header">
+					<h:outputText
+						value="#{etiquetas['antiguedad.anios']} (#{etiquetas['anios']})" />
+				</f:facet>
+				<h:outputText value="#{item.tiempoEmpresa}" />
+			</rich:column>
+		</rich:dataTable>
+	</h:panelGrid>
+</div>

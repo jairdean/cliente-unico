@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="InsertDireccionPersonaWsImplService" targetNamespace="http://impl.ws.sise.equivida.com/" xmlns:ns1="http://ws.sise.equivida.com/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://impl.ws.sise.equivida.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:import location="http://localhost:8080/sise-servicio-1.0/InsertDireccionPersonaWsImpl?wsdl=InsertDireccionPersonaWs.wsdl" namespace="http://ws.sise.equivida.com/">
+    </wsdl:import>
+  <wsdl:binding name="InsertDireccionPersonaWsImplServiceSoapBinding" type="ns1:InsertDireccionPersonaWs">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ws_sise_insert_mpersonadir">
+      <soap:operation soapAction="" style="rpc" />
+      <wsdl:input name="ws_sise_insert_mpersonadir">
+        <soap:body namespace="http://ws.sise.equivida.com/" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ws_sise_insert_mpersonadirResponse">
+        <soap:body namespace="http://ws.sise.equivida.com/" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="InsertDireccionPersonaWsImplService">
+    <wsdl:port binding="tns:InsertDireccionPersonaWsImplServiceSoapBinding" name="InsertDireccionPersonaWsImplPort">
+      <soap:address location="http://localhost:8080/sise-servicio-1.0/InsertDireccionPersonaWsImpl" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

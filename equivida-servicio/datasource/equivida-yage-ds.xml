@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<local-tx-datasource>
+		<jndi-name>equividaYageDS</jndi-name>
+		<connection-url>jdbc:db2://10.10.30.31:55000/equivida
+		</connection-url>
+		<driver-class>com.ibm.db2.jcc.DB2Driver
+		</driver-class>
+
+		<!-- desarrollo -->
+		<!-- 
+		<user-name>EQUIVIDA</user-name>
+		<password>Seguros12</password>
+		 -->
+		
+		<!-- desarrollo -->
+		<user-name>usuyag</user-name>
+		<password>yag_desa</password>
+
+
+	</local-tx-datasource>
+</datasources>

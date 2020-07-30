@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:panelGrid columns="2" columnClasses="labelTop"
+		rendered="#{permisoCtrl.visibleMotivoSeguro}">
+		<h:outputLabel value="#{etiquetas['motivo.seguro']}*" />
+		<h:panelGrid columns="2">
+
+			<rich:dataTable
+				value="#{personaNaturalCtrl.personaNatural.persona.motivoSeguroFormularioCollection}"
+				var="m" id="tblMotivoS" style="border:none">
+				<rich:column style="border:none">
+					<h:selectBooleanCheckbox id="chkMot" value="#{m.seleccionado}"
+						onclick="this.focus()">
+						<a4j:ajax event="change" render="gridTxtDetalleMS"
+							execute="tblMotivoS" />
+					</h:selectBooleanCheckbox>
+				</rich:column>
+
+				<rich:column style="border:none">
+					<h:outputLabel for="chkMot"
+						value="#{m.tipoMotivoSeguro.tipoMotivo}" />
+				</rich:column>
+
+				<rich:column style="border:none">
+					<h:panelGrid columns="2" id="gridTxtDetalleMS">
+						<h:outputText value="#{etiquetas['especifique']}*"
+							rendered="#{m.tipoMotivoSeguro.detallar=='S' and m.seleccionado}" />
+						<h:inputText value="#{m.detalle}"
+							rendered="#{m.tipoMotivoSeguro.detallar=='S' and m.seleccionado}" />
+					</h:panelGrid>
+				</rich:column>
+			</rich:dataTable>
+		<rich:message for="tblMotivoS" />
+		</h:panelGrid>
+	</h:panelGrid>
+</div>

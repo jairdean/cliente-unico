@@ -1,0 +1,1831 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/lib/saviasoft-persistence-util-4.2.jar!/" />
+    <varelement var="file://$JBOSS_HOME_610$/client/activation.jar" value="JBOSS_HOME_610/client/activation.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/antlr.jar" value="JBOSS_HOME_610/client/antlr.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/asm.jar" value="JBOSS_HOME_610/client/asm.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cdi-api.jar" value="JBOSS_HOME_610/client/cdi-api.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/commons-beanutils.jar" value="JBOSS_HOME_610/client/commons-beanutils.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/commons-collections.jar" value="JBOSS_HOME_610/client/commons-collections.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/commons-lang.jar" value="JBOSS_HOME_610/client/commons-lang.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/concurrent.jar" value="JBOSS_HOME_610/client/concurrent.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-api.jar" value="JBOSS_HOME_610/client/cxf-api.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-common-schemas.jar" value="JBOSS_HOME_610/client/cxf-common-schemas.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-common-utilities.jar" value="JBOSS_HOME_610/client/cxf-common-utilities.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-bindings-coloc.jar" value="JBOSS_HOME_610/client/cxf-rt-bindings-coloc.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-bindings-http.jar" value="JBOSS_HOME_610/client/cxf-rt-bindings-http.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-bindings-object.jar" value="JBOSS_HOME_610/client/cxf-rt-bindings-object.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-bindings-soap.jar" value="JBOSS_HOME_610/client/cxf-rt-bindings-soap.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-bindings-xml.jar" value="JBOSS_HOME_610/client/cxf-rt-bindings-xml.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-core.jar" value="JBOSS_HOME_610/client/cxf-rt-core.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-databinding-aegis.jar" value="JBOSS_HOME_610/client/cxf-rt-databinding-aegis.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-databinding-jaxb.jar" value="JBOSS_HOME_610/client/cxf-rt-databinding-jaxb.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-frontend-jaxws.jar" value="JBOSS_HOME_610/client/cxf-rt-frontend-jaxws.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-frontend-simple.jar" value="JBOSS_HOME_610/client/cxf-rt-frontend-simple.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-management.jar" value="JBOSS_HOME_610/client/cxf-rt-management.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-transports-http.jar" value="JBOSS_HOME_610/client/cxf-rt-transports-http.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-transports-jms.jar" value="JBOSS_HOME_610/client/cxf-rt-transports-jms.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-transports-local.jar" value="JBOSS_HOME_610/client/cxf-rt-transports-local.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-ws-addr.jar" value="JBOSS_HOME_610/client/cxf-rt-ws-addr.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-ws-policy.jar" value="JBOSS_HOME_610/client/cxf-rt-ws-policy.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-ws-rm.jar" value="JBOSS_HOME_610/client/cxf-rt-ws-rm.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-rt-ws-security.jar" value="JBOSS_HOME_610/client/cxf-rt-ws-security.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-tools-common.jar" value="JBOSS_HOME_610/client/cxf-tools-common.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-tools-java2ws.jar" value="JBOSS_HOME_610/client/cxf-tools-java2ws.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-tools-validator.jar" value="JBOSS_HOME_610/client/cxf-tools-validator.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-tools-wsdlto-core.jar" value="JBOSS_HOME_610/client/cxf-tools-wsdlto-core.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-tools-wsdlto-databinding-jaxb.jar" value="JBOSS_HOME_610/client/cxf-tools-wsdlto-databinding-jaxb.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-tools-wsdlto-frontend-jaxws.jar" value="JBOSS_HOME_610/client/cxf-tools-wsdlto-frontend-jaxws.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-xjc-boolean.jar" value="JBOSS_HOME_610/client/cxf-xjc-boolean.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-xjc-bug671.jar" value="JBOSS_HOME_610/client/cxf-xjc-bug671.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-xjc-dv.jar" value="JBOSS_HOME_610/client/cxf-xjc-dv.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/cxf-xjc-ts.jar" value="JBOSS_HOME_610/client/cxf-xjc-ts.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/FastInfoset.jar" value="JBOSS_HOME_610/client/FastInfoset.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/getopt.jar" value="JBOSS_HOME_610/client/getopt.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/hibernate-commons-annotations.jar" value="JBOSS_HOME_610/client/hibernate-commons-annotations.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/hibernate-core.jar" value="JBOSS_HOME_610/client/hibernate-core.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/hibernate-jpa-2.0-api.jar" value="JBOSS_HOME_610/client/hibernate-jpa-2.0-api.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/hibernate-validator.jar" value="JBOSS_HOME_610/client/hibernate-validator.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/hornetq-core-client.jar" value="JBOSS_HOME_610/client/hornetq-core-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/hornetq-jms-client.jar" value="JBOSS_HOME_610/client/hornetq-jms-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jacorb.jar" value="JBOSS_HOME_610/client/jacorb.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/javassist.jar" value="JBOSS_HOME_610/client/javassist.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/javax.inject.jar" value="JBOSS_HOME_610/client/javax.inject.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jaxb-impl.jar" value="JBOSS_HOME_610/client/jaxb-impl.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jaxb-xjc.jar" value="JBOSS_HOME_610/client/jaxb-xjc.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jaxws-httpserver-httpspi.jar" value="JBOSS_HOME_610/client/jaxws-httpserver-httpspi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jaxws-rt.jar" value="JBOSS_HOME_610/client/jaxws-rt.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jaxws-tools.jar" value="JBOSS_HOME_610/client/jaxws-tools.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-annotations-api_1.1_spec.jar" value="JBOSS_HOME_610/client/jboss-annotations-api_1.1_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-aop-client.jar" value="JBOSS_HOME_610/client/jboss-aop-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-appclient.jar" value="JBOSS_HOME_610/client/jboss-appclient.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-aspect-jdk50-client.jar" value="JBOSS_HOME_610/client/jboss-aspect-jdk50-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-classpool-jbosscl.jar" value="JBOSS_HOME_610/client/jboss-classpool-jbosscl.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-classpool-scoped.jar" value="JBOSS_HOME_610/client/jboss-classpool-scoped.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-classpool.jar" value="JBOSS_HOME_610/client/jboss-classpool.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-client.jar" value="JBOSS_HOME_610/client/jboss-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-common-core.jar" value="JBOSS_HOME_610/client/jboss-common-core.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-connector-api_1.5_spec.jar" value="JBOSS_HOME_610/client/jboss-connector-api_1.5_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-deployers-client-spi.jar" value="JBOSS_HOME_610/client/jboss-deployers-client-spi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-deployers-client.jar" value="JBOSS_HOME_610/client/jboss-deployers-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-deployers-core-spi.jar" value="JBOSS_HOME_610/client/jboss-deployers-core-spi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-deployers-core.jar" value="JBOSS_HOME_610/client/jboss-deployers-core.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-deployers-vfs-spi.jar" value="JBOSS_HOME_610/client/jboss-deployers-vfs-spi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-deployers-vfs.jar" value="JBOSS_HOME_610/client/jboss-deployers-vfs.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-deployment.jar" value="JBOSS_HOME_610/client/jboss-deployment.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb-api_3.1_spec.jar" value="JBOSS_HOME_610/client/jboss-ejb-api_3.1_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-async-impl.jar" value="JBOSS_HOME_610/client/jboss-ejb3-async-impl.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-async-spi.jar" value="JBOSS_HOME_610/client/jboss-ejb3-async-spi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-common-client.jar" value="JBOSS_HOME_610/client/jboss-ejb3-common-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-context-spi.jar" value="JBOSS_HOME_610/client/jboss-ejb3-context-spi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-core-client.jar" value="JBOSS_HOME_610/client/jboss-ejb3-core-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-embedded-standalone.jar" value="JBOSS_HOME_610/client/jboss-ejb3-embedded-standalone.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-ext-api-impl.jar" value="JBOSS_HOME_610/client/jboss-ejb3-ext-api-impl.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-ext-api.jar" value="JBOSS_HOME_610/client/jboss-ejb3-ext-api.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-proxy-clustered-client.jar" value="JBOSS_HOME_610/client/jboss-ejb3-proxy-clustered-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-proxy-impl-client.jar" value="JBOSS_HOME_610/client/jboss-ejb3-proxy-impl-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-proxy-spi-client.jar" value="JBOSS_HOME_610/client/jboss-ejb3-proxy-spi-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-security-client.jar" value="JBOSS_HOME_610/client/jboss-ejb3-security-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ejb3-singleton-proxy-impl.jar" value="JBOSS_HOME_610/client/jboss-ejb3-singleton-proxy-impl.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-el-api_2.2_spec.jar" value="JBOSS_HOME_610/client/jboss-el-api_2.2_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ha-client.jar" value="JBOSS_HOME_610/client/jboss-ha-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-ha-legacy-client.jar" value="JBOSS_HOME_610/client/jboss-ha-legacy-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-integration.jar" value="JBOSS_HOME_610/client/jboss-integration.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-interceptor-core.jar" value="JBOSS_HOME_610/client/jboss-interceptor-core.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-interceptor-spi.jar" value="JBOSS_HOME_610/client/jboss-interceptor-spi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-interceptors-api_1.1_spec.jar" value="JBOSS_HOME_610/client/jboss-interceptors-api_1.1_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-j2se.jar" value="JBOSS_HOME_610/client/jboss-j2se.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jacc-api_1.4_spec.jar" value="JBOSS_HOME_610/client/jboss-jacc-api_1.4_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jad-api_1.2_spec.jar" value="JBOSS_HOME_610/client/jboss-jad-api_1.2_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jaspi-api_1.0_spec.jar" value="JBOSS_HOME_610/client/jboss-jaspi-api_1.0_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jaxb-api_2.2_spec.jar" value="JBOSS_HOME_610/client/jboss-jaxb-api_2.2_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jaxr-api_1.0_spec.jar" value="JBOSS_HOME_610/client/jboss-jaxr-api_1.0_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jaxrpc-api_1.1_spec.jar" value="JBOSS_HOME_610/client/jboss-jaxrpc-api_1.1_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jaxws-api_2.2_spec.jar" value="JBOSS_HOME_610/client/jboss-jaxws-api_2.2_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jms-api_1.1_spec.jar" value="JBOSS_HOME_610/client/jboss-jms-api_1.1_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jmx-annotations.jar" value="JBOSS_HOME_610/client/jboss-jmx-annotations.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jmx.jar" value="JBOSS_HOME_610/client/jboss-jmx.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jsp-api_2.2_spec.jar" value="JBOSS_HOME_610/client/jboss-jsp-api_2.2_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-jsr77-client.jar" value="JBOSS_HOME_610/client/jboss-jsr77-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-logging.jar" value="JBOSS_HOME_610/client/jboss-logging.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-managed.jar" value="JBOSS_HOME_610/client/jboss-managed.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-marshalling-river.jar" value="JBOSS_HOME_610/client/jboss-marshalling-river.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-marshalling.jar" value="JBOSS_HOME_610/client/jboss-marshalling.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-mdr.jar" value="JBOSS_HOME_610/client/jboss-mdr.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-metadata-client.jar" value="JBOSS_HOME_610/client/jboss-metadata-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-metadata-common.jar" value="JBOSS_HOME_610/client/jboss-metadata-common.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-metadata-ear.jar" value="JBOSS_HOME_610/client/jboss-metadata-ear.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-metadata-ejb.jar" value="JBOSS_HOME_610/client/jboss-metadata-ejb.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-metadata-rar.jar" value="JBOSS_HOME_610/client/jboss-metadata-rar.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-metadata-war.jar" value="JBOSS_HOME_610/client/jboss-metadata-war.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-metatype.jar" value="JBOSS_HOME_610/client/jboss-metatype.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-profileservice-client.jar" value="JBOSS_HOME_610/client/jboss-profileservice-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-profileservice-spi.jar" value="JBOSS_HOME_610/client/jboss-profileservice-spi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-remoting-3.jar" value="JBOSS_HOME_610/client/jboss-remoting-3.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-remoting.jar" value="JBOSS_HOME_610/client/jboss-remoting.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-security-spi.jar" value="JBOSS_HOME_610/client/jboss-security-spi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-serialization.jar" value="JBOSS_HOME_610/client/jboss-serialization.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-servlet-api_3.0_spec.jar" value="JBOSS_HOME_610/client/jboss-servlet-api_3.0_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-srp-client.jar" value="JBOSS_HOME_610/client/jboss-srp-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-system-client.jar" value="JBOSS_HOME_610/client/jboss-system-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-system-jmx-client.jar" value="JBOSS_HOME_610/client/jboss-system-jmx-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jboss-transaction-api_1.1_spec.jar" value="JBOSS_HOME_610/client/jboss-transaction-api_1.1_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossall-client.jar" value="JBOSS_HOME_610/client/jbossall-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossjmx-ant.jar" value="JBOSS_HOME_610/client/jbossjmx-ant.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossjts-integration.jar" value="JBOSS_HOME_610/client/jbossjts-integration.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossjts.jar" value="JBOSS_HOME_610/client/jbossjts.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbosssx-as-client.jar" value="JBOSS_HOME_610/client/jbosssx-as-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbosssx-client.jar" value="JBOSS_HOME_610/client/jbosssx-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossws-common.jar" value="JBOSS_HOME_610/client/jbossws-common.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossws-cxf-client.jar" value="JBOSS_HOME_610/client/jbossws-cxf-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossws-cxf-transports-httpserver.jar" value="JBOSS_HOME_610/client/jbossws-cxf-transports-httpserver.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossws-framework.jar" value="JBOSS_HOME_610/client/jbossws-framework.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossws-native-core.jar" value="JBOSS_HOME_610/client/jbossws-native-core.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossws-spi.jar" value="JBOSS_HOME_610/client/jbossws-spi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jbossxb.jar" value="JBOSS_HOME_610/client/jbossxb.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jettison.jar" value="JBOSS_HOME_610/client/jettison.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jmx-invoker-adaptor-client.jar" value="JBOSS_HOME_610/client/jmx-invoker-adaptor-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jnp-client.jar" value="JBOSS_HOME_610/client/jnp-client.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/jsr181-api.jar" value="JBOSS_HOME_610/client/jsr181-api.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/log4j.jar" value="JBOSS_HOME_610/client/log4j.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/logkit.jar" value="JBOSS_HOME_610/client/logkit.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/mail.jar" value="JBOSS_HOME_610/client/mail.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/neethi.jar" value="JBOSS_HOME_610/client/neethi.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/netty.jar" value="JBOSS_HOME_610/client/netty.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/policy.jar" value="JBOSS_HOME_610/client/policy.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/scout.jar" value="JBOSS_HOME_610/client/scout.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/serializer.jar" value="JBOSS_HOME_610/client/serializer.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/slf4j-api.jar" value="JBOSS_HOME_610/client/slf4j-api.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/slf4j-jboss-logging.jar" value="JBOSS_HOME_610/client/slf4j-jboss-logging.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/stax-api.jar" value="JBOSS_HOME_610/client/stax-api.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/stax-ex.jar" value="JBOSS_HOME_610/client/stax-ex.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/streambuffer.jar" value="JBOSS_HOME_610/client/streambuffer.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/trove.jar" value="JBOSS_HOME_610/client/trove.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/validation-api.jar" value="JBOSS_HOME_610/client/validation-api.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/velocity.jar" value="JBOSS_HOME_610/client/velocity.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/weld-api.jar" value="JBOSS_HOME_610/client/weld-api.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/wsdl4j.jar" value="JBOSS_HOME_610/client/wsdl4j.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/wss4j.jar" value="JBOSS_HOME_610/client/wss4j.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/wstx-lgpl.jar" value="JBOSS_HOME_610/client/wstx-lgpl.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/xalan.jar" value="JBOSS_HOME_610/client/xalan.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/xercesImpl.jar" value="JBOSS_HOME_610/client/xercesImpl.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/xml-resolver.jar" value="JBOSS_HOME_610/client/xml-resolver.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/XmlSchema.jar" value="JBOSS_HOME_610/client/XmlSchema.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/client/xmlsec.jar" value="JBOSS_HOME_610/client/xmlsec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/lib/endorsed/activation.jar" value="JBOSS_HOME_610/lib/endorsed/activation.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/lib/endorsed/jboss-annotations-api_1.1_spec.jar" value="JBOSS_HOME_610/lib/endorsed/jboss-annotations-api_1.1_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/lib/endorsed/jboss-jaxb-api_2.2_spec.jar" value="JBOSS_HOME_610/lib/endorsed/jboss-jaxb-api_2.2_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/lib/endorsed/jboss-jaxws-api_2.2_spec.jar" value="JBOSS_HOME_610/lib/endorsed/jboss-jaxws-api_2.2_spec.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/lib/endorsed/jbossws-cxf-factories.jar" value="JBOSS_HOME_610/lib/endorsed/jbossws-cxf-factories.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/lib/endorsed/stax-api.jar" value="JBOSS_HOME_610/lib/endorsed/stax-api.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/server/equivida/lib/db2jcc4.jar" value="JBOSS_HOME_610/server/equivida/lib/db2jcc4.jar" />
+    <varelement var="file://$JBOSS_HOME_610$/lib/jbosssx.jar" value="JBOSS_HOME_610/lib/jbosssx.jar" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+      <src_folder value="file://$MODULE_DIR$/test" expected_position="1" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="activation.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/activation.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="antlr.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/antlr.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="asm.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/asm.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cdi-api.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cdi-api.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-beanutils.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/commons-beanutils.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-collections.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/commons-collections.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-lang.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/commons-lang.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="concurrent.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/concurrent.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-api.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-api.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-common-schemas.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-common-schemas.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-common-utilities.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-common-utilities.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-bindings-coloc.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-bindings-coloc.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-bindings-http.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-bindings-http.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-bindings-object.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-bindings-object.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-bindings-soap.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-bindings-soap.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-bindings-xml.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-bindings-xml.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-core.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-core.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-databinding-aegis.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-databinding-aegis.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-databinding-jaxb.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-databinding-jaxb.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-frontend-jaxws.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-frontend-jaxws.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-frontend-simple.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-frontend-simple.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-management.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-management.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-transports-http.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-transports-http.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-transports-jms.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-transports-jms.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-transports-local.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-transports-local.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-ws-addr.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-ws-addr.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-ws-policy.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-ws-policy.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-ws-rm.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-ws-rm.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-rt-ws-security.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-rt-ws-security.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-tools-common.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-tools-common.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-tools-java2ws.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-tools-java2ws.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-tools-validator.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-tools-validator.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-tools-wsdlto-core.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-tools-wsdlto-core.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-tools-wsdlto-databinding-jaxb.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-tools-wsdlto-databinding-jaxb.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-tools-wsdlto-frontend-jaxws.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-tools-wsdlto-frontend-jaxws.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-xjc-boolean.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-xjc-boolean.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-xjc-bug671.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-xjc-bug671.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-xjc-dv.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-xjc-dv.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cxf-xjc-ts.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/cxf-xjc-ts.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="FastInfoset.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/FastInfoset.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="getopt.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/getopt.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hibernate-commons-annotations.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/hibernate-commons-annotations.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hibernate-core.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/hibernate-core.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hibernate-jpa-2.0-api.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/hibernate-jpa-2.0-api.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hibernate-validator.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/hibernate-validator.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hornetq-core-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/hornetq-core-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hornetq-jms-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/hornetq-jms-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jacorb.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jacorb.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="javassist.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/javassist.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="javax.inject.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/javax.inject.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jaxb-impl.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jaxb-impl.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jaxb-xjc.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jaxb-xjc.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jaxws-httpserver-httpspi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jaxws-httpserver-httpspi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jaxws-rt.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jaxws-rt.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jaxws-tools.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jaxws-tools.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-annotations-api_1.1_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-annotations-api_1.1_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-aop-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-aop-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-appclient.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-appclient.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-aspect-jdk50-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-aspect-jdk50-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-classpool-jbosscl.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-classpool-jbosscl.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-classpool-scoped.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-classpool-scoped.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-classpool.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-classpool.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-common-core.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-common-core.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-connector-api_1.5_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-connector-api_1.5_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-deployers-client-spi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-deployers-client-spi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-deployers-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-deployers-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-deployers-core-spi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-deployers-core-spi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-deployers-core.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-deployers-core.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-deployers-vfs-spi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-deployers-vfs-spi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-deployers-vfs.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-deployers-vfs.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-deployment.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-deployment.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb-api_3.1_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb-api_3.1_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-async-impl.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-async-impl.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-async-spi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-async-spi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-common-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-common-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-context-spi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-context-spi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-core-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-core-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-embedded-standalone.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-embedded-standalone.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-ext-api-impl.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-ext-api-impl.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-ext-api.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-ext-api.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-proxy-clustered-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-proxy-clustered-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-proxy-impl-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-proxy-impl-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-proxy-spi-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-proxy-spi-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-security-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-security-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ejb3-singleton-proxy-impl.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ejb3-singleton-proxy-impl.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-el-api_2.2_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-el-api_2.2_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ha-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ha-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-ha-legacy-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-ha-legacy-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-integration.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-integration.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-interceptor-core.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-interceptor-core.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-interceptor-spi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-interceptor-spi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-interceptors-api_1.1_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-interceptors-api_1.1_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-j2se.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-j2se.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jacc-api_1.4_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jacc-api_1.4_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jad-api_1.2_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jad-api_1.2_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jaspi-api_1.0_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jaspi-api_1.0_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jaxb-api_2.2_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jaxb-api_2.2_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jaxr-api_1.0_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jaxr-api_1.0_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jaxrpc-api_1.1_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jaxrpc-api_1.1_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jaxws-api_2.2_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jaxws-api_2.2_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jms-api_1.1_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jms-api_1.1_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jmx-annotations.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jmx-annotations.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jmx.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jmx.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jsp-api_2.2_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jsp-api_2.2_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-jsr77-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-jsr77-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-logging.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-logging.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-managed.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-managed.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-marshalling-river.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-marshalling-river.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-marshalling.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-marshalling.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-mdr.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-mdr.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-metadata-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-metadata-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-metadata-common.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-metadata-common.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-metadata-ear.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-metadata-ear.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-metadata-ejb.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-metadata-ejb.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-metadata-rar.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-metadata-rar.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-metadata-war.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-metadata-war.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-metatype.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-metatype.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-profileservice-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-profileservice-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-profileservice-spi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-profileservice-spi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-remoting-3.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-remoting-3.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-remoting.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-remoting.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-security-spi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-security-spi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-serialization.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-serialization.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-servlet-api_3.0_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-servlet-api_3.0_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-srp-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-srp-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-system-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-system-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-system-jmx-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-system-jmx-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-transaction-api_1.1_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jboss-transaction-api_1.1_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossall-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossall-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossjmx-ant.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossjmx-ant.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossjts-integration.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossjts-integration.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossjts.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossjts.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbosssx-as-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbosssx-as-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbosssx-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbosssx-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossws-common.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossws-common.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossws-cxf-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossws-cxf-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossws-cxf-transports-httpserver.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossws-cxf-transports-httpserver.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossws-framework.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossws-framework.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossws-native-core.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossws-native-core.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossws-spi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossws-spi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossxb.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jbossxb.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jettison.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jettison.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jmx-invoker-adaptor-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jmx-invoker-adaptor-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jnp-client.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jnp-client.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jsr181-api.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/jsr181-api.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="log4j.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/log4j.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="logkit.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/logkit.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="mail.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/mail.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="neethi.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/neethi.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="netty.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/netty.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="policy.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/policy.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="scout.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/scout.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="serializer.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/serializer.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="slf4j-api.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/slf4j-api.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="slf4j-jboss-logging.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/slf4j-jboss-logging.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="stax-api.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/stax-api.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="stax-ex.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/stax-ex.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="streambuffer.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/streambuffer.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="trove.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/trove.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="validation-api.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/validation-api.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="velocity.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/velocity.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="weld-api.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/weld-api.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="wsdl4j.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/wsdl4j.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="wss4j.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/wss4j.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="wstx-lgpl.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/wstx-lgpl.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xalan.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/xalan.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xercesImpl.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/xercesImpl.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xml-resolver.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/xml-resolver.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="XmlSchema.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/XmlSchema.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xmlsec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/client/xmlsec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="junit4">
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="JBOSS_HOME_610/lib/endorsed/activation.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/lib/endorsed/activation.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="JBOSS_HOME_610/lib/endorsed/jboss-annotations-api_1.1_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/lib/endorsed/jboss-annotations-api_1.1_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="JBOSS_HOME_610/lib/endorsed/jboss-jaxb-api_2.2_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/lib/endorsed/jboss-jaxb-api_2.2_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="JBOSS_HOME_610/lib/endorsed/jboss-jaxws-api_2.2_spec.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/lib/endorsed/jboss-jaxws-api_2.2_spec.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbossws-cxf-factories.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/lib/endorsed/jbossws-cxf-factories.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="JBOSS_HOME_610/lib/endorsed/stax-api.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/lib/endorsed/stax-api.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="db2jcc4.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/server/equivida/lib/db2jcc4.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbosssx.jar">
+        <CLASSES>
+          <root url="file://$JBOSS_HOME_610$/lib/jbosssx.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="saviasoft-persistence-util-4.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/saviasoft-persistence-util-4.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/saviasoft-persistence-util-4.2.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="equivida-ws-cliente" />
+    <orderEntry type="jdk" jdkName="JavaSE-1.6" jdkType="JavaSDK" />
+  </component>
+</module>

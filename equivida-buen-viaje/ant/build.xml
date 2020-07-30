@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+
+<!-- =====================================================  -->
+<!-- Ant Build para el Proyecto equivida-servicio           -->
+<!-- Elaborado por Saviasoft                       		  	-->
+<!-- =====================================================  -->
+
+<project name="equivida-buen-viaje" default="deploy" basedir=".">
+
+	<property name="build.sysclasspath" value="last"/>
+	<property file="build.properties" />
+	<property name="app.dir" location=".." />
+
+	<!-- Directorio con clases compiladas -->
+	<property name="classes.dir" location="${app.dir}/build/classes" />
+
+	<property name="dist.dir" location="${app.dir}/dist" />
+	<property name="lib.dir" location="${app.dir}/lib" />
+
+	<property name="src.dir" location="${app.dir}/src" />
+
+	<property name="ejb.equivida.smartdata.module.dir" location="../../${ejb.equivida.smartdata.module.name}/dist" />
+	<property name="ejb.equivida.servicio.module.dir" location="../../${ejb.equivida.servicio.module.name}/dist" />
+
+	<target name="init">
+		<path id="build.classpath">
+			<fileset dir="${jboss.home}/client">
+				<include name="jboss-ejb-api_3.1_spec.jar" />
+			</fileset>
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${ejb.equivida.smartdata.module.dir}">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${ejb.equivida.servicio.module.dir}">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${jboss.home}/client">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${jboss.home}/server/${jboss.server.configuration}/lib">
+				<include name="*.jar" />
+			</fileset>
+		</path>
+	</target>
+
+	<target name="clean">
+		<delete dir="${dist.dir}" />
+		<delete dir="${classes.dir}" />
+	</target>
+
+	<target name="build" depends="init" description="Compila las clases">
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${classes.dir}/META-INF" />
+		<javac destdir="${classes.dir}" debug="on" deprecation="on" optimize="off" target="1.5" encoding="ISO-8859-1" fork="true" executable="${javac.location}" source="1.5">
+			<src path="${src.dir}" />
+			<classpath refid="build.classpath" />
+			<!-- Descomentar si se quieren ver los Warnings -->
+			<!--compilerarg value="-Xlint:unchecked"/-->
+		</javac>
+		<copy todir="${classes.dir}">
+			<fileset file="${src.dir}/import.sql" />
+		</copy>
+		<copy todir="${classes.dir}/META-INF">
+			<fileset dir="${src.dir}/META-INF" />
+		</copy>
+	</target>
+
+	<target name="jar" depends="clean, build" description="Crea un JAR">
+		<mkdir dir="${dist.dir}" />
+		<jar jarfile="${dist.dir}/${project.name}-${project.version}.jar" manifest="${classes.dir}/META-INF/MANIFEST.MF">
+			<fileset dir="${classes.dir}" />
+		</jar>
+	</target>
+
+	<!-- ========================================= -->
+	<!-- deploy - deploy artifact to server        -->
+	<!-- ========================================= -->
+
+	<target name="deploy" depends="jar" description="Copia el archivo JAR en el directorio deploy del server">
+		<copy file="${dist.dir}/${project.name}-${project.version}.jar" todir="${jboss.deploy.dir}" />
+	</target>
+
+	<!-- ========================================= -->
+	<!-- undeploy - undeploy artifact from server        -->
+	<!-- ========================================= -->
+
+	<target name="undeploy" description="Quita el archivo JAR en el directorio deploy del server">
+		<delete file="${jboss.deploy.dir}/${project.name}-${project.version}.jar" />
+	</target>
+
+	<target name="clean-jboss" description="elimina archivos temp del jboss">
+		<delete dir="${jboss.deploy.dir}/../data" />
+		<delete dir="${jboss.deploy.dir}/../tmp" />
+		<delete dir="${jboss.deploy.dir}/../log" />
+		<delete dir="${jboss.deploy.dir}/../work" />
+	</target>
+</project>

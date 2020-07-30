@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"><h:panelGrid columns="2"
+	columnClasses="etiqueta">
+
+
+	<h:outputText value="#{etiquetas['beneficiarios']} *" />
+	<div />
+
+	<h:panelGrid columns="1">
+		<a4j:commandLink id="btnBeneficiarioPoliza" title="#{botones['nuevo']}" 
+			actionListener="#{personaNaturalCtrl.crearBeneficiarioPoliza}"
+			execute="tblBeneficiarioPoliza" render="pnlBeneficiarioPoliza" onclick="this.focus();">
+			<h:graphicImage value="/img/nuevo.png" />
+		</a4j:commandLink>
+		<a4j:outputPanel id="pnlBeneficiarioPoliza">
+			<rich:dataTable id="tblBeneficiarioPoliza"
+				value="#{personaNaturalCtrl.personaNatural.persona.beneficiarioPolizaCollection}"
+				var="varBneneficiario" 
+				rendered="#{not empty personaNaturalCtrl.personaNatural.persona.beneficiarioPolizaCollection}">
+
+
+
+				<rich:column>
+
+
+<h:panelGrid columns="4" columnClasses="etiqueta">
+
+<h:outputLabel value="#{etiquetas['tipo.identificacion']} *" for="txtTipoId"/>
+
+					<h:selectOneMenu enableManualInput="true" id="txtTipoId"
+						value="#{varBneneficiario.beneficiario.tipoIdentificacion.codTipoIdentificacion}">
+						<f:selectItems value="#{selectCtrl.tipoDocumentoParaBeneficiacioItems}" />
+						<f:ajax event="change" render="gridDatosBeneficiario" />
+					</h:selectOneMenu>
+
+<h:outputLabel value="#{etiquetas['identificacion']}" for="idTxtIdentB"/>
+<h:panelGroup>
+					<h:inputText id="idTxtIdentB"
+						value="#{varBneneficiario.beneficiario.identificacion}">
+						<f:ajax event="blur" render="tblBeneficiarioPoliza"
+							execute="@this"
+							listener="#{personaNaturalCtrl.buscarBeneficiarioPorIdentificacion}">
+						</f:ajax>
+					</h:inputText>
+<rich:messages for="idTxtIdentB"/>
+</h:panelGroup>
+</h:panelGrid>
+
+<a4j:outputPanel id="gridDatosBeneficiario">
+
+<!-- persona natural -->
+<h:panelGrid columns="4" columnClasses="etiqueta" rendered="#{varBneneficiario.beneficiario.tipoIdentificacion.codTipoIdentificacion=='C'}">
+
+<h:outputLabel value="#{etiquetas['apellido.paterno']}" />
+
+
+<h:panelGrid columns="1">
+					<h:inputText id="benApPat"
+						value="#{varBneneficiario.beneficiario.apellidoPaterno}" required="true"
+								requiredMessage="#{mensajes['requerido']}" maxlength="16" style="text-transform:uppercase;">
+					
+					<f:ajax event="blur" render=":SSIPNForm:popupsNombres :formSugerencia :formNoValido"
+				listener="#{personaNaturalCtrl.verificarNombresBeneficiario}" execute="benApPat benApeMat benPrimerNombre benSegNombre"/>
+								
+					</h:inputText>
+					
+<rich:message for="benApPat" />
+</h:panelGrid>
+
+<h:outputLabel value="#{etiquetas['apellido.materno']}" for="benApeMat"/>
+
+<h:panelGrid columns="1">
+<h:inputText id="benApeMat" value="#{varBneneficiario.beneficiario.apellidoMaterno}" maxlength="16" style="text-transform:uppercase;">
+<f:ajax event="blur" render=":SSIPNForm:popupsNombres :formSugerencia :formNoValido"
+				listener="#{personaNaturalCtrl.verificarNombresBeneficiario}" execute="benApPat benApeMat benPrimerNombre benSegNombre"/>
+</h:inputText>
+					<rich:message for="benApeMat" />
+</h:panelGrid>
+
+
+<h:outputLabel value="#{etiquetas['primer.nombre']}" for="benPrimerNombre"/>
+<h:panelGrid columns="1">
+<h:inputText id="benPrimerNombre" value="#{varBneneficiario.beneficiario.primerNombre}" required="true"	requiredMessage="#{mensajes['requerido']}" maxlength="16" style="text-transform:uppercase;">
+<f:ajax event="blur" render=":SSIPNForm:popupsNombres :formSugerencia :formNoValido"
+				listener="#{personaNaturalCtrl.verificarNombresBeneficiario}" execute="benApPat benApeMat benPrimerNombre benSegNombre"/>
+				</h:inputText>
+<rich:message for="benPrimerNombre" />
+</h:panelGrid>
+
+<h:outputLabel value="#{etiquetas['segundo.nombre']}" for="benSegNombre"/>
+<h:panelGrid columns="1">
+<h:inputText id="benSegNombre" value="#{varBneneficiario.beneficiario.segundoNombre}" maxlength="16" style="text-transform:uppercase;">
+<f:ajax event="blur" render=":SSIPNForm:popupsNombres :formSugerencia :formNoValido"
+				listener="#{personaNaturalCtrl.verificarNombresBeneficiario}" execute="benApPat benApeMat benPrimerNombre benSegNombre"/>
+</h:inputText>
+<rich:message for="benSegNombre" />
+</h:panelGrid>
+
+
+
+</h:panelGrid>
+
+<!-- persona juridica -->
+<h:panelGrid columns="2" columnClasses="etiqueta" id="gridDatosBeneficiarioPJ" rendered="#{varBneneficiario.beneficiario.tipoIdentificacion.codTipoIdentificacion=='R'}">
+
+<h:outputLabel value="#{etiquetas['razon.social']}" />
+<h:panelGroup>
+<h:inputText id="benDeno" value="#{varBneneficiario.beneficiario.denominacion}" required="true"
+								requiredMessage="#{mensajes['requerido']}" maxlength="128" style="width:260px;"/>
+								
+<rich:message for="benDeno" />
+</h:panelGroup>
+
+</h:panelGrid>
+
+</a4j:outputPanel>
+
+
+</rich:column>
+
+				
+
+				<rich:column style="text-align: center;">
+					<f:facet name="header">#{etiquetas['parentesco']}</f:facet>
+					<h:panelGrid columns="1">
+<h:selectOneMenu id="cmbParentescoBen"
+ value="#{varBneneficiario.tipoParentescoRelacion.codTipoParentesco}">
+  <f:selectItems
+   value="#{selectCtrl.tipoParentescoFamiliaresYNoFamiliaresItems}" />
+
+</h:selectOneMenu> 
+					</h:panelGrid>
+				</rich:column>
+
+				<rich:column style="text-align: center;">
+					<f:facet name="header">#{etiquetas['tipo.beneficiario']}</f:facet>
+					<h:selectOneMenu enableManualInput="true"
+						value="#{varBneneficiario.tipoBeneficiario}">
+						<f:selectItems value="#{selectCtrl.tipoBeneficiarioItems}" />
+					</h:selectOneMenu>
+				</rich:column>
+
+				<rich:column style="text-align: center;">
+					<f:facet name="header">#{botones['eliminar']}</f:facet>
+					<a4j:commandLink render="pnlBeneficiarioPoliza"
+						actionListener="#{personaNaturalCtrl.eliminarBeneficiarioPoliza}"
+						immediate="true">
+						<h:graphicImage value="/img/eliminar.png"
+							title="#{botones['eliminar']}" />
+					</a4j:commandLink>
+				</rich:column>
+			</rich:dataTable>
+		</a4j:outputPanel>
+	</h:panelGrid>
+</h:panelGrid></div>

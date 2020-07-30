@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<script type="text/javascript">
+	
+<!--
+	function casillaDireccion(obj){
+		var totalDirecciones=document.getElementById("SSIPNForm:totalDirecciones").value;
+			for(i=0;i<totalDirecciones;i++){
+				var idTemp="SSIPNForm:tblDirecciones:"+i+":checkPrincipal";
+					if(obj.id==idTemp){
+						document.getElementById(idTemp).checked=true;
+					}else{
+						document.getElementById(idTemp).checked=false;
+						}
+					}	
+	
+			}
+
+
+function casillaTelefonos(obj){
+
+	var totalDirecciones=document.getElementById("SSIPNForm:totalDirecciones").value;
+
+	//por cada direccion
+	for(countDir=0;countDir<totalDirecciones;countDir++){
+		var totalTelefonos=document.getElementById("SSIPNForm:tblDirecciones:"+countDir+":totalTelefonos").value;
+		for(i=0;i<totalTelefonos;i++){
+			var idTlfTemp="SSIPNForm:tblDirecciones:"+countDir+":tblTelefono:"+i+":checkTlfPrincipal";
+			if(obj.id==idTlfTemp){
+					document.getElementById(idTlfTemp).checked=true;
+			}else{
+					document.getElementById(idTlfTemp).checked=false;	
+			}
+		}	
+	}
+
+	//adicionales
+	var totalTelefonosAdicionales=document.getElementById("SSIPNForm:totalTelefonosAdicionales").value;
+	for(j=0;j<totalTelefonosAdicionales;j++){
+		var idTlfAdicionalTemp="SSIPNForm:tblTelefonoAdic:"+j+":checkTlfAdiPrincipal";
+		if(obj.id==idTlfAdicionalTemp){
+				document.getElementById(idTlfAdicionalTemp).checked=true;
+		}else{
+				document.getElementById(idTlfAdicionalTemp).checked=false;	
+		}
+	}
+
+}
+-->
+</script>
+
+	<h:panelGrid columns="2" columnClasses="etiqueta">
+
+		<h:outputText value="#{etiquetas['direcciones']}" />
+		<h:panelGrid columns="1">
+
+			<a4j:commandLink id="btnDirecciones"
+				title="#{botones['nueva.direccion']}"
+				actionListener="#{personaNaturalCtrl.crearDirecciones}"
+				execute="tblDirecciones" render="pnlDirecciones"
+				onclick="this.focus()">
+				<h:graphicImage value="/img/nuevo.png" title="#{buttons['new']}" />
+			</a4j:commandLink>
+
+			<a4j:outputPanel id="pnlDirecciones">
+				<h:inputHidden id="totalDirecciones" readonly="true"
+					value="#{personaNaturalCtrl.personaNatural.persona.totalDireccionesActivos}" />
+				<rich:dataTable id="tblDirecciones"
+					value="#{personaNaturalCtrl.personaNatural.persona.direccionActivosCollection}"
+					var="dir" rowKeyVar="countDir">
+					<rich:column>
+
+						<a4j:jsFunction name="seleccionarPaisD#{countDir}"
+							execute="autoPaisD autoPaisDHT"
+							action="#{personaNaturalCtrl.seleccionarPaisD}"
+							render="autoPaisD autoPaisDHT autoProvinciaD autoProvinciaDHT autoCantonD autoCantonDHT autoParroquiaD autoParroquiaDHT"
+							oncomplete="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoPaisDInput').focus();" />
+						<h:inputHidden id="autoPaisDHT"
+							value="#{dir.canton.provincia.pais.pais}" />
+
+
+						<a4j:jsFunction name="seleccionarProvinciaD#{countDir}"
+							execute="autoProvinciaD autoProvinciaDHT"
+							action="#{personaNaturalCtrl.seleccionarProvinciaD}"
+							render="autoProvinciaD autoProvinciaDHT"
+							oncomplete="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoProvinciaDInput').focus();" />
+						<h:inputHidden id="autoProvinciaDHT"
+							value="#{dir.canton.provincia.provincia}" />
+
+						<a4j:jsFunction name="seleccionarCantonD#{countDir}"
+							execute="autoCantonD autoCantonDHT"
+							action="#{personaNaturalCtrl.seleccionarCantonD}"
+							render="autoCantonD autoCantonDHT"
+							oncomplete="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoCantonDInput').focus();" />
+						<h:inputHidden id="autoCantonDHT" value="#{dir.canton.canton}" />
+
+						<a4j:jsFunction name="seleccionarCiudadD#{countDir}"
+							execute="autoCiudadD"
+							oncomplete="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoCiudadDInput').focus();" />
+
+						<a4j:jsFunction name="seleccionarCalleD#{countDir}"
+							execute="autoCalleD"
+							oncomplete="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoCalleDInput').focus();" />
+
+						<a4j:jsFunction name="blurSecundariaD#{countDir}"
+							actionListener="#{personaNaturalCtrl.locationWorldListener}"
+							execute="autoCiudadD autoCalleD autoCalleSD txtPiso"
+							oncomplete="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:txtEdif').focus();"
+							render="gridMsgDirLW" />
+
+
+
+						<h:panelGrid columns="4" columnClasses="etiqueta">
+							<h:outputText value="#{etiquetas['tipo']}: *" />
+							<h:selectOneMenu enableManualInput="true"
+								defaultLabel="#{etiquetas['seleccionar.uno']}"
+								value="#{dir.tipoDireccion.codTipoDireccion}">
+								<f:selectItems value="#{selectCtrl.tipoDireccionItems}" />
+							</h:selectOneMenu>
+
+							<h:outputText value="#{etiquetas['pais']}: *" />
+							<h:panelGrid columns="2">
+								<rich:autocomplete mode="cachedAjax" minChars="1"
+									autofill="false" selectFirst="true" var="varPais"
+									fetchValue="#{varPais.codPais}|#{varPais.pais}" id="autoPaisD"
+									required="true" requiredMessage="#{mensajes['requerido']}"
+									autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+									value="#{dir.canton.provincia.pais.pais}"
+									onselectitem="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoPaisDInput').style.color='white';eval('seleccionarPaisD#{countDir}()');"
+									onblur="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoPaisDInput').value=document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoPaisDHT').value">
+									<rich:column>
+										<h:outputText value="#{varPais.pais}" />
+									</rich:column>
+								</rich:autocomplete>
+								<rich:message for="autoPaisD" />
+							</h:panelGrid>
+
+							<h:outputLabel value="#{etiquetas['provincia']}: *" />
+							<h:panelGrid columns="2">
+								<rich:autocomplete id="autoProvinciaD" mode="cachedAjax"
+									selectFirst="true" minChars="1" autofill="false"
+									var="varProvincia" required="true"
+									requiredMessage="#{mensajes['requerido']}"
+									fetchValue="#{varProvincia.secProvincia}|#{varProvincia.provincia}|#{varProvincia.codArea}"
+									autocompleteMethod="#{personaNaturalCtrl.autocompleteProvinciaD}"
+									value="#{dir.canton.provincia.provincia}"
+									onselectitem="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoProvinciaDInput').style.color='white';eval('seleccionarProvinciaD#{countDir}()');"
+									onblur="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoProvinciaDInput').value=document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoProvinciaDHT').value">
+									<rich:column>
+										<h:outputText value="#{varProvincia.provincia}" />
+									</rich:column>
+								</rich:autocomplete>
+								<rich:message for="autoProvinciaD" />
+							</h:panelGrid>
+
+							<h:outputLabel value="#{etiquetas['canton']}: *" />
+							<h:panelGrid columns="2">
+								<rich:autocomplete id="autoCantonD" mode="cachedAjax"
+									selectFirst="true" minChars="1" autofill="false"
+									var="varCanton"
+									fetchValue="#{varCanton.secCanton}|#{varCanton.canton}"
+									autocompleteMethod="#{personaNaturalCtrl.autocompleteCantonD}"
+									value="#{dir.canton.canton}" required="true"
+									requiredMessage="#{mensajes['requerido']}"
+									onselectitem="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoCantonDInput').style.color='white';eval('seleccionarCantonD#{countDir}()');"
+									onblur="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoCantonDInput').value=document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:autoCantonDHT').value">
+									<rich:column>
+										<h:outputText value="#{varCanton.canton}" />
+									</rich:column>
+								</rich:autocomplete>
+								<rich:message for="autoCantonD" />
+							</h:panelGrid>
+
+							<h:outputLabel value="#{etiquetas['ciudad']}: *" />
+							<h:panelGrid columns="2">
+								<rich:autocomplete id="autoCiudadD" mode="cachedAjax"
+									selectFirst="true" minChars="1" autofill="false"
+									var="varCiudad" fetchValue="#{varCiudad}"
+									autocompleteMethod="#{personaNaturalCtrl.autocompleteCiudadConLW}"
+									value="#{dir.ciudad}" required="true"
+									requiredMessage="#{mensajes['requerido']}"
+									onselectitem="eval('seleccionarCiudadD#{countDir}()');">
+									<rich:column>
+										<h:outputText value="#{varCiudad}" />
+									</rich:column>
+								</rich:autocomplete>
+								<rich:message for="autoCiudadD" />
+							</h:panelGrid>
+
+
+							<h:outputLabel value="#{etiquetas['barrio.sector.ciudadela']}"
+								for="txtBarrio" />
+							<h:panelGrid columns="2">
+								<h:inputText id="txtBarrio" value="#{dir.barrio}" maxlength="48" />
+								<rich:message for="txtBarrio" />
+							</h:panelGrid>
+
+							<h:outputLabel value="#{etiquetas['calle.principal']}: *"
+								for="autoCalleD" />
+							<h:panelGrid columns="2">
+
+								<rich:autocomplete id="autoCalleD" mode="ajax"
+									selectFirst="true" minChars="1" autofill="false" var="varCalle"
+									fetchValue="#{varCalle}"
+									autocompleteMethod="#{personaNaturalCtrl.autocompleteCallePrincipalConLW}"
+									value="#{dir.principal}" required="true"
+									requiredMessage="#{mensajes['requerido']}"
+									onselectitem="eval('seleccionarCalleD#{countDir}()');">
+									<rich:column>
+										<h:outputText value="#{varCalle}" />
+									</rich:column>
+								</rich:autocomplete>
+
+								<rich:message id="msgAutoCalleD" for="autoCalleD" />
+							</h:panelGrid>
+
+							<h:outputLabel value="#{etiquetas['numero']}" for="txtNumero" />
+							<h:panelGrid columns="2">
+								<h:inputText id="txtNumero" value="#{dir.numero}" maxlength="8" />
+								<rich:message for="txtNumero" />
+							</h:panelGrid>
+
+							<h:outputLabel value="#{etiquetas['calle.secundaria']}" />
+							<h:panelGrid columns="2">
+
+								<rich:autocomplete id="autoCalleSD" mode="ajax"
+									selectFirst="true" minChars="1" autofill="false"
+									var="varCalleS" fetchValue="#{varCalleS}"
+									autocompleteMethod="#{personaNaturalCtrl.autocompleteCalleSecundariaConLW}"
+									value="#{dir.secundaria}"
+									onblur="eval('blurSecundariaD#{countDir}()');">
+									<rich:column>
+										<h:outputText value="#{varCalleS}" />
+									</rich:column>
+								</rich:autocomplete>
+
+								<rich:message for="autoCalleSD" />
+							</h:panelGrid>
+
+							<h:outputLabel
+								value="#{etiquetas['edificio.condominio.manzana']}" />
+							<h:inputText value="#{dir.edificio}" maxlength="32" id="txtEdif" />
+
+							<h:outputLabel value="#{etiquetas['piso']}" />
+							<h:panelGrid columns="2">
+								<h:inputText id="txtPiso" value="#{dir.piso}" maxlength="2"
+									size="1">
+								</h:inputText>
+								<rich:message for="txtPiso" />
+							</h:panelGrid>
+
+							<h:outputLabel value="#{etiquetas['oficina.departamento']}" />
+							<h:inputText value="#{dir.oficina}" maxlength="16" />
+
+							<h:outputLabel value="#{etiquetas['referencia']}" />
+							<h:panelGroup>
+								<h:inputTextarea id="txtReferec" value="#{dir.referencia}">
+									<f:validateLength maximum="126" />
+								</h:inputTextarea>
+								<rich:message for="txtReferec" />
+							</h:panelGroup>
+							<h:panelGrid columns="1" id="gridMsgDirLW">
+								<h:outputText id="msgDirLW"
+									style="color:#FF6633;font-weight:bold;font-size:14px"
+									value="#{mensajes['direccion.no.validada']}"
+									rendered="#{dir.mostrarNoCargoLW}" />
+							</h:panelGrid>
+						</h:panelGrid>
+						<h:panelGrid columns="2" columnClasses="etiqueta">
+
+							<h:outputLabel value="#{etiquetas['telefonos']}" />
+							<h:panelGrid columns="1">
+								<a4j:commandLink id="btnTelefono"
+									title="#{botones['nuevo.telefono']}"
+									actionListener="#{personaNaturalCtrl.crearDireccionTelefono}"
+									execute="tblTelefono" render="pnlDireccionTelefono"
+									onclick="this.focus()">
+									<h:graphicImage value="/img/nuevo.png" />
+								</a4j:commandLink>
+								<a4j:outputPanel id="pnlDireccionTelefono">
+									<h:inputHidden id="totalTelefonos" readonly="true"
+										value="#{dir.totalActivosTelefono}" />
+									<rich:dataTable id="tblTelefono"
+										value="#{dir.direccionTelefonoActivosCollection}" var="dt"
+										rendered="#{not empty dir.direccionTelefonoActivosCollection}"
+										rowKeyVar="countDT">
+										<f:facet name="header">
+											<rich:columnGroup>
+												<rich:column style="text-align: center;">
+									#{etiquetas['tipo']}
+									</rich:column>
+												<rich:column style="text-align: center;">
+									#{etiquetas['pais']}
+									</rich:column>
+												<rich:column style="text-align: center;">
+									#{etiquetas['codigo.area']}
+									</rich:column>
+												<rich:column style="text-align: center;">
+									#{etiquetas['numero']}
+									</rich:column>
+												<rich:column style="text-align: center;">
+									#{etiquetas['ext']}
+									</rich:column>
+												<rich:column style="text-align: center;">
+									#{etiquetas['contacto.preferido']}
+									</rich:column>
+												<rich:column style="text-align: center;">
+									#{botones['eliminar']}
+									</rich:column>
+
+											</rich:columnGroup>
+										</f:facet>
+										<rich:column style="text-align: center;">
+
+											<h:selectOneMenu enableManualInput="true"
+												value="#{dt.telefono.tipoTelefono.codTipoTelefono}">
+												<f:selectItems value="#{selectCtrl.tipoTelefonoItems}" />
+											</h:selectOneMenu>
+
+											<a4j:jsFunction
+												name="seleccionarPaisDT#{countDir}_#{countDT}"
+												execute="autoPaisDT autoPaisDTHT"
+												action="#{personaNaturalCtrl.seleccionarPaisDT}"
+												render="autoPaisDT autoPaisDTHT"
+												oncomplete="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:tblTelefono:#{countDT}:autoPaisDTInput').focus();" />
+											<h:inputHidden id="autoPaisDTHT"
+												value="#{dt.telefono.pais.pais}" />
+
+										</rich:column>
+
+										<rich:column style="text-align: center;">
+											<h:panelGrid columns="2">
+												<rich:autocomplete mode="cachedAjax" minChars="1"
+													autofill="false" selectFirst="true" var="varPais"
+													fetchValue="#{varPais.codPais}|#{varPais.pais}"
+													id="autoPaisDT" required="true"
+													requiredMessage="#{mensajes['requerido']}"
+													autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+													value="#{dt.telefono.pais.pais}"
+													onselectitem="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:tblTelefono:#{countDT}:autoPaisDTInput').style.color='white';eval('seleccionarPaisDT#{countDir}_#{countDT}()');"
+													onblur="document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:tblTelefono:#{countDT}:autoPaisDTInput').value=document.getElementById('SSIPNForm:tblDirecciones:#{countDir}:tblTelefono:#{countDT}:autoPaisDTHT').value">
+													<rich:column>
+														<h:outputText value="#{varPais.pais}" />
+													</rich:column>
+												</rich:autocomplete>
+												<rich:message for="autoPaisDT" />
+											</h:panelGrid>
+										</rich:column>
+
+										<rich:column style="text-align: center;">
+											<h:inputText id="txtCodigoArea" size="3"
+												value="#{dt.telefono.codArea}" maxlength="4" required="true"
+												requiredMessage="#{mensajes['requerido']}" />
+											<br />
+											<rich:message for="txtCodigoArea" />
+										</rich:column>
+
+										<rich:column style="text-align: center;">
+											<h:inputText id="txtNumeroTelefono"
+												value="#{dt.telefono.nroTelefono}" maxlength="12"
+												required="true" requiredMessage="#{mensajes['requerido']}">
+												<f:ajax event="blur" execute="tblTelefono"
+													render="mensajeErrorTlf"
+													listener="#{personaNaturalCtrl.verificarTelefonoDireccion}">
+												</f:ajax>
+											</h:inputText>
+											<rich:message id="mensajeErrorTlf" for="txtNumeroTelefono" />
+										</rich:column>
+
+										<rich:column style="text-align: center;">
+											<h:inputText id="txtExt" size="3"
+												value="#{dt.telefono.extTelefono}" maxlength="8" />
+										</rich:column>
+
+										<rich:column style="text-align: center;">
+											<h:selectBooleanCheckbox id="checkTlfPrincipal"
+												value="#{dt.telefono.principal}"
+												onclick="casillaTelefonos(this)" />
+										</rich:column>
+
+										<rich:column>
+											<a4j:commandLink render="pnlDireccionTelefono"
+												actionListener="#{personaNaturalCtrl.eliminarTelefono}"
+												execute="@this">
+												<h:graphicImage value="/img/eliminar.png"
+													title="#{botones['eliminar']}" />
+											</a4j:commandLink>
+										</rich:column>
+
+									</rich:dataTable>
+								</a4j:outputPanel>
+							</h:panelGrid>
+						</h:panelGrid>
+
+					</rich:column>
+					<rich:column>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{etiquetas['envio.correspondencia']}"
+								for="checkPrincipal" />
+							<h:selectBooleanCheckbox id="checkPrincipal"
+								onclick="casillaDireccion(this)"
+								value="#{dir.direccionPrincipal}" />
+
+							<h:outputLabel value="#{botones['eliminar']}" />
+
+							<a4j:commandLink render="pnlDirecciones"
+								actionListener="#{personaNaturalCtrl.eliminarDireccion}"
+								execute="@this">
+								<h:graphicImage value="/img/eliminar.png"
+									title="#{botones['eliminar']} Dir." />
+							</a4j:commandLink>
+
+						</h:panelGrid>
+
+					</rich:column>
+
+				</rich:dataTable>
+
+			</a4j:outputPanel>
+		</h:panelGrid>
+
+	</h:panelGrid>
+</div>

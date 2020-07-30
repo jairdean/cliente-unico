@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://SrvQaTelefonos.QA_Equivida.isd.ibm.com/soapoverhttp/" xmlns:impl="http://SrvQaTelefonos.QA_Equivida.isd.ibm.com/soapoverhttp/" xmlns:intf="http://SrvQaTelefonos.QA_Equivida.isd.ibm.com/soapoverhttp/" xmlns:tns1="http://SrvQaTelefonos.QA_Equivida.isd.ibm.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <schema targetNamespace="http://SrvQaTelefonos.QA_Equivida.isd.ibm.com/soapoverhttp/" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://SrvQaTelefonos.QA_Equivida.isd.ibm.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://SrvQaTelefonos.QA_Equivida.isd.ibm.com"/>
+   <element name="QaTelefonosSrvResponse">
+    <complexType>
+     <sequence>
+      <element name="QaTelefonosSrvReturn" nillable="true" type="tns1:SrvQaTelefonosOutVar1"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="QaTelefonosSrv">
+    <complexType>
+     <sequence>
+      <element name="te_numero" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+    <schema targetNamespace="http://SrvQaTelefonos.QA_Equivida.isd.ibm.com" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <complexType name="SrvQaTelefonosOutVar1">
+    <sequence>
+     <element name="areacode_telefonos" nillable="true" type="xsd:string"/>
+     <element name="numberphone_telefonos" nillable="true" type="xsd:string"/>
+     <element name="mensaje_telefonos" nillable="true" type="xsd:string"/>
+     <element name="status" type="xsd:int"/>
+     <element name="message" nillable="true" type="xsd:string"/>
+     <element name="unhandledpattern_telefonos" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  </wsdl:types>
+  <wsdl:message name="QaTelefonosSrvResponse">
+    <wsdl:part element="impl:QaTelefonosSrvResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="QaTelefonosSrvRequest">
+    <wsdl:part element="impl:QaTelefonosSrv" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SrvQaTelefonos">
+    <wsdl:operation name="QaTelefonosSrv">
+      <wsdl:input message="impl:QaTelefonosSrvRequest" name="QaTelefonosSrvRequest">
+    </wsdl:input>
+      <wsdl:output message="impl:QaTelefonosSrvResponse" name="QaTelefonosSrvResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SrvQaTelefonosSOAPSoapBinding" type="impl:SrvQaTelefonos">
+<wsaw:UsingAddressing wsdl:required="false"/>
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="QaTelefonosSrv">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="QaTelefonosSrvRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="QaTelefonosSrvResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SrvQaTelefonos">
+    <wsdl:port binding="impl:SrvQaTelefonosSOAPSoapBinding" name="SrvQaTelefonosSOAP">
+      <wsdlsoap:address location="http://10.10.52.53:9080/wisd/QA_Equivida/SrvQaTelefonos"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

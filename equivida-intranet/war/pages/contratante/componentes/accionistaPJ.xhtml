@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<a4j:region id="accionistasRegion">
+
+		<div class="linea-baja" style="width: 100%">
+			<h:panelGrid columns="2">
+				<h:outputText value="#{etiquetas['accionistas']}" />
+				<a4j:commandLink id="btnAccionistas"
+					action="#{contratantePJCtrl.crearAccionista}"
+					execute="tblAccionistas" render="pnlAccionistas :formContratante:bar-botones">
+					<h:graphicImage value="/img/nuevo.png" title="#{buttons['new']}" />
+				</a4j:commandLink>
+			</h:panelGrid>
+		</div>
+
+		<a4j:outputPanel id="pnlAccionistas">
+			<h:inputHidden id="totalAccionistas" readonly="true"
+				value="#{fn:length(contratantePJCtrl.personaJuridica.accionistaListTraActivos)}" />
+
+			<rich:dataTable id="tblAccionistas" styleClass="margin-top-15"
+				value="#{contratantePJCtrl.personaJuridica.accionistaListTraActivos}"
+				var="acci" rowKeyVar="countAcci">
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{etiquetas['tipo']}*" />
+					</f:facet>
+					<h:selectOneMenu
+						value="#{acci.tipoParentescoRelacion.codTipoParentesco}">
+						<f:selectItems value="#{contratantePJCtrl.tipoAccionistaItems}" />
+					</h:selectOneMenu>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{etiquetas['tipo.identificacion']}*" />
+					</f:facet>
+					<h:selectOneMenu id="selTipoIdAcc"
+						value="#{acci.persona.personaNaturalTransient.tipoIdentificacion.codTipoIdentificacion}"
+						valueChangeListener="#{contratantePJCtrl.cambiarTipoIdentificacionAccionista}">
+						<f:selectItems
+							value="#{contratantePJCtrl.tipoIdentificacionItems}" />
+						<f:ajax
+							render="txtIdentificacionAcc txtActAp txtActAm txtActN1 txtActN2 :formContratante:bar-botones"></f:ajax>
+					</h:selectOneMenu>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{etiquetas['identificacion']}*" />
+					</f:facet>
+					<h:inputText id="txtIdentificacionAcc"
+						valueChangeListener="#{contratantePJCtrl.verificarSiExisteAccionista}"
+						value="#{acci.persona.personaNaturalTransient.identificacion}"
+						maxlength="15">
+						<f:ajax execute="selTipoIdAcc txtIdentificacionAcc"
+							render="msjTxtIdentificacionAcc txtActAp txtActAm txtActN1 txtActN2 :formContratante:bar-botones"></f:ajax>
+					</h:inputText>
+					<rich:message id="msjTxtIdentificacionAcc"
+						for="txtIdentificacionAcc"></rich:message>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText
+							value="#{etiquetas['apellido.paterno']} o #{etiquetas['razon.social']}*" />
+					</f:facet>
+					<h:inputText id="txtActAp"
+						value="#{acci.persona.personaNaturalTransient.apellidoPaterno}"
+						maxlength="50"
+						valueChangeListener="#{contratantePJCtrl.cambiarApellidoNombre}">
+						<f:ajax render=":formContratante:bar-botones" />
+					</h:inputText>
+					<rich:message for="txtActAp">
+					</rich:message>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{etiquetas['apellido.materno']}" />
+					</f:facet>
+					<h:inputText id="txtActAm" styleClass="inp-dis"
+						value="#{acci.persona.personaNaturalTransient.apellidoMaterno}"
+						maxlength="24" disabled="#{not acci.muestraNombres}"
+						valueChangeListener="#{contratantePJCtrl.cambiarApellidoNombre}">
+						<f:ajax render=":formContratante:bar-botones" />
+					</h:inputText>
+					<rich:message for="txtActAm">
+					</rich:message>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{etiquetas['primer.nombre']}" />
+					</f:facet>
+					<h:inputText id="txtActN1" styleClass="inp-dis"
+						value="#{acci.persona.personaNaturalTransient.primerNombre}"
+						valueChangeListener="#{contratantePJCtrl.cambiarApellidoNombre}"
+						maxlength="24" disabled="#{not acci.muestraNombres}">
+						<f:ajax render=":formContratante:bar-botones" />
+					</h:inputText>
+					<rich:message for="txtActN1">
+					</rich:message>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{etiquetas['segundo.nombre']}" />
+					</f:facet>
+					<h:inputText id="txtActN2" styleClass="inp-dis"
+						value="#{acci.persona.personaNaturalTransient.segundoNombre}"
+						maxlength="24" disabled="#{not acci.muestraNombres}"
+						valueChangeListener="#{contratantePJCtrl.cambiarApellidoNombre}">
+						<f:ajax render=":formContratante:bar-botones" />
+					</h:inputText>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">#{botones['eliminar']}</f:facet>
+					<a4j:commandLink render="pnlAccionistas"
+						actionListener="#{contratantePJCtrl.eliminarAccionista}"
+						immediate="true">
+						<h:graphicImage value="/img/eliminar.png"
+							title="#{botones['eliminar']}" />
+					</a4j:commandLink>
+				</rich:column>
+			</rich:dataTable>
+
+			<a4j:commandButton value="#{botones['revisar.listas.reservadas']}"
+				action="#{contratantePJCtrl.verificarListasAccionistas}"
+				render="panelRcs :formRcs :formContratante:bar-botones"
+				execute=":formContratante:pnlAccionistas ">
+			</a4j:commandButton>
+
+		</a4j:outputPanel>
+	</a4j:region>
+</div>

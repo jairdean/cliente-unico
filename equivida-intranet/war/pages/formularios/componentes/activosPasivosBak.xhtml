@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<br />
+<h:panelGrid columns="4"
+	columnClasses="etiqueta,textoForm,etiqueta," rendered="#{permisoCtrl.visibleActivosPasivos}">
+
+	<h:outputText value="#{etiquetas['activos.detalle']}" styleClass="subtituloForm"/>
+	<div />
+	<h:outputText value="#{etiquetas['pasivos.detalle']}" styleClass="subtituloForm"/>
+	<div />
+	<h:outputLabel value="#{etiquetas['inmuebles']}:*" for="txtInmuebles" />
+	<h:panelGrid columns="2">
+		<h:inputText id="txtInmuebles"
+			value="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntInmuebles}"
+			required="true" requiredMessage="#{mensajes['requerido']}" />
+		<rich:message for="txtInmuebles" />
+	</h:panelGrid>
+
+	<h:outputLabel value="#{etiquetas['deudas']}:*" for="txtDeudas" />
+	<h:panelGrid columns="2">
+		<h:inputText id="txtDeudas"
+			value="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntDeudas}"
+			required="true" requiredMessage="#{mensajes['requerido']}" />
+		<rich:message for="txtDeudas" />
+	</h:panelGrid>
+
+	<h:outputLabel value="#{etiquetas['vehiculos']}:*" for="txtVehiculos" />
+	<h:panelGrid columns="2">
+		<h:inputText id="txtVehiculos"
+			value="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntVehiculos}"
+			required="true" requiredMessage="#{mensajes['requerido']}" />
+		<rich:message for="txtVehiculos" />
+	</h:panelGrid>
+
+	<h:outputLabel value="#{etiquetas['hipotecas']}:*" for="txtHipotecas" />
+	<h:panelGrid columns="2">
+		<h:inputText id="txtHipotecas"
+			value="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntHipotecas}"
+			required="true" requiredMessage="#{mensajes['requerido']}" />
+		<rich:message for="txtHipotecas" />
+	</h:panelGrid>
+
+	<h:outputLabel value="#{etiquetas['otros']}:*" for="txtOtrosActivos" />
+	<h:panelGrid columns="2">
+		<h:inputText id="txtOtrosActivos"
+			value="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntOtrosActivos}"
+			required="true" requiredMessage="#{mensajes['requerido']}">
+		<f:ajax event="blur" render="gridOtrosEsp" />
+		</h:inputText>
+		<rich:message for="txtOtrosActivos" />
+	</h:panelGrid>
+
+	<h:outputLabel value="#{etiquetas['otros']}:*" for="txtOtrosPasivos" />
+	<h:panelGrid columns="2">
+		<h:inputText id="txtOtrosPasivos"
+			value="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntOtrosPasivos}"
+			required="true" requiredMessage="#{mensajes['requerido']}">
+<f:ajax event="blur" render="gridOtrosEsp" />
+		</h:inputText>
+		<rich:message for="txtOtrosPasivos" />
+	</h:panelGrid>
+</h:panelGrid>
+
+<h:panelGrid columns="4"
+	columnClasses="etiqueta,textoForm,etiqueta," id="gridOtrosEsp" rendered="#{permisoCtrl.visibleActivosPasivos}">
+
+
+	<h:outputLabel value="#{etiquetas['especifique']}:*"
+		for="txtOtrosActivosesp" rendered="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntOtrosActivos>0}"/>
+<h:outputText value=""
+		rendered="#{not (personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntOtrosActivos>0)}"/>
+	<h:panelGrid columns="1" rendered="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntOtrosActivos>0}">
+		<h:inputText id="txtOtrosActivosesp" required="true" requiredMessage="#{mensajes['requerido']}" 
+			value="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.detalleOtrosActivos}"
+			maxlength="64" />
+		<rich:message for="txtOtrosActivosesp" />
+	</h:panelGrid>
+<h:outputText value=""
+		rendered="#{not (personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntOtrosActivos>0)}"/>
+
+	<h:outputLabel value="#{etiquetas['especifique']}:*" for="txtOtrosPasivosesp" rendered="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntOtrosPasivos>0}"/>
+<h:outputText value=""
+		rendered="#{not (personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntOtrosPasivos>0)}"/>
+	<h:panelGrid columns="1" rendered="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntOtrosPasivos>0}">
+		<h:inputText id="txtOtrosPasivosesp" required="true" requiredMessage="#{mensajes['requerido']}" 
+			value="#{personaNaturalCtrl.personaNatural.perfilFinancieroNatural.detalleOtrosPasivos}"
+			maxlength="64" />
+		<rich:message for="txtOtrosPasivosesp" />
+	</h:panelGrid>
+<h:outputText value=""
+		rendered="#{not (personaNaturalCtrl.personaNatural.perfilFinancieroNatural.mntOtrosPasivos>0)}"/>
+</h:panelGrid>
+
+</div>

@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/"
+	xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+			<s:element name="ConsultarMaestroTiposRamo">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroTiposRamoResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarMaestroTiposRamoResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroRamos">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroRamosResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarMaestroRamosResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroCoberturas">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroCoberturasResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarMaestroCoberturasResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroProductos">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroProductosResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarMaestroProductosResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarProductosCoberturas">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarProductosCoberturasResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarProductosCoberturasResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroOcupaciones">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroOcupacionesResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarMaestroOcupacionesResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroProfesiones">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroProfesionesResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarMaestroProfesionesResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarPersonas">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarPersonasResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarPersonasResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMotivosPersonas">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMotivosPersonasResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarMotivosPersonasResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarDeportesPersonas">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarDeportesPersonasResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarDeportesPersonasResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarCompanias">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarCompaniasResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarCompaniasResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroActEconomicas">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarMaestroActEconomicasResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarMaestroActEconomicasResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarActEconomicasCompanias">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="xmlData"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ConsultarActEconomicasCompaniasResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ConsultarActEconomicasCompaniasResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+		</s:schema>
+	</wsdl:types>
+	<wsdl:message name="ConsultarMaestroTiposRamoSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroTiposRamo" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroTiposRamoSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroTiposRamoResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroRamosSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroRamos" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroRamosSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroRamosResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroCoberturasSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroCoberturas" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroCoberturasSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroCoberturasResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroProductosSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroProductos" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroProductosSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroProductosResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarProductosCoberturasSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarProductosCoberturas" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarProductosCoberturasSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarProductosCoberturasResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroOcupacionesSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroOcupaciones" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroOcupacionesSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroOcupacionesResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroProfesionesSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroProfesiones" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroProfesionesSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroProfesionesResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarPersonasSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarPersonas" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarPersonasSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarPersonasResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMotivosPersonasSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarMotivosPersonas" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMotivosPersonasSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarMotivosPersonasResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarDeportesPersonasSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarDeportesPersonas" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarDeportesPersonasSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarDeportesPersonasResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarCompaniasSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarCompanias" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarCompaniasSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarCompaniasResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroActEconomicasSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroActEconomicas" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarMaestroActEconomicasSoapOut">
+		<wsdl:part name="parameters" element="tns:ConsultarMaestroActEconomicasResponse" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarActEconomicasCompaniasSoapIn">
+		<wsdl:part name="parameters" element="tns:ConsultarActEconomicasCompanias" />
+	</wsdl:message>
+	<wsdl:message name="ConsultarActEconomicasCompaniasSoapOut">
+		<wsdl:part name="parameters"
+			element="tns:ConsultarActEconomicasCompaniasResponse" />
+	</wsdl:message>
+	<wsdl:portType name="ActualizacionesRegularesSoap">
+		<wsdl:operation name="ConsultarMaestroTiposRamo">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones de los Maestros de Tipos de Ramos en
+				Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarMaestroTiposRamoSoapIn" />
+			<wsdl:output message="tns:ConsultarMaestroTiposRamoSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroRamos">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones de los Maestros de Ramos en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarMaestroRamosSoapIn" />
+			<wsdl:output message="tns:ConsultarMaestroRamosSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroCoberturas">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones de los Maestros de Coberturas en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarMaestroCoberturasSoapIn" />
+			<wsdl:output message="tns:ConsultarMaestroCoberturasSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroProductos">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones de los Maestros de Productos en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarMaestroProductosSoapIn" />
+			<wsdl:output message="tns:ConsultarMaestroProductosSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarProductosCoberturas">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones en las relaciones de Coberturas por
+				Productos en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarProductosCoberturasSoapIn" />
+			<wsdl:output message="tns:ConsultarProductosCoberturasSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroOcupaciones">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones de los Maestros de Ocupaciones en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarMaestroOcupacionesSoapIn" />
+			<wsdl:output message="tns:ConsultarMaestroOcupacionesSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroProfesiones">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones de los Maestros de Profesiones en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarMaestroProfesionesSoapIn" />
+			<wsdl:output message="tns:ConsultarMaestroProfesionesSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarPersonas">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones de las Personas en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarPersonasSoapIn" />
+			<wsdl:output message="tns:ConsultarPersonasSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMotivosPersonas">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones de los Motivos de las Personas en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarMotivosPersonasSoapIn" />
+			<wsdl:output message="tns:ConsultarMotivosPersonasSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarDeportesPersonas">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones de los Deportes de las Personas en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarDeportesPersonasSoapIn" />
+			<wsdl:output message="tns:ConsultarDeportesPersonasSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarCompanias">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones de Compañías en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarCompaniasSoapIn" />
+			<wsdl:output message="tns:ConsultarCompaniasSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroActEconomicas">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones en los Maestros de Actividades Económicas
+				en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarMaestroActEconomicasSoapIn" />
+			<wsdl:output message="tns:ConsultarMaestroActEconomicasSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarActEconomicasCompanias">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método permite
+				registrar modificaciones en las relaciones de Actividades Económicas
+				por Compañía en Pivotal.
+			</wsdl:documentation>
+			<wsdl:input message="tns:ConsultarActEconomicasCompaniasSoapIn" />
+			<wsdl:output message="tns:ConsultarActEconomicasCompaniasSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ActualizacionesRegularesSoap" type="tns:ActualizacionesRegularesSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="ConsultarMaestroTiposRamo">
+			<soap:operation soapAction="http://tempuri.org/ConsultarMaestroTiposRamo"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroRamos">
+			<soap:operation soapAction="http://tempuri.org/ConsultarMaestroRamos"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroCoberturas">
+			<soap:operation soapAction="http://tempuri.org/ConsultarMaestroCoberturas"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroProductos">
+			<soap:operation soapAction="http://tempuri.org/ConsultarMaestroProductos"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarProductosCoberturas">
+			<soap:operation soapAction="http://tempuri.org/ConsultarProductosCoberturas"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroOcupaciones">
+			<soap:operation soapAction="http://tempuri.org/ConsultarMaestroOcupaciones"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroProfesiones">
+			<soap:operation soapAction="http://tempuri.org/ConsultarMaestroProfesiones"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarPersonas">
+			<soap:operation soapAction="http://tempuri.org/ConsultarPersonas"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMotivosPersonas">
+			<soap:operation soapAction="http://tempuri.org/ConsultarMotivosPersonas"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarDeportesPersonas">
+			<soap:operation soapAction="http://tempuri.org/ConsultarDeportesPersonas"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarCompanias">
+			<soap:operation soapAction="http://tempuri.org/ConsultarCompanias"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroActEconomicas">
+			<soap:operation soapAction="http://tempuri.org/ConsultarMaestroActEconomicas"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarActEconomicasCompanias">
+			<soap:operation soapAction="http://tempuri.org/ConsultarActEconomicasCompanias"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="ActualizacionesRegularesSoap12" type="tns:ActualizacionesRegularesSoap">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="ConsultarMaestroTiposRamo">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarMaestroTiposRamo"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroRamos">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarMaestroRamos"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroCoberturas">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarMaestroCoberturas"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroProductos">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarMaestroProductos"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarProductosCoberturas">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarProductosCoberturas"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroOcupaciones">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarMaestroOcupaciones"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroProfesiones">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarMaestroProfesiones"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarPersonas">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarPersonas"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMotivosPersonas">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarMotivosPersonas"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarDeportesPersonas">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarDeportesPersonas"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarCompanias">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarCompanias"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarMaestroActEconomicas">
+			<soap12:operation soapAction="http://tempuri.org/ConsultarMaestroActEconomicas"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultarActEconomicasCompanias">
+			<soap12:operation
+				soapAction="http://tempuri.org/ConsultarActEconomicasCompanias"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ActualizacionesRegulares">
+		<wsdl:port name="ActualizacionesRegularesSoap" binding="tns:ActualizacionesRegularesSoap">
+			<soap:address location="http://10.10.37.4:5555/ActualizacionesRegulares.asmx" />
+		</wsdl:port>
+		<wsdl:port name="ActualizacionesRegularesSoap12" binding="tns:ActualizacionesRegularesSoap12">
+			<soap12:address
+				location="http://10.10.37.4:5555/ActualizacionesRegulares.asmx" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

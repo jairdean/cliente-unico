@@ -1,0 +1,7 @@
+#   JBoss Application Server
+jboss.home=/home/daniel/java/jboss/jboss-6.1.0.Final/
+jboss.server.configuration=equivida
+jboss.deploy.dir=${jboss.home}/server/${jboss.server.configuration}/deploy
+project.name=homologacion-servicio
+project.version=1.0
+javac.location=/home/daniel/java/jdk/jdk1.6.0_45/bin/javac

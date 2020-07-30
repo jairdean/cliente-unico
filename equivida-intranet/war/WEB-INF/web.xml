@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<!-- SITE -->
+	<display-name>equivida-intranet</display-name>
+	<!-- Optional JSF-RI Parameters to Help Debug -->
+	<context-param>
+		<param-name>com.sun.faces.validateXml</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>com.sun.faces.verifyObjects</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<!-- Special Debug Output for Development -->
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<!-- facelets Use Documents Saved as *.xhtml -->
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+	<!-- CONTEXT PARAMS richfaces -->
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/log4j.properties</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.richfaces.CONTROL_SKINNING</param-name>
+		<param-value>enable</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.richfaces.skin</param-name>
+		<param-value>blueSky</param-value>
+	</context-param>
+	<context-param>
+		<param-name>createTempFiles </param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>maxRequestSize</param-name>
+		<param-value>1000000</param-value>
+	</context-param>
+	<context-param>
+		<param-name>ipLoaderFileService</param-name>
+		<param-value>http://10.10.42.9:5002/api/loaderFiles</param-value>
+		<!-- <param-value>http://localhost:5000/api/loaderFiles</param-value> -->
+	</context-param>
+	<context-param>
+		<param-name>listaRevervadaService</param-name>
+		<param-value>http://10.10.43.4:8080/equivida-servicio-1.1.0/RcsWsImpl</param-value>  
+	</context-param>
+	<!-- SPRING LISTENER <listener> <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> 
+		</listener> <listener> <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class> 
+		</listener> INICIALIZA JSF -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>EmpresaFilter</filter-name>
+		<filter-class>com.equivida.intranet.filter.EmpresaFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>EmpresaFilter</filter-name>
+		<url-pattern>/pages/index.jsf</url-pattern>
+		<url-pattern>/pages/formularios/*</url-pattern>
+	</filter-mapping>
+
+	<session-config>
+		<session-timeout>1440</session-timeout>
+	</session-config>
+	<!-- Definicion de mime type -->
+	<mime-mapping>
+		<extension>html</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>txt</extension>
+		<mime-type>text/plain</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>log</extension>
+		<mime-type>text/plain</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>pdf</extension>
+		<mime-type>application/pdf</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>gif</extension>
+		<mime-type>image/gif</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>avi</extension>
+		<mime-type>video/avi</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>bmp</extension>
+		<mime-type>image/x-windows-bmp</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>jpeg</extension>
+		<mime-type>image/pjpeg</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>jpg</extension>
+		<mime-type>image/pjpeg</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>mp3</extension>
+		<mime-type>video/mpeg</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>tif</extension>
+		<mime-type>image/x-tiff</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>ico</extension>
+		<mime-type>image/x-icon</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>doc</extension>
+		<mime-type>application/msword</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>ppt</extension>
+		<mime-type>application/mspowerpoint</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>rtf</extension>
+		<mime-type>text/richtext</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xls</extension>
+		<mime-type>application/vnd.ms-excel</mime-type>
+	</mime-mapping>
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
+	<error-page>
+		<exception-type>java.lang.NullPointerException</exception-type>
+		<location>/index.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
+		<location>/index.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/pages/index.jsf</location>
+	</error-page>
+	<error-page>
+		<error-code>400</error-code>
+		<location>/indes.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>408</error-code>
+		<location>/index.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/index.jsp?error=sin</location>
+	</error-page>
+	<!-- SEGURIDAD -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Asegurado Area</web-resource-name>
+			<url-pattern>/pages/formularios/*</url-pattern>
+			<url-pattern>/pages/index.jsf</url-pattern>
+			<url-pattern>/pages/indexIndividual.jsf</url-pattern>
+			<url-pattern>/pages/seleccion.jsf</url-pattern>
+			<http-method>DELETE</http-method>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<!-- Anyone with one of the listed roles may access this area -->
+			<role-name>ClienteUnico</role-name>
+			<role-name>CU_ASIST_SUSCRIPCION</role-name>
+			<role-name>CU_SUSCRIPTOR</role-name>
+			<role-name>CU_EMISION</role-name>
+			<role-name>CU_SERV_CLIENTE</role-name>
+			<role-name>ConsultaCU</role-name>
+			<role-name>CU_CUMPLIMIENTO</role-name>
+			<role-name>CU_ESPECIALISTA</role-name>
+			<role-name>CU_GLOBAL</role-name>
+
+		</auth-constraint>
+	</security-constraint>
+	<!-- contratantes -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Contratantes Area</web-resource-name>
+			<url-pattern>/pages/contratante/*</url-pattern>
+			<url-pattern>/pages/index.jsf</url-pattern>
+			<url-pattern>/pages/indexIndividual.jsf</url-pattern>
+			<url-pattern>/pages/seleccion.jsf</url-pattern>
+			<http-method>DELETE</http-method>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<!-- Anyone with one of the listed roles may access this area -->
+			<role-name>CU_CONTRATANTE</role-name>
+			<role-name>CU_CONSULTA_CONTRATANTE</role-name>
+			<role-name>CU_CUMPLIMIENTO</role-name>
+		</auth-constraint>
+	</security-constraint> 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Carga de personas</web-resource-name>
+			<url-pattern>/pages/cargaArchivo.jsf</url-pattern>
+			<http-method>DELETE</http-method>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>CU_PERSONA_MASIVO</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<!-- not protected -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>No protegidos</web-resource-name>
+			<url-pattern>/css/*</url-pattern>
+			<url-pattern>/img/*</url-pattern>
+			<url-pattern>/js/*</url-pattern>
+			<url-pattern>/templates/*</url-pattern>
+			<url-pattern>/index.jsp</url-pattern>
+			<url-pattern>/pages/login.jsf</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+	<!-- LOGIN -->
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/pages/login.jsf</form-login-page>
+			<form-error-page>/pages/login.jsf?error=login</form-error-page>
+		</form-login-config>
+	</login-config>
+	<!-- ROLES antes se conectaba con este usuario -->
+	<security-role>
+		<description>Usuario del sistema</description>
+		<role-name>ClienteUnico</role-name>
+	</security-role>
+	<security-role>
+		<description>Asistente de suscripcion</description>
+		<role-name>CU_ASIST_SUSCRIPCION</role-name>
+	</security-role>
+	<security-role>
+		<description>Suscriptor</description>
+		<role-name>CU_SUSCRIPTOR</role-name>
+	</security-role>
+	<security-role>
+		<description>Emisor</description>
+		<role-name>CU_EMISION</role-name>
+	</security-role>
+	<security-role>
+		<description>Servicio al cliente</description>
+		<role-name>CU_SERV_CLIENTE</role-name>
+	</security-role>
+	<security-role>
+		<description>Consulta</description>
+		<role-name>ConsultaCU</role-name>
+	</security-role>
+	<security-role>
+		<description>Rol para consulta de RCS tanto asegurados y contratantes</description>
+		<role-name>CU_CUMPLIMIENTO</role-name>
+	</security-role>
+	<security-role>
+		<description>Rol para Especialista</description>
+		<role-name>CU_ESPECIALISTA</role-name>
+	</security-role>
+	<security-role>
+		<description>Rol para Global</description>
+		<role-name>CU_GLOBAL</role-name>
+	</security-role>
+	<security-role>
+		<description>Rol para carga de archivos</description>
+		<role-name>CU_PERSONA_MASIVO</role-name>
+	</security-role>
+	<!-- contratantes -->
+	<security-role>
+		<description>Rol para ingreso y modificacion de contratantes</description>
+		<role-name>CU_CONTRATANTE</role-name>
+	</security-role>
+	<security-role>
+		<description>Rol para consultar contratantes</description>
+		<role-name>CU_CONSULTA_CONTRATANTE</role-name>
+	</security-role>
+</web-app>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="InsertTelefonoContratanteWsImplService" targetNamespace="http://impl.ws.sise.equivida.com/" xmlns:ns1="http://ws.sise.equivida.com/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://impl.ws.sise.equivida.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:import location="http://localhost:8080/sise-servicio-1.0/InsertTelefonoContratanteWsImpl?wsdl=InsertTelefonoContratanteWs.wsdl" namespace="http://ws.sise.equivida.com/">
+    </wsdl:import>
+  <wsdl:binding name="InsertTelefonoContratanteWsImplServiceSoapBinding" type="ns1:InsertTelefonoContratanteWs">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="spi_mpersona_telef_wkf">
+      <soap:operation soapAction="" style="rpc" />
+      <wsdl:input name="spi_mpersona_telef_wkf">
+        <soap:body namespace="http://ws.sise.equivida.com/" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="spi_mpersona_telef_wkfResponse">
+        <soap:body namespace="http://ws.sise.equivida.com/" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="InsertTelefonoContratanteWsImplService">
+    <wsdl:port binding="tns:InsertTelefonoContratanteWsImplServiceSoapBinding" name="InsertTelefonoContratanteWsImplPort">
+      <soap:address location="http://200.32.69.186:5051/sise-servicio-1.0/InsertTelefonoContratanteWsImpl" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<h:head>
+<link type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/css/equivida.css"
+		rel="stylesheet" media="screen" />
+</h:head>
+<h:body>
+
+<div style="text-align:center;">
+<h:graphicImage value="/img/header.png" style="border-bottom:6px #fff solid;"/>
+</div>
+
+		<f:subview rendered="#{param.error=='login'}" id="svError">
+			<br />
+			<div style="text-align: center"><h:outputText id="msgError"
+				value="#{mensajes['login.incorrecto']}" styleClass="error" /></div>
+		</f:subview>
+		<f:subview rendered="#{param.error=='sin'}" id="svErrorS">
+			<br />
+			<div style="text-align: center"><h:outputText id="msgErrorS"
+				value="No posee rol necesario" styleClass="error" /></div>
+		</f:subview>
+		<br />
+		<br />
+		<form method="post"
+			action="#{facesContext.externalContext.requestContextPath}/j_security_check" style="text-align:center" onsubmit="return validarForm()">
+
+<h:panelGrid columns="1" style="margin-left:auto;margin-right:auto;background:white;padding:16px;border:#ddd 3px solid;margin-bottom:3px;">
+
+		<h:panelGrid columns="2"
+			style="width:320px;">
+			<h:outputLabel>#{etiquetas['usuario']}:</h:outputLabel>
+			<input type="text" name="j_username" id="j_username" size="25"
+				maxlength="30" />
+			<h:outputLabel>#{etiquetas['password']}:</h:outputLabel>
+			<input type="password" name="j_password" id="j_password" size="25"
+				maxlength="30 " />
+			
+		</h:panelGrid>
+
+<h:commandButton type="submit" image="/img/login.png" alt="#{buttons['aceptar']}" title="#{botones['aceptar']}"/>
+
+</h:panelGrid>
+
+<h:outputFormat value="#{etiquetas['copyright']}" style="margin-top:3px;font-size:10px;">
+				<f:param value="#{aplicacionCtrl.currentYear}"></f:param>
+			</h:outputFormat>
+</form>
+
+		<script type="text/javascript">
+			document.getElementById('j_username').focus();
+
+function validarForm(){
+	if(document.getElementById('j_password').value==""){
+		alert('Password requerido');
+		return false;
+	}else{
+		return true;
+	}
+}
+		</script>
+		</h:body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+	<h:panelGrid columns="2" rendered="#{permisoCtrl.visibleSeguroVigente}">
+
+		<h:outputLabel value="#{etiquetas['datos.sobre.seguros.personales']}:" />
+		<div />
+		<h:panelGrid columns="1">
+			<a4j:commandLink id="btnSeguroVigente" title="#{botones['nuevo']}"
+				actionListener="#{personaNaturalCtrl.crearSeguroVigente}"
+				execute="tblSeguroVigente" render="pnlSeguroVigente"
+				onclick="this.focus()">
+				<h:graphicImage value="/img/nuevo.png" />
+			</a4j:commandLink>
+			<a4j:outputPanel id="pnlSeguroVigente">
+				<rich:dataTable id="tblSeguroVigente"
+					value="#{personaNaturalCtrl.personaNatural.segurosVigentesActivosCollection}"
+					var="seguroVigente" rendered="#{not empty personaNaturalCtrl.personaNatural.segurosVigentesActivosCollection}" rowKeyVar="countSegVig">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>#{etiquetas['ramo.plan']}</rich:column>
+							<rich:column>#{etiquetas['compania']}</rich:column>
+							<rich:column>#{etiquetas['valor.asegurado']}</rich:column>
+							<rich:column>#{botones['eliminar']}</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+
+
+					<rich:column>
+						<h:selectOneMenu value="#{seguroVigente.ramoSeguro.secTipoRamo}">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
+							<f:selectItems value="#{selectCtrl.ramoSeguroItems}" />
+						</h:selectOneMenu>
+					</rich:column>
+
+					<rich:column>
+
+						<h:selectOneMenu
+							value="#{seguroVigente.companiaSeguro.secCiaSeguro}">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
+							<f:selectItems value="#{selectCtrl.companiaSeguroItems}" />
+						</h:selectOneMenu>
+
+					</rich:column>
+
+					<rich:column>
+						<h:panelGrid columns="1">
+							<h:inputText id="txtValorSeguro"
+								value="#{seguroVigente.valorSeguro}" maxlength="8"
+								style="width:50px;">
+							</h:inputText>
+							<rich:message for="txtValorSeguro" />
+						</h:panelGrid>
+					</rich:column>
+					<rich:column>
+						<a4j:commandLink render="pnlSeguroVigente"
+							actionListener="#{personaNaturalCtrl.eliminarSeguroVigente}"
+							immediate="true">
+							<h:graphicImage value="/img/eliminar.png"
+								title="#{botones['eliminar']}" />
+						</a4j:commandLink>
+					</rich:column>
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:panelGrid>
+	</h:panelGrid>
+	<rich:dataTable id="otroSeguroTabla"
+		value="#{personaNaturalCtrl.personaNatural.seguroAdicionalFormularioCollection}"
+		var="seguroAdicVar" rowKeyVar="count"
+		style="FONT-SIZE: xx-small; width:100%" width="100%"
+		rendered="#{permisoCtrl.visibleSeguroVigente}">
+		<rich:column style="width:50%">
+			<f:facet name="header">
+				<h:outputText value="#{etiquetas['pregunta']}" />
+			</f:facet>
+			<h:outputText value="#{seguroAdicVar.tipoOtroSeguro.tipoAdicional}"></h:outputText>
+		</rich:column>
+
+		<rich:column style="width:50%">
+			<f:facet name="header">
+				<h:outputText value="#{etiquetas['respuesta']}" />
+			</f:facet>
+			<h:selectOneRadio value="#{seguroAdicVar.respuesta}"
+				onclick="this.focus()">
+				<f:selectItems value="#{selectCtrl.selectSN}" />
+			</h:selectOneRadio>
+
+		</rich:column>
+
+	</rich:dataTable>
+</div>

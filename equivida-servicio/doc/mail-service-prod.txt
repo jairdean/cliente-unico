@@ -1,0 +1,29 @@
+En JBOSS_HOME..../deploy/mail-service.xml aumentar:
+
+ <mbean code="org.jboss.mail.MailService" name="jboss:service=MailEquivida">
+  <attribute name="JNDIName">java:/MailEquivida</attribute>
+
+
+  <attribute name="User">clienteunico</attribute>
+
+
+  <attribute name="Password">CliUni12</attribute>
+
+  <attribute name="Configuration">
+   <configuration>
+        <property name="mail.transport.protocol" value="smtp"/>
+    <property name="mail.smtp.host" value="10.10.30.144" />
+    <property name="mail.smtp.port" value="25" />
+<!--
+    <property name="mail.smtp.auth" value="true" />
+-->
+<!--
+    <property name="mail.smtp.ssl.enable" value="true" />
+-->
+ <property name="mail.debug" value="true"/>
+<property name="mail.from" value="clienteunico@equivida.com"/>
+
+        </configuration>
+  </attribute>
+  <depends>jboss:service=Naming</depends>
+ </mbean>

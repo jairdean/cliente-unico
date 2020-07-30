@@ -1,0 +1,30 @@
+- buscar por secuencial en db2
+	- no encontro, busca por cedula en db2
+		- no encontro, busca por cedula en sise // nos deben explicar el sp que consulte personas (debe tener nombres apellidos, etc...)
+			- no encontro retorna vacio el ws
+			- si encontro en el sise, retornar el primer registro del sp, pero como son 80 campos devuelve los que tenga (debe tener nombres apellidos, etc...)
+		- A) si encuentra por cedula en el db2, buscar homologacion:
+			- si tiene uno, busca en el sise y listo retornar uno
+			- si tiene varios retornar uno pero sumarizado:
+				- primer "broker"
+				- primer "contacto broker"
+				- primer "canal de ventas"
+				- primer "asesor comercial"
+				- primer "asesor de postventa"
+				- primer "director"
+				- primer "asistente"
+				- primer "segmento del cliente"
+				- si hay algun si, entonces si caso contrario no "informacion de siniestros"
+				- si hay algun si, entonces si caso contrario no "nivel de riesgo"
+				- si tiene a, b, c (en ese orden de a -> c) caso contrario devuelve vacio "beneficio externo"
+				- fecha mas antigua "cliente desde"
+				- primer "comentario"
+				- se encuentra un true devuelve true sino false "cliente individual"
+				- se encuentra un true devuelve true sino false "asegurado de empresa cliente"
+				- se encuentra un true devuelve true sino false "contacto empresa"
+				- se encuentra un true devuelve true sino false "contacto broker"
+				- se encuentra un true devuelve true sino false "inactivo"
+				- sumatoria "valor cliente"
+				- sumatoria "capacidad de pago"
+	- si encuentra por secuencial en el db2, buscar homologacion:
+		- seguir pasos A) 

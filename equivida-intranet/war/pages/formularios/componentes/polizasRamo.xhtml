@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:panelGrid columns="1"
+		rendered="#{permisoCtrl.visibleConductosDePago and not empty personaNaturalCtrl.consultaCumulosLista}"
+		headerClass="subtituloForm">
+
+		<f:facet name="header">
+			<h:outputText value="#{etiquetas['polizas.ramo']}" />
+		</f:facet>
+		<rich:dataTable value="#{personaNaturalCtrl.consultaCumulosLista}"
+			var="poliza">
+			<rich:column>
+				<f:facet name="header">
+					#{etiquetas['poliza']}
+				</f:facet>
+				<h:outputText value="#{poliza.poliza}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					#{etiquetas['estado']}
+				</f:facet>
+				<h:outputText value="#{poliza.estado}" />
+				<f:facet name="footer">
+					<h:outputText value="#{etiquetas['cumulo.poliza.vigentes']}" />
+				</f:facet>
+			</rich:column>
+			<rich:column style="text-align:right" footerClass="footerTable">
+				<f:facet name="header">
+					#{etiquetas['monto.vida']}
+				</f:facet>
+				<h:outputText value="#{poliza.montoVida}">
+					<f:convertNumber type="currency" currencySymbol="$" locale="en-US" />
+				</h:outputText>
+				<f:facet name="footer">
+					<h:outputText value="#{personaNaturalCtrl.totalMontoVida}">
+						<f:convertNumber type="currency" currencySymbol="$" locale="en-US" />
+					</h:outputText>
+				</f:facet>
+			</rich:column>
+			<rich:column style="text-align:right" footerClass="footerTable">
+				<f:facet name="header">
+					#{etiquetas['monto.myda']}
+				</f:facet>
+				<h:outputText value="#{poliza.montoMyda}">
+					<f:convertNumber type="currency" currencySymbol="$" locale="en-US" />
+				</h:outputText>
+				<f:facet name="footer">
+					<h:outputText value="#{personaNaturalCtrl.totalMontoMyda}">
+						<f:convertNumber type="currency" currencySymbol="$" locale="en-US" />
+					</h:outputText>
+				</f:facet>
+			</rich:column>
+		</rich:dataTable>
+
+	</h:panelGrid>
+</div>

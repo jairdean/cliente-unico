@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<h:head>
+	<title>#{etiquetas['nombre.sistema']}</title>
+	<link type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/css/equivida.css"
+		rel="stylesheet" media="screen" />
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/js/equivida.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+	<style>
+.rf-pp-hdr-cnt, .rf-dt-hdr-c {
+	background-image: none !important;
+	background-color: #{sesionCtrl.empresa.color
+}
+
+;
+color
+:
+ 
+#{
+sesionCtrl
+ 
+.empresa
+.colorFuente
+
+	
+
+}
+;
+}
+.rf-dt-shdr-c {
+	background-image: none !important;
+	background-color: #{sesionCtrl.empresa.color
+}
+
+;
+color
+:
+ 
+#{
+sesionCtrl
+ 
+.empresa
+.colorFuente
+
+	
+
+}
+;
+}
+#header, #header a {
+	background-color: #{sesionCtrl.empresa.color
+}
+;
+color
+:
+ 
+#{
+sesionCtrl
+ 
+.empresa
+.colorFuente
+
+	
+
+}
+;
+}
+</style>
+
+</h:head>
+<h:body>
+	<div id="container">
+		<ui:include src="/templates/common/header.xhtml" />
+
+		<div id="content">
+			<div class="titlePage">
+				<div style="float: right;">
+					<a4j:status>
+						<f:facet name="start">
+							<h:panelGroup>
+								<h:graphicImage value="/img/loading.gif"
+									style="margin-right:3px;" />
+								<h:outputText value="#{messages['loading']}" />
+							</h:panelGroup>
+						</f:facet>
+					</a4j:status>
+				</div>
+				<ui:insert name="title">
+		titulo por defecto
+	</ui:insert>
+			</div>
+
+			<ui:insert name="content">
+		cont por defecto
+	</ui:insert>
+		</div>
+		<!-- content -->
+
+		<ui:include src="/templates/common/footer.xhtml" />
+	</div>
+	<!-- container -->
+</h:body>
+</html>

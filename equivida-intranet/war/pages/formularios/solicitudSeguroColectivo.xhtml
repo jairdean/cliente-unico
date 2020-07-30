@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/templates/general.xhtml">
+	<ui:define name="title">
+
+	</ui:define>
+
+	<ui:define name="content">
+
+		<h:panelGrid columns="2">
+
+
+			<h:outputText value="#{etiquetas['otros.ingresos.especifique']}" />
+			<h:panelGrid columns="1">
+				<a4j:commandLink id="btnOtrosIngresos"
+					actionListener="#{personaNaturalCtrl.crearOtrosIngresos}"
+					execute="tblOtroIngreso" render="pnlOtroIngreso">
+					<h:graphicImage value="/img/nuevo.png" title="#{buttons['new']}" />
+				</a4j:commandLink>
+				<a4j:outputPanel id="pnlOtroIngreso">
+					<rich:dataTable id="tblOtroIngreso"
+						value="#{personaNaturalCtrl.personaNatural.ingresoMensualAdicionalCollection}"
+						var="ingAdic"
+						rendered="#{not empty personaNaturalCtrl.personaNatural.ingresoMensualAdicionalCollection}">
+						<rich:column>
+							<f:facet name="header">#{etiquetas['fuente']}</f:facet>
+							<h:inputText value="#{ingAdic.fuenteIngresoAdicional}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{etiquetas['monto']}</f:facet>
+							<h:inputText value="#{ingAdic.mntIngresoAdicional}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{botones['eliminar']}</f:facet>
+							<a4j:commandLink render="pnlOtroIngreso"
+								actionListener="#{personaNaturalCtrl.eliminarOtroIngreso}"
+								immediate="true">
+								<h:graphicImage value="/img/eliminar.png"
+									title="#{botones['eliminar']}" />
+							</a4j:commandLink>
+						</rich:column>
+					</rich:dataTable>
+				</a4j:outputPanel>
+			</h:panelGrid>
+
+
+
+
+		</h:panelGrid>
+
+	</ui:define>
+
+</ui:composition>

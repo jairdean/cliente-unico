@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	targetNamespace="http://SrQaTelefonos.QA_Equivida.isd.ibm.com/soapoverhttp/"
+	xmlns:impl="http://SrQaTelefonos.QA_Equivida.isd.ibm.com/soapoverhttp/"
+	xmlns:intf="http://SrQaTelefonos.QA_Equivida.isd.ibm.com/soapoverhttp/"
+	xmlns:tns1="http://SrQaTelefonos.QA_Equivida.isd.ibm.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<schema targetNamespace="http://SrQaTelefonos.QA_Equivida.isd.ibm.com/soapoverhttp/"
+			xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://SrQaTelefonos.QA_Equivida.isd.ibm.com"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://SrQaTelefonos.QA_Equivida.isd.ibm.com" />
+			<element name="OpQaTelefonosResponse">
+				<complexType>
+					<sequence>
+						<element name="OpQaTelefonosReturn" nillable="true"
+							type="tns1:SrQaTelefonosOutVar1" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="OpQaTelefonos">
+				<complexType>
+					<sequence>
+						<element name="te_numero" nillable="true" type="xsd:string" />
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+		<schema targetNamespace="http://SrQaTelefonos.QA_Equivida.isd.ibm.com"
+			xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<complexType name="SrQaTelefonosOutVar1">
+				<sequence>
+					<element name="areacode_telefonos" nillable="true" type="xsd:string" />
+					<element name="numberphone_telefonos" nillable="true" type="xsd:string" />
+					<element name="mensaje_telefonos" nillable="true" type="xsd:string" />
+					<element name="status" type="xsd:int" />
+					<element name="message" nillable="true" type="xsd:string" />
+					<element name="unhandledpattern_telefonos" nillable="true"
+						type="xsd:string" />
+				</sequence>
+			</complexType>
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="OpQaTelefonosResponse">
+		<wsdl:part element="impl:OpQaTelefonosResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="OpQaTelefonosRequest">
+		<wsdl:part element="impl:OpQaTelefonos" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="SrQaTelefonos">
+		<wsdl:operation name="OpQaTelefonos">
+			<wsdl:input message="impl:OpQaTelefonosRequest" name="OpQaTelefonosRequest">
+			</wsdl:input>
+			<wsdl:output message="impl:OpQaTelefonosResponse" name="OpQaTelefonosResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SrQaTelefonosSOAPSoapBinding" type="impl:SrQaTelefonos">
+		<wsaw:UsingAddressing wsdl:required="false" />
+		<wsdlsoap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="OpQaTelefonos">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="OpQaTelefonosRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="OpQaTelefonosResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SrQaTelefonos">
+		<wsdl:port binding="impl:SrQaTelefonosSOAPSoapBinding" name="SrQaTelefonosSOAP">
+			<wsdlsoap:address
+				location="http://10.10.30.31:9080/wisd/QA_Equivida/SrQaTelefonos" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

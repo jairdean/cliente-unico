@@ -1,0 +1,184 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="registros">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="civil">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:int" name="cedula"/>
+              <xs:element type="xs:string" name="primernombre"/>
+              <xs:element type="xs:string" name="segundonombre"/>
+              <xs:element type="xs:string" name="primerapellido"/>
+              <xs:element type="xs:string" name="segundoapellido"/>
+              <xs:element type="xs:string" name="nombreconyuge"/>
+              <xs:element type="xs:string" name="nombrepadre"/>
+              <xs:element type="xs:string" name="nombremadre"/>
+              <xs:element type="xs:string" name="profesion"/>
+              <xs:element type="xs:short" name="nacionalidad"/>
+              <xs:element type="xs:byte" name="dianacimiento"/>
+              <xs:element type="xs:byte" name="mesnacimiento"/>
+              <xs:element type="xs:short" name="anionacimiento"/>
+              <xs:element type="xs:byte" name="estadocivil"/>
+              <xs:element type="xs:byte" name="genero"/>
+              <xs:element type="xs:string" name="diamatrimonio"/>
+              <xs:element type="xs:string" name="mesmatrimonio"/>
+              <xs:element type="xs:string" name="aniomatrimonio"/>
+              <xs:element type="xs:string" name="diadefuncion"/>
+              <xs:element type="xs:string" name="mesdefuncion"/>
+              <xs:element type="xs:string" name="aniodefuncion"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="actual">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="nombreempleador"/>
+              <xs:element type="xs:long" name="rucempleador"/>
+              <xs:element type="xs:string" name="direccionempleador"/>
+              <xs:element type="xs:string" name="actividadempleador"/>
+              <xs:element type="xs:string" name="cargo"/>
+              <xs:element type="xs:byte" name="provincia"/>
+              <xs:element type="xs:short" name="canton"/>
+              <xs:element type="xs:int" name="parroquia"/>
+              <xs:element type="xs:short" name="salariopromedio"/>
+              <xs:element type="xs:short" name="salarioactual"/>
+              <xs:element type="xs:int" name="telefonoempleador"/>
+              <xs:element type="xs:byte" name="mesespromedio"/>
+              <xs:element type="xs:string" name="fechaentrada"/>
+              <xs:element type="xs:string" name="fechasalida"/>
+              <xs:element type="xs:string" name="descripcionempleador"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="primeroAnterior">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="nombreempleador"/>
+              <xs:element type="xs:long" name="rucempleador"/>
+              <xs:element type="xs:string" name="descripcionempleador"/>
+              <xs:element type="xs:string" name="direccionempleador"/>
+              <xs:element type="xs:string" name="actividadempleador"/>
+              <xs:element type="xs:string" name="provinciaempleador"/>
+              <xs:element type="xs:string" name="parroquiaempleador"/>
+              <xs:element type="xs:string" name="cantonempleador"/>
+              <xs:element type="xs:string" name="fechaentradaempleador"/>
+              <xs:element type="xs:string" name="fechasalidaempleador"/>
+              <xs:element type="xs:string" name="cargoempleador"/>
+              <xs:element type="xs:short" name="salarioempleador"/>
+              <xs:element type="xs:int" name="telefonoempleador"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="segundoAnterior">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="nombreempleador"/>
+              <xs:element type="xs:long" name="rucempleador"/>
+              <xs:element type="xs:string" name="descripcionempleador"/>
+              <xs:element type="xs:string" name="direccionempleador"/>
+              <xs:element type="xs:string" name="actividadempleador"/>
+              <xs:element type="xs:string" name="provinciaempleador"/>
+              <xs:element type="xs:string" name="parroquiaempleador"/>
+              <xs:element type="xs:string" name="cantonempleador"/>
+              <xs:element type="xs:string" name="fechaentradaempleador"/>
+              <xs:element type="xs:string" name="fechasalidaempleador"/>
+              <xs:element type="xs:string" name="cargoempleador"/>
+              <xs:element type="xs:short" name="salarioempleador"/>
+              <xs:element type="xs:int" name="telefonoempleador"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sri">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:long" name="rucpersonanatual"/>
+              <xs:element type="xs:string" name="razonsocial"/>
+              <xs:element type="xs:string" name="nombrefantasia"/>
+              <xs:element type="xs:string" name="actividad"/>
+              <xs:element type="xs:string" name="calle"/>
+              <xs:element type="xs:string" name="numero"/>
+              <xs:element type="xs:string" name="interseccion"/>
+              <xs:element type="xs:string" name="referencia"/>
+              <xs:element type="xs:string" name="obligado"/>
+              <xs:element type="xs:byte" name="provincia"/>
+              <xs:element type="xs:short" name="canton"/>
+              <xs:element type="xs:int" name="parroquia"/>
+              <xs:element type="xs:string" name="fechainicio"/>
+              <xs:element type="xs:string" name="suspension"/>
+              <xs:element type="xs:string" name="reinicio"/>
+              <xs:element type="xs:int" name="telefono"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="contactabilidad">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:int" name="tel1"/>
+              <xs:element type="xs:int" name="tel2"/>
+              <xs:element type="xs:string" name="tel3"/>
+              <xs:element type="xs:string" name="tel4"/>
+              <xs:element type="xs:string" name="tel5"/>
+              <xs:element type="xs:string" name="provincia"/>
+              <xs:element type="xs:string" name="canton"/>
+              <xs:element type="xs:string" name="parroquia"/>
+              <xs:element type="xs:string" name="direccion"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vehicular">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="placa"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="hijos">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="hijo1"/>
+              <xs:element type="xs:string" name="hijo2"/>
+              <xs:element type="xs:string" name="hijo3"/>
+              <xs:element type="xs:string" name="hijo4"/>
+              <xs:element type="xs:string" name="hijo5"/>
+              <xs:element type="xs:string" name="hijo6"/>
+              <xs:element type="xs:string" name="hijo7"/>
+              <xs:element type="xs:string" name="hijo8"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="conyuge">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="conyugenombre"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="conyugecedula">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="conyugecedula"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="padres">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="nombrepadre"/>
+              <xs:element type="xs:string" name="nombremadre"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cedulaspadres">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="tipo1"/>
+              <xs:element type="xs:string" name="cedtipo1"/>
+              <xs:element type="xs:string" name="tipo2"/>
+              <xs:element type="xs:string" name="cedtipo2"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

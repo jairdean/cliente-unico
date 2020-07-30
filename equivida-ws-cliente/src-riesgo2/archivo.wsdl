@@ -1,0 +1,1307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://localhost/"
+	xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://localhost/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://localhost/">
+			<s:import namespace="http://localhost/ResultadosRevisionOFAC.xsd" />
+			<s:import namespace="http://localhost/ResultadoScanFile.xsd" />
+			<s:import
+				schemaLocation="http://10.10.30.22/RCS%20WS%20OFAC/service.asmx?schema=ResultadoScanFile"
+				namespace="http://localhost/ResultadoScanFile.xsd" />
+			<s:import
+				schemaLocation="http://10.10.30.22/RCS%20WS%20OFAC/service.asmx?schema=ResultadosRevisionOFAC"
+				namespace="http://localhost/ResultadosRevisionOFAC.xsd" />
+			<s:element name="BusquedaIDVerification">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="licenciaEmpresa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="tipoOrganizacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="firstName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="middleName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="lastName"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="tipoIdentificacion"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="identificacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="direccion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="ciudad"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="estado"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="codigoPostal"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="fechaNacimiento"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="generacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="telfCasa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="telfTrabajo"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="issuingCountry"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="expDate"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="userName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="perfilUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="valoresDefault"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaSetupDB"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaReportes"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreLog"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="proveedorIdv"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="pathProveedorIDV"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1"
+							name="identityVerificationSetupOption" type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="metodoBusqueda"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaIDVerificationResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="BusquedaIDVerificationResult">
+							<s:complexType>
+								<s:sequence>
+									<s:any namespace="http://localhost/ResultadosRevisionOFAC.xsd" />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaIDVerificationXML">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="licenciaEmpresa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="tipoOrganizacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="firstName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="middleName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="lastName"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="tipoIdentificacion"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="identificacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="direccion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="ciudad"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="estado"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="codigoPostal"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="fechaNacimiento"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="generacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="telfCasa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="telfTrabajo"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="issuingCountry"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="expDate"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="userName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="perfilUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="valoresDefault"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaSetupDB"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaReportes"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreLog"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="proveedorIdv"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="pathProveedorIDV"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1"
+							name="identityVerificationSetupOption" type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="metodoBusqueda"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaIDVerificationXMLResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="BusquedaIDVerificationXMLResult">
+							<s:complexType mixed="true">
+								<s:sequence>
+									<s:any />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaIDVScanFile">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="licenciaEmpresa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="tipoOrganizacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="firstName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="middleName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="lastName"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="tipoIdentificacion"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="identificacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="direccion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="ciudad"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="estado"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="codigoPostal"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="fechaNacimiento"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="generacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="telfCasa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="telfTrabajo"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="issuingCountry"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="expDate"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="userName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="perfilUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="valoresDefault"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaSetupDB"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaReportes"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreLog"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="proveedorIdv"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="pathProveedorIdv"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1"
+							name="identityVerificationSetupOption" type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="metodoBusqueda"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idBusquedaSF"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaIDVScanFileResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="BusquedaIDVScanFileResult">
+							<s:complexType>
+								<s:sequence>
+									<s:any namespace="http://localhost/ResultadoScanFile.xsd" />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaCheckNames">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="licenciaEmpresa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreABuscar"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="direccion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="ciudad"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="estado"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="codigoPostal"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="userName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="perfilUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="valoresDefault"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaSetupDB"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaReportes"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="metodoBusqueda"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaCheckNamesResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="BusquedaCheckNamesResult">
+							<s:complexType>
+								<s:sequence>
+									<s:any namespace="http://localhost/ResultadosRevisionOFAC.xsd" />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaCheckNamesSF">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="licenciaEmpresa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreABuscar"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="direccion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="ciudad"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="estado"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="codigoPostal"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="userName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="perfilUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="valoresDefault"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaSetupDB"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaReportes"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="metodoBusqueda"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idBusquedaSF"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaCheckNamesSFResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="BusquedaCheckNamesSFResult">
+							<s:complexType>
+								<s:sequence>
+									<s:any namespace="http://localhost/ResultadoScanFile.xsd" />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaCheckWire">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="licenciaEmpresa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreABuscar"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreArchivo"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="userName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="perfilUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="valoresDefault"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaSetupDB"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaReportes"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="metodoBusqueda"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaCheckWireResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="BusquedaCheckWireResult">
+							<s:complexType>
+								<s:sequence>
+									<s:any namespace="http://localhost/ResultadosRevisionOFAC.xsd" />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaAlternateSearch">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="licenciaEmpresa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreABuscar"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="userName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="perfilUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="valoresDefault"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaSetupDB"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaReportes"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="metodoBusqueda"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaAlternateSearchResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="BusquedaAlternateSearchResult">
+							<s:complexType>
+								<s:sequence>
+									<s:any namespace="http://localhost/ResultadosRevisionOFAC.xsd" />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaInteligenteOFAC">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="licenciaEmpresa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="firstName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="middleName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="lastName"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="tipoIdentificacion"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="identificacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="direccion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="ciudad"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="estado"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="codigoPostal"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="fechaNacimiento"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="generacion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="telfCasa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="telfTrabajo"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="issuingCountry"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="expDate"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="userName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="perfilUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="valoresDefault"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaSetupDB"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaReportes"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaLog"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreLog"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="proveedorIdv"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="pathProveedorIdv"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1"
+							name="identityVerificationSetupOption" type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="tipoBusquedaUsada"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="metodoBusqueda"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaInteligenteOFACResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="BusquedaInteligenteOFACResult">
+							<s:complexType>
+								<s:sequence>
+									<s:any namespace="http://localhost/ResultadosRevisionOFAC.xsd" />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+						<s:element minOccurs="0" maxOccurs="1" name="tipoBusquedaUsada"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ProbarWebService">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="rutaSetupDB"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ProbarWebServiceResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="ProbarWebServiceResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AgregarAListaAceptados">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="idBusqueda"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="rutaSetupDB"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="tipoCuenta"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="numeroCuenta"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="tipoDocumento"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="numeroId"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="direccion"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="ciudad"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="verificadoPor"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="division"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="comentario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="Empresa"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="viaSF"
+							type="s:boolean" />
+						<s:element minOccurs="1" maxOccurs="1" name="codigoError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AgregarAListaAceptadosResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1"
+							name="AgregarAListaAceptadosResult" type="s:boolean" />
+						<s:element minOccurs="1" maxOccurs="1" name="codigoError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ScanFiles">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="archivoInput"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="archivoOutput"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="formatoArchivoInput"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="userName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="perfilUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="ArchivoFormatos"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="licenciaUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="servidorBDD"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreBDD"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="usuarioBDD"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="passwordBDD"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="nombreTablaBDD"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="columnasTablaBDD"
+							type="tns:ArrayOfAnyType" />
+						<s:element minOccurs="0" maxOccurs="1" name="origenDatos"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="poseeCabecera"
+							type="s:boolean" />
+						<s:element minOccurs="0" maxOccurs="1" name="tipoOrigenInf"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:complexType name="ArrayOfAnyType">
+				<s:sequence>
+					<s:element minOccurs="0" maxOccurs="unbounded" name="anyType"
+						nillable="true" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="ScanFilesResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="ScanFilesResult"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="PoliticaEstablecidaBatch">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="PoliticaEstablecidaBatchResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1"
+							name="PoliticaEstablecidaBatchResult" type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="formatosBI">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="rutaFormatosBI"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:complexType name="ArrayOfString">
+				<s:sequence>
+					<s:element minOccurs="0" maxOccurs="unbounded" name="string"
+						nillable="true" type="s:string" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="formatosBIResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="formatosBIResult"
+							type="tns:ArrayOfString" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaWire">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="licenciaEmpresa"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="contextoWire"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="separador"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="idPolitica"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="userName"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="perfilUsuario"
+							type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="BusquedaWireResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="BusquedaWireResult">
+							<s:complexType>
+								<s:sequence>
+									<s:any namespace="http://localhost/ResultadosRevisionOFAC.xsd" />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+						<s:element minOccurs="0" maxOccurs="1" name="primaryKey"
+							type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="codError"
+							type="s:int" />
+						<s:element minOccurs="0" maxOccurs="1" name="descripcionError"
+							type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+		</s:schema>
+	</wsdl:types>
+	<wsdl:message name="BusquedaIDVerificationSoapIn">
+		<wsdl:part name="parameters" element="tns:BusquedaIDVerification" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaIDVerificationSoapOut">
+		<wsdl:part name="parameters" element="tns:BusquedaIDVerificationResponse" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaIDVerificationXMLSoapIn">
+		<wsdl:part name="parameters" element="tns:BusquedaIDVerificationXML" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaIDVerificationXMLSoapOut">
+		<wsdl:part name="parameters" element="tns:BusquedaIDVerificationXMLResponse" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaIDVScanFileSoapIn">
+		<wsdl:part name="parameters" element="tns:BusquedaIDVScanFile" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaIDVScanFileSoapOut">
+		<wsdl:part name="parameters" element="tns:BusquedaIDVScanFileResponse" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaCheckNamesSoapIn">
+		<wsdl:part name="parameters" element="tns:BusquedaCheckNames" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaCheckNamesSoapOut">
+		<wsdl:part name="parameters" element="tns:BusquedaCheckNamesResponse" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaCheckNamesSFSoapIn">
+		<wsdl:part name="parameters" element="tns:BusquedaCheckNamesSF" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaCheckNamesSFSoapOut">
+		<wsdl:part name="parameters" element="tns:BusquedaCheckNamesSFResponse" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaCheckWireSoapIn">
+		<wsdl:part name="parameters" element="tns:BusquedaCheckWire" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaCheckWireSoapOut">
+		<wsdl:part name="parameters" element="tns:BusquedaCheckWireResponse" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaAlternateSearchSoapIn">
+		<wsdl:part name="parameters" element="tns:BusquedaAlternateSearch" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaAlternateSearchSoapOut">
+		<wsdl:part name="parameters" element="tns:BusquedaAlternateSearchResponse" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaInteligenteOFACSoapIn">
+		<wsdl:part name="parameters" element="tns:BusquedaInteligenteOFAC" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaInteligenteOFACSoapOut">
+		<wsdl:part name="parameters" element="tns:BusquedaInteligenteOFACResponse" />
+	</wsdl:message>
+	<wsdl:message name="ProbarWebServiceSoapIn">
+		<wsdl:part name="parameters" element="tns:ProbarWebService" />
+	</wsdl:message>
+	<wsdl:message name="ProbarWebServiceSoapOut">
+		<wsdl:part name="parameters" element="tns:ProbarWebServiceResponse" />
+	</wsdl:message>
+	<wsdl:message name="AgregarAListaAceptadosSoapIn">
+		<wsdl:part name="parameters" element="tns:AgregarAListaAceptados" />
+	</wsdl:message>
+	<wsdl:message name="AgregarAListaAceptadosSoapOut">
+		<wsdl:part name="parameters" element="tns:AgregarAListaAceptadosResponse" />
+	</wsdl:message>
+	<wsdl:message name="ScanFilesSoapIn">
+		<wsdl:part name="parameters" element="tns:ScanFiles" />
+	</wsdl:message>
+	<wsdl:message name="ScanFilesSoapOut">
+		<wsdl:part name="parameters" element="tns:ScanFilesResponse" />
+	</wsdl:message>
+	<wsdl:message name="PoliticaEstablecidaBatchSoapIn">
+		<wsdl:part name="parameters" element="tns:PoliticaEstablecidaBatch" />
+	</wsdl:message>
+	<wsdl:message name="PoliticaEstablecidaBatchSoapOut">
+		<wsdl:part name="parameters" element="tns:PoliticaEstablecidaBatchResponse" />
+	</wsdl:message>
+	<wsdl:message name="formatosBISoapIn">
+		<wsdl:part name="parameters" element="tns:formatosBI" />
+	</wsdl:message>
+	<wsdl:message name="formatosBISoapOut">
+		<wsdl:part name="parameters" element="tns:formatosBIResponse" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaWireSoapIn">
+		<wsdl:part name="parameters" element="tns:BusquedaWire" />
+	</wsdl:message>
+	<wsdl:message name="BusquedaWireSoapOut">
+		<wsdl:part name="parameters" element="tns:BusquedaWireResponse" />
+	</wsdl:message>
+	<wsdl:portType name="wsRCS_OFACSoap">
+		<wsdl:operation name="BusquedaIDVerification">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método del Servicio
+				Web que se encarga de realizar las búsquedas por ID Verification.
+			</wsdl:documentation>
+			<wsdl:input message="tns:BusquedaIDVerificationSoapIn" />
+			<wsdl:output message="tns:BusquedaIDVerificationSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaIDVerificationXML">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método del Servicio
+				Web que se encarga de realizar las búsquedas por ID Verification.
+				(Retorna XML)</wsdl:documentation>
+			<wsdl:input message="tns:BusquedaIDVerificationXMLSoapIn" />
+			<wsdl:output message="tns:BusquedaIDVerificationXMLSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaIDVScanFile">
+			<wsdl:input message="tns:BusquedaIDVScanFileSoapIn" />
+			<wsdl:output message="tns:BusquedaIDVScanFileSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaCheckNames">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método del Servicio
+				Web que se encarga de realizar las búsquedas por CheckNames.
+			</wsdl:documentation>
+			<wsdl:input message="tns:BusquedaCheckNamesSoapIn" />
+			<wsdl:output message="tns:BusquedaCheckNamesSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaCheckNamesSF">
+			<wsdl:input message="tns:BusquedaCheckNamesSFSoapIn" />
+			<wsdl:output message="tns:BusquedaCheckNamesSFSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaCheckWire">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método del Servicio
+				Web que se encarga de realizar las búsquedas por Check Wire.
+			</wsdl:documentation>
+			<wsdl:input message="tns:BusquedaCheckWireSoapIn" />
+			<wsdl:output message="tns:BusquedaCheckWireSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaAlternateSearch">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método del Servicio
+				Web que se encarga de realizar las búsquedas por Check Wire.
+			</wsdl:documentation>
+			<wsdl:input message="tns:BusquedaAlternateSearchSoapIn" />
+			<wsdl:output message="tns:BusquedaAlternateSearchSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaInteligenteOFAC">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método del Servicio
+				Web que se encarga de realizar cualquiera de los tipos de búsqueda
+				disponibles</wsdl:documentation>
+			<wsdl:input message="tns:BusquedaInteligenteOFACSoapIn" />
+			<wsdl:output message="tns:BusquedaInteligenteOFACSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ProbarWebService">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método del Servicio
+				Web que se encarga de proporcionar información sobre el estado del
+				servicio Web</wsdl:documentation>
+			<wsdl:input message="tns:ProbarWebServiceSoapIn" />
+			<wsdl:output message="tns:ProbarWebServiceSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="AgregarAListaAceptados">
+			<wsdl:input message="tns:AgregarAListaAceptadosSoapIn" />
+			<wsdl:output message="tns:AgregarAListaAceptadosSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ScanFiles">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método Scan Files
+			</wsdl:documentation>
+			<wsdl:input message="tns:ScanFilesSoapIn" />
+			<wsdl:output message="tns:ScanFilesSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="PoliticaEstablecidaBatch">
+			<wsdl:input message="tns:PoliticaEstablecidaBatchSoapIn" />
+			<wsdl:output message="tns:PoliticaEstablecidaBatchSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="formatosBI">
+			<wsdl:input message="tns:formatosBISoapIn" />
+			<wsdl:output message="tns:formatosBISoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaWire">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método del Servicio
+				Web que se encarga de realizar las búsquedas por ID Verification y
+				CheckNames denominado BusquedaWire.</wsdl:documentation>
+			<wsdl:input message="tns:BusquedaWireSoapIn" />
+			<wsdl:output message="tns:BusquedaWireSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="wsRCS_OFACSoap" type="tns:wsRCS_OFACSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="BusquedaIDVerification">
+			<soap:operation soapAction="http://localhost/BusquedaIDVerification"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaIDVerificationXML">
+			<soap:operation soapAction="http://localhost/BusquedaIDVerificationXML"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaIDVScanFile">
+			<soap:operation soapAction="http://localhost/BusquedaIDVScanFile"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaCheckNames">
+			<soap:operation soapAction="http://localhost/BusquedaCheckNames"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaCheckNamesSF">
+			<soap:operation soapAction="http://localhost/BusquedaCheckNamesSF"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaCheckWire">
+			<soap:operation soapAction="http://localhost/BusquedaCheckWire"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaAlternateSearch">
+			<soap:operation soapAction="http://localhost/BusquedaAlternateSearch"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaInteligenteOFAC">
+			<soap:operation soapAction="http://localhost/BusquedaInteligenteOFAC"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ProbarWebService">
+			<soap:operation soapAction="http://localhost/ProbarWebService"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AgregarAListaAceptados">
+			<soap:operation soapAction="http://localhost/AgregarAListaAceptados"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ScanFiles">
+			<soap:operation soapAction="http://localhost/ScanFiles"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="PoliticaEstablecidaBatch">
+			<soap:operation soapAction="http://localhost/PoliticaEstablecidaBatch"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="formatosBI">
+			<soap:operation soapAction="http://localhost/formatosBI"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaWire">
+			<soap:operation soapAction="http://localhost/BusquedaWire"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="wsRCS_OFACSoap12" type="tns:wsRCS_OFACSoap">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="BusquedaIDVerification">
+			<soap12:operation soapAction="http://localhost/BusquedaIDVerification"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaIDVerificationXML">
+			<soap12:operation soapAction="http://localhost/BusquedaIDVerificationXML"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaIDVScanFile">
+			<soap12:operation soapAction="http://localhost/BusquedaIDVScanFile"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaCheckNames">
+			<soap12:operation soapAction="http://localhost/BusquedaCheckNames"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaCheckNamesSF">
+			<soap12:operation soapAction="http://localhost/BusquedaCheckNamesSF"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaCheckWire">
+			<soap12:operation soapAction="http://localhost/BusquedaCheckWire"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaAlternateSearch">
+			<soap12:operation soapAction="http://localhost/BusquedaAlternateSearch"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaInteligenteOFAC">
+			<soap12:operation soapAction="http://localhost/BusquedaInteligenteOFAC"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ProbarWebService">
+			<soap12:operation soapAction="http://localhost/ProbarWebService"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AgregarAListaAceptados">
+			<soap12:operation soapAction="http://localhost/AgregarAListaAceptados"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ScanFiles">
+			<soap12:operation soapAction="http://localhost/ScanFiles"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="PoliticaEstablecidaBatch">
+			<soap12:operation soapAction="http://localhost/PoliticaEstablecidaBatch"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="formatosBI">
+			<soap12:operation soapAction="http://localhost/formatosBI"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BusquedaWire">
+			<soap12:operation soapAction="http://localhost/BusquedaWire"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="wsRCS_OFAC">
+		<wsdl:port name="wsRCS_OFACSoap" binding="tns:wsRCS_OFACSoap">
+			<soap:address location="http://10.10.30.22/RCS%20WS%20OFAC/service.asmx" />
+		</wsdl:port>
+		<wsdl:port name="wsRCS_OFACSoap12" binding="tns:wsRCS_OFACSoap12">
+			<soap12:address location="http://10.10.30.22/RCS%20WS%20OFAC/service.asmx" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

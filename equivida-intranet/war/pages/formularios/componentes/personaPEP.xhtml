@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+	<h:outputScript>
+        function customFilterPep(subString, value) {
+            if (subString.length >= 1) {
+                if (value.indexOf(subString) != -1)
+                    return true;
+            } else
+                return false;
+        };
+    </h:outputScript>
+    
+  <h:outputStylesheet>
+#SSIPNForm\:tblPersonaPep .rf-sel-cntr{
+width:540px;
+}
+#SSIPNForm\:tblPersonaPep .rf-sel-inp{
+width:525px;
+}
+                </h:outputStylesheet>
+
+	
+	<h:panelGrid columns="2" rendered="#{permisoCtrl.visiblePersonaPep}">
+
+	<h:outputText value="#{etiquetas['considera.persona.pep']}" />
+
+	<h:selectOneRadio
+		value="#{personaNaturalCtrl.personaNatural.respuestaPep}" onclick="this.focus()">
+		<f:selectItems value="#{selectCtrl.selectSN}" />
+		<f:ajax event="change" render="tblPersonaPepContainer" execute="@this" listener="#{personaNaturalCtrl.ponerPep}" />
+	</h:selectOneRadio>
+</h:panelGrid>
+	<h:panelGrid columns="1" id="tblPersonaPepContainer">
+		<a4j:commandLink id="btnPersonaPep"	
+			actionListener="#{personaNaturalCtrl.crearPersonaPEP}"
+			execute="tblPersonaPep" render="pnlPersonaPep" rendered="#{personaNaturalCtrl.personaNatural.respuestaPep==personaNaturalCtrl.respuestaSiCodigo}" onclick="this.focus()">
+			<h:graphicImage value="/img/nuevo.png" title="#{buttons['new']} PEP" />
+		</a4j:commandLink>
+		<a4j:outputPanel id="pnlPersonaPep" rendered="#{personaNaturalCtrl.personaNatural.respuestaPep==personaNaturalCtrl.respuestaSiCodigo}">
+			<rich:dataTable id="tblPersonaPep"
+				value="#{personaNaturalCtrl.personaNatural.personaPeCollectionActivosCollection}"
+				var="personaPepVar"
+				rendered="#{not empty personaNaturalCtrl.personaNatural.personaPeCollectionActivosCollection}" rowKeyVar="countDir">
+					<f:facet name="header">
+					<rich:columnGroup>
+					<rich:column>#{etiquetas['tipo']}</rich:column>
+					<rich:column>#{etiquetas['institucion']}</rich:column>
+					<rich:column>#{botones['eliminar']}</rich:column>
+					</rich:columnGroup>
+					</f:facet>
+				<rich:column>
+					<rich:select enableManualInput="true" clientFilterFunction="customFilterPep" id="cmbCatPep"
+						value="#{personaPepVar.categoriaPpe.codCategoriaPpe}" listWidth="800">
+						<f:selectItems value="#{selectCtrl.categoriaPepItems}" />
+					</rich:select>
+				</rich:column>
+
+				<rich:column>
+						<h:inputText id="txtOrgEnt" style="width:264px" value="#{personaPepVar.organismoEntidad}" required="true" requiredMessage="#{mensajes['requerido']}" maxlength="48"/>
+						<rich:message for="txtOrgEnt"/>
+				</rich:column>
+
+				<rich:column>
+					<a4j:commandLink render="pnlPersonaPep" immediate="true" actionListener="#{personaNaturalCtrl.eliminarPersonaPep}">
+						<h:graphicImage value="/img/eliminar.png"
+							title="#{botones['eliminar']}" />
+					</a4j:commandLink>
+				</rich:column>
+			</rich:dataTable>
+		</a4j:outputPanel>
+	</h:panelGrid>
+
+</div>

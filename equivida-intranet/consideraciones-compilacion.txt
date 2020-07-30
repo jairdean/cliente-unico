@@ -1,0 +1,15 @@
+Consideraciones para compilación con apache ant:
+
+- Realizar equivida-servicio/consideraciones-compilacion.txt 
+- Copiar lib/* a JBOSS_HOME/server/equivida/lib/
+- Copiar ant/build.properties.ejemplo a ant/build.properties y cambiar los 
+  datos de acuerdo a la maquina.
+- Instalar Apache Ant http://ant.apache.org/
+	LINUX: # apt-get install ant
+- Ejecutar tarea ant 'warfile'. Para lo cual en consola nos ubicamos en equivida-intranet/ant
+  y ejecutamos lo siguiente:
+  $ ant warfile
+
+  Con lo cual el archivo war generado se encuentra en equivida-intranet/dist/ 
+  
+Para subir la aplicacion en el ambiente de desarrollo o producción, ver manual técnico.

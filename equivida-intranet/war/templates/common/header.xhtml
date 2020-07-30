@@ -1,0 +1,37 @@
+<div id="header" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+	<h:panelGrid columns="1"
+		style="float:right;margin-top:8px;margin-right:8px;"
+		columnClasses="headerGridCol">
+		<h:outputText value="#{sesionCtrl.currentDateObj}">
+			<f:convertDateTime pattern="#{aplicacionCtrl.formatDateForView}"
+				locale="#{sesionCtrl.locale}" />
+		</h:outputText>
+		<h:panelGroup columns="2">
+			<h:outputLink
+				value="#{facesContext.externalContext.requestContextPath}/pages/index.jsf">
+#{etiquetas['inicio']}</h:outputLink>
+ | 
+<h:outputLink
+				value="#{facesContext.externalContext.requestContextPath}/index.jsp">
+Salir
+</h:outputLink>
+		</h:panelGroup>
+		<h:outputText
+			value="#{etiquetas['usuario']}: #{facesContext.externalContext.remoteUser}" />
+		<h:outputText style="font-size:14px;"
+			value="#{sesionCtrl.empresa.etiqueta}"
+			rendered="#{sesionCtrl.empresa!=null}" />
+	</h:panelGrid>
+
+
+	<h:graphicImage value="/img/header.png" />
+
+
+</div>
+
+
+

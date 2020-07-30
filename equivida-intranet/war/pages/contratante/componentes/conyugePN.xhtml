@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<h:panelGrid columns="4" width="100%">
+	
+	<h:outputLabel value="#{etiquetas['tipo.identificacion']}:*"
+			for="txtTipoIdPNCon" />
+		<h:outputLabel value="#{etiquetas['identificacion']}*"
+			for="txtIdentificacionPNCon" />
+		<h:outputText value="" />
+		<h:outputText value="" />
+
+		<h:panelGrid columns="2">
+			<h:selectOneMenu id="txtTipoIdPNCon" required="true"
+				requiredMessage="#{mensajes['requerido']}"
+				value="#{contratantePNCtrl.personaNatural.conyuge.tipoIdentificacion.codTipoIdentificacion}">
+				<f:selectItems
+					value="#{contratantePNCtrl.tipoIdentificacionPNItems}" />
+			</h:selectOneMenu>
+			<rich:message for="txtTipoIdPNCon" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<h:inputText id="txtIdentificacionPNCon" maxlength="24"
+				value="#{contratantePNCtrl.personaNatural.conyuge.identificacion}"
+				required="true" requiredMessage="#{mensajes['requerido']}" valueChangeListener="#{contratantePNCtrl.verificarSiExisteConyuge}">
+				<f:ajax execute=":formContratante"
+						render=":formContratante">
+					</f:ajax>
+				</h:inputText>
+		</h:panelGrid>
+			<rich:message id="idMesIdConyuge" for="txtIdentificacionPNCon" />
+		<h:outputText value="" />
+	
+		<h:outputLabel value="#{etiquetas['apellido.paterno']}*"
+			for="txtApellidoPaternoPNCon" />
+		<h:outputLabel value="#{etiquetas['apellido.materno']}"
+			for="txtApellidoMaternoPNCon" />
+		<h:outputLabel value="#{etiquetas['primer.nombre']}*"
+			for="txtPrimerNombrePNCon" />
+		<h:outputLabel value="#{etiquetas['segundo.nombre']}"
+			for="txtSegundoNombrePNCon" />
+
+		<h:panelGrid columns="2">
+			<h:inputText id="txtApellidoPaternoPNCon" required="true"
+				requiredMessage="#{mensajes['requerido']}"
+				value="#{contratantePNCtrl.personaNatural.conyuge.apellidoPaterno}"
+				maxlength="24" />
+			<rich:message for="txtApellidoPaternoPNCon" />
+		</h:panelGrid>
+		<h:inputText id="txtApellidoMaternoPNCon"
+			value="#{contratantePNCtrl.personaNatural.conyuge.apellidoMaterno}"
+			maxlength="24" />
+		<h:panelGrid columns="2">
+			<h:inputText id="txtPrimerNombrePNCon" required="true"
+				requiredMessage="#{mensajes['requerido']}"
+				value="#{contratantePNCtrl.personaNatural.conyuge.primerNombre}"
+				maxlength="16" />
+			<rich:message for="txtPrimerNombrePNCon" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<h:inputText id="txtSegundoNombrePNCon"
+			value="#{contratantePNCtrl.personaNatural.conyuge.segundoNombre}"
+			maxlength="16" />
+			<a4j:commandButton value="#{botones['revisar.listas.reservadas']}" action="#{contratantePNCtrl.verificarNombresConyuge}"
+					render=":formContratante :formRcs "
+					execute="txtIdentificacionPNCon txtApellidoPaternoPNCon txtApellidoMaternoPNCon txtPrimerNombrePNCon txtSegundoNombrePNCon">
+			</a4j:commandButton>
+		</h:panelGrid>
+		
+	</h:panelGrid>
+	
+	
+		<h:outputText value="#{contratantePNCtrl.conyugeDelConyuge}"
+			style="color:#FF6633;font-weight:bold;font-size:14px"
+			id="txtConyugeDelConyuge" />
+</div>

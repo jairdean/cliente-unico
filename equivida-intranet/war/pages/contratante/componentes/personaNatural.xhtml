@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<fieldset class="fieldset-form">
+		<legend class="fieldset-legent">
+			<h:outputText value="#{etiquetas['datos.personales']}" />
+		</legend>
+
+		<h:panelGrid columns="3" width="70%">
+			<h:outputLabel value="#{etiquetas['tipo.identificacion']}"
+				for="txtTipoIdPN" />
+			<h:outputLabel value="#{etiquetas['identificacion']}" for="txtIdPN" />
+			<h:outputLabel value="#{etiquetas['tipo.persona']}"
+				for="txtTipoPersonaPN" />
+
+			<h:outputText id="txtTipoIdPN"
+				value="#{contratantePNCtrl.personaNatural.rucPersonaNaturalTra.tipoIdentificacion.tipoIdentificacion}" />
+			<h:outputText id="txtIdPN"
+				value="#{contratantePNCtrl.personaNatural.rucPersonaNaturalTra.identificacion}" />
+			<h:outputText id="txtTipoPersonaPN"
+				value="#{contratantePNCtrl.tipoPersona.descripcion}" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="4">
+			<h:outputLabel value="#{etiquetas['apellido.paterno']}*"
+				for="txtApellidoPaternoPN" />
+			<h:outputLabel value="#{etiquetas['apellido.materno']}"
+				for="txtApellidoMaternoPN" />
+			<h:outputLabel value="#{etiquetas['primer.nombre']}*"
+				for="txtPrimerNombrePN" />
+			<h:outputLabel value="#{etiquetas['segundo.nombre']}"
+				for="txtSegundoNombrePN" />
+
+			<h:panelGrid columns="2">
+				<h:inputText id="txtApellidoPaternoPN" required="true"
+					requiredMessage="#{mensajes['requerido']}"
+					value="#{contratantePNCtrl.personaNatural.apellidoPaterno}"
+					maxlength="24" size="30" />
+				<rich:message for="txtApellidoPaternoPN" />
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:inputText id="txtApellidoMaternoPN"
+					value="#{contratantePNCtrl.personaNatural.apellidoMaterno}"
+					maxlength="24" size="30" />
+				<rich:message for="txtApellidoMaternoPN" />
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:inputText id="txtPrimerNombrePN" required="true"
+					requiredMessage="#{mensajes['requerido']}"
+					value="#{contratantePNCtrl.personaNatural.primerNombre}"
+					maxlength="16" size="30" />
+				<rich:message for="txtPrimerNombrePN" />
+			</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:inputText id="txtSegundoNombrePN"
+					value="#{contratantePNCtrl.personaNatural.segundoNombre}"
+					maxlength="16" size="30" />
+				<rich:message for="txtSegundoNombrePN" />
+				<a4j:commandButton value="#{botones['revisar.listas.reservadas']}"
+					action="#{contratantePNCtrl.verificarListasReservadas}"
+					render=":formContratante :formRcs"
+					execute="txtApellidoPaternoPN txtApellidoMaternoPN txtPrimerNombrePN txtSegundoNombrePN">
+				</a4j:commandButton>
+			</h:panelGrid>
+		</h:panelGrid>
+
+		<div class="segundoNombre" style="#{contratantePNCtrl.styleDivEstadoCivil}">
+
+
+
+			<div class="linea-baja" style="width: 100%">
+				<h:outputText value="#{etiquetas['lugar.fecha.nacimiento']}" />
+			</div>
+
+			<h:panelGrid columns="6">
+				<h:outputText value="#{etiquetas['pais']}: *" />
+				<h:panelGrid columns="2">
+					<rich:autocomplete mode="cachedAjax" minChars="1" var="varPais"
+						fetchValue="#{varPais.pais}" id="autoPaisPN" required="true"
+						requiredMessage="#{mensajes['requerido']}"
+						autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+						value="#{contratantePNCtrl.personaNatural.ciudadNacimiento.pais}">
+						<rich:column>
+							<h:outputText value="#{varPais.pais}" />
+						</rich:column>
+						<f:converter converterId="paisConverter"></f:converter>
+						<a4j:ajax />
+					</rich:autocomplete>
+					<rich:message for="autoPaisPN" />
+				</h:panelGrid>
+
+
+				<h:outputLabel value="#{etiquetas['ciudad']}: *" />
+				<h:panelGrid columns="2">
+					<rich:autocomplete id="autoCiudadPN" minChars="1"
+						selectFirst="true" mode="ajax" var="varCiudad" required="true"
+						requiredMessage="#{mensajes['requerido']}"
+						fetchValue="#{varCiudad.ciudad}"
+						autocompleteMethod="#{contratantePNCtrl.autocompleteCiudadPN}"
+						value="#{contratantePNCtrl.personaNatural.ciudadNacimiento}">
+						<rich:column>
+							<h:outputText value="#{varCiudad}" />
+						</rich:column>
+						<f:converter converterId="ciudadContratantePNConverter"></f:converter>
+						<a4j:ajax />
+					</rich:autocomplete>
+					<rich:message for="autoCiudadPN" />
+				</h:panelGrid>
+
+				<h:outputLabel value="#{etiquetas['fecha.nacimiento']} *"
+					for="txtFechaNacimientoPN" />
+				<h:panelGrid columns="3">
+					<rich:calendar id="txtFechaNacimientoPN"
+						value="#{contratantePNCtrl.personaNatural.fchNacimiento}"
+						locale="#{sesionCtrl.locale}"
+						datePattern="#{aplicacionCtrl.formatDateForForm}"
+						enableManualInput="true" required="true"
+						requiredMessage="#{mensajes['requerido']}"></rich:calendar>
+					<rich:message for="txtFechaNacimientoPN" />
+					<h:outputText value="#{etiquetas['fecha.ejemplo']}" />
+				</h:panelGrid>
+			</h:panelGrid>
+
+			<h:panelGrid columns="3" styleClass="margin-top-15">
+				<h:outputLabel value="#{etiquetas['nacionalidad']} *"
+					for="autoPaisNACPN" />
+				<h:outputLabel value="#{etiquetas['genero']} *" for="selGeneroPN" />
+				<h:outputLabel value="#{etiquetas['estado.civil']} *"
+					for="selEstadoCivilPN" />
+
+				<h:panelGrid columns="2">
+					<rich:autocomplete mode="cachedAjax" minChars="1" autofill="false"
+						var="varPais" fetchValue="#{varPais.pais}" id="autoPaisNACPN"
+						autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+						value="#{contratantePNCtrl.personaNatural.paisNacionalidad}">
+						<rich:column>
+							<h:outputText value="#{varPais.pais}" />
+						</rich:column>
+						<f:converter converterId="paisConverter"></f:converter>
+						<a4j:ajax />
+					</rich:autocomplete>
+					<rich:message for="autoPaisNACPN" />
+				</h:panelGrid>
+				<h:panelGrid columns="2" id="gridSexoPN">
+					<h:selectOneMenu id="selGeneroPN"
+						value="#{contratantePNCtrl.personaNatural.sexo}">
+						<f:selectItems value="#{selectCtrl.generoItems}" />
+					</h:selectOneMenu>
+					<h:outputText value="#{mensajes['sugerencia.sexo']}"
+						style="color:#FF6633;font-weight:bold;font-size:14px"
+						rendered="#{contratantePNCtrl.sexoAdvertencia}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:selectOneMenu enableManualInput="true" id="selEstadoCivilPN"
+						value="#{contratantePNCtrl.personaNatural.estadoCivil.codEstadoCivil}"
+						valueChangeListener="#{contratantePNCtrl.cambiarEstadoCivilPN}"
+						required="true" requiredMessage="Requerido">
+						<f:selectItem itemValue="" itemLabel="Seleccione..." />
+						<f:selectItems value="#{selectCtrl.estadoCivilVisiblesItems}" />
+						<f:ajax render=":formContratante" />
+					</h:selectOneMenu>
+					<rich:message for="selEstadoCivilPN" />
+				</h:panelGrid>
+			</h:panelGrid>
+
+			<h:panelGrid columns="3" styleClass="margin-top-15">
+				<h:outputLabel
+					value="#{etiquetas['correo.electronico.facturacion.electronica']}*"
+					for="txtCorreoFacturaPN" />
+				<h:outputLabel value="#{etiquetas['celular']}" for="txtCelularPN" />
+				<h:outputLabel value="#{etiquetas['correo.electronico.personal']}"
+					for="txtCorreoElectronicoPN" />
+
+				<h:panelGrid columns="1">
+					<h:inputText id="txtCorreoFacturaPN" required="true"
+						requiredMessage="#{mensajes['requerido']}"
+						value="#{contratantePNCtrl.personaNatural.persona.emailFacturacionElectronicaTra.direccionElectronica}"
+						maxlength="64" size="50">
+						<f:ajax render="msjTxtCorreoFacturaPN" />
+						<f:validator validatorId="emailValidator" />
+					</h:inputText>
+					<rich:message id="msjTxtCorreoFacturaPN" for="txtCorreoFacturaPN" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<h:inputText id="txtCodigoArea" size="3"
+						value="#{contratantePNCtrl.personaNatural.persona.noCelularSoloTra.codArea}"
+						maxlength="4" />
+
+
+					<h:inputText id="txtCelularPN"
+						value="#{contratantePNCtrl.personaNatural.persona.noCelularSoloTra.nroTelefono}"
+						maxlength="8">
+						<f:ajax render="msjTxtCelularPN" />
+						<f:validator validatorId="telefonoValidator" />
+
+					</h:inputText>
+
+					<h:outputText value=" " />
+
+					<rich:message id="msjTxtCelularPN" for="txtCelularPN" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="1">
+					<h:inputText id="txtCorreoElectronicoPN"
+						value="#{contratantePNCtrl.personaNatural.persona.emailPersonalTra.direccionElectronica}"
+						maxlength="64" size="50">
+						<f:ajax render="msjTxtCorreoElectronicoPN" />
+						<f:validator validatorId="emailValidator" />
+					</h:inputText>
+					<rich:message id="msjTxtCorreoElectronicoPN"
+						for="txtCorreoElectronicoPN" />
+				</h:panelGrid>
+			</h:panelGrid>
+
+		</div>
+	</fieldset>
+
+	<div class="segundoNombre" style="#{contratantePNCtrl.styleDivEstadoCivil}">
+
+
+		<a4j:outputPanel id="opDatosConyugePN">
+			<a4j:outputPanel
+				rendered="#{contratantePNCtrl.personaNatural.estadoCivil.codEstadoCivil eq 2 or contratantePNCtrl.personaNatural.estadoCivil.codEstadoCivil eq 5}">
+				<fieldset class="fieldset-form">
+					<legend class="fieldset-legent">
+						<h:outputText value="#{etiquetas['conyuge']}" />
+					</legend>
+
+					<ui:include src="conyugePN.xhtml" />
+				</fieldset>
+			</a4j:outputPanel>
+		</a4j:outputPanel>
+
+	</div>
+
+	<div class="segundoNombre" style="#{contratantePNCtrl.styleDivTodoFormulario}">
+
+		<fieldset class="fieldset-form">
+			<legend class="fieldset-legent">
+				<h:outputText
+					value="#{etiquetas['actividad.economica']} u #{etiquetas['ocupacion']}" />
+			</legend>
+
+			<ui:include src="actividadEconomicaPN.xhtml" />
+			<ui:include src="personaPEP.xhtml" />
+		</fieldset>
+
+		<fieldset class="fieldset-form">
+			<legend class="fieldset-legent">
+				<h:outputText value="#{etiquetas['direcciones']}" />
+			</legend>
+
+			<ui:include src="direccionPN.xhtml" />
+		</fieldset>
+
+		<fieldset class="fieldset-form">
+			<legend class="fieldset-legent">
+				<h:outputText value="#{etiquetas['informacion.financiera']}" />
+			</legend>
+
+			<ui:include src="informacionFinancieraPN.xhtml" />
+		</fieldset>
+
+		<br />
+		<h:panelGrid columns="2">
+			<a4j:commandButton id="btnGuardar"
+				actionListener="#{contratantePNCtrl.guardar}"
+				disabled="#{not contratanteCtrl.habilitarBtnGuardarContratante}"
+				title="#{botones['guardar']}" image="/img/btnGuardar.png"
+				rendered="#{permisoCtrl.ingresoPersona}"
+				render="mostrarRcsPopUp rcsOutputPanel popupExitoPN"
+				oncomplete="openExitoMPPN(#{facesContext.maximumSeverity==null},#{facesContext.maximumSeverity.ordinal});"
+				onclick="if(!confirm('Esta a punto de guardar, continuar?')){return false};">
+			</a4j:commandButton>
+
+		</h:panelGrid>
+
+	</div>
+
+	<h:inputHidden id="mostrarRcsPopUp"
+		value="#{contratantePNCtrl.muestraRcsPopUp}" />
+
+	<a4j:outputPanel id="rcsOutputPanel">
+		<rich:popupPanel id="popupRcsPN" modal="true" resizeable="false"
+			height="200" width="480" show="#{contratantePNCtrl.muestraRcsPopUp}">
+			<f:facet name="header">
+				<h:outputText value="#{botones['mensaje']}" />
+			</f:facet>
+			<br />
+			<div style="text-align: center;">
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/img/rechazar.png" />
+					<h:outputText value=" #{sesionCtrl.mensajeRcsDto.mensajeInterfaz}"
+						style="font-size: 15px;" />
+				</h:panelGrid>
+				<br /> <input type="button" value="#{botones['aceptar']}"
+					onclick="window.location.href='#{facesContext.externalContext.requestContextPath}/pages/contratante/seleccionContratante.jsf?faces-redirect=true'" />
+			</div>
+		</rich:popupPanel>
+	</a4j:outputPanel>
+
+	<rich:popupPanel id="popupExitoPN" modal="true" resizeable="false"
+		height="200" width="480">
+		<f:facet name="header">
+			<h:outputText value="#{etiquetas['exito']}" />
+		</f:facet>
+		<br />
+		<div style="text-align: center;">
+			<h:panelGrid columns="2">
+				<h:graphicImage value="/img/aprobar.png" />
+				<h:outputText value=" #{mensajes['guardado.exito']}"
+					style="font-size: 20px;" />
+
+				<h:outputText value=" " />
+				<h:outputFormat value="#{mensajes['id.sistema.sise']}"
+					escape="false" style="font-size: 15px;">
+					<f:param value="#{contratantePNCtrl.idSise}" />
+				</h:outputFormat>
+			</h:panelGrid>
+			<br /> <br /> <input type="button" value="#{botones['continuar']}"
+				onclick="window.location.href='#{facesContext.externalContext.requestContextPath}/pages/contratante/formulario.jsf?faces-redirect=true'" />
+		</div>
+	</rich:popupPanel>
+
+</div>

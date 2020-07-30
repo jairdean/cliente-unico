@@ -1,0 +1,39 @@
+1. Cambiar parametros.properties con mails de prueba
+2. Comentar servicios web de insercionPersonaSise
+
+>>>>>>>> WsDatosPersonaServicioImpl.ingresarPersonaNaturalSise:
+if(true){
+			return -1;
+}
+
+>>>>>>>> WsDatosPersonaServicioImpl.ingresarPersonaDireccionSise:
+if(true){
+			return -1;
+}
+
+>>>>>>>> WsDatosPersonaServicioImpl.ingresarPersonaTelefonoSise:
+if(true){
+			return -1;
+}
+
+>>>>>>>> WsDatosPersonaServicioImpl.validarEmail:
+if(true){
+			return true;
+}
+
+>>>>>>>> WsDatosPersonaServicioImpl.validarTelefono:
+if(true){
+			return true;
+}
+
+En login-config: habilitar otro application-policy con:
+dcardenas/Consultor.2012/ClienteUnico/
+
+PerosnaNaturalCtrl:
+
+En verificarNombres y verificarNombresConyuge
+
+// TODO borrar
+		if (true) {
+			return;
+}

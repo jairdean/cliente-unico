@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://SrvQaNombres.QA_Equivida.isd.ibm.com/soapoverhttp/" xmlns:impl="http://SrvQaNombres.QA_Equivida.isd.ibm.com/soapoverhttp/" xmlns:intf="http://SrvQaNombres.QA_Equivida.isd.ibm.com/soapoverhttp/" xmlns:tns1="http://SrvQaNombres.QA_Equivida.isd.ibm.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <schema targetNamespace="http://SrvQaNombres.QA_Equivida.isd.ibm.com/soapoverhttp/" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://SrvQaNombres.QA_Equivida.isd.ibm.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://SrvQaNombres.QA_Equivida.isd.ibm.com"/>
+   <element name="QANombresSrvResponse">
+    <complexType>
+     <sequence>
+      <element name="QANombresSrvReturn" nillable="true" type="tns1:SrvQaNombresOutVar1"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="QANombresSrv">
+    <complexType>
+     <sequence>
+      <element name="txt_nombre" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+    <schema targetNamespace="http://SrvQaNombres.QA_Equivida.isd.ibm.com" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <complexType name="SrvQaNombresOutVar1">
+    <sequence>
+     <element name="txt_nombre" nillable="true" type="xsd:string"/>
+     <element name="genero_nombres" nillable="true" type="xsd:string"/>
+     <element name="nameprefix_nombres" nillable="true" type="xsd:string"/>
+     <element name="firstname_nombres" nillable="true" type="xsd:string"/>
+     <element name="secondname_nombres" nillable="true" type="xsd:string"/>
+     <element name="firstlastname_nombres" nillable="true" type="xsd:string"/>
+     <element name="secondlastname_nombres" nillable="true" type="xsd:string"/>
+     <element name="unhandledpattern_nombres" nillable="true" type="xsd:string"/>
+     <element name="status" nillable="true" type="xsd:int"/>
+     <element name="message" nillable="true" type="xsd:string"/>
+     <element name="validacion" nillable="true" type="xsd:string"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  </wsdl:types>
+  <wsdl:message name="QANombresSrvRequest">
+    <wsdl:part element="impl:QANombresSrv" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="QANombresSrvResponse">
+    <wsdl:part element="impl:QANombresSrvResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SrvQaNombres">
+    <wsdl:operation name="QANombresSrv">
+      <wsdl:input message="impl:QANombresSrvRequest" name="QANombresSrvRequest">
+    </wsdl:input>
+      <wsdl:output message="impl:QANombresSrvResponse" name="QANombresSrvResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SrvQaNombresSOAPSoapBinding" type="impl:SrvQaNombres">
+<wsaw:UsingAddressing wsdl:required="false"/>
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="QANombresSrv">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="QANombresSrvRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="QANombresSrvResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SrvQaNombres">
+    <wsdl:port binding="impl:SrvQaNombresSOAPSoapBinding" name="SrvQaNombresSOAP">
+      <wsdlsoap:address location="http://10.10.52.53:9080/wisd/QA_Equivida/SrvQaNombres"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.equivida.com/services/clienteequivida/mpersona" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:eqns="http://www.equivida.com/services/clienteequivida/mpersona" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.equivida.com/services/clienteequivida/mpersona">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://www.equivida.com/services/clienteequivida/mpersona" xmlns:eqns="http://www.equivida.com/services/clienteequivida/mpersona" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	        <xs:element name="request">
+	            <xs:complexType>
+	                <xs:sequence>
+	                    <xs:element ref="eqns:txt_apellido1"/>
+	                    <xs:element ref="eqns:txt_apellido2"/>
+	                    <xs:element ref="eqns:txt_nombre"/>
+	                    <xs:element ref="eqns:cod_tipo_doc"/>
+	                    <xs:element ref="eqns:nro_doc"/>
+	                    <xs:element ref="eqns:cod_tipo_iva"/>
+	                    <xs:element ref="eqns:nro_nit"/>
+	                    <xs:element ref="eqns:fec_nac"/>
+	                    <xs:element ref="eqns:txt_lugar_nac"/>
+	                    <xs:element ref="eqns:txt_sexo"/>
+	                    <xs:element ref="eqns:cod_est_civil"/>
+	                    <xs:element ref="eqns:cod_tipo_persona"/>
+	                    <xs:element ref="eqns:txt_origen"/>
+	                </xs:sequence>
+	            </xs:complexType>
+	        </xs:element>
+	        <xs:element name="txt_apellido1" nillable="true" type="xs:string"/>
+	        <xs:element name="txt_apellido2" nillable="true" type="xs:string"/>
+	        <xs:element name="txt_nombre" nillable="true" type="xs:string"/>
+	        <xs:element name="cod_tipo_doc" type="xs:int"/>
+	        <xs:element name="nro_doc" nillable="true" type="xs:string"/>
+	        <xs:element name="cod_tipo_iva" type="xs:int"/>
+	        <xs:element name="nro_nit" nillable="true" type="xs:string"/>
+	        <xs:element name="fec_nac" nillable="true" type="xs:date"/>
+	        <xs:element name="txt_lugar_nac" nillable="true" type="xs:string"/>
+	        <xs:element name="txt_sexo" nillable="true" type="xs:string"/>
+	        <xs:element name="cod_est_civil" type="xs:int"/>
+	        <xs:element name="cod_tipo_persona" nillable="true" type="xs:string"/>
+	        <xs:element name="txt_origen" nillable="true" type="xs:string"/>
+	        <xs:element name="response">
+	            <xs:complexType>
+	                <xs:sequence>
+	                    <xs:element ref="eqns:id_persona"/>
+	                    <xs:element ref="eqns:num_filas"/>
+	                    <xs:element ref="eqns:cod_error"/>
+	                    <xs:element ref="eqns:msg_error"/>
+	                </xs:sequence>
+	            </xs:complexType>
+	        </xs:element>
+	        <xs:element name="id_persona" type="xs:int"/>
+	        <xs:element name="num_filas" type="xs:int"/>
+	        <xs:element name="cod_error" type="xs:string"/>
+	        <xs:element name="msg_error" type="xs:string"/>
+	    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="Response">
+    <wsdl:part name="DefaultOutput" element="eqns:response"/>
+  </wsdl:message>
+  <wsdl:message name="Request">
+    <wsdl:part name="DefaultInput" element="eqns:request"/>
+  </wsdl:message>
+  <wsdl:portType name="PortType">
+    <wsdl:operation name="Invoke">
+      <wsdl:input message="eqns:Request"/>
+      <wsdl:output message="eqns:Response"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SOAPBinding" type="eqns:PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Invoke">
+      <soap:operation soapAction="http://www.equivida.com/services/clienteequivida/mpersona/PortType/InvokeRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="clienteequivida.mpersonaSrv">
+    <wsdl:port name="Port" binding="eqns:SOAPBinding">
+      <soap:address location="http://10.10.30.26:2014/process/clienteequivida.mpersona"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

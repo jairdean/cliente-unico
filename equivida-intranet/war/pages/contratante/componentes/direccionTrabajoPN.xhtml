@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<div class="linea-baja" style="width: 100%">
+		<h:panelGrid columns="2">
+			<h:outputText value="#{etiquetas['direccion.trabajo']}" />
+			<a4j:commandLink id="btnDireccionesTraPN"
+				actionListener="#{contratanteCtrl.crearDireccionTrabajoPN}"
+				execute="tblDireccionesTraPN" render="pnlDireccionesTraPN">
+				<h:graphicImage value="/img/nuevo.png" title="#{buttons['new']}" />
+			</a4j:commandLink>
+		</h:panelGrid>
+	</div>
+
+	<h:panelGrid columns="2" columnClasses="etiqueta">
+		<a4j:outputPanel id="pnlDireccionesTraPN">
+
+			<h:inputHidden id="totalDireccionesTraPN" readonly="true"
+				value="#{fn:length(contratanteCtrl.personaNatural.persona.direccionCollection)}" />
+
+			<rich:dataTable id="tblDireccionesTraPN"
+				value="#{contratanteCtrl.personaNatural.persona.direccionCollection}"
+				var="dirTra" rowKeyVar="countDir">
+				<rich:column>
+					<h:panelGrid columns="4" columnClasses="etiqueta">
+						<h:outputText value="#{etiquetas['tipo']}" />
+						<h:selectOneMenu enableManualInput="true"
+							defaultLabel="#{etiquetas['seleccionar.uno']}"
+							value="#{dirTra.tipoDireccion.codTipoDireccion}">
+							<f:selectItems value="#{selectCtrl.tipoDireccionItems}" />
+						</h:selectOneMenu>
+
+						<h:outputText value="#{etiquetas['pais']}" />
+						<rich:autocomplete mode="cachedAjax" minChars="1" autofill="false"
+							var="varPais" fetchValue="#{varPais.pais}"
+							autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+							required="false" value="#{dirTra.canton.provincia.pais.pais}"
+							onselectitem="selectOne(#{rich:element('paisIdd')}.value)">
+							<rich:column>
+								<h:inputHidden value="#{varPais.codPais}" id="paisIdd"
+									rendered="#{varPais!=null}" />
+								<h:outputText value="#{varPais.pais}" />
+							</rich:column>
+							<a4j:jsFunction name="selectOne" ajaxSingle="true"
+								render="provinciaAutocompleteTraPN,catonAutocompleteTraPN,parroquiaAutocompleteTraPN">
+								<a4j:param name="varPaisIdTra"
+									assignTo="#{autocompleteCtrl.paisDomicilioId}" />
+							</a4j:jsFunction>
+						</rich:autocomplete>
+
+						<h:outputLabel value="#{etiquetas['provincia']}" />
+						<rich:autocomplete id="provinciaAutocompleteTraPN" mode="cachedAjax"
+							minChars="1" autofill="false" var="varProvincia"
+							fetchValue="#{varProvincia.provincia}"
+							autocompleteMethod="#{autocompleteCtrl.autocompleteProvincia}"
+							required="false" value="#{dirTra.canton.provincia.provincia}"
+							onselectitem="selectOne(#{rich:element('provinciaId')}.value)"
+							selectFirst="false">
+							<rich:column>
+								<h:inputHidden value="#{varProvincia.secProvincia}"
+									id="provinciaIdTra" rendered="#{varProvincia!=null}" />
+								<h:outputText value="#{varProvincia.provincia}" />
+							</rich:column>
+							<a4j:jsFunction name="selectOne" ajaxSingle="true"
+								render="catonAutocompleteTraPN,parroquiaAutocompleteTraPN">
+								<a4j:param name="varProvinciaIdTra"
+									assignTo="#{autocompleteCtrl.provinciaDomicilioId}" />
+							</a4j:jsFunction>
+						</rich:autocomplete>
+
+						<h:outputLabel value="#{etiquetas['canton']}" />
+						<rich:autocomplete id="catonAutocompleteTraPN" mode="cachedAjax"
+							minChars="1" autofill="false" var="varCanton"
+							fetchValue="#{varCanton.canton}"
+							autocompleteMethod="#{autocompleteCtrl.autocompleteCanton}"
+							required="false" value="#{dirTra.canton.canton}"
+							onselectitem="selectOne(#{rich:element('cantonId')}.value)"
+							selectFirst="false">
+							<rich:column>
+								<h:inputHidden value="#{varCanton.secCanton}" id="cantonIdTra"
+									rendered="#{varCanton!=null}" />
+								<h:outputText value="#{varCanton.canton}" />
+							</rich:column>
+							<a4j:jsFunction name="selectOne" ajaxSingle="true"
+								render="parroquiaAutocompleteTraPN">
+								<a4j:param name="varCantonIdTra"
+									assignTo="#{autocompleteCtrl.cantonDomicilioId}" />
+							</a4j:jsFunction>
+						</rich:autocomplete>
+
+						<h:outputLabel value="#{etiquetas['parroquia']}" />
+						<rich:autocomplete id="parroquiaAutocompleteTraPN" mode="cachedAjax"
+							minChars="1" autofill="false" var="varParroquia"
+							fetchValue="#{varParroquia.parroquia}"
+							value="#{dirTra.parroquia}"
+							autocompleteMethod="#{autocompleteCtrl.autocompleteParroquia}"
+							required="false"
+							onselectitem="selectOne(#{rich:element('parroquiaId')}.value)"
+							selectFirst="false">
+							<rich:column>
+								<h:inputHidden value="#{varParroquia.secParroquia}"
+									id="parroquiaId" rendered="#{varParroquia!=null}" />
+								<h:outputText value="#{varParroquia.parroquia}" />
+							</rich:column>
+							<a4j:jsFunction name="selectOne" ajaxSingle="true">
+								<a4j:param name="varParroquiaId"
+									assignTo="#{dirTra.parroquia.secParroquia}" />
+							</a4j:jsFunction>
+						</rich:autocomplete>
+
+						<h:outputLabel value="#{etiquetas['calle.principal']}" />
+						<h:inputText value="#{dirTra.principal}" />
+
+						<h:outputLabel value="#{etiquetas['numero']}" />
+						<h:inputText value="#{dirTra.numero}" />
+
+						<h:outputLabel value="#{etiquetas['calle.secundaria']}" />
+						<h:inputText value="#{dirTra.secundaria}" />
+
+						<h:outputLabel value="#{etiquetas['barrio.sector.ciudadela']}" />
+						<h:inputText value="#{dirTra.barrio}" />
+
+						<h:outputLabel value="#{etiquetas['edificio.condominio.manzana']}" />
+						<h:inputText value="#{dirTra.edificio}" />
+
+						<h:outputLabel value="#{etiquetas['piso']}" />
+						<h:inputText value="#{dirTra.piso}" />
+
+						<h:outputLabel value="#{etiquetas['oficina.departamento']}" />
+						<h:inputText value="#{dirTra.oficina}" />
+
+						<h:outputLabel value="#{etiquetas['referencia']}" />
+						<h:inputText value="#{dirTra.referencia}" />
+					</h:panelGrid>
+					<h:panelGrid columns="2" columnClasses="etiqueta">
+
+						<h:outputLabel value="#{etiquetas['telefonos']}" />
+						<h:panelGrid columns="1">
+							<a4j:commandLink id="btnTelefonoTraPN"
+								actionListener="#{contratanteCtrl.crearDireccionTelefonoPN}"
+								execute="tblTelefonoTraPN" render="pnlDireccionTelefonoTra">
+								<h:graphicImage value="/img/nuevo.png" />
+							</a4j:commandLink>
+							<a4j:outputPanel id="pnlDireccionTelefonoTra">
+								<h:inputHidden id="totalTelefonosTra" readonly="true"
+									value="#{fn:length(dirTra.direccionTelefonoCollection)}" />
+								<rich:dataTable id="tblTelefonoTraPN"
+									value="#{dirTra.direccionTelefonoCollection}" var="dt"
+									rendered="#{not empty dirTra.direccionTelefonoCollection}">
+
+									<rich:column style="text-align: center;">
+										<f:facet name="header">#{etiquetas['tipo']}</f:facet>
+										<h:selectOneMenu enableManualInput="true"
+											value="#{dt.telefono.tipoTelefono.codTipoTelefono}">
+											<f:selectItems value="#{selectCtrl.tipoTelefonoItems}" />
+										</h:selectOneMenu>
+									</rich:column>
+
+									<rich:column style="text-align: center;">
+										<f:facet name="header">#{etiquetas['pais']}</f:facet>
+										<rich:autocomplete mode="cachedAjax" tokens=", " minChars="1"
+											autofill="false" var="d" fetchValue="#{d.pais}"
+											autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+											value="#{dt.telefono.pais.pais}" required="false"
+											onselectitem="selectOne(#{rich:element('paisIdCD')}.value)">
+											<rich:column>
+												<h:inputHidden value="#{d.codPais}" id="paisIdCD"
+													rendered="#{d!=null}" />
+												<h:outputText value="#{d.pais}" />
+											</rich:column>
+											<a4j:jsFunction name="selectOne" ajaxSingle="true">
+												<a4j:param name="a" assignTo="#{dt.telefono.pais.codPais}" />
+											</a4j:jsFunction>
+										</rich:autocomplete>
+									</rich:column>
+
+									<rich:column style="text-align: center;">
+										<f:facet name="header">#{etiquetas['codigo.area']}</f:facet>
+										<h:inputText size="3" value="#{dt.telefono.codArea}" />
+									</rich:column>
+
+									<rich:column style="text-align: center;">
+										<f:facet name="header">#{etiquetas['numero']}</f:facet>
+										<h:inputText id="txtConvencional"
+											value="#{dt.telefono.nroTelefono}" />
+									</rich:column>
+
+									<rich:column style="text-align: center;">
+										<f:facet name="header">#{etiquetas['principal']}</f:facet>
+										<h:selectBooleanCheckbox id="checkTlfPrincipal"
+											value="#{dt.principal}"
+											onclick="casillaTelefonos(#{countDir},this)" />
+									</rich:column>
+
+									<rich:column>
+										<f:facet name="header">#{botones['eliminar']}</f:facet>
+										<a4j:commandLink render="pnlDireccionesPN"
+											actionListener="#{SSIPersonaJuridicaCtrl.eliminarTelefono}"
+											immediate="true">
+											<h:graphicImage value="/img/eliminar.png"
+												title="#{botones['eliminar']}" />
+										</a4j:commandLink>
+									</rich:column>
+
+								</rich:dataTable>
+							</a4j:outputPanel>
+						</h:panelGrid>
+					</h:panelGrid>
+
+				</rich:column>
+				<rich:column>
+					<h:panelGrid columns="2">
+						<h:outputLabel value="#{etiquetas['principal']}" />
+						<h:selectBooleanCheckbox id="checkPrincipalTraPN"
+							onclick="casillaDireccion(this)"
+							value="#{dirTra.direccionPrincipal}" />
+
+						<h:outputLabel value="#{botones['eliminar']}" />
+
+						<a4j:commandLink render="pnlDireccionesTraPN"
+							actionListener="#{contratanteCtrl.eliminarDireccionTrabajoPN}"
+							immediate="true">
+							<h:graphicImage value="/img/eliminar.png"
+								title="#{botones['eliminar']} Dir." />
+						</a4j:commandLink>
+
+					</h:panelGrid>
+
+				</rich:column>
+
+			</rich:dataTable>
+
+		</a4j:outputPanel>
+
+	</h:panelGrid>
+</div>

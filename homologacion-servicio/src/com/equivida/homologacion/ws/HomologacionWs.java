@@ -1,0 +1,19 @@
+package com.equivida.homologacion.ws;
+
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
+
+@WebService
+public interface HomologacionWs {
+
+	@WebMethod
+	@WebResult(name = "idsSise")
+	String[] obtenerIdSisePersona(
+			@WebParam(name = "secuencialPersona") String secuencialPersona);
+
+	@WebMethod
+	@WebResult(name = "secuencialPersona")
+	String obtenerSecuencialPersona(@WebParam(name = "idSise") String idSise);
+}

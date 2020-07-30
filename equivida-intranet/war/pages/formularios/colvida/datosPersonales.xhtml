@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<a4j:jsFunction name="cambiaFechaNacimiento" render="tblFloatPanel"
+		execute="txtFechaNacimiento" />
+
+	<h:panelGrid columns="2" columnClasses="etiqueta" id="tblDatosId">
+
+		<h:outputLabel value="#{etiquetas['tipo.identificacion']}:*"
+			for="txtTipoId" />
+
+		<h:selectOneMenu id="txtTipoId"
+			value="#{personaNaturalCtrl.personaNatural.tipoIdentificacion.codTipoIdentificacion}"
+			disabled="#{permisoCtrl.deshabilitadoReadOnlyTipoDocumento}">
+			<f:selectItems
+				value="#{selectCtrl.tipoDocumentoParaPersonaNaturalItems}" />
+			<a4j:ajax />
+		</h:selectOneMenu>
+
+		<h:outputLabel value="#{etiquetas['identificacion']}:*" for="txtId" />
+		<h:panelGrid columns="4">
+			<h:inputText id="txtId"
+				value="#{personaNaturalCtrl.personaNatural.identificacion}"
+				required="true" requiredMessage="#{mensajes['requerido']}"
+				readonly="#{permisoCtrl.readOnlyNumeroDocumento}">
+				<a4j:ajax event="blur" execute="txtTipoId txtId"
+					render="SSIPNForm, popupsNombres, :formRcs"
+					listener="#{personaNaturalCtrl.verificarSiExiste}"
+					oncomplete="document.getElementById('SSIPNForm:txtApellidoP').focus();">
+				</a4j:ajax>
+			</h:inputText>
+			<rich:message id="idMesId" for="txtId" />
+			<h:selectBooleanCheckbox id="chkExtranjero"
+				value="#{personaNaturalCtrl.personaNatural.casillaExtranjero}"
+				render="pnlDatosPasaporte">
+				<f:ajax render="pnlDatosPasaporte"></f:ajax>
+			</h:selectBooleanCheckbox>
+			<h:outputLabel value="#{etiquetas['extranjero']}" for="chkExtranjero" />
+		</h:panelGrid>
+	</h:panelGrid>
+
+	<a4j:outputPanel id="pnlDatosPasaporte">
+
+		<h:panelGrid columns="4" columnClasses="etiqueta,textoForm,etiqueta"
+			id="tblDatosPasaporte" headerClass="subtituloForm"
+			rendered="#{personaNaturalCtrl.personaNatural.casillaExtranjero}">
+
+			<f:facet name="header">
+				<h:outputLabel value="#{etiquetas['datos.extranjero']}:" />
+			</f:facet>
+
+			<h:outputLabel value="#{etiquetas['fecha.expedicion.pasaporte']}:*"
+				for="calFechaExpedicion" />
+
+			<h:panelGrid columns="3">
+				<rich:calendar id="calFechaExpedicion"
+					value="#{personaNaturalCtrl.personaNatural.detallePasaporte.fechaExpedicion}"
+					locale="#{sesionCtrl.locale}"
+					datePattern="#{aplicacionCtrl.formatDateForForm}"
+					enableManualInput="true" required="true"
+					requiredMessage="#{mensajes['requerido']}"></rich:calendar>
+				<rich:message for="calFechaExpedicion" />
+				<h:outputText value="#{etiquetas['fecha.ejemplo']}" />
+			</h:panelGrid>
+
+			<h:outputLabel value="#{etiquetas['fecha.caducidad.pasaporte']}:*"
+				for="calFechaCad" />
+
+			<h:panelGrid columns="3">
+				<rich:calendar id="calFechaCad"
+					value="#{personaNaturalCtrl.personaNatural.detallePasaporte.fechaCaducidad}"
+					locale="#{sesionCtrl.locale}"
+					datePattern="#{aplicacionCtrl.formatDateForForm}"
+					enableManualInput="true" required="true"
+					requiredMessage="#{mensajes['requerido']}"></rich:calendar>
+				<rich:message for="calFechaCad" />
+				<h:outputText value="#{etiquetas['fecha.ejemplo']}" />
+			</h:panelGrid>
+
+			<h:outputLabel value="#{etiquetas['estado.migratorio']}:*"
+				for="cmbEstadoMigratorio" />
+
+			<h:panelGrid columns="2">
+				<h:selectOneMenu id="cmbEstadoMigratorio"
+					value="#{personaNaturalCtrl.personaNatural.detallePasaporte.tipoVisa.secTipoVisa}"
+					required="true" requiredMessage="#{mensajes['requerido']}">
+					<f:selectItem itemValue="" itemLabel="Seleccione" />
+					<f:selectItems value="#{selectCtrl.tipoVisaItems}" />
+				</h:selectOneMenu>
+				<rich:message for="cmbEstadoMigratorio" />
+			</h:panelGrid>
+
+			<h:outputLabel value="#{etiquetas['fecha.ingreso.pais']}:*"
+				for="calIngPais" />
+
+			<h:panelGrid columns="3">
+				<rich:calendar id="calIngPais"
+					value="#{personaNaturalCtrl.personaNatural.detallePasaporte.fechaEntrada}"
+					locale="#{sesionCtrl.locale}"
+					datePattern="#{aplicacionCtrl.formatDateForForm}"
+					enableManualInput="true" required="true"
+					requiredMessage="#{mensajes['requerido']}"></rich:calendar>
+				<rich:message for="calIngPais" />
+				<h:outputText value="#{etiquetas['fecha.ejemplo']}" />
+			</h:panelGrid>
+
+			<h:outputLabel value="#{etiquetas['codigo.extranjeria']}:"
+				for="txtCodExtranjeria" />
+			<h:inputText id="txtCodExtranjeria"
+				value="#{personaNaturalCtrl.personaNatural.detallePasaporte.codExtranjeria}"
+				maxlength="24" />
+
+		</h:panelGrid>
+
+	</a4j:outputPanel>
+	<h:panelGrid id="datosPersonalesNomApe" columns="4"
+		columnClasses="etiqueta,textoForm,etiqueta"
+		headerClass="subtituloForm">
+
+		<f:facet name="header">
+			<h:outputLabel value="#{etiquetas['nombres']}:" />
+		</f:facet>
+
+		<h:outputLabel value="#{etiquetas['apellido.paterno']}:*"
+			for="txtApellidoP" />
+		<h:panelGrid columns="2">
+			<h:inputText id="txtApellidoP" maxlength="24"
+				value="#{personaNaturalCtrl.personaNatural.apellidoPaterno}"
+				required="true" requiredMessage="#{mensajes['requerido']}"
+				style="text-transform:uppercase;">
+				<f:ajax render="tblFloatPanel"
+					execute="txtApellidoP txtApellidoM txtPrimerNombre txtSegundoNombre gridSexo" />
+			</h:inputText>
+			<rich:message for="txtApellidoP" />
+		</h:panelGrid>
+		<h:outputLabel value="#{etiquetas['apellido.materno']}:"
+			for="txtApellidoM" />
+		<h:panelGrid columns="2">
+			<h:inputText id="txtApellidoM" maxlength="24"
+				value="#{personaNaturalCtrl.personaNatural.apellidoMaterno}"
+				style="text-transform:uppercase;">
+				<f:ajax render="tblFloatPanel datosPersonalesNomApe"
+					execute="txtApellidoP txtApellidoM txtPrimerNombre txtSegundoNombre gridSexo" />
+			</h:inputText>
+			<rich:message for="txtApellidoM" />
+		</h:panelGrid>
+		<h:outputLabel value="#{etiquetas['primer.nombre']}:*"
+			for="txtPrimerNombre" />
+		<h:panelGrid columns="2">
+			<h:inputText id="txtPrimerNombre" maxlength="16"
+				value="#{personaNaturalCtrl.personaNatural.primerNombre}"
+				style="text-transform:uppercase;" required="true"
+				requiredMessage="#{mensajes['requerido']}">
+				<f:ajax render="tblFloatPanel"
+					execute="txtApellidoP txtApellidoM txtPrimerNombre txtSegundoNombre gridSexo" />
+			</h:inputText>
+			<rich:message for="txtPrimerNombre" />
+		</h:panelGrid>
+		<h:outputLabel value="#{etiquetas['segundo.nombre']}:"
+			for="txtSegundoNombre" />
+		<h:panelGrid columns="3">
+			<h:inputText id="txtSegundoNombre" maxlength="16"
+				value="#{personaNaturalCtrl.personaNatural.segundoNombre}"
+				style="text-transform:uppercase;">
+			</h:inputText>
+			<rich:message for="txtSegundoNombre" />
+			<a4j:commandButton value="#{botones['revisar.listas.reservadas']}"
+				action="#{personaNaturalCtrl.verificarListasReservadas}"
+				render=":SSIPNForm tblFloatPanel popupsNombres :formSugerencia gridSexo :formRcs popUpPanelCompara datosPersonalesNomApe"
+				execute="txtApellidoP txtApellidoM txtPrimerNombre txtSegundoNombre gridSexo">
+			</a4j:commandButton>
+		</h:panelGrid>
+
+
+	</h:panelGrid>
+
+	<div class="segundoNombre" style="#{personaNaturalCtrl.styleDivEstadoCivil}">
+
+		<h:inputHidden id="autoPaisFNHT"
+			value="#{personaNaturalCtrl.personaNatural.ciudadNacimiento.pais.pais}" />
+		<a4j:jsFunction name="seleccionarPaisFN"
+			execute="autoPaisFN autoPaisFNHT"
+			render="autoCiudadFN autoPaisFNHT autoCiudadFNHT"
+			action="#{personaNaturalCtrl.seleccionarPaisFN}" />
+
+
+		<h:inputHidden id="autoCiudadFNHT"
+			value="#{personaNaturalCtrl.personaNatural.ciudadNacimiento.ciudad}" />
+
+		<h:inputHidden id="autoPaisNACHT"
+			value="#{personaNaturalCtrl.personaNatural.paisNacionalidad.pais}" />
+
+		<h:panelGrid columns="4" columnClasses="etiqueta,textoForm,etiqueta"
+			headerClass="subtituloForm">
+			<f:facet name="header">
+				<h:outputLabel value="#{etiquetas['lugar.nacimiento']}:" />
+			</f:facet>
+
+
+			<h:outputText value="#{etiquetas['pais']}: *" />
+			<h:panelGrid columns="2">
+				<rich:autocomplete mode="cachedAjax" minChars="1" var="varPais"
+					fetchValue="#{varPais.pais}" id="autoPaisFN" required="true"
+					requiredMessage="#{mensajes['requerido']}"
+					autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+					value="#{personaNaturalCtrl.personaNatural.ciudadNacimiento.pais}"
+					onselectitem="seleccionarPaisFN()"
+					onblur="document.getElementById('SSIPNForm:autoPaisFNInput').value=document.getElementById('SSIPNForm:autoPaisFNHT').value">
+					<rich:column>
+						<h:outputText value="#{varPais.pais}" />
+					</rich:column>
+					<f:converter converterId="paisConverter"></f:converter>
+					<a4j:ajax />
+				</rich:autocomplete>
+				<rich:message for="autoPaisFN" />
+			</h:panelGrid>
+
+
+			<h:outputLabel value="#{etiquetas['ciudad']}: *" />
+			<h:panelGrid columns="2">
+				<rich:autocomplete id="autoCiudadFN" minChars="1" selectFirst="true"
+					mode="ajax" var="varCiudad" required="true"
+					requiredMessage="#{mensajes['requerido']}"
+					fetchValue="#{varCiudad.ciudad}"
+					autocompleteMethod="#{personaNaturalCtrl.autocompleteCiudadFN}"
+					value="#{personaNaturalCtrl.personaNatural.ciudadNacimiento}"
+					onselectitem="document.getElementById('SSIPNForm:autoCiudadFNHT').value=document.getElementById('SSIPNForm:autoCiudadFNInput').value"
+					onblur="document.getElementById('SSIPNForm:autoCiudadFNInput').value=document.getElementById('SSIPNForm:autoCiudadFNHT').value">
+					<rich:column>
+						<h:outputText value="#{varCiudad}" />
+					</rich:column>
+					<f:converter converterId="ciudadConverter"></f:converter>
+					<a4j:ajax />
+				</rich:autocomplete>
+				<rich:message for="autoCiudadFN" />
+			</h:panelGrid>
+
+
+		</h:panelGrid>
+		<h:panelGrid columns="4" columnClasses="etiqueta,textoForm,etiqueta">
+
+			<h:outputLabel for="txtFechaNacimiento"
+				value="#{etiquetas['fecha.nacimiento']}: *" />
+			<h:panelGrid columns="3">
+				<rich:calendar id="txtFechaNacimiento"
+					value="#{personaNaturalCtrl.personaNatural.fchNacimiento}"
+					locale="#{sesionCtrl.locale}"
+					datePattern="#{aplicacionCtrl.formatDateForForm}"
+					enableManualInput="true" required="true"
+					requiredMessage="#{mensajes['requerido']}"
+					oninputblur="cambiaFechaNacimiento()"
+					onchange="cambiaFechaNacimiento()"></rich:calendar>
+				<rich:message for="txtFechaNacimiento" />
+				<h:outputText value="#{etiquetas['fecha.ejemplo']}" />
+			</h:panelGrid>
+
+			<h:outputLabel value="#{etiquetas['nacionalidad']}:*"
+				for="autoPaisNAC" />
+			<h:panelGrid columns="2">
+				<rich:autocomplete mode="cachedAjax" minChars="1" autofill="false"
+					var="varPais" fetchValue="#{varPais.pais}" id="autoPaisNAC"
+					autocompleteMethod="#{autocompleteCtrl.autocompletePais}"
+					value="#{personaNaturalCtrl.personaNatural.paisNacionalidad}"
+					onselectitem="document.getElementById('SSIPNForm:autoPaisNACHT').value=document.getElementById('SSIPNForm:autoPaisNACInput').value"
+					onblur="document.getElementById('SSIPNForm:autoPaisNACInput').value=document.getElementById('SSIPNForm:autoPaisNACHT').value">
+					<rich:column>
+						<h:outputText value="#{varPais.pais}" />
+					</rich:column>
+					<f:converter converterId="paisConverter"></f:converter>
+					<a4j:ajax />
+				</rich:autocomplete>
+				<rich:message for="autoPaisNAC" />
+			</h:panelGrid>
+
+			<h:outputLabel value="#{etiquetas['genero']}:*" />
+			<h:panelGrid columns="2" id="gridSexo">
+				<h:selectOneMenu value="#{personaNaturalCtrl.personaNatural.sexo}">
+					<f:selectItems value="#{selectCtrl.generoItems}" />
+					<f:ajax listener="#{personaNaturalCtrl.seleccionaSexo}"
+						render="gridSexo"></f:ajax>
+				</h:selectOneMenu>
+				<h:outputText value="#{mensajes['sugerencia.sexo']}"
+					style="color:#FF6633;font-weight:bold;font-size:14px"
+					rendered="#{personaNaturalCtrl.sexoAdvertencia}" />
+			</h:panelGrid>
+
+			<h:outputLabel value="#{etiquetas['estado.civil']}:*" />
+			<h:panelGrid columns="2">
+				<h:selectOneMenu enableManualInput="true" id="estadoCivilSel"
+					value="#{personaNaturalCtrl.personaNatural.estadoCivil.codEstadoCivil}"
+					valueChangeListener="#{personaNaturalCtrl.cambiarEstadoCivil}"
+					required="true" requiredMessage="Requerido">
+					<f:selectItem itemValue="" itemLabel="Seleccione..." />
+					<f:selectItems value="#{selectCtrl.estadoCivilVisiblesItems}" />
+					<f:ajax render=":SSIPNForm" />
+				</h:selectOneMenu>
+				<rich:message for="estadoCivilSel" />
+			</h:panelGrid>
+
+		</h:panelGrid>
+
+		<a4j:outputPanel id="pnlConyuge">
+			<h:panelGrid columns="4" columnClasses="etiqueta,textoForm,etiqueta"
+				id="gridConyuge" headerClass="subtituloForm"
+				rendered="#{personaNaturalCtrl.personaNatural.conConyuge}">
+				<f:facet name="header">
+					<h:outputLabel value="#{etiquetas['conyuge']}:" />
+				</f:facet>
+
+				<h:outputLabel value="#{etiquetas['tipo.identificacion']}:*"
+					for="txtTipoIdConyuge" />
+
+				<h:selectOneMenu id="txtTipoIdConyuge"
+					value="#{personaNaturalCtrl.personaNatural.conyuge.tipoIdentificacion.codTipoIdentificacion}"
+					readonly="#{(not personaNaturalCtrl.nuevo and personaNaturalCtrl.personaNatural.conyuge.secPersonaNatural!=null)}">
+					<f:selectItems
+						value="#{selectCtrl.tipoDocumentoParaPersonaNaturalItems}" />
+				</h:selectOneMenu>
+
+				<h:outputLabel value="#{etiquetas['identificacion']}:*"
+					for="txtIdConyuge" />
+				<h:panelGrid columns="2">
+					<h:inputText id="txtIdConyuge"
+						readonly="#{(not personaNaturalCtrl.nuevo and personaNaturalCtrl.personaNatural.conyuge.secPersonaNatural!=null)}"
+						value="#{personaNaturalCtrl.personaNatural.conyuge.identificacion}">
+						<f:ajax event="blur" execute="txtTipoIdConyuge txtIdConyuge"
+							render="idMesIdConyuge txtIdConyuge txtApellidoPConyuge txtApellidoMConyuge txtPrimerNombreConyuge txtSegundoNombreConyuge txtConyugeDelConyuge"
+							listener="#{personaNaturalCtrl.verificarSiExisteConyuge}">
+						</f:ajax>
+					</h:inputText>
+					<rich:message id="idMesIdConyuge" for="txtIdConyuge" />
+					<h:outputText value="#{mensajes['cambiar.datos.conyuge']}"
+						rendered="false" />
+				</h:panelGrid>
+
+				<h:outputLabel value="#{etiquetas['apellido.paterno']}:*"
+					for="txtApellidoPConyuge" />
+				<h:panelGrid columns="2">
+					<h:inputText id="txtApellidoPConyuge" maxlength="16"
+						value="#{personaNaturalCtrl.personaNatural.conyuge.apellidoPaterno}"
+						required="true" requiredMessage="#{mensajes['requerido']}"
+						style="text-transform:uppercase;">
+						<f:ajax event="blur"
+							execute="txtApellidoPConyuge txtApellidoMConyuge txtPrimerNombreConyuge txtSegundoNombreConyuge" />
+					</h:inputText>
+					<rich:message for="txtApellidoPConyuge" />
+				</h:panelGrid>
+				<h:outputLabel value="#{etiquetas['apellido.materno']}:"
+					for="txtApellidoMConyuge" />
+				<h:panelGrid columns="2">
+					<h:inputText id="txtApellidoMConyuge" maxlength="16"
+						value="#{personaNaturalCtrl.personaNatural.conyuge.apellidoMaterno}"
+						style="text-transform:uppercase;">
+						<f:ajax event="blur"
+							execute="txtApellidoPConyuge txtApellidoMConyuge txtPrimerNombreConyuge txtSegundoNombreConyuge" />
+					</h:inputText>
+				</h:panelGrid>
+				<h:outputLabel value="#{etiquetas['primer.nombre']}:*"
+					for="txtPrimerNombreConyuge" />
+				<h:panelGrid columns="2">
+					<h:inputText id="txtPrimerNombreConyuge" maxlength="16"
+						value="#{personaNaturalCtrl.personaNatural.conyuge.primerNombre}"
+						style="text-transform:uppercase;" required="true"
+						requiredMessage="#{mensajes['requerido']}">
+						<f:ajax event="blur"
+							execute="txtApellidoPConyuge txtApellidoMConyuge txtPrimerNombreConyuge txtSegundoNombreConyuge" />
+					</h:inputText>
+					<rich:message for="txtPrimerNombreConyuge" />
+				</h:panelGrid>
+				<h:outputLabel value="#{etiquetas['segundo.nombre']}:"
+					for="txtSegundoNombreConyuge" />
+				<h:panelGrid columns="2">
+					<h:inputText id="txtSegundoNombreConyuge" maxlength="16"
+						value="#{personaNaturalCtrl.personaNatural.conyuge.segundoNombre}"
+						style="text-transform:uppercase;">
+					</h:inputText>
+					<a4j:commandButton value="#{botones['revisar.listas.reservadas']}"
+						action="#{personaNaturalCtrl.verificarNombresConyuge}"
+						render="popupsNombres :SSIPNForm :formSugerencia :formRcs "
+						execute="txtApellidoPConyuge txtApellidoMConyuge txtPrimerNombreConyuge txtSegundoNombreConyuge">
+					</a4j:commandButton>
+				</h:panelGrid>
+
+			</h:panelGrid>
+		</a4j:outputPanel>
+
+
+		<h:panelGrid columns="3" columnClasses="etiqueta,textoForm"
+			rendered="true">
+
+			<h:outputLabel value="No. Hijos:" for="txtNumHijos" />
+			<h:panelGroup>
+				<h:inputText value="#{personaNaturalCtrl.personaNatural.numHijos}"
+					id="txtNumHijos" size="3" >
+					<f:validateLongRange minimum="0" maximum="20" />
+					<f:ajax event="blur" execute="@this" />
+				</h:inputText>
+				<rich:message for="txtNumHijos" />
+				
+			</h:panelGroup>
+
+			<h:outputText value="#{personaNaturalCtrl.conyugeDelConyuge}"
+				style="color:#FF6633;font-weight:bold;font-size:14px"
+				id="txtConyugeDelConyuge" />
+		</h:panelGrid>
+
+	</div>
+
+</div>

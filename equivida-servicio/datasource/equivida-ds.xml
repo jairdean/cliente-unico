@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<local-tx-datasource>
+		<jndi-name>equividaDS</jndi-name>
+		<connection-url> jdbc:db2://db2.equivida.com:50000/equivida
+		</connection-url>
+		<driver-class>com.imb.db2.jcc.DB2Driver
+		</driver-class>
+
+		<!-- desarrollo -->
+		<!-- 
+		<user-name>EQUIVIDA</user-name>
+		<password>Seguros12</password>
+		 -->
+		
+		<!-- desarrollo -->
+		<user-name>usuario</user-name>
+		<password>user_desa</password>
+
+
+	</local-tx-datasource>
+</datasources>

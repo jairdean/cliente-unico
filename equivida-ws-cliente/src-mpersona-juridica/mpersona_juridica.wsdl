@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.equivida.com/services/clienteequivida/mpersona_juridica" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:eqns="http://www.equivida.com/services/clienteequivida/mpersona_juridica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.equivida.com/services/clienteequivida/mpersona_juridica">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://www.equivida.com/services/clienteequivida/mpersona_juridica" xmlns:eqns="http://www.equivida.com/services/clienteequivida/mpersona_juridica" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	        <xs:element name="request">
+	            <xs:complexType>
+	                <xs:sequence>
+	                    <xs:element ref="eqns:id_persona"/>
+	                    <xs:element ref="eqns:cod_tipo_soc"/>
+	                    <xs:element ref="eqns:cod_sector_mercado"/>
+	                    <xs:element ref="eqns:cod_actividad"/>
+	                    <xs:element ref="eqns:txt_nombre_contacto"/>
+	                    <xs:element ref="eqns:fec_contitucion"/>
+	                    <xs:element ref="eqns:txt_cuidad_const"/>
+	                    <xs:element ref="eqns:cnt_duracion_empresa"/>
+	                    <xs:element ref="eqns:imp_capital_social"/>
+	                    <xs:element ref="eqns:txt_sector"/>
+	                    <xs:element ref="eqns:txt_urbanizacion"/>
+	                    <xs:element ref="eqns:txt_edificio"/>
+	                    <xs:element ref="eqns:cod_tipo_empresa"/>
+	                    <xs:element ref="eqns:txt_nombre_gerente"/>
+	                    <xs:element ref="eqns:cnt_tiempo_mercado"/>
+	                    <xs:element ref="eqns:imp_prom_ing_mensual"/>
+	                    <xs:element ref="eqns:txt_nombres_rep_legal"/>
+	                    <xs:element ref="eqns:txt_apellidos_rep_legal"/>
+	                    <xs:element ref="eqns:cod_tipo_doc_rep_legal"/>
+	                    <xs:element ref="eqns:nro_doc_rep_legal"/>
+	                    <xs:element ref="eqns:sn_pep"/>
+	                    <xs:element ref="eqns:sn_relacion_laboral_pep"/>
+	                    <xs:element ref="eqns:txt_nombre_institucion_pep"/>
+	                    <xs:element ref="eqns:cod_ingreso_pm"/>
+	                </xs:sequence>
+	            </xs:complexType>
+	        </xs:element>
+	        <xs:element name="id_persona" type="xs:int"/>
+	        <xs:element name="cod_tipo_soc" type="xs:int"/>
+	        <xs:element name="cod_sector_mercado" type="xs:int"/>
+	        <xs:element name="cod_actividad" type="xs:int"/>
+	        <xs:element name="txt_nombre_contacto" nillable="true" type="xs:string"/>
+	        <xs:element name="fec_contitucion" nillable="true" type="xs:date"/>
+	        <xs:element name="txt_cuidad_const" nillable="true" type="xs:string"/>
+	        <xs:element name="cnt_duracion_empresa" type="xs:int"/>
+	        <xs:element name="imp_capital_social" type="xs:int"/>
+	        <xs:element name="txt_sector" nillable="true" type="xs:string"/>
+	        <xs:element name="txt_urbanizacion" nillable="true" type="xs:string"/>
+	        <xs:element name="txt_edificio" nillable="true" type="xs:string"/>
+	        <xs:element name="cod_tipo_empresa" type="xs:int"/>
+	        <xs:element name="txt_nombre_gerente" nillable="true" type="xs:string"/>
+	        <xs:element name="cnt_tiempo_mercado" type="xs:int"/>
+	        <xs:element name="imp_prom_ing_mensual" type="xs:int"/>
+	        <xs:element name="txt_nombres_rep_legal" nillable="true" type="xs:string"/>
+	        <xs:element name="txt_apellidos_rep_legal" nillable="true" type="xs:string"/>
+	        <xs:element name="cod_tipo_doc_rep_legal" type="xs:int"/>
+	        <xs:element name="nro_doc_rep_legal" nillable="true" type="xs:string"/>
+	        <xs:element name="sn_pep" nillable="true" type="xs:string"/>
+	        <xs:element name="sn_relacion_laboral_pep" nillable="true" type="xs:string"/>
+	        <xs:element name="txt_nombre_institucion_pep" nillable="true" type="xs:string"/>
+	        <xs:element name="cod_ingreso_pm" type="xs:int"/>
+	        <xs:element name="response">
+	            <xs:complexType>
+	                <xs:sequence>
+	                    <xs:element ref="eqns:num_filas"/>
+	                    <xs:element ref="eqns:cod_error"/>
+	                    <xs:element ref="eqns:msg_error"/>
+	                </xs:sequence>
+	            </xs:complexType>
+	        </xs:element>
+	        <xs:element name="num_filas" type="xs:int"/>
+	        <xs:element name="cod_error" type="xs:string"/>
+	        <xs:element name="msg_error" type="xs:string"/>
+	    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="Request">
+    <wsdl:part name="DefaultInput" element="eqns:request"/>
+  </wsdl:message>
+  <wsdl:message name="Response">
+    <wsdl:part name="DefaultOutput" element="eqns:response"/>
+  </wsdl:message>
+  <wsdl:portType name="PortType">
+    <wsdl:operation name="Invoke">
+      <wsdl:input message="eqns:Request"/>
+      <wsdl:output message="eqns:Response"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SOAPBinding" type="eqns:PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Invoke">
+      <soap:operation soapAction="http://www.equivida.com/services/clienteequivida/mpersona_juridica/PortType/InvokeRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="clienteequivida.mpersona_juridicaSrv">
+    <wsdl:port name="Port" binding="eqns:SOAPBinding">
+      <soap:address location="http://10.10.30.26:2014/process/clienteequivida.mpersona_juridica"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

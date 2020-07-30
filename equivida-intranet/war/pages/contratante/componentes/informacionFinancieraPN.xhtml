@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<h:panelGrid columns="4" width="100%"
+		columnClasses="col-vertical-top-border,col-vertical-top-border,col-vertical-top-border,col-vertical-top-border">
+		<h:panelGroup id="ingresosMensualesPNPnl">
+			<div class="linea-baja" style="width: 100%; text-align: center;">
+				<h:outputText value="#{etiquetas['ingresos.mensuales']}" />
+			</div>
+
+			<h:panelGrid id="ingresosMensualesGridPN" columns="2"
+				styleClass="margin-top-15"
+				columnClasses="col-vertical-top,col-vertical-top">
+				<h:outputLabel value="#{etiquetas['por.actividad.principal']}: *" />
+				<h:panelGrid columns="2">
+					<h:inputText id="txtIngresoPrincipalVal"
+						value="#{contratantePNCtrl.personaNatural.ingresoMensual.mntIngresoMensual}"
+						maxlength="12" onkeypress="return isDecimalKey(event);">
+						<f:ajax event="blur" render="totalIngresoPNOutput"
+							listener="#{contratantePNCtrl.sumarIngresoMensual}"
+							execute="txtIngresoPrincipalVal ingresoMensualOtro" />
+					</h:inputText>
+					<rich:message for="txtIngresoPrincipalVal" />
+				</h:panelGrid>
+
+				<h:outputLabel value="#{etiquetas['otros']}:" />
+				<h:panelGrid columns="3">
+					<h:inputText id="ingresoMensualOtro"
+						value="#{contratantePNCtrl.personaNatural.ingresoMensualAdicionalTra.mntIngresoAdicional}"
+						maxlength="12" onkeypress="return isDecimalKey(event);">
+						<f:ajax event="blur" render="totalIngresoPNOutput"
+							listener="#{contratantePNCtrl.sumarIngresoMensual}"
+							execute="txtIngresoPrincipalVal ingresoMensualOtro" />
+					</h:inputText>
+					<h:outputLabel value="#{etiquetas['fuente']}:" />
+					<h:inputText id="fuenteOtroIngresoPN"
+						value="#{contratantePNCtrl.personaNatural.ingresoMensualAdicionalTra.fuenteIngresoAdicional}"
+						maxlength="64" />
+				</h:panelGrid>
+
+				<h:outputLabel value="#{etiquetas['total.ingresos']}: *" />
+				<a4j:outputPanel id="totalIngresoPNOutput">
+					<h:outputText id="totalIngresoPN"
+						value="#{contratantePNCtrl.personaNatural.totalIngresosTra}">
+						<f:convertNumber pattern="#,###.##" />
+					</h:outputText>
+				</a4j:outputPanel>
+			</h:panelGrid>
+		</h:panelGroup>
+		<h:panelGroup id="egresosMensualesPNPnl">
+			<div class="linea-baja" style="width: 100%; text-align: center;">
+				<h:outputText value="#{etiquetas['egresos.mensuales']}" />
+			</div>
+
+			<div class="margin-top-15 col-center">
+				<h:panelGrid columns="1">
+					<h:inputText id="txtEgresoMensualPN" required="true"
+						requiredMessage="#{mensajes['requerido']}"
+						onkeypress="return isDecimalKey(event);"
+						value="#{contratantePNCtrl.personaNatural.ingresoMensual.mntEgresoMensual}"
+						maxlength="12" />
+					<rich:message for="txtEgresoMensualPN" />
+				</h:panelGrid>
+			</div>
+		</h:panelGroup>
+		<h:panelGroup id="activosPNPnl">
+			<div class="linea-baja" style="width: 100%; text-align: center;">
+				<h:outputText value="#{etiquetas['activos']}" />
+			</div>
+
+			<div class="margin-top-15 col-center">
+				<h:panelGrid columns="1">
+					<h:inputText id="txtActivosPN" required="true"
+						requiredMessage="#{mensajes['requerido']}"
+						onkeypress="return isDecimalKey(event);"
+						value="#{contratantePNCtrl.personaNatural.perfilFinancieroNatural.mntActivos}"
+						maxlength="12" />
+					<rich:message for="txtActivosPN" />
+				</h:panelGrid>
+			</div>
+		</h:panelGroup>
+		<h:panelGroup id="pasivosPNPnl">
+			<div class="linea-baja" style="width: 100%; text-align: center;">
+				<h:outputText value="#{etiquetas['pasivos']}" />
+			</div>
+
+			<div class="margin-top-15 col-center">
+				<h:panelGrid columns="1">
+					<h:inputText id="txtPasivosPN" required="true"
+						requiredMessage="#{mensajes['requerido']}"
+						onkeypress="return isDecimalKey(event);"
+						value="#{contratantePNCtrl.personaNatural.perfilFinancieroNatural.mntPasivos}"
+						maxlength="12" />
+					<rich:message for="txtPasivosPN" />
+				</h:panelGrid>
+			</div>
+		</h:panelGroup>
+	</h:panelGrid>
+
+	<script type="text/javascript">
+	function completIngresoMensualPrincipal(data){
+		 var status = data.status; // Can be "begin", "complete" or "success".
+		 var source = data.source; // The parent HTML DOM element.
+
+		 switch (status) {
+	        case "begin": // Before the ajax request is sent.
+	            //..
+	            break;
+
+	        case "complete": // After the ajax response is arrived.
+	        	//..
+	            break;
+
+	        case "success": // After update of HTML DOM based on ajax response.
+	        	document.getElementById('formContratante:ingresoMensualOtro').focus();
+	            break;
+	    }	
+	}
+	
+	function completIngresoMensualOtro(data){
+		 var status = data.status; // Can be "begin", "complete" or "success".
+		 var source = data.source; // The parent HTML DOM element.
+
+		 switch (status) {
+	        case "begin": // Before the ajax request is sent.
+	            //..
+	            break;
+
+	        case "complete": // After the ajax response is arrived.
+	        	//..
+	            break;
+
+	        case "success": // After update of HTML DOM based on ajax response.
+	        	document.getElementById('formContratante:fuenteOtroIngresoPN').focus();
+	            break;
+	    }	
+	}
+	</script>
+</div>

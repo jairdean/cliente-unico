@@ -1,0 +1,17 @@
+1. Ingresar al servidor desde otro computador (con ssh o programa putty)
+
+Usuario: usuario
+Clave: JTBos67* (esta puede cambiar en el futuro)
+
+2. Una vez ya ingresados en el servidor ubicarnos en:
+
+3. Levantar el servidor (/home/usuario/java/jboss-6.1.0.Final/bin):
+
+$ nohup ./run.sh -c equivida -b 0.0.0.0  > nohup.out &
+
+4. Parar el servidor (/home/usuario/java/jboss-6.1.0.Final/bin)
+
+$ ./shutdown.sh -S
+
+
+

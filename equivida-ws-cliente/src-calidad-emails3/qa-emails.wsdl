@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	targetNamespace="http://SrQaEmail.QA_Equivida.isd.ibm.com/soapoverhttp/"
+	xmlns:impl="http://SrQaEmail.QA_Equivida.isd.ibm.com/soapoverhttp/"
+	xmlns:intf="http://SrQaEmail.QA_Equivida.isd.ibm.com/soapoverhttp/"
+	xmlns:tns1="http://SrQaEmail.QA_Equivida.isd.ibm.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<schema targetNamespace="http://SrQaEmail.QA_Equivida.isd.ibm.com/soapoverhttp/"
+			xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://SrQaEmail.QA_Equivida.isd.ibm.com"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://SrQaEmail.QA_Equivida.isd.ibm.com" />
+			<element name="SrQaEmailResponse">
+				<complexType>
+					<sequence>
+						<element name="SrQaEmailReturn" nillable="true"
+							type="tns1:SrQaEmailOutVar1" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="SrQaEmail">
+				<complexType>
+					<sequence>
+						<element name="em_email" nillable="true" type="xsd:string" />
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+		<schema targetNamespace="http://SrQaEmail.QA_Equivida.isd.ibm.com"
+			xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<complexType name="SrQaEmailOutVar1">
+				<sequence>
+					<element name="nameemail_emails" nillable="true" type="xsd:string" />
+					<element name="prefixdomain_emails" nillable="true" type="xsd:string" />
+					<element name="domain_emails" nillable="true" type="xsd:string" />
+					<element name="suffixdomain_emails" nillable="true" type="xsd:string" />
+					<element name="countrydomain_emails" nillable="true" type="xsd:string" />
+					<element name="email_emails" nillable="true" type="xsd:string" />
+					<element name="unhandledpattern_emails" nillable="true"
+						type="xsd:string" />
+					<element name="status" nillable="true" type="xsd:int" />
+					<element name="mensaje" nillable="true" type="xsd:string" />
+				</sequence>
+			</complexType>
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="SrQaEmailResponse">
+		<wsdl:part element="impl:SrQaEmailResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="SrQaEmailRequest">
+		<wsdl:part element="impl:SrQaEmail" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="SrvQaEmail">
+		<wsdl:operation name="SrQaEmail">
+			<wsdl:input message="impl:SrQaEmailRequest" name="SrQaEmailRequest">
+			</wsdl:input>
+			<wsdl:output message="impl:SrQaEmailResponse" name="SrQaEmailResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SrvQaEmailSOAPSoapBinding" type="impl:SrvQaEmail">
+		<wsaw:UsingAddressing wsdl:required="false" />
+		<wsdlsoap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="SrQaEmail">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="SrQaEmailRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="SrQaEmailResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SrvQaEmail">
+		<wsdl:port binding="impl:SrvQaEmailSOAPSoapBinding" name="SrvQaEmailSOAP">
+			<wsdlsoap:address
+				location="http://10.10.30.65:9080/wisd/QA_Equivida/SrvQaEmail" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

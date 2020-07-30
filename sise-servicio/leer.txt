@@ -1,0 +1,5 @@
+Para consumir los Servicios Web de Activos Fijos, como por ejemplo Asiento Diario Mayor,
+se debe enviar un usuario y una clave como parámetro para consumir el servicios.
+Este usuario y clave se encuentran en un archivo de propiedades en la carpeta /conf del JBOSS
+El archivo se llama: wsActFijoUsers.properties
+
