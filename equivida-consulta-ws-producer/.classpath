@@ -6,5 +6,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/equivida-smartdata-servicio"/>
 	<classpathentry kind="var" path="JBOSS_HOME_610/client/jboss-ejb-api_3.1_spec.jar"/>
 	<classpathentry kind="lib" path="lib/saviasoft-persistence-util-4.2.jar"/>
+	<classpathentry kind="lib" path="lib/javax.ejb.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
