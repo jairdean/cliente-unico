@@ -20,6 +20,7 @@ import com.equivida.databook.client.DatabookService;
 import com.equivida.databook.client.impl.DatabookServiceImpl;
 import com.equivida.databook.exception.DatabookException;
 import com.equivida.databook.model.Registros;
+import com.equivida.databook.model.RegistrosEntity;
 import com.equivida.smartdata.constante.PropiedadesKeyEnum;
 import com.equivida.smartdata.constante.TipoParentescoEnum;
 import com.equivida.smartdata.dao.NoPkTablasSdDao;
@@ -612,7 +613,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				
 		System.out.println("XX3-FIN");
 		// Se consulta en el WS de Databook
-		Registros registros = dbs.consultaDatabook();
+		//Registros registros = dbs.consultaDatabook();
+		RegistrosEntity xxx = dbs.consultaDatabookPersonaEntity();
+		
+		consultaDatabookPersonaEntity
 		return registros;
 	}
 
@@ -694,5 +698,19 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		// 7. Se actualizan los datos personales de persona
 		personaServicio.actualizaDatosPersonales(datosActualiza);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.SmartDataServicio#consultaDatabookRegistrosEntity(java.
+	 * lang.String, java.lang.String)
+	 */
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public RegistrosEntity consultaDatabookRegistrosEntity(String identificacion, String usuario)
+			throws SmartdataException {
+		//JAIRO
+		return null;
 	}
 }
