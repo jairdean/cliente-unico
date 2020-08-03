@@ -7,13 +7,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "titular" })
+@XmlType(name = "", propOrder = { "titular", "conyuge" })
 @XmlRootElement(name = "registros")
 public class RegistrosEntity {
 
 	@XmlElement(required = true)
 	protected RegistrosEntity.Titular titular;
-	// protected RegistrosEntity.Conyugue conyugue;
+
+	protected RegistrosEntity.Conyuge conyuge;
 
 	/**
 	 * Gets the value of the titular property.
@@ -35,11 +36,193 @@ public class RegistrosEntity {
 		this.titular = value;
 	}
 
+	/**
+	 * Gets the value of the conyuge property.
+	 * 
+	 * @return possible object is {@link RegistrosEntity.Conyuge }
+	 * 
+	 */
+	public RegistrosEntity.Conyuge getConyuge() {
+		return conyuge;
+	}
+
+	/**
+	 * Sets the value of the conyuge property.
+	 * 
+	 * @param value allowed object is {@link RegistrosEntity.Conyuge }
+	 * 
+	 */
+	public void setConyuge(RegistrosEntity.Conyuge value) {
+		this.conyuge = value;
+	}
+
 	// SECCION TITULAR
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = "", propOrder = { "direccion", "telefonos", "persona", "direccionElectronico", "empleoDependiente",
 			"personaNatural", "informacionAdicional" })
 	public static class Titular {
+
+		@XmlElement
+		protected Persona persona;
+		@XmlElement
+		protected Direccion direccion;
+		@XmlElement
+		protected Telefonos telefonos;
+		@XmlElement
+		protected DireccionElectronico direccionElectronico;
+		@XmlElement
+		protected EmpleoDependiente empleoDependiente;
+		@XmlElement
+		protected PersonaNatural personaNatural;
+		@XmlElement
+		protected InformacionAdicional informacionAdicional;
+
+		/**
+		 * Gets the value of the Persona property.
+		 * 
+		 * @return possible object is {@link Persona }
+		 * 
+		 */
+		public Persona getPersona() {
+			return persona;
+		}
+
+		/**
+		 * Sets the value of the Persona property.
+		 * 
+		 * @param value allowed object is {@link Persona }
+		 * 
+		 */
+		public void setPersona(Persona value) {
+			this.persona = value;
+		}
+
+		/**
+		 * Gets the value of the Direccion property.
+		 * 
+		 * @return possible object is {@link Direccion }
+		 * 
+		 */
+		public Direccion getDireccion() {
+			return direccion;
+		}
+
+		/**
+		 * Sets the value of the Direccion property.
+		 * 
+		 * @param value allowed object is {@link Direccion }
+		 * 
+		 */
+		public void setDireccion(Direccion value) {
+			this.direccion = value;
+		}
+
+		/**
+		 * Gets the value of the Telefonos property.
+		 * 
+		 * @return possible object is {@link Telefonos }
+		 * 
+		 */
+		public Telefonos getTelefonos() {
+			return telefonos;
+		}
+
+		/**
+		 * Sets the value of the Telefonos property.
+		 * 
+		 * @param value allowed object is {@link Telefonos }
+		 * 
+		 */
+		public void setTelefonos(Telefonos value) {
+			this.telefonos = value;
+		}
+
+		/**
+		 * Gets the value of the DireccionElectronico property.
+		 * 
+		 * @return possible object is {@link DireccionElectronico }
+		 * 
+		 */
+		public DireccionElectronico getDireccionElectronico() {
+			return direccionElectronico;
+		}
+
+		/**
+		 * Sets the value of the DireccionElectronico property.
+		 * 
+		 * @param value allowed object is {@link DireccionElectronico }
+		 * 
+		 */
+		public void setDireccionElectronico(DireccionElectronico value) {
+			this.direccionElectronico = value;
+		}
+
+		/**
+		 * Gets the value of the EmpleoDependiente property.
+		 * 
+		 * @return possible object is {@link EmpleoDependiente }
+		 * 
+		 */
+		public EmpleoDependiente getEmpleoDependiente() {
+			return empleoDependiente;
+		}
+
+		/**
+		 * Sets the value of the EmpleoDependiente property.
+		 * 
+		 * @param value allowed object is {@link EmpleoDependiente }
+		 * 
+		 */
+		public void setEmpleoDependiente(EmpleoDependiente value) {
+			this.empleoDependiente = value;
+		}
+
+		/**
+		 * Gets the value of the PersonaNatural property.
+		 * 
+		 * @return possible object is {@link PersonaNatural }
+		 * 
+		 */
+		public PersonaNatural getPersonaNatural() {
+			return personaNatural;
+		}
+
+		/**
+		 * Sets the value of the PersonaNatural property.
+		 * 
+		 * @param value allowed object is {@link PersonaNatural }
+		 * 
+		 */
+		public void setPersonaNatural(PersonaNatural value) {
+			this.personaNatural = value;
+		}
+
+		/**
+		 * Gets the value of the InformacionAdicional property.
+		 * 
+		 * @return possible object is {@link InformacionAdicional }
+		 * 
+		 */
+		public InformacionAdicional getInformacionAdicional() {
+			return informacionAdicional;
+		}
+
+		/**
+		 * Sets the value of the InformacionAdicional property.
+		 * 
+		 * @param value allowed object is {@link InformacionAdicional }
+		 * 
+		 */
+		public void setInformacionAdicional(InformacionAdicional value) {
+			this.informacionAdicional = value;
+		}
+	}
+
+	// SECCION CONYUGE
+	@XmlAccessorType(XmlAccessType.FIELD)
+	@XmlType(name = "", propOrder = { "direccion", "telefonos", "persona", "direccionElectronico", "empleoDependiente",
+			"personaNatural", "informacionAdicional" })
+	public static class Conyuge {
 
 		@XmlElement
 		protected Persona persona;
