@@ -34,6 +34,7 @@ import com.equivida.smartdata.model.PersonaNaturalSd;
 import com.equivida.smartdata.model.PersonaSd;
 import com.equivida.smartdata.model.RelacionSd;
 import com.equivida.smartdata.model.TelefonoSd;
+import com.equivida.smartdata.model.TipoIdentificacionSd;
 import com.equivida.smartdata.model.TipoParentescoRelacionSd;
 import com.equivida.smartdata.servicio.ActividadEconomicaSdServicio;
 import com.equivida.smartdata.servicio.DireccionSdServicio;
@@ -342,11 +343,17 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			
 			
 			PersonaSd personaSd = new PersonaSd();
-			personaSd.setIdentificacion(registros.getCivil().getCedula());
+			personaSd.setIdentificacion("1719130489");
+			personaSd.setDenominacion("Ejemplo");
+			
+			TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
+			tipoIdentificacion.setCodTipoIdentificacionStr("C");
+			personaSd.setCodTipoIdentificacion(tipoIdentificacion);
+
 						
 			//INGRESO LA PERSONA
 			boolean resp = personaServicio.IngresarDatosPersona(personaSd);
-
+			
 
 			/*
 			System.out.println(

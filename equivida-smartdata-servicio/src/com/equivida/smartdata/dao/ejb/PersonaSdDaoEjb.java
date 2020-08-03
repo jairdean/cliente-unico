@@ -91,16 +91,14 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer>
 
 		log.error("ENTRA INGRESA PERSONA");
 		String hql = "INSERT INTO PersonaSd(codTipoIdentificacion, identificacion, denominacion)" + 
-					"VALUES ('"+(personaSd.getCodTipoIdentificacion()+"',"+
-						    +personaSd.getIdentificacion()+"',")+
-							+personaSd.getDenominacion()+"');";
+					"VALUES ('"+(persona.getCodTipoIdentificacion()+"',"+
+						    persona.getCodTipoIdentificacion().getCodTipoIdentificacionStr()+"',")+
+							persona.getDenominacion()+"');";
 	   
-		Query query = em.createQuery(hql);
-
-		Query query = em.createQuery(hql);
 		log.error(hql);
 		
-		List<PersonaSd> respList = query();
+		Query insert = em.createNativeQuery(hql);
+		insert.executeUpdate();
 
 		return true;
 	}
