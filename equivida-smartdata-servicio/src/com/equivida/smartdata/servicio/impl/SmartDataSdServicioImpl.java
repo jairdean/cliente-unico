@@ -343,11 +343,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			
 			
 			PersonaSd personaSd = new PersonaSd();
-			personaSd.setIdentificacion("1719130489");
+			personaSd.setIdentificacion(identificacion);
 			personaSd.setDenominacion("Ejemplo");
 			
 			TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
-			tipoIdentificacion.setCodTipoIdentificacionStr("C");
+			tipoIdentificacion.setCodTipoIdentificacion('C');
 			personaSd.setCodTipoIdentificacion(tipoIdentificacion);
 
 						

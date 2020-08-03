@@ -19,9 +19,8 @@ import com.equivida.smartdata.servicio.impl.SmartDataSdServicioImpl;
 import com.saviasoft.persistence.util.dao.ejb.GenericDaoEjb;
 
 @Stateless(name = "PersonaSdDao")
-public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer>
-		implements PersonaSdDao {
-	
+public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer> implements PersonaSdDao {
+
 	private Logger log = Logger.getLogger(SmartDataSdServicioImpl.class);
 
 	public PersonaSdDaoEjb() {
@@ -31,8 +30,7 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.equivida.smartdata.dao.PersonaSdDao#actualizaDatosPersonales(com.
+	 * @see com.equivida.smartdata.dao.PersonaSdDao#actualizaDatosPersonales(com.
 	 * equivida.smartdata.dto.DatosActualizaSdDto)
 	 */
 	@Override
@@ -40,10 +38,8 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer>
 		StringBuffer sql = new StringBuffer(300);
 
 		sql.append("update EQUIVIDA.PERSONA set ");
-		sql.append("DENOMINACION = '")
-				.append(datosActualiza.getNombresApellidos()).append("' ");
-		sql.append("where SEC_PERSONA = ").append(
-				datosActualiza.getSecPersonaActualiza());
+		sql.append("DENOMINACION = '").append(datosActualiza.getNombresApellidos()).append("' ");
+		sql.append("where SEC_PERSONA = ").append(datosActualiza.getSecPersonaActualiza());
 
 		System.out.println("========================================");
 		System.out.println(sql.toString());
@@ -57,19 +53,17 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.equivida.smartdata.dao.PersonaSdDao#obtenerPersonaByIdentificacion
+	 * @see com.equivida.smartdata.dao.PersonaSdDao#obtenerPersonaByIdentificacion
 	 * (java.lang.String)
 	 */
 	@Override
 	public PersonaSd obtenerPersonaByIdentificacion(String noDocumento) {
-		String hql = "select p from PersonaSd p where p.identificacion = '"
-				.concat(noDocumento).concat("'");
+		String hql = "select p from PersonaSd p where p.identificacion = '".concat(noDocumento).concat("'");
 
 		Query query = em.createQuery(hql);
-		
+
 		log.error(hql);
-		
+
 		List<PersonaSd> respList = query.getResultList();
 
 		if (respList != null && !respList.isEmpty()) {
@@ -78,25 +72,23 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer>
 
 		return null;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.equivida.smartdata.dao.PersonaSdDao#ingresaPersona
+	 * @see com.equivida.smartdata.dao.PersonaSdDao#ingresaPersona
 	 * (java.lang.String)
 	 */
 	@Override
 	public boolean ingresaPersona(PersonaSd persona) {
 
-		log.error("ENTRA INGRESA PERSONA");
-		String hql = "INSERT INTO PersonaSd(codTipoIdentificacion, identificacion, denominacion)" + 
-					"VALUES ('"+(persona.getCodTipoIdentificacion()+"',"+
-						    persona.getCodTipoIdentificacion().getCodTipoIdentificacionStr()+"',")+
-							persona.getDenominacion()+"');";
-	   
-		log.error(hql);
-		
+		String hql = "INSERT INTO EQUIVIDA.PERSONA(COD_TIPO_IDENTIFICACION, IDENTIFICACION, DENOMINACION) VALUES ('"
+				+ persona.getCodTipoIdentificacion().getCodTipoIdentificacion() + "','" + persona.getIdentificacion()
+				+ "','" + persona.getDenominacion() + "')";
+
+		log.error("LLEGOOOOO");
+		log.error("--->" + hql);
+
 		Query insert = em.createNativeQuery(hql);
 		insert.executeUpdate();
 
