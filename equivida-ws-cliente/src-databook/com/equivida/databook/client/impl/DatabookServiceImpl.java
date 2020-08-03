@@ -1,7 +1,9 @@
 package com.equivida.databook.client.impl;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,6 +14,9 @@ import javax.xml.bind.JAXBException;
 import com.equivida.databook.client.DatabookService;
 import com.equivida.databook.exception.DatabookException;
 import com.equivida.databook.model.Registros;
+import com.equivida.databook.model.Registros.Civil;
+
+import com.equivida.databook.model.RegistrosEntity;
 
 /**
  * 
@@ -21,7 +26,8 @@ import com.equivida.databook.model.Registros;
 public class DatabookServiceImpl implements DatabookService {
 
 	// URI de ejemplo
-	//private static final String URL = "http://playavip.com.ec/equividawebservices.php?ced=${NO_CEDULA_CONSULTA}&usr=EQUIVIDA";
+	// private static final String URL =
+	// "http://playavip.com.ec/equividawebservices.php?ced=${NO_CEDULA_CONSULTA}&usr=EQUIVIDA";
 
 	private String uri;
 	private String cedulaConsulta;
@@ -49,8 +55,10 @@ public class DatabookServiceImpl implements DatabookService {
 	}
 
 	private void init() {
-		this.uriFinal = this.uri.concat("?ced=").concat(this.cedulaConsulta).concat("&usr=")
-				.concat(this.usuarioConsume);
+		//this.uriFinal = this.uri.concat("?ced=").concat(this.cedulaConsulta).concat("&usr=").concat(this.usuarioConsume);
+		
+		this.uriFinal = this.uri.concat(this.cedulaConsulta);
+		//http://10.10.43.21:8080/cu-rest/api/dataBook/172139711
 	}
 
 	/*
@@ -72,46 +80,72 @@ public class DatabookServiceImpl implements DatabookService {
 	 * @throws DatabookException
 	 */
 	private Registros consume() throws DatabookException {
+		
 		try {
-
-			// se ha solicitado desactivar,
-			// para lo cual se escribe el siguiente
-			// codigo (entre INICIO y FIN)
-			/* INICIO */
-			boolean activoDatabook = false;
-
-			if (!activoDatabook) {
-				throw new DatabookException("Este servicio ha sido desactivado");
-			}
-			/* FIN */
-
 			URL url = new URL(uriFinal);
-
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
-			connection.setRequestProperty("Accept", "application/xml");
+			System.out.println("XX4");
+			connection.setRequestProperty("Accept", "application/xml"); 
+			
+			JAXBContext jc = JAXBContext.newInstance(RegistrosEntity.class);
+			InputStream xml = connection.getInputStream(); 
+			RegistrosEntity registrosEntity = (RegistrosEntity) jc.createUnmarshaller().unmarshal(xml);
+			/*
+			  if (connection.getResponseCode() != 200) {
+	                throw new RuntimeException("Failed : HTTP Error code : "
+	                        + connection.getResponseCode());
+	            }*/
+			  /*
+		    InputStreamReader in = new InputStreamReader(connection.getInputStream());
+            BufferedReader br = new BufferedReader(in);
+            String output;
+            while ((output = br.readLine()) != null) {
+                System.out.println(output);
+            }*/
+            
 
-			JAXBContext jc = JAXBContext.newInstance(Registros.class);
-			InputStream xml = connection.getInputStream();
-			Registros registros = (Registros) jc.createUnmarshaller().unmarshal(xml);
-
+			System.out.println(registrosEntity.getTitular().getPersona().getDenominacion());
+			System.out.println(registrosEntity.getTitular().getPersona().getCodTipoIdentificacion());
+			System.out.println(registrosEntity.getTitular().getPersona().getIdentificacion());
+			System.out.println(registrosEntity.getTitular().getDireccion().getSecParroquia());
+			System.out.println(registrosEntity.getTitular().getTelefonos().getTelefono1().getNroTelefono());
+			System.out.println("XX4");
+			//Registros registros = (Registros) jc.createUnmarshaller().unmarshal(xml); 
 			connection.disconnect();
-
-			if (registros.getCivil().getCedula() == null || registros.getCivil().getCedula().trim().length() <= 0) {
-				throw new DatabookException(
-						"No se encuentra datos con identificacion: ".concat(cedulaConsulta).concat(" en Databook"));
-			}
-
-			return registros;
+			
 		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new DatabookException(e);
 		} catch (IOException e) {
-			throw new DatabookException(e);
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new DatabookException(e);
-		}
+		} 
+		
+		
+		
+		/*
+		 * URL url = new URL(uriFinal); HttpURLConnection connection =
+		 * (HttpURLConnection) url.openConnection(); connection.setRequestMethod("GET");
+		 * connection.setRequestProperty("Accept", "application/xml"); JAXBContext jc =
+		 * JAXBContext.newInstance(Registros.class); InputStream xml =
+		 * connection.getInputStream(); Registros registros = (Registros)
+		 * jc.createUnmarshaller().unmarshal(xml); connection.disconnect(); if
+		 * (registros.getCivil().getCedula() == null ||
+		 * registros.getCivil().getCedula().trim().length() <= 0) { throw new
+		 * DatabookException(
+		 * "No se encuentra datos con identificacion: ".concat(cedulaConsulta).
+		 * concat(" en Databook")); }
+		 */
+		Registros registros = new Registros();
+		Civil objcivil = new Civil();
+		objcivil.setCedula("1719130476");
+		registros.setCivil(objcivil);
+
+		return registros;
 	}
 
 	/**
