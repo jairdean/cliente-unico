@@ -611,12 +611,28 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		DatabookService dbs = new DatabookServiceImpl(props.getProperty(PropiedadesKeyEnum.url.toString()),
 				identificacion, props.getProperty(PropiedadesKeyEnum.usuario.toString()));
 				
+		// Se consulta en el WS de Databook
+		Registros registros = dbs.consultaDatabook();	
+		
+		return registros;
+	}
+	
+	private RegistrosEntity obtenerRegistrosWsRegistrosEntity(String identificacion)
+			throws FileNotFoundException, IOException, DatabookException {
+		
+		// Se obtienen las propiedades
+		Properties props = obtenerArchivoPropiedades();
+		
+		// Se construye el servicio DATABOOK
+		DatabookService dbs = new DatabookServiceImpl(props.getProperty(PropiedadesKeyEnum.url.toString()),
+				identificacion, props.getProperty(PropiedadesKeyEnum.usuario.toString()));
+				
 		System.out.println("XX3-FIN");
 		// Se consulta en el WS de Databook
-		//Registros registros = dbs.consultaDatabook();
-		RegistrosEntity xxx = dbs.consultaDatabookPersonaEntity();
+		//
+		RegistrosEntity registros = dbs.consultaDatabookRegistrosEntity();
 		
-		consultaDatabookPersonaEntity
+		
 		return registros;
 	}
 
