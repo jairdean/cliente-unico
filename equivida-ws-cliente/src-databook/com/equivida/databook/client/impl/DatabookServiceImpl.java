@@ -10,11 +10,23 @@ import java.net.URL;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlElement;
 
 import com.equivida.databook.client.DatabookService;
 import com.equivida.databook.exception.DatabookException;
 import com.equivida.databook.model.Registros;
 import com.equivida.databook.model.Registros.Civil;
+import com.equivida.databook.model.Registros.Actual;
+import com.equivida.databook.model.Registros.PrimeroAnterior;
+import com.equivida.databook.model.Registros.SegundoAnterior;
+import com.equivida.databook.model.Registros.Sri;
+import com.equivida.databook.model.Registros.Contactabilidad;
+import com.equivida.databook.model.Registros.Vehicular;
+import com.equivida.databook.model.Registros.Hijos;
+import com.equivida.databook.model.Registros.Conyuge;
+import com.equivida.databook.model.Registros.Conyugecedula;
+import com.equivida.databook.model.Registros.Padres;
+import com.equivida.databook.model.Registros.Cedulaspadres;
 
 import com.equivida.databook.model.RegistrosEntity;
 
@@ -55,10 +67,11 @@ public class DatabookServiceImpl implements DatabookService {
 	}
 
 	private void init() {
-		//this.uriFinal = this.uri.concat("?ced=").concat(this.cedulaConsulta).concat("&usr=").concat(this.usuarioConsume);
-		
+		// this.uriFinal =
+		// this.uri.concat("?ced=").concat(this.cedulaConsulta).concat("&usr=").concat(this.usuarioConsume);
+
 		this.uriFinal = this.uri.concat(this.cedulaConsulta);
-		//http://10.10.43.21:8080/cu-rest/api/dataBook/172139711
+		// http://10.10.43.21:8080/cu-rest/api/dataBook/172139711
 	}
 
 	/*
@@ -80,55 +93,39 @@ public class DatabookServiceImpl implements DatabookService {
 	 * @throws DatabookException
 	 */
 	private Registros consume() throws DatabookException {
-		
 		try {
 			URL url = new URL(uriFinal);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
-			System.out.println("XX4");
-			connection.setRequestProperty("Accept", "application/xml"); 
-			
+			connection.setRequestProperty("Accept", "application/xml");
+
 			JAXBContext jc = JAXBContext.newInstance(RegistrosEntity.class);
-			InputStream xml = connection.getInputStream(); 
+			InputStream xml = connection.getInputStream();
 			RegistrosEntity registrosEntity = (RegistrosEntity) jc.createUnmarshaller().unmarshal(xml);
 			/*
-			  if (connection.getResponseCode() != 200) {
-	                throw new RuntimeException("Failed : HTTP Error code : "
-	                        + connection.getResponseCode());
-	            }*/
-			  /*
-		    InputStreamReader in = new InputStreamReader(connection.getInputStream());
-            BufferedReader br = new BufferedReader(in);
-            String output;
-            while ((output = br.readLine()) != null) {
-                System.out.println(output);
-            }*/
-            
-
-			System.out.println(registrosEntity.getTitular().getPersona().getDenominacion());
-			System.out.println(registrosEntity.getTitular().getPersona().getCodTipoIdentificacion());
-			System.out.println(registrosEntity.getTitular().getPersona().getIdentificacion());
-			System.out.println(registrosEntity.getTitular().getDireccion().getSecParroquia());
-			System.out.println(registrosEntity.getTitular().getTelefonos().getTelefono1().getNroTelefono());
-			System.out.println(registrosEntity.getTitular().getInformacionAdicional().getCodActividadEconomica());
-			System.out.println(registrosEntity.getConyuge().getEmpleoDependiente().getActividad_Economica());
-			System.out.println("XX4");
-			//Registros registros = (Registros) jc.createUnmarshaller().unmarshal(xml); 
+			 * if (connection.getResponseCode() != 200) { throw new
+			 * RuntimeException("Failed : HTTP Error code : " +
+			 * connection.getResponseCode()); }
+			 */
+			/*
+			 * InputStreamReader in = new InputStreamReader(connection.getInputStream());
+			 * BufferedReader br = new BufferedReader(in); String output; while ((output =
+			 * br.readLine()) != null) { System.out.println(output); }
+			 */
+			// Registros registros = (Registros) jc.createUnmarshaller().unmarshal(xml);
 			connection.disconnect();
-			
+
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		
-		
-		
+		}
+
 		/*
 		 * URL url = new URL(uriFinal); HttpURLConnection connection =
 		 * (HttpURLConnection) url.openConnection(); connection.setRequestMethod("GET");
@@ -144,10 +141,141 @@ public class DatabookServiceImpl implements DatabookService {
 		 */
 		Registros registros = new Registros();
 		Civil objcivil = new Civil();
-		objcivil.setCedula("1719130476");
+		objcivil.setCedula("1721397113");
 		registros.setCivil(objcivil);
 
 		return registros;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.databook.client.DatabookService#consultaDatabookRegistrosEntity(java.lang.
+	 * String)
+	 */
+	@Override
+	public RegistrosEntity consultaDatabookRegistrosEntity() throws DatabookException {
+		return consumeRegistrosEntity();
+	}
+	
+	/**
+	 * Consume el SW REST.
+	 * 
+	 * @param noCedula
+	 * @return RegistrosEntity
+	 * @throws DatabookException
+	 */
+	private RegistrosEntity consumeRegistrosEntity() throws DatabookException {
+		RegistrosEntity registrosEntity = null;
+		try {
+			URL url = new URL(uriFinal);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Accept", "application/xml");
+
+			JAXBContext jc = JAXBContext.newInstance(RegistrosEntity.class);
+			InputStream xml = connection.getInputStream();
+			registrosEntity = (RegistrosEntity) jc.createUnmarshaller().unmarshal(xml);
+			/*
+			 * if (connection.getResponseCode() != 200) { throw new
+			 * RuntimeException("Failed : HTTP Error code : " +
+			 * connection.getResponseCode()); }
+			 */
+			/*
+			 * InputStreamReader in = new InputStreamReader(connection.getInputStream());
+			 * BufferedReader br = new BufferedReader(in); String output; while ((output =
+			 * br.readLine()) != null) { System.out.println(output); }
+			 */
+
+			// Registros registros = (Registros) jc.createUnmarshaller().unmarshal(xml);
+			connection.disconnect();
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+/*
+		Registros registros = new Registros();
+		Civil objCivil = new Civil();
+		Actual objActual = new Actual();
+		PrimeroAnterior objPrimeroAnterior = new PrimeroAnterior();
+		SegundoAnterior objSegundoAnterior = new SegundoAnterior();
+		Sri objSri = new Sri();
+		Contactabilidad objContactabilidad = new Contactabilidad();
+		Vehicular objVehicular = new Vehicular();
+		Hijos objHijos = new Hijos();
+		Conyuge objConyuge = new Conyuge();
+		Conyugecedula objConyugecedula = new Conyugecedula();
+		Padres objPadres = new Padres();
+		Cedulaspadres objCedulaspadres = new Cedulaspadres();
+
+		// Seccion Registros.Civil
+		objCivil.setCedula(registrosEntity.getTitular().getPersona().getIdentificacion());
+		objCivil.setPrimernombre(registrosEntity.getTitular().getPersonaNatural().getPrimerNombre());
+		objCivil.setSegundonombre(registrosEntity.getTitular().getPersonaNatural().getSegundoNombre());
+		objCivil.setPrimerapellido(registrosEntity.getTitular().getPersonaNatural().getApellidoPaterno());
+		objCivil.setSegundoapellido(registrosEntity.getTitular().getPersonaNatural().getApellidoMaterno());
+		objCivil.setNombreconyuge("");//JAIRO
+		objCivil.setNombrepadre("");//JAIRO
+		objCivil.setNombremadre("");//JAIRO
+		objCivil.setProfesion(registrosEntity.getTitular().getEmpleoDependiente().getActividad_Economica());//JAIRO REVISAR .getSecProfesion
+		objCivil.setNacionalidad((short)0);// short
+		
+		int anioNacimiento=0, mesNacimiento=0, diaNacimiento=0;
+		if(!registrosEntity.getTitular().getPersonaNatural().getFechaNacimiento().equals(null) &&
+		!registrosEntity.getTitular().getPersonaNatural().getFechaNacimiento().equals("") ){
+		
+			//mm-dd-yyyy
+			String fechaValue = registrosEntity.getTitular().getPersonaNatural().getFechaNacimiento();
+			String[] parts= fechaValue.split("/");
+			mesNacimiento = (int)parts[0];
+			diaNacimiento= (int)parts[1];
+			anioNacimiento = (int)parts[2];
+
+		}else{
+			throw new DatabookException( "No se encuentra datos fecha nacimiento de la CI: "+registrosEntity.getTitular().getPersona().getIdentificacion());
+		}
+
+		objCivil.setDianacimiento((byte) diaNacimiento);// byte
+		objCivil.setMesnacimiento((byte) mesNacimiento);// byte
+		objCivil.setAnionacimiento((short) anioNacimiento);// short
+		objCivil.setEstadocivil((byte) registrosEntity.getTitular().getPersonaNatural().getCodEstadoCivil());// byte
+		objCivil.setGenero((byte) registrosEntity.getTitular().getPersonaNatural().getSexo());// byte
+
+		int anioNacimiento=0, mesNacimiento=0, diaNacimiento=0;
+		if(!registrosEntity.getTitular().getPersonaNatural().getFechaMatrimonio().equals(null) &&
+		!registrosEntity.getTitular().getPersonaNatural().getFechaMatrimonio().equals("")){
+			
+			//mm-dd-yyyy
+			String fechaValue = registrosEntity.getTitular().getPersonaNatural().getFechaNacimiento();
+			String[] parts= fechaValue.split("/");
+			mesNacimiento = (int)parts[0];
+			diaNacimiento= (int)parts[1];
+			anioNacimiento = (int)parts[2];
+
+		}else{
+			
+		}
+
+		objCivil.setDiamatrimonio("");
+		objCivil.setMesmatrimonio("");
+		objCivil.setAniomatrimonio("");	
+		objCivil.setDiamatrimonio("");
+		objCivil.setMesmatrimonio("");
+		objCivil.setAniomatrimonio("");
+		objCivil.setDiadefuncion("");
+		objCivil.setMesdefuncion("");
+		objCivil.setAniodefuncion("");
+		registros.setCivil(objCivil);
+*/
+		return registrosEntity;
 	}
 
 	/**
