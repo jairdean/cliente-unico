@@ -343,8 +343,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			
 			PersonaSd personaSd = new PersonaSd();
 			personaSd.setIdentificacion(registros.getCivil().getCedula());
-			
-			/*System.out.println(
+						
+			//INGRESO LA PERSONA
+			boolean resp = personaServicio.IngresarDatosPersona(personaSd);
+
+
+			/*
+			System.out.println(
 					"===========================transforma DB a SD consulta en DB: " + identificacion + new Date());
 			DataBookHelper dbh = new DataBookHelper(registros, usuario, noPkTablasDao, estadoCivilServicio,
 					profesionServicio, actividadEconomicaServicio, personaJuridicaServicio, personaServicio,
@@ -614,14 +619,14 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private Properties obtenerArchivoPropiedades() throws FileNotFoundException, IOException {
 		Properties prop = new Properties();
 
+		System.out.println("LLEGA");
 		prop.load(new FileInputStream("../server/equivida/conf/databookActualizado.properties"));
-
+		System.out.println("NO LLEGA");
 		return prop;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see com.equivida.smartdata.servicio.SmartDataSdServicio#
 	 * actualizaDatosPersonaNatural (com.equivida.smartdata.dto.DatosActualizaSdDto)
 	 */

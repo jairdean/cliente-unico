@@ -10,14 +10,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
+
 import com.equivida.smartdata.dao.PersonaSdDao;
 import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.model.PersonaSd;
+import com.equivida.smartdata.servicio.impl.SmartDataSdServicioImpl;
 import com.saviasoft.persistence.util.dao.ejb.GenericDaoEjb;
 
 @Stateless(name = "PersonaSdDao")
 public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer>
 		implements PersonaSdDao {
+	
+	private Logger log = Logger.getLogger(SmartDataSdServicioImpl.class);
 
 	public PersonaSdDaoEjb() {
 		super(PersonaSd.class);
@@ -62,7 +67,9 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer>
 				.concat(noDocumento).concat("'");
 
 		Query query = em.createQuery(hql);
-
+		
+		log.error(hql);
+		
 		List<PersonaSd> respList = query.getResultList();
 
 		if (respList != null && !respList.isEmpty()) {
@@ -71,4 +78,31 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer>
 
 		return null;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.equivida.smartdata.dao.PersonaSdDao#ingresaPersona
+	 * (java.lang.String)
+	 */
+	@Override
+	public boolean ingresaPersona(PersonaSd persona) {
+
+		log.error("ENTRA INGRESA PERSONA");
+		String hql = "INSERT INTO PersonaSd(codTipoIdentificacion, identificacion, denominacion)" + 
+					"VALUES ('"+(personaSd.getCodTipoIdentificacion()+"',"+
+						    +personaSd.getIdentificacion()+"',")+
+							+personaSd.getDenominacion()+"');";
+	   
+		Query query = em.createQuery(hql);
+
+		Query query = em.createQuery(hql);
+		log.error(hql);
+		
+		List<PersonaSd> respList = query();
+
+		return true;
+	}
+
 }

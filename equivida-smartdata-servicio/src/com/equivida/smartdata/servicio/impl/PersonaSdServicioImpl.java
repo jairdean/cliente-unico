@@ -10,6 +10,8 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.apache.log4j.Logger;
+
 import com.equivida.smartdata.dao.PersonaSdDao;
 import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.helper.SmartDataHelper;
@@ -22,6 +24,8 @@ import com.saviasoft.persistence.util.service.impl.GenericServiceImpl;
 
 @Stateless(name = "PersonaSdServicio")
 public class PersonaSdServicioImpl extends GenericServiceImpl<PersonaSd, Integer> implements PersonaSdServicio {
+
+	private Logger log = Logger.getLogger(SmartDataSdServicioImpl.class);
 
 	@EJB
 	private PersonaSdDao personaDao;
@@ -91,5 +95,28 @@ public class PersonaSdServicioImpl extends GenericServiceImpl<PersonaSd, Integer
 	@Override
 	public void actualizaDatosPersonales(DatosActualizaSdDto datosActualiza) {
 		personaDao.actualizaDatosPersonales(datosActualiza);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.PersonaSdServicio#IngresarDatosPersona
+	 * (com.equivida.smartdata.dto.DatosActualizaSdDto)
+	 */
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public boolean IngresarDatosPersona(PersonaSd persona) {
+		// 1. Se consulta persona por identificacion
+		log.error("Entra IngresarDatosPersona");
+		PersonaSd existePersona = personaDao.obtenerPersonaByIdentificacion(persona.getIdentificacion());
+
+		log.error(existePersona);
+
+		if (existePersona == null) {
+			// INGRESO LA PERSONA
+			personaDao.ingresaPersona(persona);
+		}
+
+		return true;
 	}
 }

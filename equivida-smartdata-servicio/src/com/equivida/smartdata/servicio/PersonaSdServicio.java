@@ -27,4 +27,11 @@ public interface PersonaSdServicio extends GenericService<PersonaSd, Integer> {
 	 * @param datosActualiza
 	 */
 	void actualizaDatosPersonales(DatosActualizaSdDto datosActualiza);
+
+	/**
+	 * Ingresa los datos personales de una persona
+	 * 
+	 * @param persona
+	 */
+	boolean IngresarDatosPersona(PersonaSd persona);
 }
