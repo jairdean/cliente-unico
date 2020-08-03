@@ -5,6 +5,7 @@ import javax.ejb.Local;
 import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.exception.SmartdataException;
 import com.equivida.smartdata.model.PersonaSd;
+import com.equivida.databook.model.RegistrosEntity;
 
 @Local
 public interface SmartDataSdServicio {
@@ -62,5 +63,15 @@ public interface SmartDataSdServicio {
 	 * @throws SmartdataException
 	 */
 	PersonaSd consultaDatabook(String identificacion, String usuario)
+			throws SmartdataException;
+	
+	/**
+	 * 
+	 * @param identificacion
+	 * @param usuario
+	 * @return
+	 * @throws SmartdataException
+	 */
+	RegistrosEntity consultaDatabookRegistrosEntity(String identificacion, String usuario)
 			throws SmartdataException;
 }
