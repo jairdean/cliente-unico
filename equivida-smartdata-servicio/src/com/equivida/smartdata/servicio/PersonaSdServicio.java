@@ -7,6 +7,7 @@ package com.equivida.smartdata.servicio;
 
 import javax.ejb.Local;
 
+import com.equivida.databook.model.Registros;
 import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.model.PersonaSd;
 import com.saviasoft.persistence.util.service.GenericService;
@@ -33,5 +34,5 @@ public interface PersonaSdServicio extends GenericService<PersonaSd, Integer> {
 	 * 
 	 * @param persona
 	 */
-	boolean IngresarDatosPersona(PersonaSd persona);
+	void IngresarPersona(PersonaSd persona);
 }

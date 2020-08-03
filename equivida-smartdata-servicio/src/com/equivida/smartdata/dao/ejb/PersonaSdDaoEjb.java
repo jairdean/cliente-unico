@@ -86,9 +86,6 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer> implement
 				+ persona.getCodTipoIdentificacion().getCodTipoIdentificacion() + "','" + persona.getIdentificacion()
 				+ "','" + persona.getDenominacion() + "')";
 
-		log.error("LLEGOOOOO");
-		log.error("--->" + hql);
-
 		Query insert = em.createNativeQuery(hql);
 		insert.executeUpdate();
 

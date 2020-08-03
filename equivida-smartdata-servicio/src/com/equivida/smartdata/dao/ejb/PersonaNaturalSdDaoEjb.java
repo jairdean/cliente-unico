@@ -10,14 +10,15 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
+import com.equivida.databook.model.RegistrosEntity.PersonaNatural;
 import com.equivida.smartdata.dao.PersonaNaturalSdDao;
 import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.model.PersonaNaturalSd;
+import com.equivida.smartdata.model.PersonaSd;
 import com.saviasoft.persistence.util.dao.ejb.GenericDaoEjb;
 
 @Stateless(name = "PersonaNaturalSdDao")
-public class PersonaNaturalSdDaoEjb extends
-		GenericDaoEjb<PersonaNaturalSd, Integer> implements PersonaNaturalSdDao {
+public class PersonaNaturalSdDaoEjb extends GenericDaoEjb<PersonaNaturalSd, Integer> implements PersonaNaturalSdDao {
 
 	public PersonaNaturalSdDaoEjb() {
 		super(PersonaNaturalSd.class);
@@ -26,8 +27,7 @@ public class PersonaNaturalSdDaoEjb extends
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.equivida.smartdata.dao.PersonaNaturalSdDao#actualizaDatosPersonales
+	 * @see com.equivida.smartdata.dao.PersonaNaturalSdDao#actualizaDatosPersonales
 	 * (com.equivida.smartdata.dto.DatosActualizaSdDto)
 	 */
 	@Override
@@ -49,22 +49,17 @@ public class PersonaNaturalSdDaoEjb extends
 
 		Query update = em.createQuery(sql.toString());
 
-		update.setParameter("apellidoPaterno",
-				datosActualiza.getApellidoPaterno());
-		update.setParameter("apellidoMaterno",
-				datosActualiza.getApellidoMaterno());
+		update.setParameter("apellidoPaterno", datosActualiza.getApellidoPaterno());
+		update.setParameter("apellidoMaterno", datosActualiza.getApellidoMaterno());
 		update.setParameter("primerNombre", datosActualiza.getPrimerNombre());
 		update.setParameter("segundoNombre", datosActualiza.getSegundoNombre());
 		update.setParameter("sexo", datosActualiza.getSexo());
-		update.setParameter("codEstadoCivil",
-				datosActualiza.getCodEstadoCivil());
+		update.setParameter("codEstadoCivil", datosActualiza.getCodEstadoCivil());
 		update.setParameter("fchNacimiento", datosActualiza.getFchNacimiento());
-		update.setParameter("fchFallecimiento",
-				datosActualiza.getFchFallecimiento());
+		update.setParameter("fchFallecimiento", datosActualiza.getFchFallecimiento());
 		update.setParameter("usrModificacion", datosActualiza.getUsrProcesa());
 		update.setParameter("secCanal", datosActualiza.getSecCanal());
-		update.setParameter("secPersona",
-				datosActualiza.getSecPersonaActualiza());
+		update.setParameter("secPersona", datosActualiza.getSecPersonaActualiza());
 
 		update.executeUpdate();
 	}
@@ -78,8 +73,7 @@ public class PersonaNaturalSdDaoEjb extends
 	 */
 	@Override
 	public PersonaNaturalSd obtenerPersonaByIdentificacion(String noDocumento) {
-		Query query = em
-				.createNamedQuery("PersonaNaturalSd.findByIdentificacion");
+		Query query = em.createNamedQuery("PersonaNaturalSd.findByIdentificacion");
 		query.setParameter("identificacion", noDocumento);
 
 		System.out.println("=======================CONSULTA SD 1");
@@ -91,5 +85,33 @@ public class PersonaNaturalSdDaoEjb extends
 		}
 
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.dao.PersonaSdDao#ingresaPersona
+	 * (java.lang.String)
+	 */
+	@Override
+	public boolean ingresaPersonaNatural(PersonaNaturalSd persona) {
+
+		String hql = "INSERT INTO PERSONA_NATURAL\r\n"
+				+ "(SEC_PERSONA, COD_TIPO_IDENTIFICACION, IDENTIFICACION, APELLIDO_PATERNO, APELLIDO_MATERNO,"
+				+ "PRIMER_NOMBRE, SEGUNDO_NOMBRE, SEXO, COD_PAIS ,COD_ESTADO_CIVIL,"
+				+ "SEC_PROFESION, FCH_NACIMIENTO, FCH_MATRIMONIO, FCH_FALLECIMIENTO, SEC_CANAL,"
+				+ "USR_CREACION, TS_CREACION, USR_MODIFICACION)VALUES" + "(" + persona.getSecPersona() + ", '"
+				+ persona.getCodTipoIdentificacion().getTipoIdentificacion() + "', '" + persona.getIdentificacion()
+				+ "', '" + persona.getApellidoPaterno() + "', '" + persona.getApellidoMaterno() + "'," + "'"
+				+ persona.getPrimerNombre() + "', '" + persona.getSegundoNombre() + "', '" + persona.getSexo() + "', "
+				+ persona.getCodPais() + ", " + persona.getCodEstadoCivil().getCodEstadoCivil() + "," + "" + persona.getSecProfesion().getSecProfesion()
+				+ ", '" + persona.getFchFallecimiento() + "', " + persona.getFchMatrimonio() + ", "
+				+ persona.getFchFallecimiento() + ", " + persona.getSecCanal().getSecCanal() + "," + "'" + persona.getUsrCreacion()
+				+ "', '" + persona.getTsCreacion() + "', '" + persona.getUsrModificacion() + "');";
+
+		Query insert = em.createNativeQuery(hql);
+		insert.executeUpdate();
+
+		return true;
 	}
 }

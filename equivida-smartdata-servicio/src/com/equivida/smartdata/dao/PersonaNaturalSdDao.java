@@ -9,11 +9,11 @@ import javax.ejb.Local;
 
 import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.model.PersonaNaturalSd;
+import com.equivida.smartdata.model.PersonaSd;
 import com.saviasoft.persistence.util.dao.GenericDao;
 
 @Local
-public interface PersonaNaturalSdDao extends
-		GenericDao<PersonaNaturalSd, Integer> {
+public interface PersonaNaturalSdDao extends GenericDao<PersonaNaturalSd, Integer> {
 	/**
 	 * Actualiza los datos personales de una persona natural.
 	 * 
@@ -28,4 +28,12 @@ public interface PersonaNaturalSdDao extends
 	 * @return
 	 */
 	PersonaNaturalSd obtenerPersonaByIdentificacion(String noDocumento);
+
+	/**
+	 * ingresa persona narutal
+	 * 
+	 * @param persona
+	 * @return
+	 */
+	boolean ingresaPersonaNatural(PersonaNaturalSd persona);
 }

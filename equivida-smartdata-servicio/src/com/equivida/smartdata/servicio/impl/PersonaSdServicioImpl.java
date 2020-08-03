@@ -12,12 +12,14 @@ import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
 
+import com.equivida.databook.model.Registros;
 import com.equivida.smartdata.dao.PersonaSdDao;
 import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.helper.SmartDataHelper;
 import com.equivida.smartdata.model.PersonaSd;
 import com.equivida.smartdata.model.RelacionSd;
 import com.equivida.smartdata.model.TelefonoSd;
+import com.equivida.smartdata.model.TipoIdentificacionSd;
 import com.equivida.smartdata.servicio.PersonaSdServicio;
 import com.saviasoft.persistence.util.dao.GenericDao;
 import com.saviasoft.persistence.util.service.impl.GenericServiceImpl;
@@ -104,19 +106,7 @@ public class PersonaSdServicioImpl extends GenericServiceImpl<PersonaSd, Integer
 	 * (com.equivida.smartdata.dto.DatosActualizaSdDto)
 	 */
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public boolean IngresarDatosPersona(PersonaSd persona) {
-		// 1. Se consulta persona por identificacion
-		log.error("Entra IngresarDatosPersona");
-		PersonaSd existePersona = personaDao.obtenerPersonaByIdentificacion(persona.getIdentificacion());
-
-		log.error(existePersona);
-
-		if (existePersona == null) {
-			// INGRESO LA PERSONA
-			personaDao.ingresaPersona(persona);
-		}
-
-		return true;
+	public void IngresarPersona(PersonaSd persona) {	
+		personaDao.ingresaPersona(persona);
 	}
 }
