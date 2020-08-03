@@ -339,21 +339,21 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// Se consulta en el WS.
 			Registros registros = obtenerRegistrosWs(identificacion);
 			System.out.println("===========================FIN consulta en DB: " + identificacion + new Date());
-
-			System.out.println(
+			
+			
+			PersonaSd personaSd = new PersonaSd();
+			personaSd.setIdentificacion(registros.getCivil().getCedula());
+			
+			/*System.out.println(
 					"===========================transforma DB a SD consulta en DB: " + identificacion + new Date());
 			DataBookHelper dbh = new DataBookHelper(registros, usuario, noPkTablasDao, estadoCivilServicio,
 					profesionServicio, actividadEconomicaServicio, personaJuridicaServicio, personaServicio,
 					direccionSdServicio, telefonoSdServicio);
-
 			PersonaSd personaSd = dbh.getPersonaNatural();
-
 			// 4. Se debe crear las relaciones con conyuge, padre, madre
 			crearRelacionesPersonales(registros, personaSd, usuario);
-
 			// 5. Obtiene o Crea Personas juridicas
 			List<PersonaSd> listaPj = dbh.getPersonasJuridicas();
-
 			// 6. Crea relaciones laborales en el caso de existir personas
 			// juridicas
 			if (listaPj != null && !listaPj.isEmpty()) {
@@ -363,14 +363,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error(e.getMessage(), e.getCause());
 				}
 			}
-
 			System.out.println(
 					"===========================FIN transforma DB a SD consulta en DB: " + identificacion + new Date());
-
 			// Se pone esta linea para que se pueda presentar la informacion en
 			// xml soap de respuesta
-			activarPresentacionParaWs(personaSd);
-
+			activarPresentacionParaWs(personaSd);*/
 			return personaSd;
 		} catch (DatabookException e) {
 			log.error(e.getMessage(), e.getCause());
@@ -383,7 +380,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			throw new SmartdataException(e.getMessage(), e.getCause());
 		}
 	}
-
 	/**
 	 * Activa datos para presentacion en WS.
 	 * 
@@ -594,15 +590,18 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	 */
 	private Registros obtenerRegistrosWs(String identificacion)
 			throws FileNotFoundException, IOException, DatabookException {
+		
 		// Se obtienen las propiedades
 		Properties props = obtenerArchivoPropiedades();
-
+		
 		// Se construye el servicio DATABOOK
 		DatabookService dbs = new DatabookServiceImpl(props.getProperty(PropiedadesKeyEnum.url.toString()),
 				identificacion, props.getProperty(PropiedadesKeyEnum.usuario.toString()));
-
+				
+		System.out.println("XX3-FIN");
 		// Se consulta en el WS de Databook
-		return dbs.consultaDatabook();
+		Registros registros = dbs.consultaDatabook();
+		return registros;
 	}
 
 	/**
@@ -615,7 +614,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private Properties obtenerArchivoPropiedades() throws FileNotFoundException, IOException {
 		Properties prop = new Properties();
 
-		prop.load(new FileInputStream("../server/equivida/conf/databook.properties"));
+		prop.load(new FileInputStream("../server/equivida/conf/databookActualizado.properties"));
 
 		return prop;
 	}
