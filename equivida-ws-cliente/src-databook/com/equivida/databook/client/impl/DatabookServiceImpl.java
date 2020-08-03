@@ -111,6 +111,7 @@ public class DatabookServiceImpl implements DatabookService {
 			System.out.println(registrosEntity.getTitular().getDireccion().getSecParroquia());
 			System.out.println(registrosEntity.getTitular().getTelefonos().getTelefono1().getNroTelefono());
 			System.out.println(registrosEntity.getTitular().getInformacionAdicional().getCodActividadEconomica());
+			System.out.println(registrosEntity.getConyuge().getEmpleoDependiente().getActividad_Economica());
 			System.out.println("XX4");
 			//Registros registros = (Registros) jc.createUnmarshaller().unmarshal(xml); 
 			connection.disconnect();
