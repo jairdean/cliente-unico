@@ -606,7 +606,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		System.out.println("XX3-FIN");
 		// Se consulta en el WS de Databook
-		Registros registros = dbs.consultaDatabook();
+		//Registros registros = dbs.consultaDatabook();
+		RegistrosEntity xxx = dbs.consultaDatabookPersonaEntity();
+		
+		consultaDatabookPersonaEntity
 		return registros;
 	}
 
@@ -773,4 +776,17 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return date;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.SmartDataServicio#consultaDatabookRegistrosEntity(java.
+	 * lang.String, java.lang.String)
+	 */
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public RegistrosEntity consultaDatabookRegistrosEntity(String identificacion, String usuario)
+			throws SmartdataException {
+		//JAIRO
+		return null;
+	}
 }
