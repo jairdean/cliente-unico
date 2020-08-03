@@ -3,7 +3,9 @@ package com.equivida.smartdata.servicio.impl;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +22,7 @@ import com.equivida.databook.client.DatabookService;
 import com.equivida.databook.client.impl.DatabookServiceImpl;
 import com.equivida.databook.exception.DatabookException;
 import com.equivida.databook.model.Registros;
+import com.equivida.databook.model.RegistrosEntity;
 import com.equivida.smartdata.constante.PropiedadesKeyEnum;
 import com.equivida.smartdata.constante.TipoParentescoEnum;
 import com.equivida.smartdata.dao.NoPkTablasSdDao;
@@ -27,11 +30,15 @@ import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.exception.FindException;
 import com.equivida.smartdata.exception.SmartdataException;
 import com.equivida.smartdata.helper.DataBookHelper;
+import com.equivida.smartdata.model.CanalSd;
 import com.equivida.smartdata.model.DireccionSd;
 import com.equivida.smartdata.model.EmpleoDependienteSd;
+import com.equivida.smartdata.model.EstadoCivilSd;
+import com.equivida.smartdata.model.PaisSd;
 import com.equivida.smartdata.model.PersonaJuridicaSd;
 import com.equivida.smartdata.model.PersonaNaturalSd;
 import com.equivida.smartdata.model.PersonaSd;
+import com.equivida.smartdata.model.ProfesionSd;
 import com.equivida.smartdata.model.RelacionSd;
 import com.equivida.smartdata.model.TelefonoSd;
 import com.equivida.smartdata.model.TipoIdentificacionSd;
@@ -49,7 +56,6 @@ import com.equivida.smartdata.servicio.SmartDataSdServicio;
 import com.equivida.smartdata.servicio.SmartDataServicioSdRemote;
 import com.equivida.smartdata.servicio.TelefonoSdServicio;
 import com.equivida.smartdata.servicio.PersonaNaturalServicio;
-
 
 @Stateless(name = "SmartDataSdServicio")
 public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataServicioSdRemote {
@@ -79,7 +85,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private DireccionSdServicio direccionSdServicio;
 	@EJB
 	private PersonaNaturalServicio personaNatServicio;
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -89,38 +95,38 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public PersonaSd consultaClienteSmartData(String identificacion, boolean conRelaciones) throws SmartdataException {
-		
+
 		PersonaSd persona = new PersonaSd();
 		PersonaNaturalSd pn = personaNatServicio.consumirServicio(identificacion);
-		persona.setIdentificacion(""+pn.getSecPersona());
-		
+		persona.setIdentificacion("" + pn.getSecPersona());
+
 		return persona;
-		
+
 		// 1. Se busca Cliente en las tablas del esquema SMARTDATA
-		/*PersonaNaturalSd pn = personaNaturalServicio.obtenerPersonaByIdentificacion(identificacion, conRelaciones);
-
-		PersonaSd persona = null;
-
-		// 2. Hay ocaciones en las que no existe la persona en la tabla PersonaNatural,
-		// en tonces se busca en la tabla Persona
-		if (pn == null) {
-			System.out.println(
-					"===========================No hay PersonaNaturalSd, se consulta PersonaSd con identificacion: "
-							+ identificacion + " - " + new Date());
-			persona = personaServicio.obtenerPersonaByIdentificacion(identificacion);
-			
-		}
-
-		if (pn == null && persona == null) {
-			throw new SmartdataException(
-					"No se encuentra datos con identificacion: ".concat(identificacion).concat(" en Smartdata"));
-		}
-
-		if (pn != null) {
-			return pn.getSecPersona();
-		}
-		
-		return persona;*/
+		/*
+		 * PersonaNaturalSd pn =
+		 * personaNaturalServicio.obtenerPersonaByIdentificacion(identificacion,
+		 * conRelaciones);
+		 * 
+		 * PersonaSd persona = null;
+		 * 
+		 * // 2. Hay ocaciones en las que no existe la persona en la tabla
+		 * PersonaNatural, // en tonces se busca en la tabla Persona if (pn == null) {
+		 * System.out.println(
+		 * "===========================No hay PersonaNaturalSd, se consulta PersonaSd con identificacion: "
+		 * + identificacion + " - " + new Date()); persona =
+		 * personaServicio.obtenerPersonaByIdentificacion(identificacion);
+		 * 
+		 * }
+		 * 
+		 * if (pn == null && persona == null) { throw new SmartdataException(
+		 * "No se encuentra datos con identificacion: ".concat(identificacion).
+		 * concat(" en Smartdata")); }
+		 * 
+		 * if (pn != null) { return pn.getSecPersona(); }
+		 * 
+		 * return persona;
+		 */
 	}
 
 	@Override
@@ -340,46 +346,33 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// Se consulta en el WS.
 			Registros registros = obtenerRegistrosWs(identificacion);
 			System.out.println("===========================FIN consulta en DB: " + identificacion + new Date());
-			
-			
+
+			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
+			GuardarInformacionPersona(registros.getTitular());
+
 			PersonaSd personaSd = new PersonaSd();
 			personaSd.setIdentificacion(identificacion);
 			personaSd.setDenominacion("Ejemplo");
-			
-			TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
-			tipoIdentificacion.setCodTipoIdentificacion('C');
-			personaSd.setCodTipoIdentificacion(tipoIdentificacion);
-
-						
-			//INGRESO LA PERSONA
-			boolean resp = personaServicio.IngresarDatosPersona(personaSd);
-			
-
 			/*
-			System.out.println(
-					"===========================transforma DB a SD consulta en DB: " + identificacion + new Date());
-			DataBookHelper dbh = new DataBookHelper(registros, usuario, noPkTablasDao, estadoCivilServicio,
-					profesionServicio, actividadEconomicaServicio, personaJuridicaServicio, personaServicio,
-					direccionSdServicio, telefonoSdServicio);
-			PersonaSd personaSd = dbh.getPersonaNatural();
-			// 4. Se debe crear las relaciones con conyuge, padre, madre
-			crearRelacionesPersonales(registros, personaSd, usuario);
-			// 5. Obtiene o Crea Personas juridicas
-			List<PersonaSd> listaPj = dbh.getPersonasJuridicas();
-			// 6. Crea relaciones laborales en el caso de existir personas
-			// juridicas
-			if (listaPj != null && !listaPj.isEmpty()) {
-				try {
-					relacionarPersonaNaturalPersonaJuridica(personaSd, listaPj, registros, usuario);
-				} catch (ParseException e) {
-					log.error(e.getMessage(), e.getCause());
-				}
-			}
-			System.out.println(
-					"===========================FIN transforma DB a SD consulta en DB: " + identificacion + new Date());
-			// Se pone esta linea para que se pueda presentar la informacion en
-			// xml soap de respuesta
-			activarPresentacionParaWs(personaSd);*/
+			 * System.out.println(
+			 * "===========================transforma DB a SD consulta en DB: " +
+			 * identificacion + new Date()); DataBookHelper dbh = new
+			 * DataBookHelper(registros, usuario, noPkTablasDao, estadoCivilServicio,
+			 * profesionServicio, actividadEconomicaServicio, personaJuridicaServicio,
+			 * personaServicio, direccionSdServicio, telefonoSdServicio); PersonaSd
+			 * personaSd = dbh.getPersonaNatural(); // 4. Se debe crear las relaciones con
+			 * conyuge, padre, madre crearRelacionesPersonales(registros, personaSd,
+			 * usuario); // 5. Obtiene o Crea Personas juridicas List<PersonaSd> listaPj =
+			 * dbh.getPersonasJuridicas(); // 6. Crea relaciones laborales en el caso de
+			 * existir personas // juridicas if (listaPj != null && !listaPj.isEmpty()) {
+			 * try { relacionarPersonaNaturalPersonaJuridica(personaSd, listaPj, registros,
+			 * usuario); } catch (ParseException e) { log.error(e.getMessage(),
+			 * e.getCause()); } } System.out.println(
+			 * "===========================FIN transforma DB a SD consulta en DB: " +
+			 * identificacion + new Date()); // Se pone esta linea para que se pueda
+			 * presentar la informacion en // xml soap de respuesta
+			 * activarPresentacionParaWs(personaSd);
+			 */
 			return personaSd;
 		} catch (DatabookException e) {
 			log.error(e.getMessage(), e.getCause());
@@ -392,6 +385,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			throw new SmartdataException(e.getMessage(), e.getCause());
 		}
 	}
+
 	/**
 	 * Activa datos para presentacion en WS.
 	 * 
@@ -602,14 +596,14 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	 */
 	private Registros obtenerRegistrosWs(String identificacion)
 			throws FileNotFoundException, IOException, DatabookException {
-		
+
 		// Se obtienen las propiedades
 		Properties props = obtenerArchivoPropiedades();
-		
+
 		// Se construye el servicio DATABOOK
 		DatabookService dbs = new DatabookServiceImpl(props.getProperty(PropiedadesKeyEnum.url.toString()),
 				identificacion, props.getProperty(PropiedadesKeyEnum.usuario.toString()));
-				
+
 		System.out.println("XX3-FIN");
 		// Se consulta en el WS de Databook
 		Registros registros = dbs.consultaDatabook();
@@ -634,6 +628,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.equivida.smartdata.servicio.SmartDataSdServicio#
 	 * actualizaDatosPersonaNatural (com.equivida.smartdata.dto.DatosActualizaSdDto)
 	 */
@@ -695,4 +690,87 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		// 7. Se actualizan los datos personales de persona
 		personaServicio.actualizaDatosPersonales(datosActualiza);
 	}
+
+	public void GuardarInformacionPersona(RegistrosEntity.Titular registro) {
+		// 1. Se consulta persona por identificacion
+		PersonaSd existePersona = personaServicio
+				.obtenerPersonaByIdentificacion(registro.getPersona().getIdentificacion());
+
+		// SOLO INGRESAR DATOS CUADNO NO EXISTA LA PERSONA
+		if (existePersona == null) {
+			// INICIALIZO OBJETOS POR DEFECTO
+			TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
+			tipoIdentificacion.setCodTipoIdentificacion(registro.getPersona().getCodTipoIdentificacion().charAt(0));
+
+			PaisSd paisSd = new PaisSd();
+			paisSd.setCodPais((short) 56);
+
+			EstadoCivilSd estadoCivilSd = new EstadoCivilSd();
+			estadoCivilSd.setCodEstadoCivil(!VerificarVacios(registro.getPersonaNatural().getCodEstadoCivil())
+					? Short.parseShort(registro.getPersonaNatural().getCodEstadoCivil())
+					: 0);
+
+			ProfesionSd profesionsd = new ProfesionSd();
+			profesionsd.setSecProfesion((short) 1);
+
+			CanalSd canalSd = new CanalSd();
+			canalSd.setSecCanal((short) 2);
+
+			// MAPEO E INGRESO LOS DATOS EN LA TABLA PERSONA
+			PersonaSd persona = new PersonaSd();
+			persona.setIdentificacion(registro.getPersona().getIdentificacion());
+			persona.setCodTipoIdentificacion(tipoIdentificacion);
+			persona.setDenominacion(registro.getPersona().getDenominacion());
+			personaServicio.IngresarPersona(persona);
+			// MAPEO E INGRESO LOS DATOS EN LA TABLA PERSONA_NATURAL
+
+			PersonaNaturalSd personaNatural = new PersonaNaturalSd();
+			personaNatural.setSecPersona(persona);
+			personaNatural.setCodTipoIdentificacion(tipoIdentificacion);
+			personaNatural.setIdentificacion(registro.getPersonaNatural().getIdentificacion());
+			personaNatural.setApellidoPaterno(registro.getPersonaNatural().getApellidoPaterno());
+			personaNatural.setApellidoMaterno(registro.getPersonaNatural().getApellidoMaterno());
+			personaNatural.setPrimerNombre(registro.getPersonaNatural().getPrimerNombre());
+			personaNatural.setSegundoNombre(registro.getPersonaNatural().getSegundoNombre());
+			personaNatural.setSexo(registro.getPersonaNatural().getSexo().charAt(0));
+			personaNatural.setCodPais(paisSd);
+			personaNatural.setCodEstadoCivil(estadoCivilSd);
+			personaNatural.setSecProfesion(profesionsd);
+			personaNatural.setFchNacimiento(!VerificarVacios(registro.getPersonaNatural().getFechaNacimiento())
+					? ConvertirFecha(registro.getPersonaNatural().getFechaNacimiento())
+					: null);
+			personaNatural.setFchMatrimonio(!VerificarVacios(registro.getPersonaNatural().getFechaMatrimonio())
+					? ConvertirFecha(registro.getPersonaNatural().getFechaMatrimonio())
+					: null);
+			personaNatural.setFchFallecimiento(!VerificarVacios(registro.getPersonaNatural().getFechaFallecimiento())
+					? ConvertirFecha(registro.getPersonaNatural().getFechaFallecimiento())
+					: null);
+			personaNatural.setSecCanal(canalSd);
+			personaNatural.setUsrCreacion("usrvmwork");
+			personaNatural.setTsCreacion(new Date());
+			personaNatural.setUsrModificacion("usrvmwork");
+			
+			personaNaturalServicio.insertarPersonaNatural(personaNatural);
+		}
+	}
+
+	public boolean VerificarVacios(String valor) {
+		if (valor.trim().isEmpty() || valor == null)
+			return true;
+		return false;
+	}
+
+	public Date ConvertirFecha(String valor) {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		Date date = null;
+		try {
+			date = formatter.parse(valor);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return date;
+	}
+
 }

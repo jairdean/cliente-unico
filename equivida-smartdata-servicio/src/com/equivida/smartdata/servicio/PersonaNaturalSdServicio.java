@@ -30,4 +30,12 @@ public interface PersonaNaturalSdServicio extends
 	 * @param datosActualiza
 	 */
 	void actualizaDatosPersonales(DatosActualizaSdDto datosActualiza);
+	
+	/**
+	 * Ingresa los datos personales de una persona natural.
+	 * 
+	 * @param datosActualiza
+	 */
+	void insertarPersonaNatural(PersonaNaturalSd datosActualiza);
+
 }

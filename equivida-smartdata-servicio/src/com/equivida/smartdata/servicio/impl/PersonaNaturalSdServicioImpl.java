@@ -104,4 +104,15 @@ public class PersonaNaturalSdServicioImpl extends GenericServiceImpl<PersonaNatu
 	public void actualizaDatosPersonales(DatosActualizaSdDto datosActualiza) {
 		personaNaturalDao.actualizaDatosPersonales(datosActualiza);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.PersonaNaturalSdServicio#
+	 * insertarPersonaNatural(com.equivida.smartdata.dto.DatosActualizaSdDto)
+	 */
+	@Override
+	public void insertarPersonaNatural(PersonaNaturalSd personaNatural) {
+		personaNaturalDao.ingresaPersonaNatural(personaNatural);
+	}
 }
