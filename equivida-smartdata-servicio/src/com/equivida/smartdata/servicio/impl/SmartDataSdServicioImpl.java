@@ -48,6 +48,7 @@ import com.equivida.smartdata.model.TelefonoSd;
 import com.equivida.smartdata.model.TipoDireccionSd;
 import com.equivida.smartdata.model.TipoIdentificacionSd;
 import com.equivida.smartdata.model.TipoParentescoRelacionSd;
+import com.equivida.smartdata.model.InformacionAdicionalSd;
 import com.equivida.smartdata.servicio.ActividadEconomicaSdServicio;
 import com.equivida.smartdata.servicio.DireccionSdServicio;
 import com.equivida.smartdata.servicio.EmpleoDependienteSdServicio;
@@ -61,6 +62,7 @@ import com.equivida.smartdata.servicio.SmartDataSdServicio;
 import com.equivida.smartdata.servicio.SmartDataServicioSdRemote;
 import com.equivida.smartdata.servicio.TelefonoSdServicio;
 import com.equivida.smartdata.servicio.PersonaNaturalServicio;
+import com.equivida.smartdata.servicio.InformacionAdicionalSdServicio;
 
 @Stateless(name = "SmartDataSdServicio")
 public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataServicioSdRemote {
@@ -90,7 +92,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private DireccionSdServicio direccionSdServicio;
 	@EJB
 	private PersonaNaturalServicio personaNatServicio;
-
+	@EJB
+	private InformacionAdicionalSdServicio informacionAdicionalSdServicio;
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -889,8 +893,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			
 			
 			//AQUI VA EL MAPPER E INFORMACION ADICIONAL
+			InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
 			
-			
+			informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
 			
 			
 			
