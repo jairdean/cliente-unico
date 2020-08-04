@@ -50,6 +50,7 @@ import com.equivida.smartdata.model.TipoDireccionSd;
 import com.equivida.smartdata.model.TipoIdentificacionSd;
 import com.equivida.smartdata.model.TipoParentescoRelacionSd;
 import com.equivida.smartdata.model.TipoTelefonoSd;
+import com.equivida.smartdata.model.InformacionAdicionalSd;
 import com.equivida.smartdata.servicio.ActividadEconomicaSdServicio;
 import com.equivida.smartdata.servicio.DireccionElectronicaSdServicio;
 import com.equivida.smartdata.servicio.DireccionSdServicio;
@@ -64,6 +65,7 @@ import com.equivida.smartdata.servicio.SmartDataSdServicio;
 import com.equivida.smartdata.servicio.SmartDataServicioSdRemote;
 import com.equivida.smartdata.servicio.TelefonoSdServicio;
 import com.equivida.smartdata.servicio.PersonaNaturalServicio;
+import com.equivida.smartdata.servicio.InformacionAdicionalSdServicio;
 
 @Stateless(name = "SmartDataSdServicio")
 public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataServicioSdRemote {
@@ -96,6 +98,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	@EJB
 	private DireccionElectronicaSdServicio direccionElectronicaSdServicio;
 
+	private InformacionAdicionalSdServicio informacionAdicionalSdServicio;
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -920,6 +924,35 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
 
 			// AQUI VA EL MAPPER E INFORMACION ADICIONAL
+			InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
+			informacionAdicionalSd.setSecInformacionAdic(0);//int
+			informacionAdicionalSd.setSecPersonaNatural(personaNatural);
+			informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacion);
+			informacionAdicionalSd.setIdentificacion("");
+			informacionAdicionalSd.setRazonSocial("");
+			informacionAdicionalSd.setNombreComercial("");
+			informacionAdicionalSd.setFchInscripcion(Date);
+			informacionAdicionalSd.setFchInicioActividades(Date);
+			informacionAdicionalSd.setFchCancelacion(Date);
+			informacionAdicionalSd.setFchSuspension(Date);
+			informacionAdicionalSd.setFchReinicio(Date);
+			informacionAdicionalSd.setPrincipal("");
+			informacionAdicionalSd.setNumero("");
+			informacionAdicionalSd.setSecundaria("");
+			informacionAdicionalSd.setReferencia("");
+			informacionAdicionalSd.setTelefono("");
+			informacionAdicionalSd.setEMail("");
+			informacionAdicionalSd.setCodActividadEconomica(ActividadEconomicaSd);
+			informacionAdicionalSd.setSecProvincia(provinciaSdDireccion);
+			informacionAdicionalSd.setSecCanton(cantoSdDireccion);
+			informacionAdicionalSd.setSecParroquia(parroquiaSdDireccion);
+			informacionAdicionalSd.setSecCanal(canalSd);
+			informacionAdicionalSd.setUsrCreacion("");
+			informacionAdicionalSd.setTsCreacion(new Date());
+			informacionAdicionalSd.setUsrModificacion("");
+			informacionAdicionalSd.setTsModificacion(new Date());
+			informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
+			
 		}
 	}
 
