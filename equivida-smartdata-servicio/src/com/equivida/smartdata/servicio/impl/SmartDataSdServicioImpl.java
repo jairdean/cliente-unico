@@ -891,14 +891,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			
 			
 			
-			
 			//AQUI VA EL MAPPER E INFORMACION ADICIONAL
 			InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
 			informacionAdicionalSd.setSecInformacionAdic(0);//int
 			informacionAdicionalSd.setSecPersonaNatural(personaNatural);
 			informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacion);
-			informacionAdicionalSd.setIdentificacion("");
-			informacionAdicionalSd.setRazonSocial("");
+			informacionAdicionalSd.setIdentificacion(registro.getPersonaNatural().getIdentificacion());
+			informacionAdicionalSd.setRazonSocial(registro.getInformacionAdicional().getRazonSocial());
 			informacionAdicionalSd.setNombreComercial("");
 			informacionAdicionalSd.setFchInscripcion(Date);
 			informacionAdicionalSd.setFchInicioActividades(Date);
