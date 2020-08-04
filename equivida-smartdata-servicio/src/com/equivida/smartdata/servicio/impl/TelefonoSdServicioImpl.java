@@ -60,4 +60,15 @@ public class TelefonoSdServicioImpl extends
 			String telefono) {
 		return telefonoDao.obtenerPorDocumentoTelefono(noDocumento, telefono);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.TelefonoSdServicio#
+	 * ingresarTelefono(TelefonoSd)
+	 */
+	@Override
+	public void ingresarTelefono(TelefonoSd telefono) {
+		 telefonoDao.obtenerPorDocumentoTelefono(telefono);
+	}
 }
