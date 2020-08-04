@@ -29,4 +29,12 @@ public interface DireccionSdDao extends GenericDao<DireccionSd, Integer> {
 	 */
 	DireccionSd obtenerPorDocumentoDireccion(String noDocumento,
 			String direccion);
+
+	/**
+	 * ingresa una direccion.
+	 * 
+	 * @param direccion
+	 * @return
+	 */
+	boolean ingresarDireccion(DireccionSd direccion);
 }

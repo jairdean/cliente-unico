@@ -23,7 +23,9 @@ import com.equivida.databook.client.impl.DatabookServiceImpl;
 import com.equivida.databook.exception.DatabookException;
 import com.equivida.databook.model.Registros;
 import com.equivida.databook.model.RegistrosEntity;
+import com.equivida.smartdata.constante.EstadoEnum;
 import com.equivida.smartdata.constante.PropiedadesKeyEnum;
+import com.equivida.smartdata.constante.TipoDireccionEnum;
 import com.equivida.smartdata.constante.TipoParentescoEnum;
 import com.equivida.smartdata.dao.NoPkTablasSdDao;
 import com.equivida.smartdata.dto.DatosActualizaSdDto;
@@ -31,16 +33,20 @@ import com.equivida.smartdata.exception.FindException;
 import com.equivida.smartdata.exception.SmartdataException;
 import com.equivida.smartdata.helper.DataBookHelper;
 import com.equivida.smartdata.model.CanalSd;
+import com.equivida.smartdata.model.CantonSd;
 import com.equivida.smartdata.model.DireccionSd;
 import com.equivida.smartdata.model.EmpleoDependienteSd;
 import com.equivida.smartdata.model.EstadoCivilSd;
 import com.equivida.smartdata.model.PaisSd;
+import com.equivida.smartdata.model.ParroquiaSd;
 import com.equivida.smartdata.model.PersonaJuridicaSd;
 import com.equivida.smartdata.model.PersonaNaturalSd;
 import com.equivida.smartdata.model.PersonaSd;
 import com.equivida.smartdata.model.ProfesionSd;
+import com.equivida.smartdata.model.ProvinciaSd;
 import com.equivida.smartdata.model.RelacionSd;
 import com.equivida.smartdata.model.TelefonoSd;
+import com.equivida.smartdata.model.TipoDireccionSd;
 import com.equivida.smartdata.model.TipoIdentificacionSd;
 import com.equivida.smartdata.model.TipoParentescoRelacionSd;
 import com.equivida.smartdata.servicio.ActividadEconomicaSdServicio;
@@ -717,7 +723,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			profesionsd.setSecProfesion((short) 1);
 
 			CanalSd canalSd = new CanalSd();
-			canalSd.setSecCanal((short) 2);
+			canalSd.setSecCanal((short) 2);	
 
 			// MAPEO E INGRESO LOS DATOS EN LA TABLA PERSONA
 			PersonaSd persona = new PersonaSd();
@@ -752,8 +758,46 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			personaNatural.setUsrCreacion("usrvmwork");
 			personaNatural.setTsCreacion(new Date());
 			personaNatural.setUsrModificacion("usrvmwork");
-			
+
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
+
+			// MAPEO E INGRESO LOS DATOS EN LA TABLA DIRECCION
+			log.error("LLEGO CONSTANTE");
+			TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
+			tipoDireccionSd.setCodTipoDireccion(TipoDireccionEnum.DOMICILIO.getCodigoenBase());
+			log.error("LLEGO CONSTANTE");
+
+			ProvinciaSd provinciaSdDireccion = new ProvinciaSd();
+			provinciaSdDireccion.setSecProvincia(!VerificarVacios(registro.getDireccion().getSecProvincia())
+					? Short.parseShort(registro.getDireccion().getSecProvincia())
+					: 0);
+
+			CantonSd cantoSdDireccion = new CantonSd();
+			cantoSdDireccion.setSecCanton(!VerificarVacios(registro.getDireccion().getSecCanton())
+					? Short.parseShort(registro.getDireccion().getSecCanton())
+					: 0);
+
+			ParroquiaSd parroquiaSdDireccion = new ParroquiaSd();
+			parroquiaSdDireccion.setSecParroquia(!VerificarVacios(registro.getDireccion().getSecParroquia())
+					? Short.parseShort(registro.getDireccion().getSecParroquia())
+					: 0);
+
+			DireccionSd direccionsd = new DireccionSd();
+			direccionsd.setSecPersona(persona);
+			direccionsd.setDireccion(registro.getDireccion().getDireccion());
+			direccionsd.setCodTipoDireccion(tipoDireccionSd);
+			direccionsd.setSecProvincia(provinciaSdDireccion);
+			direccionsd.setSecCanton(cantoSdDireccion);
+			direccionsd.setSecParroquia(parroquiaSdDireccion);
+			direccionsd.setSecCanal(canalSd);
+			direccionsd.setEstado(EstadoEnum.A.getEstadoChar());//VERIFICARRRRRRRRRRRRRRRRRRRRRRRR
+			direccionsd.setUsrCreacion("usrvmwork3");
+			direccionsd.setTsCreacion(new Date());
+			direccionsd.setUsrModificacion("usrvmwork");
+
+			direccionSdServicio.ingresarDireccion(direccionsd);
+			
+			
 		}
 	}
 
@@ -779,14 +823,14 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.equivida.smartdata.servicio.SmartDataServicio#consultaDatabookRegistrosEntity(java.
-	 * lang.String, java.lang.String)
+	 * @see com.equivida.smartdata.servicio.SmartDataServicio#
+	 * consultaDatabookRegistrosEntity(java. lang.String, java.lang.String)
 	 */
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public RegistrosEntity consultaDatabookRegistrosEntity(String identificacion, String usuario)
 			throws SmartdataException {
-		//JAIRO
+		// JAIRO
 		return null;
 	}
 }

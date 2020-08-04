@@ -13,16 +13,14 @@ import com.equivida.smartdata.model.DireccionSd;
 import com.saviasoft.persistence.util.service.GenericService;
 
 @Local
-public interface DireccionSdServicio extends
-		GenericService<DireccionSd, Integer> {
+public interface DireccionSdServicio extends GenericService<DireccionSd, Integer> {
 	/**
 	 * Se actualiza las direcciones de una persona.
 	 * 
 	 * @param secPersona
 	 * @param direccionList
 	 */
-	void actualizaDirecciones(Integer secPersona,
-			List<DireccionSd> direccionList);
+	void actualizaDirecciones(Integer secPersona, List<DireccionSd> direccionList);
 
 	/**
 	 * Obtiene direccion por no de documento y por la direccion.
@@ -31,6 +29,13 @@ public interface DireccionSdServicio extends
 	 * @param direccion
 	 * @return
 	 */
-	DireccionSd obtenerPorDocumentoDireccion(String noDocumento,
-			String direccion);
+	DireccionSd obtenerPorDocumentoDireccion(String noDocumento, String direccion);
+
+	/**
+	 * Ingresa una direccion.
+	 * 
+	 * @param direccion
+	 * @return
+	 */
+	void ingresarDireccion(DireccionSd direccion);
 }

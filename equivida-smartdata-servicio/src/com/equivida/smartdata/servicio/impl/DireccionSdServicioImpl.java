@@ -17,8 +17,7 @@ import com.saviasoft.persistence.util.dao.GenericDao;
 import com.saviasoft.persistence.util.service.impl.GenericServiceImpl;
 
 @Stateless(name = "DireccionSdServicio")
-public class DireccionSdServicioImpl extends
-		GenericServiceImpl<DireccionSd, Integer> implements DireccionSdServicio {
+public class DireccionSdServicioImpl extends GenericServiceImpl<DireccionSd, Integer> implements DireccionSdServicio {
 
 	@EJB
 	private DireccionSdDao direccionDao;
@@ -31,13 +30,11 @@ public class DireccionSdServicioImpl extends
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.equivida.smartdata.servicio.DireccionSdServicio#actualizaDirecciones
+	 * @see com.equivida.smartdata.servicio.DireccionSdServicio#actualizaDirecciones
 	 * (java.lang.Integer, java.util.List)
 	 */
 	@Override
-	public void actualizaDirecciones(Integer secPersona,
-			List<DireccionSd> direccionList) {
+	public void actualizaDirecciones(Integer secPersona, List<DireccionSd> direccionList) {
 		// 1. Se inactivan las direcciones actuales.
 		direccionDao.desactivarDireccionesPersona(secPersona);
 
@@ -58,9 +55,18 @@ public class DireccionSdServicioImpl extends
 	 * obtenerPorDocumentoDireccion(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public DireccionSd obtenerPorDocumentoDireccion(String noDocumento,
-			String direccion) {
-		return direccionDao
-				.obtenerPorDocumentoDireccion(noDocumento, direccion);
+	public DireccionSd obtenerPorDocumentoDireccion(String noDocumento, String direccion) {
+		return direccionDao.obtenerPorDocumentoDireccion(noDocumento, direccion);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.DireccionSdServicio#
+	 * ingresarDireccion(DireccionSd)
+	 */
+	@Override
+	public void ingresarDireccion(DireccionSd direccion) {
+		direccionDao.ingresarDireccion(direccion);
 	}
 }

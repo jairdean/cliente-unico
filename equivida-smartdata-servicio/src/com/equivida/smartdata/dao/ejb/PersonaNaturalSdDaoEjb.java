@@ -100,14 +100,16 @@ public class PersonaNaturalSdDaoEjb extends GenericDaoEjb<PersonaNaturalSd, Inte
 				+ "(SEC_PERSONA, COD_TIPO_IDENTIFICACION, IDENTIFICACION, APELLIDO_PATERNO, APELLIDO_MATERNO,"
 				+ "PRIMER_NOMBRE, SEGUNDO_NOMBRE, SEXO, COD_PAIS ,COD_ESTADO_CIVIL,"
 				+ "SEC_PROFESION, FCH_NACIMIENTO, FCH_MATRIMONIO, FCH_FALLECIMIENTO, SEC_CANAL,"
-				+ "USR_CREACION, TS_CREACION, USR_MODIFICACION)VALUES" + "(" + persona.getSecPersona() + ", '"
-				+ persona.getCodTipoIdentificacion().getTipoIdentificacion() + "', '" + persona.getIdentificacion()
-				+ "', '" + persona.getApellidoPaterno() + "', '" + persona.getApellidoMaterno() + "'," + "'"
-				+ persona.getPrimerNombre() + "', '" + persona.getSegundoNombre() + "', '" + persona.getSexo() + "', "
-				+ persona.getCodPais() + ", " + persona.getCodEstadoCivil().getCodEstadoCivil() + "," + "" + persona.getSecProfesion().getSecProfesion()
-				+ ", '" + persona.getFchFallecimiento() + "', " + persona.getFchMatrimonio() + ", "
-				+ persona.getFchFallecimiento() + ", " + persona.getSecCanal().getSecCanal() + "," + "'" + persona.getUsrCreacion()
-				+ "', '" + persona.getTsCreacion() + "', '" + persona.getUsrModificacion() + "');";
+				+ "USR_CREACION, TS_CREACION, USR_MODIFICACION)VALUES" + "(" + persona.getSecPersona().getSecPersona()
+				+ ", '" + persona.getCodTipoIdentificacion().getTipoIdentificacion() + "', '"
+				+ persona.getIdentificacion() + "', '" + persona.getApellidoPaterno() + "', '"
+				+ persona.getApellidoMaterno() + "'," + "'" + persona.getPrimerNombre() + "', '"
+				+ persona.getSegundoNombre() + "', '" + persona.getSexo() + "', " + persona.getCodPais() + ", "
+				+ persona.getCodEstadoCivil().getCodEstadoCivil() + "," + ""
+				+ persona.getSecProfesion().getSecProfesion() + ", '" + persona.getFchFallecimiento() + "', "
+				+ persona.getFchMatrimonio() + ", " + persona.getFchFallecimiento() + ", "
+				+ persona.getSecCanal().getSecCanal() + "," + "'" + persona.getUsrCreacion() + "', '"
+				+ persona.getTsCreacion() + "', '" + persona.getUsrModificacion() + "');";
 
 		Query insert = em.createNativeQuery(hql);
 		insert.executeUpdate();
