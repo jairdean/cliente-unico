@@ -3,7 +3,6 @@ package com.equivida.smartdata.servicio.impl;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -350,7 +349,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		try {
 			System.out.println("===========================consulta en DB: " + identificacion + new Date());
 			// Se consulta en el WS.
-			Registros registros = obtenerRegistrosWs(identificacion);
+			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity(identificacion);
 			System.out.println("===========================FIN consulta en DB: " + identificacion + new Date());
 
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
@@ -630,7 +629,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		System.out.println("XX3-FIN");
 		// Se consulta en el WS de Databook
 		RegistrosEntity registros = dbs.consultaDatabookRegistrosEntity();//JAIRO
-		
+
 		
 		return registros;
 	}
@@ -814,6 +813,118 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			direccionSdServicio.ingresarDireccion(direccionsd);
 			
 			
+			//AQUI VA EL MAPPER DEL TELEFONO
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//AQUI VA EL MAPPER E INFORMACION ADICIONAL
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 	}
 
@@ -834,19 +945,5 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		}
 
 		return date;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.equivida.smartdata.servicio.SmartDataServicio#
-	 * consultaDatabookRegistrosEntity(java. lang.String, java.lang.String)
-	 */
-	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public RegistrosEntity consultaDatabookRegistrosEntity(String identificacion, String usuario)
-			throws SmartdataException {
-		// JAIRO
-		return null;
 	}
 }

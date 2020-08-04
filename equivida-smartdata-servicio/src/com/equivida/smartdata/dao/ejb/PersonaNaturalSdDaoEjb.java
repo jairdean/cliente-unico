@@ -96,7 +96,7 @@ public class PersonaNaturalSdDaoEjb extends GenericDaoEjb<PersonaNaturalSd, Inte
 	@Override
 	public boolean ingresaPersonaNatural(PersonaNaturalSd persona) {
 
-		String hql = "INSERT INTO PERSONA_NATURAL\r\n"
+		String hql = "INSERT INTO PERSONA_NATURAL"
 				+ "(SEC_PERSONA, COD_TIPO_IDENTIFICACION, IDENTIFICACION, APELLIDO_PATERNO, APELLIDO_MATERNO,"
 				+ "PRIMER_NOMBRE, SEGUNDO_NOMBRE, SEXO, COD_PAIS ,COD_ESTADO_CIVIL,"
 				+ "SEC_PROFESION, FCH_NACIMIENTO, FCH_MATRIMONIO, FCH_FALLECIMIENTO, SEC_CANAL,"

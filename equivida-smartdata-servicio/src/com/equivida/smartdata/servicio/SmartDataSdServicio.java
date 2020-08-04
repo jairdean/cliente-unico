@@ -64,14 +64,4 @@ public interface SmartDataSdServicio {
 	 */
 	PersonaSd consultaDatabook(String identificacion, String usuario)
 			throws SmartdataException;
-	
-	/**
-	 * 
-	 * @param identificacion
-	 * @param usuario
-	 * @return
-	 * @throws SmartdataException
-	 */
-	RegistrosEntity consultaDatabookRegistrosEntity(String identificacion, String usuario)
-			throws SmartdataException;
 }
