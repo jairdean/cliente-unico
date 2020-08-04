@@ -19,7 +19,7 @@ import com.equivida.smartdata.dao.InformacionAdicionalSdDao;
 import com.saviasoft.persistence.util.dao.GenericDao;
 
 
-@Stateless(name = "InformacionAdicionalSdServicioImpl")
+@Stateless(name = "InformacionAdicionalSdServicio")
 public class InformacionAdicionalSdServicioImpl extends GenericServiceImpl<InformacionAdicionalSd, Integer> implements InformacionAdicionalSdServicio  {
 
 
