@@ -795,6 +795,29 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
 
+			//PERSONA JURIDICA
+			PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
+			//personaJuridicaSd.setSecPersonaJuridica(0);//PRIMARY KEY
+			personaJuridicaSd.setSecPersona(persona);
+			personaJuridicaSd.setCodTipoIdentificacion(tipoIdentificacion);
+			personaJuridicaSd.setIdentificacion(registro.getEmpleoDependiente().getIdentificacion());//Empleo dependiente
+			personaJuridicaSd.setRazonSocial(registro.getEmpleoDependiente().getRazon_Social());
+			
+			ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd();
+			int codAodActividadEconomicaPJ = !VerificarVacios(
+					registro.getInformacionAdicional().getCodActividadEconomica())
+							? Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica())
+							: 0;
+			actividadEconomicaSdPJ.setCodActividadEconomica((short) codAodActividadEconomicaPJ);
+
+			personaJuridicaSd.setCodActividadEconomica(actividadEconomicaSdPJ);//Informacion adicional
+			personaJuridicaSd.setActividadIess("");//NO HAY
+			personaJuridicaSd.setSecCanal(canalSd);
+			personaJuridicaSd.setUsrCreacion("ACTUALIZACION_EN_LINEA");
+			personaJuridicaSd.setTsCreacion(new Date());
+			personaJuridicaSd.setUsrModificacion("ACTUALIZACION_EN_LINEA");
+			personaJuridicaServicio.crearPersonaJuridica(persona, personaJuridicaSd);
+
 			// MAPEO E INGRESO LOS DATOS EN LA TABLA DIRECCION
 			log.error("LLEGO CONSTANTE");
 			TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
