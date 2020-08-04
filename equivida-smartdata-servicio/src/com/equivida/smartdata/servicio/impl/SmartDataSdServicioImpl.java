@@ -33,6 +33,7 @@ import com.equivida.smartdata.exception.SmartdataException;
 import com.equivida.smartdata.helper.DataBookHelper;
 import com.equivida.smartdata.model.CanalSd;
 import com.equivida.smartdata.model.CantonSd;
+import com.equivida.smartdata.model.DireccionElectronicaSd;
 import com.equivida.smartdata.model.DireccionSd;
 import com.equivida.smartdata.model.EmpleoDependienteSd;
 import com.equivida.smartdata.model.EstadoCivilSd;
@@ -48,8 +49,10 @@ import com.equivida.smartdata.model.TelefonoSd;
 import com.equivida.smartdata.model.TipoDireccionSd;
 import com.equivida.smartdata.model.TipoIdentificacionSd;
 import com.equivida.smartdata.model.TipoParentescoRelacionSd;
+import com.equivida.smartdata.model.TipoTelefonoSd;
 import com.equivida.smartdata.model.InformacionAdicionalSd;
 import com.equivida.smartdata.servicio.ActividadEconomicaSdServicio;
+import com.equivida.smartdata.servicio.DireccionElectronicaSdServicio;
 import com.equivida.smartdata.servicio.DireccionSdServicio;
 import com.equivida.smartdata.servicio.EmpleoDependienteSdServicio;
 import com.equivida.smartdata.servicio.EstadoCivilSdServicio;
@@ -93,6 +96,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	@EJB
 	private PersonaNaturalServicio personaNatServicio;
 	@EJB
+	private DireccionElectronicaSdServicio direccionElectronicaSdServicio;
+
 	private InformacionAdicionalSdServicio informacionAdicionalSdServicio;
 	
 	/*
@@ -353,7 +358,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		try {
 			System.out.println("===========================consulta en DB: " + identificacion + new Date());
 			// Se consulta en el WS.
-			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity(identificacion);
+			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity("1719130476");
 			System.out.println("===========================FIN consulta en DB: " + identificacion + new Date());
 
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
@@ -362,26 +367,37 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			PersonaSd personaSd = new PersonaSd();
 			personaSd.setIdentificacion(identificacion);
 			personaSd.setDenominacion("Ejemplo");
+
 			/*
 			 * System.out.println(
 			 * "===========================transforma DB a SD consulta en DB: " +
 			 * identificacion + new Date()); DataBookHelper dbh = new
 			 * DataBookHelper(registros, usuario, noPkTablasDao, estadoCivilServicio,
 			 * profesionServicio, actividadEconomicaServicio, personaJuridicaServicio,
-			 * personaServicio, direccionSdServicio, telefonoSdServicio); PersonaSd
-			 * personaSd = dbh.getPersonaNatural(); // 4. Se debe crear las relaciones con
-			 * conyuge, padre, madre crearRelacionesPersonales(registros, personaSd,
-			 * usuario); // 5. Obtiene o Crea Personas juridicas List<PersonaSd> listaPj =
-			 * dbh.getPersonasJuridicas(); // 6. Crea relaciones laborales en el caso de
-			 * existir personas // juridicas if (listaPj != null && !listaPj.isEmpty()) {
-			 * try { relacionarPersonaNaturalPersonaJuridica(personaSd, listaPj, registros,
+			 * personaServicio, direccionSdServicio, telefonoSdServicio);
+			 * 
+			 * PersonaSd personaSd = dbh.getPersonaNatural();
+			 * 
+			 * // 4. Se debe crear las relaciones con conyuge, padre, madre
+			 * crearRelacionesPersonales(registros, personaSd, usuario);
+			 * 
+			 * // 5. Obtiene o Crea Personas juridicas List<PersonaSd> listaPj =
+			 * dbh.getPersonasJuridicas();
+			 * 
+			 * // 6. Crea relaciones laborales en el caso de existir personas // juridicas
+			 * if (listaPj != null && !listaPj.isEmpty()) { try {
+			 * relacionarPersonaNaturalPersonaJuridica(personaSd, listaPj, registros,
 			 * usuario); } catch (ParseException e) { log.error(e.getMessage(),
-			 * e.getCause()); } } System.out.println(
+			 * e.getCause()); } }
+			 * 
+			 * System.out.println(
 			 * "===========================FIN transforma DB a SD consulta en DB: " +
-			 * identificacion + new Date()); // Se pone esta linea para que se pueda
-			 * presentar la informacion en // xml soap de respuesta
-			 * activarPresentacionParaWs(personaSd);
+			 * identificacion + new Date());
+			 * 
+			 * // Se pone esta linea para que se pueda presentar la informacion en // xml
+			 * soap de respuesta activarPresentacionParaWs(personaSd);
 			 */
+
 			return personaSd;
 		} catch (DatabookException e) {
 			log.error(e.getMessage(), e.getCause());
@@ -612,29 +628,27 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		// Se construye el servicio DATABOOK
 		DatabookService dbs = new DatabookServiceImpl(props.getProperty(PropiedadesKeyEnum.url.toString()),
 				identificacion, props.getProperty(PropiedadesKeyEnum.usuario.toString()));
-				
+
 		// Se consulta en el WS de Databook
-		Registros registros = dbs.consultaDatabook();	
-		
+		Registros registros = dbs.consultaDatabook();
+
 		return registros;
 	}
-	
+
 	private RegistrosEntity obtenerRegistrosWsRegistrosEntity(String identificacion)
 			throws FileNotFoundException, IOException, DatabookException {
-		
+
 		// Se obtienen las propiedades
 		Properties props = obtenerArchivoPropiedades();
-		
+
 		// Se construye el servicio DATABOOK
 		DatabookService dbs = new DatabookServiceImpl(props.getProperty(PropiedadesKeyEnum.url.toString()),
 				identificacion, props.getProperty(PropiedadesKeyEnum.usuario.toString()));
-				
 
 		System.out.println("XX3-FIN");
 		// Se consulta en el WS de Databook
-		RegistrosEntity registros = dbs.consultaDatabookRegistrosEntity();//JAIRO
+		RegistrosEntity registros = dbs.consultaDatabookRegistrosEntity();// JAIRO
 
-		
 		return registros;
 	}
 
@@ -742,7 +756,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			profesionsd.setSecProfesion((short) 1);
 
 			CanalSd canalSd = new CanalSd();
-			canalSd.setSecCanal((short) 2);	
+			canalSd.setSecCanal((short) 2);
 
 			// MAPEO E INGRESO LOS DATOS EN LA TABLA PERSONA
 			PersonaSd persona = new PersonaSd();
@@ -809,89 +823,107 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			direccionsd.setSecCanton(cantoSdDireccion);
 			direccionsd.setSecParroquia(parroquiaSdDireccion);
 			direccionsd.setSecCanal(canalSd);
-			direccionsd.setEstado(EstadoEnum.A.getEstadoChar());//VERIFICARRRRRRRRRRRRRRRRRRRRRRRR
+			direccionsd.setEstado(EstadoEnum.A.getEstadoChar());// VERIFICARRRRRRRRRRRRRRRRRRRRRRRR
 			direccionsd.setUsrCreacion("usrvmwork3");
 			direccionsd.setTsCreacion(new Date());
 			direccionsd.setUsrModificacion("usrvmwork");
 
 			direccionSdServicio.ingresarDireccion(direccionsd);
-			
-			
-			//AQUI VA EL MAPPER DEL TELEFONO
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			//AQUI VA EL MAPPER E INFORMACION ADICIONAL
+
+			/*
+			 * 
+			 * SEC_PERSONA, COD_AREA, NRO_TELEFONO, COD_TIPO_TELEFONO, SEC_CANAL, ESTADO,
+			 * USR_CREACION, TS_CREACION, USR_MODIFICACION
+			 */
+			// AQUI VA EL MAPPER DEL TELEFONO1
+			TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+
+			TelefonoSd telefono = new TelefonoSd();
+			telefono.setSecPersona(persona);
+			telefono.setSecCanal(canalSd);
+			telefono.setEstado(EstadoEnum.A.getEstadoChar());
+			telefono.setUsrCreacion("usrvmowok");
+			telefono.setUsrModificacion("usrvmowok");
+
+			telefono.setCodArea(registro.getTelefonos().getTelefono1().getCodArea());
+			telefono.setNroTelefono(registro.getTelefonos().getTelefono1().getNroTelefono());
+			tipoTelefonoSd
+					.setCodTipoTelefono(!VerificarVacios(registro.getTelefonos().getTelefono1().getCodTipoTelefono())
+							? Short.parseShort(registro.getTelefonos().getTelefono1().getCodTipoTelefono())
+							: (short) 0);
+			telefono.setCodTipoTelefono(tipoTelefonoSd);
+			telefono.setTsCreacion(new Date());
+
+			telefonoSdServicio.ingresarTelefono(telefono);
+
+			// AQUI VA EL MAPPER DEL TELEFONO2
+			telefono.setCodArea(registro.getTelefonos().getTelefono2().getCodArea());
+			telefono.setNroTelefono(registro.getTelefonos().getTelefono2().getNroTelefono());
+			tipoTelefonoSd
+					.setCodTipoTelefono(!VerificarVacios(registro.getTelefonos().getTelefono2().getCodTipoTelefono())
+							? Short.parseShort(registro.getTelefonos().getTelefono2().getCodTipoTelefono())
+							: (short) 0);
+			telefono.setCodTipoTelefono(tipoTelefonoSd);
+			telefonoSdServicio.ingresarTelefono(telefono);
+
+			// AQUI VA EL MAPPER DEL TELEFONO3
+			telefono.setCodArea(registro.getTelefonos().getTelefono3().getCodArea());
+			telefono.setNroTelefono(registro.getTelefonos().getTelefono3().getNroTelefono());
+			tipoTelefonoSd
+					.setCodTipoTelefono(!VerificarVacios(registro.getTelefonos().getTelefono3().getCodTipoTelefono())
+							? Short.parseShort(registro.getTelefonos().getTelefono3().getCodTipoTelefono())
+							: (short) 0);
+			telefono.setCodTipoTelefono(tipoTelefonoSd);
+			telefonoSdServicio.ingresarTelefono(telefono);
+
+			// AQUI VA EL MAPPER DEL TELEFONO4
+			telefono.setCodArea(registro.getTelefonos().getTelefono4().getCodArea());
+			telefono.setNroTelefono(registro.getTelefonos().getTelefono4().getNroTelefono());
+			tipoTelefonoSd
+					.setCodTipoTelefono(!VerificarVacios(registro.getTelefonos().getTelefono4().getCodTipoTelefono())
+							? Short.parseShort(registro.getTelefonos().getTelefono4().getCodTipoTelefono())
+							: (short) 0);
+			telefono.setCodTipoTelefono(tipoTelefonoSd);
+			telefonoSdServicio.ingresarTelefono(telefono);
+
+			// AQUI VA EL MAPPER DEL TELEFONO5
+			telefono.setCodArea(registro.getTelefonos().getTelefono5().getCodArea());
+			telefono.setNroTelefono(registro.getTelefonos().getTelefono5().getNroTelefono());
+			tipoTelefonoSd
+					.setCodTipoTelefono(!VerificarVacios(registro.getTelefonos().getTelefono5().getCodTipoTelefono())
+							? Short.parseShort(registro.getTelefonos().getTelefono5().getCodTipoTelefono())
+							: (short) 0);
+			telefono.setCodTipoTelefono(tipoTelefonoSd);
+			telefonoSdServicio.ingresarTelefono(telefono);
+
+			// AQUI VA EL MAPPER DEL TELEFONO6
+			telefono.setCodArea(registro.getTelefonos().getTelefono6().getCodArea());
+			telefono.setNroTelefono(registro.getTelefonos().getTelefono6().getNroTelefono());
+			tipoTelefonoSd
+					.setCodTipoTelefono(!VerificarVacios(registro.getTelefonos().getTelefono6().getCodTipoTelefono())
+							? Short.parseShort(registro.getTelefonos().getTelefono6().getCodTipoTelefono())
+							: (short) 0);
+			telefono.setCodTipoTelefono(tipoTelefonoSd);
+			telefonoSdServicio.ingresarTelefono(telefono);
+
+			// DIRECCION ELECTRONICA 1
+
+			DireccionElectronicaSd direccionElectronica = new DireccionElectronicaSd();
+			direccionElectronica.setSecPersona(persona.getSecPersona());
+			direccionElectronica.setCodTipoDireccionElectronica((short) 1);
+			direccionElectronica.setSecCanal(canalSd.getSecCanal());
+			direccionElectronica.setEstado(EstadoEnum.A.getEstadoChar());
+			direccionElectronica.setUsrCreacion("usrvmwork3");
+			direccionElectronica.setTsCreacion(new Date());
+			direccionElectronica.setUsrModificacion("usrvmwork");
+			direccionElectronica.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico1());
+			direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
+
+			// DIRECCION ELECTRONICA 2
+			direccionElectronica.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico2());
+			direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
+
+			// AQUI VA EL MAPPER E INFORMACION ADICIONAL
 			InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
 			informacionAdicionalSd.setSecInformacionAdic(0);//int
 			informacionAdicionalSd.setSecPersonaNatural(personaNatural);
@@ -920,39 +952,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			informacionAdicionalSd.setUsrModificacion("");
 			informacionAdicionalSd.setTsModificacion(new Date());
 			informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 		}
 	}

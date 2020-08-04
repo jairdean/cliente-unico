@@ -30,4 +30,11 @@ public interface TelefonoSdServicio extends GenericService<TelefonoSd, Integer> 
 	 * @return
 	 */
 	TelefonoSd obtenerPorDocumentoTelefono(String noDocumento, String telefono);
+	
+	/**
+	 * Ingresa un teléfono.
+	 * 
+	 * @param telefono
+	 */
+	void ingresarTelefono(TelefonoSd telefono);
 }

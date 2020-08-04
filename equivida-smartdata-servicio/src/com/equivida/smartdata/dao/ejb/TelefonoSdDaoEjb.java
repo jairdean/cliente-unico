@@ -12,12 +12,12 @@ import javax.persistence.Query;
 
 import com.equivida.smartdata.constante.EstadoEnum;
 import com.equivida.smartdata.dao.TelefonoSdDao;
+import com.equivida.smartdata.model.DireccionSd;
 import com.equivida.smartdata.model.TelefonoSd;
 import com.saviasoft.persistence.util.dao.ejb.GenericDaoEjb;
 
 @Stateless(name = "TelefonoSdDao")
-public class TelefonoSdDaoEjb extends GenericDaoEjb<TelefonoSd, Integer>
-		implements TelefonoSdDao {
+public class TelefonoSdDaoEjb extends GenericDaoEjb<TelefonoSd, Integer> implements TelefonoSdDao {
 
 	public TelefonoSdDaoEjb() {
 		super(TelefonoSd.class);
@@ -26,8 +26,7 @@ public class TelefonoSdDaoEjb extends GenericDaoEjb<TelefonoSd, Integer>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.equivida.smartdata.dao.TelefonoSdDao#desactivarTelefonsosPersona(
+	 * @see com.equivida.smartdata.dao.TelefonoSdDao#desactivarTelefonsosPersona(
 	 * java.lang.Integer)
 	 */
 	@Override
@@ -45,13 +44,11 @@ public class TelefonoSdDaoEjb extends GenericDaoEjb<TelefonoSd, Integer>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.equivida.smartdata.dao.TelefonoSdDao#obtenerPorDocumentoTelefono(
+	 * @see com.equivida.smartdata.dao.TelefonoSdDao#obtenerPorDocumentoTelefono(
 	 * java.lang.String, java.lang.String)
 	 */
 	@Override
-	public TelefonoSd obtenerPorDocumentoTelefono(String noDocumento,
-			String telefono) {
+	public TelefonoSd obtenerPorDocumentoTelefono(String noDocumento, String telefono) {
 		StringBuffer hql = new StringBuffer(200);
 		hql.append("select t from TelefonoSd t where ");
 		hql.append("t.secPersona.identificacion =:identificacion ");
@@ -68,5 +65,26 @@ public class TelefonoSdDaoEjb extends GenericDaoEjb<TelefonoSd, Integer>
 		}
 
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.dao.DireccionSdDao#ingresarTelefono (TelefonoSd)
+	 */
+	@Override
+	public boolean ingresarTelefono(TelefonoSd telefono) {
+		String hql = "INSERT INTO TELEFONO(" + "SEC_PERSONA, COD_AREA, NRO_TELEFONO, COD_TIPO_TELEFONO, SEC_CANAL,"
+				+ "ESTADO, USR_CREACION, TS_CREACION, USR_MODIFICACION) VALUES" + "("
+				+ telefono.getSecPersona().getSecPersona() + ", '" + telefono.getCodArea() + "', '"
+				+ telefono.getNroTelefono() + "', " + telefono.getCodTipoTelefono().getCodTipoTelefono() + ", "
+				+ telefono.getSecCanal().getSecCanal() + "," + "'" + telefono.getEstado() + "', '"
+				+ telefono.getUsrCreacion() + "', '" + telefono.getTsCreacion() + "', '" + telefono.getUsrModificacion()
+				+ "')";
+
+		Query insert = em.createNativeQuery(hql);
+		insert.executeUpdate();
+
+		return true;
 	}
 }
