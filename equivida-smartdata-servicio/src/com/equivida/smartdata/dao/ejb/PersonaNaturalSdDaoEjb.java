@@ -10,11 +10,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
-import com.equivida.databook.model.RegistrosEntity.PersonaNatural;
 import com.equivida.smartdata.dao.PersonaNaturalSdDao;
 import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.model.PersonaNaturalSd;
-import com.equivida.smartdata.model.PersonaSd;
 import com.saviasoft.persistence.util.dao.ejb.GenericDaoEjb;
 
 @Stateless(name = "PersonaNaturalSdDao")
