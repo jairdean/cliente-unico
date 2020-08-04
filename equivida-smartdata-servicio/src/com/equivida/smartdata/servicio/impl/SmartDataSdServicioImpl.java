@@ -894,7 +894,32 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			
 			//AQUI VA EL MAPPER E INFORMACION ADICIONAL
 			InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
-			
+			informacionAdicionalSd.setSecInformacionAdic(0);//int
+			informacionAdicionalSd.setSecPersonaNatural(personaNatural);
+			informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacion);
+			informacionAdicionalSd.setIdentificacion("");
+			informacionAdicionalSd.setRazonSocial("");
+			informacionAdicionalSd.setNombreComercial("");
+			informacionAdicionalSd.setFchInscripcion(Date);
+			informacionAdicionalSd.setFchInicioActividades(Date);
+			informacionAdicionalSd.setFchCancelacion(Date);
+			informacionAdicionalSd.setFchSuspension(Date);
+			informacionAdicionalSd.setFchReinicio(Date);
+			informacionAdicionalSd.setPrincipal("");
+			informacionAdicionalSd.setNumero("");
+			informacionAdicionalSd.setSecundaria("");
+			informacionAdicionalSd.setReferencia("");
+			informacionAdicionalSd.setTelefono("");
+			informacionAdicionalSd.setEMail("");
+			informacionAdicionalSd.setCodActividadEconomica(ActividadEconomicaSd);
+			informacionAdicionalSd.setSecProvincia(provinciaSdDireccion);
+			informacionAdicionalSd.setSecCanton(cantoSdDireccion);
+			informacionAdicionalSd.setSecParroquia(parroquiaSdDireccion);
+			informacionAdicionalSd.setSecCanal(canalSd);
+			informacionAdicionalSd.setUsrCreacion("");
+			informacionAdicionalSd.setTsCreacion(new Date());
+			informacionAdicionalSd.setUsrModificacion("");
+			informacionAdicionalSd.setTsModificacion(new Date());
 			informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
 			
 			
