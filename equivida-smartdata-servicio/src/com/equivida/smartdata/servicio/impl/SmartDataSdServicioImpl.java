@@ -924,7 +924,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			direccionElectronica.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico2());
 			direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
 
-			/*// AQUI VA EL MAPPER E INFORMACION ADICIONAL
+			// AQUI VA EL MAPPER E INFORMACION ADICIONAL
 			InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
 			//informacionAdicionalSd.setSecInformacionAdic();// PRIMARY KEY SECUENCIAL
 			informacionAdicionalSd.setSecPersonaNatural(personaNatural);
@@ -973,12 +973,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			informacionAdicionalSd.setSecCanton(cantoSdDireccion);
 			informacionAdicionalSd.setSecParroquia(parroquiaSdDireccion);
 			informacionAdicionalSd.setSecCanal(canalSd);
-			informacionAdicionalSd.setUsrCreacion("");
+			informacionAdicionalSd.setUsrCreacion("ACTUALIZACION_EN_LINEA");
 			informacionAdicionalSd.setTsCreacion(new Date());
-			informacionAdicionalSd.setUsrModificacion("");
-			informacionAdicionalSd.setTsModificacion(new Date());
+			informacionAdicionalSd.setUsrModificacion("ACTUALIZACION_EN_LINEA");
+			//informacionAdicionalSd.setTsModificacion(new Date());//ESTA NO MANDAR
 			informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
-			*/
+			
 		}
 	}
 
