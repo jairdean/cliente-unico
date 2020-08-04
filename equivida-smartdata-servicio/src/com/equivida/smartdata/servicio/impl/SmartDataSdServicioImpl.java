@@ -31,6 +31,7 @@ import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.exception.FindException;
 import com.equivida.smartdata.exception.SmartdataException;
 import com.equivida.smartdata.helper.DataBookHelper;
+import com.equivida.smartdata.model.ActividadEconomicaSd;
 import com.equivida.smartdata.model.CanalSd;
 import com.equivida.smartdata.model.CantonSd;
 import com.equivida.smartdata.model.DireccionElectronicaSd;
@@ -99,7 +100,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private DireccionElectronicaSdServicio direccionElectronicaSdServicio;
 
 	private InformacionAdicionalSdServicio informacionAdicionalSdServicio;
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -925,24 +926,49 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			/*// AQUI VA EL MAPPER E INFORMACION ADICIONAL
 			InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
-			informacionAdicionalSd.setSecInformacionAdic(0);//int
+			informacionAdicionalSd.setSecInformacionAdic(0);// int
 			informacionAdicionalSd.setSecPersonaNatural(personaNatural);
 			informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacion);
 			informacionAdicionalSd.setIdentificacion(registro.getPersonaNatural().getIdentificacion());
 			informacionAdicionalSd.setRazonSocial(registro.getInformacionAdicional().getRazonSocial());
-			informacionAdicionalSd.setNombreComercial("");
-			informacionAdicionalSd.setFchInscripcion(Date);
-			informacionAdicionalSd.setFchInicioActividades(Date);
-			informacionAdicionalSd.setFchCancelacion(Date);
-			informacionAdicionalSd.setFchSuspension(Date);
-			informacionAdicionalSd.setFchReinicio(Date);
-			informacionAdicionalSd.setPrincipal("");
-			informacionAdicionalSd.setNumero("");
-			informacionAdicionalSd.setSecundaria("");
-			informacionAdicionalSd.setReferencia("");
-			informacionAdicionalSd.setTelefono("");
-			informacionAdicionalSd.setEMail("");
-			informacionAdicionalSd.setCodActividadEconomica(ActividadEconomicaSd);
+			informacionAdicionalSd.setNombreComercial(registro.getInformacionAdicional().getNombreComercial());
+
+			if (VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion()) == false)
+				informacionAdicionalSd
+						.setFchInscripcion(ConvertirFecha(registro.getInformacionAdicional().getFechaInscripcion()));
+
+			if (VerificarVacios(registro.getInformacionAdicional().getFechaInicioActividades()) == false)
+				informacionAdicionalSd.setFchInicioActividades(
+						ConvertirFecha(registro.getInformacionAdicional().getFechaInicioActividades()));
+
+			if (VerificarVacios(registro.getInformacionAdicional().getFechaCancelacionActividades()) == false)
+				informacionAdicionalSd.setFchCancelacion(
+						ConvertirFecha(registro.getInformacionAdicional().getFechaCancelacionActividades()));
+
+			if (VerificarVacios(registro.getInformacionAdicional().getFechaSuspencionActividades()) == false)
+				informacionAdicionalSd.setFchSuspension(
+						ConvertirFecha(registro.getInformacionAdicional().getFechaSuspencionActividades()));
+
+			if (VerificarVacios(registro.getInformacionAdicional().getFechaReinicioActividades()) == false)
+				informacionAdicionalSd.setFchReinicio(
+						ConvertirFecha(registro.getInformacionAdicional().getFechaReinicioActividades()));
+
+			informacionAdicionalSd.setPrincipal(registro.getInformacionAdicional().getPrincipal());
+			informacionAdicionalSd.setNumero(registro.getInformacionAdicional().getNumero());
+			informacionAdicionalSd.setSecundaria(registro.getInformacionAdicional().getSecundaria());
+			informacionAdicionalSd.setReferencia(registro.getInformacionAdicional().getReferencia());
+			informacionAdicionalSd.setTelefono(registro.getInformacionAdicional().getTelefono());
+			informacionAdicionalSd.setEMail("");// NO HAY
+
+			ActividadEconomicaSd actividadEconomicaSd = new ActividadEconomicaSd();
+			int codAodActividadEconomica = !VerificarVacios(
+					registro.getInformacionAdicional().getCodActividadEconomica())
+							? Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica())
+							: 0;
+			actividadEconomicaSd.setCodActividadEconomica((short) codAodActividadEconomica);
+
+			informacionAdicionalSd.setCodActividadEconomica(actividadEconomicaSd);
+
 			informacionAdicionalSd.setSecProvincia(provinciaSdDireccion);
 			informacionAdicionalSd.setSecCanton(cantoSdDireccion);
 			informacionAdicionalSd.setSecParroquia(parroquiaSdDireccion);
