@@ -926,7 +926,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// AQUI VA EL MAPPER E INFORMACION ADICIONAL
 			InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
-			informacionAdicionalSd.setSecInformacionAdic(0);// int
+			//informacionAdicionalSd.setSecInformacionAdic();// PRIMARY KEY SECUENCIAL
 			informacionAdicionalSd.setSecPersonaNatural(personaNatural);
 			informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacion);
 			informacionAdicionalSd.setIdentificacion(registro.getPersonaNatural().getIdentificacion());
