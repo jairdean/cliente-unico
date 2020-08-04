@@ -24,7 +24,7 @@ public interface DatabookService {
 	 * Consula en Databook por numero de cedula.
 	 * 
 	 * @param cedula
-	 * @return RegistrosEntity
+	 * @return
 	 */
 	RegistrosEntity consultaDatabookRegistrosEntity() throws DatabookException;
 }

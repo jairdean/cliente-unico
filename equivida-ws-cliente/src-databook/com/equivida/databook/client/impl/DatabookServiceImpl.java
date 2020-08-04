@@ -1,33 +1,18 @@
 package com.equivida.databook.client.impl;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlElement;
 
 import com.equivida.databook.client.DatabookService;
 import com.equivida.databook.exception.DatabookException;
 import com.equivida.databook.model.Registros;
 import com.equivida.databook.model.Registros.Civil;
-import com.equivida.databook.model.Registros.Actual;
-import com.equivida.databook.model.Registros.PrimeroAnterior;
-import com.equivida.databook.model.Registros.SegundoAnterior;
-import com.equivida.databook.model.Registros.Sri;
-import com.equivida.databook.model.Registros.Contactabilidad;
-import com.equivida.databook.model.Registros.Vehicular;
-import com.equivida.databook.model.Registros.Hijos;
-import com.equivida.databook.model.Registros.Conyuge;
-import com.equivida.databook.model.Registros.Conyugecedula;
-import com.equivida.databook.model.Registros.Padres;
-import com.equivida.databook.model.Registros.Cedulaspadres;
-
 import com.equivida.databook.model.RegistrosEntity;
 
 /**
@@ -150,13 +135,13 @@ public class DatabookServiceImpl implements DatabookService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.equivida.databook.client.DatabookService#consultaDatabookRegistrosEntity(java.lang.
-	 * String)
+	 * @see com.equivida.databook.client.DatabookService#consultaDatabookRegistrosEntity()
 	 */
 	@Override
 	public RegistrosEntity consultaDatabookRegistrosEntity() throws DatabookException {
 		return consumeRegistrosEntity();
 	}
+	
 	
 	/**
 	 * Consume el SW REST.
@@ -200,81 +185,6 @@ public class DatabookServiceImpl implements DatabookService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-/*
-		Registros registros = new Registros();
-		Civil objCivil = new Civil();
-		Actual objActual = new Actual();
-		PrimeroAnterior objPrimeroAnterior = new PrimeroAnterior();
-		SegundoAnterior objSegundoAnterior = new SegundoAnterior();
-		Sri objSri = new Sri();
-		Contactabilidad objContactabilidad = new Contactabilidad();
-		Vehicular objVehicular = new Vehicular();
-		Hijos objHijos = new Hijos();
-		Conyuge objConyuge = new Conyuge();
-		Conyugecedula objConyugecedula = new Conyugecedula();
-		Padres objPadres = new Padres();
-		Cedulaspadres objCedulaspadres = new Cedulaspadres();
-
-		// Seccion Registros.Civil
-		objCivil.setCedula(registrosEntity.getTitular().getPersona().getIdentificacion());
-		objCivil.setPrimernombre(registrosEntity.getTitular().getPersonaNatural().getPrimerNombre());
-		objCivil.setSegundonombre(registrosEntity.getTitular().getPersonaNatural().getSegundoNombre());
-		objCivil.setPrimerapellido(registrosEntity.getTitular().getPersonaNatural().getApellidoPaterno());
-		objCivil.setSegundoapellido(registrosEntity.getTitular().getPersonaNatural().getApellidoMaterno());
-		objCivil.setNombreconyuge("");//JAIRO
-		objCivil.setNombrepadre("");//JAIRO
-		objCivil.setNombremadre("");//JAIRO
-		objCivil.setProfesion(registrosEntity.getTitular().getEmpleoDependiente().getActividad_Economica());//JAIRO REVISAR .getSecProfesion
-		objCivil.setNacionalidad((short)0);// short
-		
-		int anioNacimiento=0, mesNacimiento=0, diaNacimiento=0;
-		if(!registrosEntity.getTitular().getPersonaNatural().getFechaNacimiento().equals(null) &&
-		!registrosEntity.getTitular().getPersonaNatural().getFechaNacimiento().equals("") ){
-		
-			//mm-dd-yyyy
-			String fechaValue = registrosEntity.getTitular().getPersonaNatural().getFechaNacimiento();
-			String[] parts= fechaValue.split("/");
-			mesNacimiento = (int)parts[0];
-			diaNacimiento= (int)parts[1];
-			anioNacimiento = (int)parts[2];
-
-		}else{
-			throw new DatabookException( "No se encuentra datos fecha nacimiento de la CI: "+registrosEntity.getTitular().getPersona().getIdentificacion());
-		}
-
-		objCivil.setDianacimiento((byte) diaNacimiento);// byte
-		objCivil.setMesnacimiento((byte) mesNacimiento);// byte
-		objCivil.setAnionacimiento((short) anioNacimiento);// short
-		objCivil.setEstadocivil((byte) registrosEntity.getTitular().getPersonaNatural().getCodEstadoCivil());// byte
-		objCivil.setGenero((byte) registrosEntity.getTitular().getPersonaNatural().getSexo());// byte
-
-		int anioNacimiento=0, mesNacimiento=0, diaNacimiento=0;
-		if(!registrosEntity.getTitular().getPersonaNatural().getFechaMatrimonio().equals(null) &&
-		!registrosEntity.getTitular().getPersonaNatural().getFechaMatrimonio().equals("")){
-			
-			//mm-dd-yyyy
-			String fechaValue = registrosEntity.getTitular().getPersonaNatural().getFechaNacimiento();
-			String[] parts= fechaValue.split("/");
-			mesNacimiento = (int)parts[0];
-			diaNacimiento= (int)parts[1];
-			anioNacimiento = (int)parts[2];
-
-		}else{
-			
-		}
-
-		objCivil.setDiamatrimonio("");
-		objCivil.setMesmatrimonio("");
-		objCivil.setAniomatrimonio("");	
-		objCivil.setDiamatrimonio("");
-		objCivil.setMesmatrimonio("");
-		objCivil.setAniomatrimonio("");
-		objCivil.setDiadefuncion("");
-		objCivil.setMesdefuncion("");
-		objCivil.setAniodefuncion("");
-		registros.setCivil(objCivil);
-*/
 		return registrosEntity;
 	}
 
