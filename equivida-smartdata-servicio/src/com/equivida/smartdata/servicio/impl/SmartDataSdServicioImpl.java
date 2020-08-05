@@ -3,6 +3,7 @@ package com.equivida.smartdata.servicio.impl;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -789,9 +790,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					? ConvertirFecha(registro.getPersonaNatural().getFechaFallecimiento())
 					: null);
 			personaNatural.setSecCanal(canalSd);
-			personaNatural.setUsrCreacion("usrvmwork");
+			personaNatural.setUsrCreacion("ACTUALIZACION_EN_LINEA");
 			personaNatural.setTsCreacion(new Date());
-			personaNatural.setUsrModificacion("usrvmwork");
+			personaNatural.setUsrModificacion("ACTUALIZACION_EN_LINEA");
 
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
 
@@ -817,6 +818,27 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			personaJuridicaSd.setTsCreacion(new Date());
 			personaJuridicaSd.setUsrModificacion("ACTUALIZACION_EN_LINEA");
 			personaJuridicaServicio.crearPersonaJuridica(persona, personaJuridicaSd);
+
+
+			//EMPLEO DEPENDIENTE
+			EmpleoDependienteSd empleoDependienteSd = new EmpleoDependienteSd();
+			//empleoDependienteSd.setSecEmpleoDependiente(0);//PRIMARY KEY
+			empleoDependienteSd.setPersonaNatural(personaNatural);
+			empleoDependienteSd.setPersonaJuridica(personaJuridicaSd);
+			empleoDependienteSd.setCargo(registro.getEmpleoDependiente().getCargo());
+			BigDecimal montoSalario=new BigDecimal(registro.getEmpleoDependiente().getMntSalario());
+			empleoDependienteSd.setMntSalario(montoSalario);
+
+			if (VerificarVacios(registro.getEmpleoDependiente().getFechaIngreso()) == false)
+			empleoDependienteSd.setFchIngreso(ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso()));
+			
+			empleoDependienteSd.setFchSalida(new Date());//NO HAY
+			empleoDependienteSd.setSecCanal(canalSd);
+			empleoDependienteSd.setEstado(EstadoEnum.A.getEstadoChar());// VERIFICARRRRRRRRRRRRRRRRRRRRRRRR
+			empleoDependienteSd.setTsCreacion(new Date());
+			empleoDependienteSd.setUsrCreacion("ACTUALIZACION_EN_LINEA");
+			empleoDependienteSd.setUsrModificacion("ACTUALIZACION_EN_LINEA");
+			empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
 
 			// MAPEO E INGRESO LOS DATOS EN LA TABLA DIRECCION
 			log.error("LLEGO CONSTANTE");
@@ -848,9 +870,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			direccionsd.setSecParroquia(parroquiaSdDireccion);
 			direccionsd.setSecCanal(canalSd);
 			direccionsd.setEstado(EstadoEnum.A.getEstadoChar());// VERIFICARRRRRRRRRRRRRRRRRRRRRRRR
-			direccionsd.setUsrCreacion("usrvmwork3");
+			direccionsd.setUsrCreacion("ACTUALIZACION_EN_LINEA");
 			direccionsd.setTsCreacion(new Date());
-			direccionsd.setUsrModificacion("usrvmwork");
+			direccionsd.setUsrModificacion("ACTUALIZACION_EN_LINEA");
 
 			direccionSdServicio.ingresarDireccion(direccionsd);
 
@@ -937,9 +959,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			direccionElectronica.setCodTipoDireccionElectronica((short) 1);
 			direccionElectronica.setSecCanal(canalSd.getSecCanal());
 			direccionElectronica.setEstado(EstadoEnum.A.getEstadoChar());
-			direccionElectronica.setUsrCreacion("usrvmwork3");
+			direccionElectronica.setUsrCreacion("ACTUALIZACION_EN_LINEA");
 			direccionElectronica.setTsCreacion(new Date());
-			direccionElectronica.setUsrModificacion("usrvmwork");
+			direccionElectronica.setUsrModificacion("ACTUALIZACION_EN_LINEA");
 			direccionElectronica.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico1());
 			direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
 
