@@ -3,6 +3,7 @@ package com.equivida.smartdata.servicio.impl;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -794,14 +795,57 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					? ConvertirFecha(registro.getPersonaNatural().getFechaFallecimiento())
 					: null);
 			personaNatural.setSecCanal(canalSd);
-			personaNatural.setUsrCreacion("usrvmwork");
+			personaNatural.setUsrCreacion("ACTUALIZACION_EN_LINEA");
 			personaNatural.setTsCreacion(new Date());
-			personaNatural.setUsrModificacion("usrvmwork");
+			personaNatural.setUsrModificacion("ACTUALIZACION_EN_LINEA");
 
 			log.error("LLEGOOOOOOOO PER");
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
 
+			//PERSONA JURIDICA
+			PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
+			//personaJuridicaSd.setSecPersonaJuridica(0);//PRIMARY KEY
+			personaJuridicaSd.setSecPersona(persona);
+			personaJuridicaSd.setCodTipoIdentificacion(tipoIdentificacion);
+			personaJuridicaSd.setIdentificacion(registro.getEmpleoDependiente().getIdentificacion());//Empleo dependiente
+			personaJuridicaSd.setRazonSocial(registro.getEmpleoDependiente().getRazon_Social());
 			
+			ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd();
+			int codAodActividadEconomicaPJ = !VerificarVacios(
+					registro.getInformacionAdicional().getCodActividadEconomica())
+							? Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica())
+							: 0;
+			actividadEconomicaSdPJ.setCodActividadEconomica((short) codAodActividadEconomicaPJ);
+
+			personaJuridicaSd.setCodActividadEconomica(actividadEconomicaSdPJ);//Informacion adicional
+			personaJuridicaSd.setActividadIess("");//NO HAY
+			personaJuridicaSd.setSecCanal(canalSd);
+			personaJuridicaSd.setUsrCreacion("ACTUALIZACION_EN_LINEA");
+			personaJuridicaSd.setTsCreacion(new Date());
+			personaJuridicaSd.setUsrModificacion("ACTUALIZACION_EN_LINEA");
+			personaJuridicaServicio.crearPersonaJuridica(persona, personaJuridicaSd);
+
+
+			//EMPLEO DEPENDIENTE
+			EmpleoDependienteSd empleoDependienteSd = new EmpleoDependienteSd();
+			//empleoDependienteSd.setSecEmpleoDependiente(0);//PRIMARY KEY
+			empleoDependienteSd.setPersonaNatural(personaNatural);
+			empleoDependienteSd.setPersonaJuridica(personaJuridicaSd);
+			empleoDependienteSd.setCargo(registro.getEmpleoDependiente().getCargo());
+			BigDecimal montoSalario=new BigDecimal(registro.getEmpleoDependiente().getMntSalario());
+			empleoDependienteSd.setMntSalario(montoSalario);
+
+			if (VerificarVacios(registro.getEmpleoDependiente().getFechaIngreso()) == false)
+			empleoDependienteSd.setFchIngreso(ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso()));
+			
+			empleoDependienteSd.setFchSalida(new Date());//NO HAY
+			empleoDependienteSd.setSecCanal(canalSd);
+			empleoDependienteSd.setEstado(EstadoEnum.A.getEstadoChar());// VERIFICARRRRRRRRRRRRRRRRRRRRRRRR
+			empleoDependienteSd.setTsCreacion(new Date());
+			empleoDependienteSd.setUsrCreacion("ACTUALIZACION_EN_LINEA");
+			empleoDependienteSd.setUsrModificacion("ACTUALIZACION_EN_LINEA");
+			empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
+
 			// MAPEO E INGRESO LOS DATOS EN LA TABLA DIRECCION
 			log.error("LLEGO CONSTANTE");
 			TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
@@ -832,9 +876,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			direccionsd.setSecParroquia(parroquiaSdDireccion);
 			direccionsd.setSecCanal(canalSd);
 			direccionsd.setEstado(EstadoEnum.A.getEstadoChar());// VERIFICARRRRRRRRRRRRRRRRRRRRRRRR
-			direccionsd.setUsrCreacion("usrvmwork3");
+			direccionsd.setUsrCreacion("ACTUALIZACION_EN_LINEA");
 			direccionsd.setTsCreacion(new Date());
-			direccionsd.setUsrModificacion("usrvmwork");
+			direccionsd.setUsrModificacion("ACTUALIZACION_EN_LINEA");
 
 			direccionSdServicio.ingresarDireccion(direccionsd);
 
@@ -916,88 +960,71 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			direccionElectronica.setCodTipoDireccionElectronica((short) 1);
 			direccionElectronica.setSecCanal(canalSd.getSecCanal());
 			direccionElectronica.setEstado(EstadoEnum.A.getEstadoChar());
-			direccionElectronica.setUsrCreacion("usrvmwork3");
+			direccionElectronica.setUsrCreacion("ACTUALIZACION_EN_LINEA");
 			direccionElectronica.setTsCreacion(new Date());
-			direccionElectronica.setUsrModificacion("usrvmwork");
+			direccionElectronica.setUsrModificacion("ACTUALIZACION_EN_LINEA");
 			direccionElectronica.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico1());
 			direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
 
 			// DIRECCION ELECTRONICA 2
 			direccionElectronica.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico2());
 			direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
+
+			// AQUI VA EL MAPPER E INFORMACION ADICIONAL
+			InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
+			//informacionAdicionalSd.setSecInformacionAdic();// PRIMARY KEY SECUENCIAL
+			informacionAdicionalSd.setSecPersonaNatural(personaNatural);
+			informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacion);
+			informacionAdicionalSd.setIdentificacion(registro.getPersonaNatural().getIdentificacion());
+			informacionAdicionalSd.setRazonSocial(registro.getInformacionAdicional().getRazonSocial());
+			informacionAdicionalSd.setNombreComercial(registro.getInformacionAdicional().getNombreComercial());
+
+			if (VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion()) == false)
+				informacionAdicionalSd
+						.setFchInscripcion(ConvertirFecha(registro.getInformacionAdicional().getFechaInscripcion()));
+
+			if (VerificarVacios(registro.getInformacionAdicional().getFechaInicioActividades()) == false)
+				informacionAdicionalSd.setFchInicioActividades(
+						ConvertirFecha(registro.getInformacionAdicional().getFechaInicioActividades()));
+
+			if (VerificarVacios(registro.getInformacionAdicional().getFechaCancelacionActividades()) == false)
+				informacionAdicionalSd.setFchCancelacion(
+						ConvertirFecha(registro.getInformacionAdicional().getFechaCancelacionActividades()));
+
+			if (VerificarVacios(registro.getInformacionAdicional().getFechaSuspencionActividades()) == false)
+				informacionAdicionalSd.setFchSuspension(
+						ConvertirFecha(registro.getInformacionAdicional().getFechaSuspencionActividades()));
+
+			if (VerificarVacios(registro.getInformacionAdicional().getFechaReinicioActividades()) == false)
+				informacionAdicionalSd.setFchReinicio(
+						ConvertirFecha(registro.getInformacionAdicional().getFechaReinicioActividades()));
+
+			informacionAdicionalSd.setPrincipal(registro.getInformacionAdicional().getPrincipal());
+			informacionAdicionalSd.setNumero(registro.getInformacionAdicional().getNumero());
+			informacionAdicionalSd.setSecundaria(registro.getInformacionAdicional().getSecundaria());
+			informacionAdicionalSd.setReferencia(registro.getInformacionAdicional().getReferencia());
+			informacionAdicionalSd.setTelefono(registro.getInformacionAdicional().getTelefono());
+			informacionAdicionalSd.setEMail("");// NO HAY
+
+			ActividadEconomicaSd actividadEconomicaSd = new ActividadEconomicaSd();
+			int codAodActividadEconomica = !VerificarVacios(
+					registro.getInformacionAdicional().getCodActividadEconomica())
+							? Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica())
+							: 0;
+			actividadEconomicaSd.setCodActividadEconomica((short) codAodActividadEconomica);
+
+			informacionAdicionalSd.setCodActividadEconomica(actividadEconomicaSd);
+
+			informacionAdicionalSd.setSecProvincia(provinciaSdDireccion);
+			informacionAdicionalSd.setSecCanton(cantoSdDireccion);
+			informacionAdicionalSd.setSecParroquia(parroquiaSdDireccion);
+			informacionAdicionalSd.setSecCanal(canalSd);
+			informacionAdicionalSd.setUsrCreacion("ACTUALIZACION_EN_LINEA");
+			informacionAdicionalSd.setTsCreacion(new Date());
+			informacionAdicionalSd.setUsrModificacion("ACTUALIZACION_EN_LINEA");
+			//informacionAdicionalSd.setTsModificacion(new Date());//ESTA NO MANDAR
+			informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
 			
-			/*
-			 * // AQUI VA EL MAPPER E INFORMACION ADICIONAL InformacionAdicionalSd
-			 * informacionAdicionalSd = new InformacionAdicionalSd();
-			 * informacionAdicionalSd.setSecInformacionAdic(0);// int
-			 * informacionAdicionalSd.setSecPersonaNatural(personaNatural);
-			 * informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacion);
-			 * informacionAdicionalSd.setIdentificacion(registro.getPersonaNatural().
-			 * getIdentificacion());
-			 * informacionAdicionalSd.setRazonSocial(registro.getInformacionAdicional().
-			 * getRazonSocial());
-			 * informacionAdicionalSd.setNombreComercial(registro.getInformacionAdicional().
-			 * getNombreComercial());
-			 * 
-			 * if (VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion())
-			 * == false) informacionAdicionalSd
-			 * .setFchInscripcion(ConvertirFecha(registro.getInformacionAdicional().
-			 * getFechaInscripcion()));
-			 * 
-			 * if
-			 * (VerificarVacios(registro.getInformacionAdicional().getFechaInicioActividades
-			 * ()) == false) informacionAdicionalSd.setFchInicioActividades(
-			 * ConvertirFecha(registro.getInformacionAdicional().getFechaInicioActividades()
-			 * ));
-			 * 
-			 * if (VerificarVacios(registro.getInformacionAdicional().
-			 * getFechaCancelacionActividades()) == false)
-			 * informacionAdicionalSd.setFchCancelacion(
-			 * ConvertirFecha(registro.getInformacionAdicional().
-			 * getFechaCancelacionActividades()));
-			 * 
-			 * if (VerificarVacios(registro.getInformacionAdicional().
-			 * getFechaSuspencionActividades()) == false)
-			 * informacionAdicionalSd.setFchSuspension(
-			 * ConvertirFecha(registro.getInformacionAdicional().
-			 * getFechaSuspencionActividades()));
-			 * 
-			 * if (VerificarVacios(registro.getInformacionAdicional().
-			 * getFechaReinicioActividades()) == false)
-			 * informacionAdicionalSd.setFchReinicio(
-			 * ConvertirFecha(registro.getInformacionAdicional().getFechaReinicioActividades
-			 * ()));
-			 * 
-			 * informacionAdicionalSd.setPrincipal(registro.getInformacionAdicional().
-			 * getPrincipal());
-			 * informacionAdicionalSd.setNumero(registro.getInformacionAdicional().getNumero
-			 * ()); informacionAdicionalSd.setSecundaria(registro.getInformacionAdicional().
-			 * getSecundaria());
-			 * informacionAdicionalSd.setReferencia(registro.getInformacionAdicional().
-			 * getReferencia());
-			 * informacionAdicionalSd.setTelefono(registro.getInformacionAdicional().
-			 * getTelefono()); informacionAdicionalSd.setEMail("");// NO HAY
-			 * 
-			 * ActividadEconomicaSd actividadEconomicaSd = new ActividadEconomicaSd(); int
-			 * codAodActividadEconomica = !VerificarVacios(
-			 * registro.getInformacionAdicional().getCodActividadEconomica()) ?
-			 * Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica(
-			 * )) : 0; actividadEconomicaSd.setCodActividadEconomica((short)
-			 * codAodActividadEconomica);
-			 * 
-			 * informacionAdicionalSd.setCodActividadEconomica(actividadEconomicaSd);
-			 * 
-			 * informacionAdicionalSd.setSecProvincia(provinciaSdDireccion);
-			 * informacionAdicionalSd.setSecCanton(cantoSdDireccion);
-			 * informacionAdicionalSd.setSecParroquia(parroquiaSdDireccion);
-			 * informacionAdicionalSd.setSecCanal(canalSd);
-			 * informacionAdicionalSd.setUsrCreacion("");
-			 * informacionAdicionalSd.setTsCreacion(new Date());
-			 * informacionAdicionalSd.setUsrModificacion("");
-			 * informacionAdicionalSd.setTsModificacion(new Date());
-			 * informacionAdicionalSdServicio.crearInformacionAdicional(
-			 * informacionAdicionalSd);
-			 */
 		}
 	}
 

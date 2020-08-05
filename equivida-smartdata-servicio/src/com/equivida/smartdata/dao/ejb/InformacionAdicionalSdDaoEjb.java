@@ -30,21 +30,24 @@ public class InformacionAdicionalSdDaoEjb extends GenericDaoEjb<InformacionAdici
 	 * (InformacionAdicionalSd)
 	 */
 	@Override
-	public boolean crearInformacionAdicional(InformacionAdicionalSd informacionAdicionalSd) {
-/*
-		String hql = "INSERT INTO EQUIVIDA.DIRECCION("
-				+ "SEC_PERSONA, DIRECCION, COD_TIPO_DIRECCION, SEC_PROVINCIA, SEC_CANTON, "
-				+ "SEC_PARROQUIA, SEC_CANAL, ESTADO, USR_CREACION, TS_CREACION, " + "USR_MODIFICACION)VALUES" + "("
-				+ direccion.getSecPersona().getSecPersona() + ", '" + direccion.getDireccion() + "', "
-				+ direccion.getCodTipoDireccion().getCodTipoDireccion() + ", "
-				+ direccion.getSecProvincia().getSecProvincia() + ", " + direccion.getSecCanton().getSecCanton() + ","
-				+ "" + direccion.getSecParroquia().getSecParroquia() + ", " + direccion.getSecCanal().getSecCanal()
-				+ ", '" + direccion.getEstado() + "', '" + direccion.getUsrCreacion() + "', '"
-				+ direccion.getTsCreacion() + "'," + "'" + direccion.getUsrModificacion() + "')";
+	public boolean crearInformacionAdicional(InformacionAdicionalSd inf) {
+
+		String hql = "INSERT INTO INFORMACION_ADICIONAL("
+				+ "SEC_PERSONA_NATURAL, COD_TIPO_IDENTIFICACION, IDENTIFICACION, RAZON_SOCIAL, NOMBRE_COMERCIAL,"
+				+ "FCH_INSCRIPCION, FCH_INICIO_ACTIVIDADES, FCH_CANCELACION, FCH_SUSPENSION, FCH_REINICIO,"
+				+ "PRINCIPAL, NUMERO, SECUNDARIA, REFERENCIA, TELEFONO,"
+				+ "E_MAIL, COD_ACTIVIDAD_ECONOMICA, SEC_PROVINCIA, SEC_CANTON, SEC_PARROQUIA,"
+				+ "SEC_CANAL, USR_CREACION,TS_CREACION,USR_MODIFICACION) VALUES ("
+				+ inf.getSecPersonaNatural().getSecPersona().getSecPersona() +",''"+inf.getCodTipoIdentificacion().getCodTipoIdentificacion() +"','"+inf.getIdentificacion()+"','"+inf.getRazonSocial()+"','"+inf.getNombreComercial()+"',"
+				+ "'"+inf.getFchInscripcion()+"','"+inf.getFchInicioActividades()+"','"+inf.getFchCancelacion()+"','"+inf.getFchSuspension()+"','"+ inf.getFchReinicio()+"',"
+				+ "'"+inf.getPrincipal()+"','"+inf.getNumero()+"','"+inf.getSecundaria()+"','"+ inf.getReferencia()+"','"+ inf.getTelefono()+"',"
+				+ "'"+inf.getEMail()+"',"+inf.getCodActividadEconomica().getCodActividadEconomica()+","+inf.getSecProvincia().getSecProvincia()+","+inf.getSecCanton().getSecCanton() +","+inf.getSecParroquia().getSecParroquia()+","
+				+ ""+inf.getSecCanal().getSecCanal()+",'"+inf.getUsrCreacion()+"','"+inf.getTsCreacion()+"','"+inf.getUsrModificacion()+"'"
+				+")";
 
 		Query insert = em.createNativeQuery(hql);
 		insert.executeUpdate();
-*/
+
 		return true;
 	}
 }
