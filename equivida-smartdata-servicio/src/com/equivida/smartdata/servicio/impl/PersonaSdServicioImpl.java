@@ -107,9 +107,6 @@ public class PersonaSdServicioImpl extends GenericServiceImpl<PersonaSd, Integer
 	 */
 	@Override
 	public void IngresarPersona(PersonaSd persona) {	
-		log.error("INGRESNADO PERSONA");
 		personaDao.save(persona);
-		log.error("INGRESNADO PERSONA;;;;;;;;");
-		log.error(persona.getSecPersona());
 	}
 }

@@ -72,26 +72,4 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer> implement
 
 		return null;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.equivida.smartdata.dao.PersonaSdDao#ingresaPersona
-	 * (java.lang.String)
-	 */
-	@Override
-	public boolean ingresaPersona(PersonaSd persona) {
-
-		String hql = "INSERT INTO EQUIVIDA.PERSONA(COD_TIPO_IDENTIFICACION, IDENTIFICACION, DENOMINACION) VALUES ('"
-				+ persona.getCodTipoIdentificacion().getCodTipoIdentificacion() + "','" + persona.getIdentificacion()
-				+ "','" + persona.getDenominacion() + "')";
-
-		log.error("INSERTA PERSONA");
-		log.error(hql);
-		/*Query insert = em.createNativeQuery(hql);
-		insert.executeUpdate();*/
-
-		return true;
-	}
-
 }

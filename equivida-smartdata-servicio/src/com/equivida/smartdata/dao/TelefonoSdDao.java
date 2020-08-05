@@ -27,11 +27,4 @@ public interface TelefonoSdDao extends GenericDao<TelefonoSd, Integer> {
 	 * @return
 	 */
 	TelefonoSd obtenerPorDocumentoTelefono(String noDocumento, String telefono);
-
-	/**
-	 * ingresa un teléfono.
-	 * 
-	 * @param telefono
-	 */
-	boolean ingresarTelefono(TelefonoSd telefono);
 }

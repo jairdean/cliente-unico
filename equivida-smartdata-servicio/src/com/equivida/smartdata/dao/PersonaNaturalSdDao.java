@@ -28,12 +28,4 @@ public interface PersonaNaturalSdDao extends GenericDao<PersonaNaturalSd, Intege
 	 * @return
 	 */
 	PersonaNaturalSd obtenerPersonaByIdentificacion(String noDocumento);
-
-	/**
-	 * ingresa persona narutal
-	 * 
-	 * @param persona
-	 * @return
-	 */
-	boolean ingresaPersonaNatural(PersonaNaturalSd persona);
 }

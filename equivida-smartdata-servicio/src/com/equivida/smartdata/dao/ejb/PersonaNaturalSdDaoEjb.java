@@ -84,34 +84,4 @@ public class PersonaNaturalSdDaoEjb extends GenericDaoEjb<PersonaNaturalSd, Inte
 
 		return null;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.equivida.smartdata.dao.PersonaSdDao#ingresaPersona
-	 * (java.lang.String)
-	 */
-	@Override
-	public boolean ingresaPersonaNatural(PersonaNaturalSd persona) {
-
-		String hql = "INSERT INTO PERSONA_NATURAL"
-				+ "(SEC_PERSONA, COD_TIPO_IDENTIFICACION, IDENTIFICACION, APELLIDO_PATERNO, APELLIDO_MATERNO,"
-				+ "PRIMER_NOMBRE, SEGUNDO_NOMBRE, SEXO, COD_PAIS ,COD_ESTADO_CIVIL,"
-				+ "SEC_PROFESION, FCH_NACIMIENTO, FCH_MATRIMONIO, FCH_FALLECIMIENTO, SEC_CANAL,"
-				+ "USR_CREACION, TS_CREACION, USR_MODIFICACION)VALUES" + "(" + persona.getSecPersona().getSecPersona()
-				+ ", '" + persona.getCodTipoIdentificacion().getTipoIdentificacion() + "', '"
-				+ persona.getIdentificacion() + "', '" + persona.getApellidoPaterno() + "', '"
-				+ persona.getApellidoMaterno() + "'," + "'" + persona.getPrimerNombre() + "', '"
-				+ persona.getSegundoNombre() + "', '" + persona.getSexo() + "', " + persona.getCodPais() + ", "
-				+ persona.getCodEstadoCivil().getCodEstadoCivil() + "," + ""
-				+ persona.getSecProfesion().getSecProfesion() + ", '" + persona.getFchFallecimiento() + "', "
-				+ persona.getFchMatrimonio() + ", " + persona.getFchFallecimiento() + ", "
-				+ persona.getSecCanal().getSecCanal() + "," + "'" + persona.getUsrCreacion() + "', '"
-				+ persona.getTsCreacion() + "', '" + persona.getUsrModificacion() + "');";
-
-		Query insert = em.createNativeQuery(hql);
-		insert.executeUpdate();
-
-		return true;
-	}
 }
