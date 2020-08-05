@@ -21,4 +21,11 @@ public interface EmpleoDependienteSdServicio extends GenericService<EmpleoDepend
 	 * @return
 	 */
 	boolean existeRelacion(Integer secPersonaNatural, Integer secPersonaJuridica);
+
+		/**
+	 * Ingresa los datos Empleo DependienteSd.
+	 * 
+	 * @param EmpleoDependienteSd
+	 */
+	void crearEmpleoDependiente(EmpleoDependienteSd empleoDependienteSd);
 }
