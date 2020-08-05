@@ -27,7 +27,7 @@ public class PersonaNaturalSdServicioImpl extends GenericServiceImpl<PersonaNatu
 		implements PersonaNaturalSdServicio {
 
 	private Logger log = Logger.getLogger(SmartDataSdServicioImpl.class);
-	
+
 	@EJB
 	private PersonaNaturalSdDao personaNaturalDao;
 
@@ -108,7 +108,7 @@ public class PersonaNaturalSdServicioImpl extends GenericServiceImpl<PersonaNatu
 	public void actualizaDatosPersonales(DatosActualizaSdDto datosActualiza) {
 		personaNaturalDao.actualizaDatosPersonales(datosActualiza);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -117,11 +117,6 @@ public class PersonaNaturalSdServicioImpl extends GenericServiceImpl<PersonaNatu
 	 */
 	@Override
 	public void insertarPersonaNatural(PersonaNaturalSd personaNatural) {
-		log.error("PERSONA NATURAL");
-
-		log.error(personaNatural);
 		personaNaturalDao.save(personaNatural);
-		
-		log.error("PERSONA NATURAL");
 	}
 }

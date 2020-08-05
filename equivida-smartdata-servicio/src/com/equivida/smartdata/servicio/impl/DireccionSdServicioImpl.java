@@ -67,6 +67,6 @@ public class DireccionSdServicioImpl extends GenericServiceImpl<DireccionSd, Int
 	 */
 	@Override
 	public void ingresarDireccion(DireccionSd direccion) {
-		direccionDao.ingresarDireccion(direccion);
+		direccionDao.save(direccion);
 	}
 }

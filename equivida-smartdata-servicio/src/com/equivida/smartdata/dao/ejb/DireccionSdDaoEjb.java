@@ -65,28 +65,4 @@ public class DireccionSdDaoEjb extends GenericDaoEjb<DireccionSd, Integer> imple
 
 		return null;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.equivida.smartdata.dao.DireccionSdDao#ingresarDireccion
-	 * (DireccionSd)
-	 */
-	@Override
-	public boolean ingresarDireccion(DireccionSd direccion) {
-		String hql = "INSERT INTO EQUIVIDA.DIRECCION("
-				+ "SEC_PERSONA, DIRECCION, COD_TIPO_DIRECCION, SEC_PROVINCIA, SEC_CANTON, "
-				+ "SEC_PARROQUIA, SEC_CANAL, ESTADO, USR_CREACION, TS_CREACION, " + "USR_MODIFICACION)VALUES" + "("
-				+ direccion.getSecPersona().getSecPersona() + ", '" + direccion.getDireccion() + "', "
-				+ direccion.getCodTipoDireccion().getCodTipoDireccion() + ", "
-				+ direccion.getSecProvincia().getSecProvincia() + ", " + direccion.getSecCanton().getSecCanton() + ","
-				+ "" + direccion.getSecParroquia().getSecParroquia() + ", " + direccion.getSecCanal().getSecCanal()
-				+ ", '" + direccion.getEstado() + "', '" + direccion.getUsrCreacion() + "', '"
-				+ direccion.getTsCreacion() + "'," + "'" + direccion.getUsrModificacion() + "')";
-
-		Query insert = em.createNativeQuery(hql);
-		insert.executeUpdate();
-
-		return true;
-	}
 }

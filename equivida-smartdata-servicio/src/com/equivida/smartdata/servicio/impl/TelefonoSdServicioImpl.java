@@ -69,6 +69,6 @@ public class TelefonoSdServicioImpl extends
 	 */
 	@Override
 	public void ingresarTelefono(TelefonoSd telefono) {
-		 telefonoDao.ingresarTelefono(telefono);
+		 telefonoDao.save(telefono);
 	}
 }
