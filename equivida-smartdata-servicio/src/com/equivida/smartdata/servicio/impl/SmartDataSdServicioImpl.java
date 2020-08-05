@@ -357,47 +357,51 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public PersonaSd consultaDatabook(String identificacion, String usuario) throws SmartdataException {
 		try {
-			System.out.println("===========================consulta en DB: " + identificacion + new Date());
 			// Se consulta en el WS.
-			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity("1719130476");
-			System.out.println("===========================FIN consulta en DB: " + identificacion + new Date());
+			log.error("LLEGA 1");
+			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity(identificacion);
+
+			log.error("LLEGA 2");
+			log.error(registros);
 
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
 			GuardarInformacionPersona(registros.getTitular());
+			log.error("LLEGA 2");
 
 			PersonaSd personaSd = new PersonaSd();
 			personaSd.setIdentificacion(identificacion);
 			personaSd.setDenominacion("Ejemplo");
 
-			/*
-			 * System.out.println(
-			 * "===========================transforma DB a SD consulta en DB: " +
-			 * identificacion + new Date()); DataBookHelper dbh = new
-			 * DataBookHelper(registros, usuario, noPkTablasDao, estadoCivilServicio,
-			 * profesionServicio, actividadEconomicaServicio, personaJuridicaServicio,
-			 * personaServicio, direccionSdServicio, telefonoSdServicio);
-			 * 
-			 * PersonaSd personaSd = dbh.getPersonaNatural();
-			 * 
-			 * // 4. Se debe crear las relaciones con conyuge, padre, madre
-			 * crearRelacionesPersonales(registros, personaSd, usuario);
-			 * 
-			 * // 5. Obtiene o Crea Personas juridicas List<PersonaSd> listaPj =
-			 * dbh.getPersonasJuridicas();
-			 * 
-			 * // 6. Crea relaciones laborales en el caso de existir personas // juridicas
-			 * if (listaPj != null && !listaPj.isEmpty()) { try {
-			 * relacionarPersonaNaturalPersonaJuridica(personaSd, listaPj, registros,
-			 * usuario); } catch (ParseException e) { log.error(e.getMessage(),
-			 * e.getCause()); } }
-			 * 
-			 * System.out.println(
-			 * "===========================FIN transforma DB a SD consulta en DB: " +
-			 * identificacion + new Date());
-			 * 
-			 * // Se pone esta linea para que se pueda presentar la informacion en // xml
-			 * soap de respuesta activarPresentacionParaWs(personaSd);
-			 */
+			/*System.out.println(
+					"===========================transforma DB a SD consulta en DB: " + identificacion + new Date());
+			DataBookHelper dbh = new DataBookHelper(registros, usuario, noPkTablasDao, estadoCivilServicio,
+					profesionServicio, actividadEconomicaServicio, personaJuridicaServicio, personaServicio,
+					direccionSdServicio, telefonoSdServicio);
+
+			PersonaSd personaSd = dbh.getPersonaNatural();
+
+			// 4. Se debe crear las relaciones con conyuge, padre, madre
+			crearRelacionesPersonales(registros, personaSd, usuario);
+
+			// 5. Obtiene o Crea Personas juridicas
+			List<PersonaSd> listaPj = dbh.getPersonasJuridicas();
+
+			// 6. Crea relaciones laborales en el caso de existir personas
+			// juridicas
+			if (listaPj != null && !listaPj.isEmpty()) {
+				try {
+					relacionarPersonaNaturalPersonaJuridica(personaSd, listaPj, registros, usuario);
+				} catch (ParseException e) {
+					log.error(e.getMessage(), e.getCause());
+				}
+			}
+
+			System.out.println(
+					"===========================FIN transforma DB a SD consulta en DB: " + identificacion + new Date());
+
+			// Se pone esta linea para que se pueda presentar la informacion en
+			// xml soap de respuesta
+			activarPresentacionParaWs(personaSd);*/
 
 			return personaSd;
 		} catch (DatabookException e) {
@@ -765,6 +769,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			persona.setCodTipoIdentificacion(tipoIdentificacion);
 			persona.setDenominacion(registro.getPersona().getDenominacion());
 			personaServicio.IngresarPersona(persona);
+			log.error(persona);
 			// MAPEO E INGRESO LOS DATOS EN LA TABLA PERSONA_NATURAL
 
 			PersonaNaturalSd personaNatural = new PersonaNaturalSd();
@@ -793,8 +798,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			personaNatural.setTsCreacion(new Date());
 			personaNatural.setUsrModificacion("usrvmwork");
 
+			log.error("LLEGOOOOOOOO PER");
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
 
+			
 			// MAPEO E INGRESO LOS DATOS EN LA TABLA DIRECCION
 			log.error("LLEGO CONSTANTE");
 			TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
@@ -831,11 +838,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			direccionSdServicio.ingresarDireccion(direccionsd);
 
-			/*
-			 * 
-			 * SEC_PERSONA, COD_AREA, NRO_TELEFONO, COD_TIPO_TELEFONO, SEC_CANAL, ESTADO,
-			 * USR_CREACION, TS_CREACION, USR_MODIFICACION
-			 */
 			// AQUI VA EL MAPPER DEL TELEFONO1
 			TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
 
@@ -923,62 +925,79 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// DIRECCION ELECTRONICA 2
 			direccionElectronica.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico2());
 			direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
-
-			/*// AQUI VA EL MAPPER E INFORMACION ADICIONAL
-			InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
-			informacionAdicionalSd.setSecInformacionAdic(0);// int
-			informacionAdicionalSd.setSecPersonaNatural(personaNatural);
-			informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacion);
-			informacionAdicionalSd.setIdentificacion(registro.getPersonaNatural().getIdentificacion());
-			informacionAdicionalSd.setRazonSocial(registro.getInformacionAdicional().getRazonSocial());
-			informacionAdicionalSd.setNombreComercial(registro.getInformacionAdicional().getNombreComercial());
-
-			if (VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion()) == false)
-				informacionAdicionalSd
-						.setFchInscripcion(ConvertirFecha(registro.getInformacionAdicional().getFechaInscripcion()));
-
-			if (VerificarVacios(registro.getInformacionAdicional().getFechaInicioActividades()) == false)
-				informacionAdicionalSd.setFchInicioActividades(
-						ConvertirFecha(registro.getInformacionAdicional().getFechaInicioActividades()));
-
-			if (VerificarVacios(registro.getInformacionAdicional().getFechaCancelacionActividades()) == false)
-				informacionAdicionalSd.setFchCancelacion(
-						ConvertirFecha(registro.getInformacionAdicional().getFechaCancelacionActividades()));
-
-			if (VerificarVacios(registro.getInformacionAdicional().getFechaSuspencionActividades()) == false)
-				informacionAdicionalSd.setFchSuspension(
-						ConvertirFecha(registro.getInformacionAdicional().getFechaSuspencionActividades()));
-
-			if (VerificarVacios(registro.getInformacionAdicional().getFechaReinicioActividades()) == false)
-				informacionAdicionalSd.setFchReinicio(
-						ConvertirFecha(registro.getInformacionAdicional().getFechaReinicioActividades()));
-
-			informacionAdicionalSd.setPrincipal(registro.getInformacionAdicional().getPrincipal());
-			informacionAdicionalSd.setNumero(registro.getInformacionAdicional().getNumero());
-			informacionAdicionalSd.setSecundaria(registro.getInformacionAdicional().getSecundaria());
-			informacionAdicionalSd.setReferencia(registro.getInformacionAdicional().getReferencia());
-			informacionAdicionalSd.setTelefono(registro.getInformacionAdicional().getTelefono());
-			informacionAdicionalSd.setEMail("");// NO HAY
-
-			ActividadEconomicaSd actividadEconomicaSd = new ActividadEconomicaSd();
-			int codAodActividadEconomica = !VerificarVacios(
-					registro.getInformacionAdicional().getCodActividadEconomica())
-							? Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica())
-							: 0;
-			actividadEconomicaSd.setCodActividadEconomica((short) codAodActividadEconomica);
-
-			informacionAdicionalSd.setCodActividadEconomica(actividadEconomicaSd);
-
-			informacionAdicionalSd.setSecProvincia(provinciaSdDireccion);
-			informacionAdicionalSd.setSecCanton(cantoSdDireccion);
-			informacionAdicionalSd.setSecParroquia(parroquiaSdDireccion);
-			informacionAdicionalSd.setSecCanal(canalSd);
-			informacionAdicionalSd.setUsrCreacion("");
-			informacionAdicionalSd.setTsCreacion(new Date());
-			informacionAdicionalSd.setUsrModificacion("");
-			informacionAdicionalSd.setTsModificacion(new Date());
-			informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
-			*/
+			
+			/*
+			 * // AQUI VA EL MAPPER E INFORMACION ADICIONAL InformacionAdicionalSd
+			 * informacionAdicionalSd = new InformacionAdicionalSd();
+			 * informacionAdicionalSd.setSecInformacionAdic(0);// int
+			 * informacionAdicionalSd.setSecPersonaNatural(personaNatural);
+			 * informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacion);
+			 * informacionAdicionalSd.setIdentificacion(registro.getPersonaNatural().
+			 * getIdentificacion());
+			 * informacionAdicionalSd.setRazonSocial(registro.getInformacionAdicional().
+			 * getRazonSocial());
+			 * informacionAdicionalSd.setNombreComercial(registro.getInformacionAdicional().
+			 * getNombreComercial());
+			 * 
+			 * if (VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion())
+			 * == false) informacionAdicionalSd
+			 * .setFchInscripcion(ConvertirFecha(registro.getInformacionAdicional().
+			 * getFechaInscripcion()));
+			 * 
+			 * if
+			 * (VerificarVacios(registro.getInformacionAdicional().getFechaInicioActividades
+			 * ()) == false) informacionAdicionalSd.setFchInicioActividades(
+			 * ConvertirFecha(registro.getInformacionAdicional().getFechaInicioActividades()
+			 * ));
+			 * 
+			 * if (VerificarVacios(registro.getInformacionAdicional().
+			 * getFechaCancelacionActividades()) == false)
+			 * informacionAdicionalSd.setFchCancelacion(
+			 * ConvertirFecha(registro.getInformacionAdicional().
+			 * getFechaCancelacionActividades()));
+			 * 
+			 * if (VerificarVacios(registro.getInformacionAdicional().
+			 * getFechaSuspencionActividades()) == false)
+			 * informacionAdicionalSd.setFchSuspension(
+			 * ConvertirFecha(registro.getInformacionAdicional().
+			 * getFechaSuspencionActividades()));
+			 * 
+			 * if (VerificarVacios(registro.getInformacionAdicional().
+			 * getFechaReinicioActividades()) == false)
+			 * informacionAdicionalSd.setFchReinicio(
+			 * ConvertirFecha(registro.getInformacionAdicional().getFechaReinicioActividades
+			 * ()));
+			 * 
+			 * informacionAdicionalSd.setPrincipal(registro.getInformacionAdicional().
+			 * getPrincipal());
+			 * informacionAdicionalSd.setNumero(registro.getInformacionAdicional().getNumero
+			 * ()); informacionAdicionalSd.setSecundaria(registro.getInformacionAdicional().
+			 * getSecundaria());
+			 * informacionAdicionalSd.setReferencia(registro.getInformacionAdicional().
+			 * getReferencia());
+			 * informacionAdicionalSd.setTelefono(registro.getInformacionAdicional().
+			 * getTelefono()); informacionAdicionalSd.setEMail("");// NO HAY
+			 * 
+			 * ActividadEconomicaSd actividadEconomicaSd = new ActividadEconomicaSd(); int
+			 * codAodActividadEconomica = !VerificarVacios(
+			 * registro.getInformacionAdicional().getCodActividadEconomica()) ?
+			 * Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica(
+			 * )) : 0; actividadEconomicaSd.setCodActividadEconomica((short)
+			 * codAodActividadEconomica);
+			 * 
+			 * informacionAdicionalSd.setCodActividadEconomica(actividadEconomicaSd);
+			 * 
+			 * informacionAdicionalSd.setSecProvincia(provinciaSdDireccion);
+			 * informacionAdicionalSd.setSecCanton(cantoSdDireccion);
+			 * informacionAdicionalSd.setSecParroquia(parroquiaSdDireccion);
+			 * informacionAdicionalSd.setSecCanal(canalSd);
+			 * informacionAdicionalSd.setUsrCreacion("");
+			 * informacionAdicionalSd.setTsCreacion(new Date());
+			 * informacionAdicionalSd.setUsrModificacion("");
+			 * informacionAdicionalSd.setTsModificacion(new Date());
+			 * informacionAdicionalSdServicio.crearInformacionAdicional(
+			 * informacionAdicionalSd);
+			 */
 		}
 	}
 
@@ -989,10 +1008,14 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	}
 
 	public Date ConvertirFecha(String valor) {
+		
+		String[] fechas = valor.split("/");
+		String fechaTransformada = fechas[1]+"-"+fechas[0]+"-"+fechas[2];
+		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		Date date = null;
 		try {
-			date = formatter.parse(valor);
+			date = formatter.parse(fechaTransformada);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

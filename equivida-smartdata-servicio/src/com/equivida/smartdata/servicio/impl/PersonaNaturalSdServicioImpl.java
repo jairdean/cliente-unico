@@ -10,6 +10,8 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.apache.log4j.Logger;
+
 import com.equivida.smartdata.dao.PersonaNaturalSdDao;
 import com.equivida.smartdata.dto.DatosActualizaSdDto;
 import com.equivida.smartdata.helper.SmartDataHelper;
@@ -24,6 +26,8 @@ import com.saviasoft.persistence.util.service.impl.GenericServiceImpl;
 public class PersonaNaturalSdServicioImpl extends GenericServiceImpl<PersonaNaturalSd, Integer>
 		implements PersonaNaturalSdServicio {
 
+	private Logger log = Logger.getLogger(SmartDataSdServicioImpl.class);
+	
 	@EJB
 	private PersonaNaturalSdDao personaNaturalDao;
 
@@ -113,6 +117,11 @@ public class PersonaNaturalSdServicioImpl extends GenericServiceImpl<PersonaNatu
 	 */
 	@Override
 	public void insertarPersonaNatural(PersonaNaturalSd personaNatural) {
-		personaNaturalDao.ingresaPersonaNatural(personaNatural);
+		log.error("PERSONA NATURAL");
+
+		log.error(personaNatural);
+		personaNaturalDao.save(personaNatural);
+		
+		log.error("PERSONA NATURAL");
 	}
 }
