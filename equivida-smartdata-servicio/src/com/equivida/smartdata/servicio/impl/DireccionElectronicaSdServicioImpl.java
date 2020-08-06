@@ -42,7 +42,6 @@ public class DireccionElectronicaSdServicioImpl extends GenericServiceImpl<Direc
 	 * com.equivida.smartdata.model.PersonaJuridicaSd)
 	 */
 	@Override
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public void jairoflores(DireccionElectronicaSd direccionElectronicaSd) {
 		direccionElectronicaDao.save(direccionElectronicaSd);
 

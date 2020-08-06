@@ -43,7 +43,7 @@ public class DireccionElectronicaSd implements Serializable {
 	private Integer secDireccionElectronica;
 
 	@JoinColumn(name = "SEC_PERSONA", referencedColumnName = "SEC_PERSONA")
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	@XmlTransient
 	private PersonaSd secPersona;
 
