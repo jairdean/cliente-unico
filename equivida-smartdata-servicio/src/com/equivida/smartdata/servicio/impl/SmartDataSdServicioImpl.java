@@ -1125,34 +1125,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				informacionAdicionalSd.setTsCreacion(new Date());
 				informacionAdicionalSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 
-				log.error("LLEGO GUARDA INFORMACION ADICIONAL");
-				log.error(informacionAdicionalSd.getSecPersonaNatural());
-				log.error(informacionAdicionalSd.getCodTipoIdentificacion());
-				log.error(informacionAdicionalSd.getIdentificacion());
-				log.error(informacionAdicionalSd.getRazonSocial());
-				log.error(informacionAdicionalSd.getNombreComercial());
-				log.error(informacionAdicionalSd.getFchInscripcion());
-				log.error(informacionAdicionalSd.getFchInicioActividades());
-				log.error(informacionAdicionalSd.getFchCancelacion());
-				log.error(informacionAdicionalSd.getFchSuspension());
-				log.error(informacionAdicionalSd.getFchReinicio());
-				log.error(informacionAdicionalSd.getPrincipal());
-				log.error(informacionAdicionalSd.getNumero());
-				log.error(informacionAdicionalSd.getSecundaria());
-				log.error(informacionAdicionalSd.getReferencia());
-				log.error(informacionAdicionalSd.getTelefono());
-				log.error(informacionAdicionalSd.getEMail());
-				log.error(informacionAdicionalSd.getCodActividadEconomica());
-				log.error(informacionAdicionalSd.getSecProvincia());
-				log.error(informacionAdicionalSd.getSecCanton());
-				log.error(informacionAdicionalSd.getSecParroquia());
-				log.error(informacionAdicionalSd.getSecCanal());
-				log.error(informacionAdicionalSd.getUsrCreacion());
-				log.error(informacionAdicionalSd.getTsCreacion());
-				log.error(informacionAdicionalSd.getUsrModificacion());
-
-
-
 				informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
 				log.error(informacionAdicionalSd);
 				log.error("LLEGO GUARDA INFORMACION ADICIONAL");
