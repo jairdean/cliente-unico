@@ -1130,39 +1130,31 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("LLEGO GUARDA INFORMACION ADICIONAL");
 			}
 
-			/*
-			 * 
-			 * 
-			 * /* PERSONA //
-			 * JURIDICA******************************************************************
-			 * ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd(); int
-			 * codAodActividadEconomicaPJ = !VerificarVacios(
-			 * registro.getInformacionAdicional().getCodActividadEconomica()) ?
-			 * Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica(
-			 * )) : 0; actividadEconomicaSdPJ.setCodActividadEconomica((short)
-			 * codAodActividadEconomicaPJ);
-			 * 
-			 * PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
-			 * personaJuridicaSd.setSecPersona(persona);
-			 * personaJuridicaSd.setCodTipoIdentificacion(tipoIdentificacion);
-			 * personaJuridicaSd.setIdentificacion(registro.getEmpleoDependiente().
-			 * getIdentificacion());
-			 * personaJuridicaSd.setRazonSocial(registro.getEmpleoDependiente().
-			 * getRazon_Social());
-			 * personaJuridicaSd.setCodActividadEconomica(actividadEconomicaSdPJ);
-			 * personaJuridicaSd.setActividadIess(registro.getEmpleoDependiente().
-			 * getDescripcion()); personaJuridicaSd.setSecCanal(canalSd);
-			 * personaJuridicaSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-			 * personaJuridicaSd.setTsCreacion(new Date());
-			 * personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.
-			 * getValor());
-			 * 
-			 * log.error("LLEGO PERSONA JURIDICA"); log.error(personaJuridicaSd);
-			 * personaJuridicaServicio.crearPersonaJuridica(persona, personaJuridicaSd);
-			 * log.error(personaJuridicaSd); log.error("GUARDO PERSONA JURIDICA");
-			 * 
-			 * //
-			 * EMPLEODEPENDIENTE************************************************************
+						  //PERSONA  JURIDICA******************************************************************
+			 ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd(); 
+			 int codAodActividadEconomicaPJ = !VerificarVacios(registro.getInformacionAdicional().getCodActividadEconomica()) ?
+			 Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica()) : 0; 
+			 actividadEconomicaSdPJ.setCodActividadEconomica((short)codAodActividadEconomicaPJ);
+			  
+			  PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
+			  personaJuridicaSd.setSecPersona(persona);
+			  personaJuridicaSd.setCodTipoIdentificacion(tipoIdentificacion);
+			  personaJuridicaSd.setIdentificacion(registro.getEmpleoDependiente().
+			  getIdentificacion());
+			  personaJuridicaSd.setRazonSocial(registro.getEmpleoDependiente().
+			  getRazon_Social());
+			  personaJuridicaSd.setCodActividadEconomica(actividadEconomicaSdPJ);
+			  personaJuridicaSd.setActividadIess(registro.getEmpleoDependiente().
+			  getDescripcion()); personaJuridicaSd.setSecCanal(canalSd);
+			  personaJuridicaSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+			  personaJuridicaSd.setTsCreacion(new Date());
+			  personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+			  
+			  log.error("LLEGO PERSONA JURIDICA"); log.error(personaJuridicaSd);
+			  personaJuridicaServicio.crearPersonaJuridica(persona, personaJuridicaSd);
+			  log.error(personaJuridicaSd); log.error("GUARDO PERSONA JURIDICA");
+			/* 
+			 * // EMPLEODEPENDIENTE************************************************************
 			 * ******************* EmpleoDependienteSd empleoDependienteSd = new
 			 * EmpleoDependienteSd(); empleoDependienteSd.setPersonaNatural(personaNatural);
 			 * empleoDependienteSd.setPersonaJuridica(personaJuridicaSd);
