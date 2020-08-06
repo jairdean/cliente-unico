@@ -914,7 +914,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 								? Short.parseShort(registro.getTelefonos().getTelefono3().getCodTipoTelefono())
 								: (short) 0);
 				telefono3.setCodTipoTelefono(tipoTelefonoSd);
-				telefono3.setSecTelefono(null);
 				
 				log.error("LLEGA TELEFONO 3");
 				telefonoSdServicio.ingresarTelefono(telefono3);
@@ -938,10 +937,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 								? Short.parseShort(registro.getTelefonos().getTelefono4().getCodTipoTelefono())
 								: (short) 0);
 				telefono4.setCodTipoTelefono(tipoTelefonoSd);
-				telefono4.setSecTelefono(null);
+				
+				log.error("LLEGA TELEFONO 4");
 				telefonoSdServicio.ingresarTelefono(telefono4);
-				log.error(telefono4);
-				log.error("LLEGO GUARDA TELEFONO 4");
+				log.error("GUARDA TELEFONO 4");
 			}
 
 			// AQUI VA EL MAPPER DEL TELEFONO5
@@ -961,10 +960,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 								? Short.parseShort(registro.getTelefonos().getTelefono5().getCodTipoTelefono())
 								: (short) 0);
 				telefono5.setCodTipoTelefono(tipoTelefonoSd);
-				telefono5.setSecTelefono(null);
+				
+				log.error("LLEGA TELEFONO 5");
 				telefonoSdServicio.ingresarTelefono(telefono5);
-				log.error(telefono5);
-				log.error("LLEGO GUARDA TELEFONO 5");
+				log.error("GUARDA TELEFONO 5");
 			}
 
 			// AQUI VA EL MAPPER DEL TELEFONO6
@@ -984,13 +983,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 								? Short.parseShort(registro.getTelefonos().getTelefono6().getCodTipoTelefono())
 								: (short) 0);
 				telefono6.setCodTipoTelefono(tipoTelefonoSd);
-				telefono6.setSecTelefono(null);
+				
+				log.error("LLEGA TELEFONO 6");
 				telefonoSdServicio.ingresarTelefono(telefono6);
-				log.error(telefono6);
-				log.error("LLEGO GUARDA TELEFONO 6");
+				log.error("GUARDA TELEFONO 6");
 			}
 
-			// DIRECCIONELECTRONICA***********************************************************************
+			//CREA DIRECCION ELECTRONICA
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
 			tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
 
@@ -1011,13 +1010,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 				log.error("--->" + direccionElectronica.getDireccionElectronica());
 
-				log.error("LLEGO DIRECCION ELECTRONICA 1");
+				log.error("LLEGA DIRECCION ELECTRONICA 1");
 				direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
-				log.error(direccionElectronica);
-				log.error("LLEGO GUARDA DIRECCION ELECTRONICA 1");
+				log.error("GUARDA DIRECCION ELECTRONICA 1");
 			}
 
-			// DIRECCION ELECTRONICA 2
+			//CREA DIRECCION ELECTRONICA 2
 			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {
 				DireccionElectronicaSd direccionElectronica2 = new DireccionElectronicaSd();
 				direccionElectronica2.setSecPersona(persona);
@@ -1033,16 +1031,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 								? registro.getDireccionElectronico().getCorreo_electronico2()
 								: null);
 
-				log.error("--->" + direccionElectronica2.getDireccionElectronica());
-
-				log.error("LLEGO DIRECCION ELECTRONICA 2");
+				log.error("LLEGA DIRECCION ELECTRONICA 2");
 				direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica2);
-				log.error(direccionElectronica2);
-				log.error("LLEGO GUARDA DIRECCION ELECTRONICA 2");
+				log.error("GUARDA DIRECCION ELECTRONICA 2");
 			}
 
-			// INFORMACIONADCIONAL************************************************************************
-
+			//CREA INFORMACION ADCIONAL
 			if (!VerificarVacios(registro.getInformacionAdicional().getIdentificacion().trim())
 					|| !VerificarVacios(registro.getInformacionAdicional().getCodTipoIdentificacion().trim())
 					|| !VerificarVacios(registro.getInformacionAdicional().getRazonSocial().trim())
@@ -1116,19 +1110,19 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				informacionAdicionalSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 				informacionAdicionalSd.setTsCreacion(new Date());
 				informacionAdicionalSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-				log.error("INICIO GUARDA INFORMACION ADICIONAL");
+				
+				log.error("LLEGA INFORMACION ADICIONAL");
 				informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
-				log.error(informacionAdicionalSd);
-				log.error("LLEGO GUARDA INFORMACION ADICIONAL");
+				log.error("GUARDA INFORMACION ADICIONAL");
 			}
 
+			//CREA PERSONA JURIDICA
 			PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
 			
 				if(!VerificarVacios(registro.getEmpleoDependiente().getRazon_Social())
 						|| !VerificarVacios(registro.getEmpleoDependiente().getIdentificacion())
 						) {
 					
-							  //PERSONA  JURIDICA******************************************************************
 				 ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd(); 
 				 int codAodActividadEconomicaPJ = !VerificarVacios(registro.getInformacionAdicional().getCodActividadEconomica()) ?
 				 Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica()) : 0; 
@@ -1146,15 +1140,15 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				  personaJuridicaSd.setTsCreacion(new Date());
 				  personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 				  						  
-				  log.error("LLEGO PERSONA JURIDICA");
+				  log.error("LLEGA PERSONA JURIDICA");
 				  personaJuridicaServicio.crearSoloPersonaJuridica(personaJuridicaSd); 
-				  log.error("GUARDO PERSONA JURIDICA");
+				  log.error("GUARDA PERSONA JURIDICA");
 				}
 			
 				if(personaJuridicaSd.getSecPersonaJuridica() > 0 //para saber que se INSERTO una PJ
 						|| !VerificarVacios(registro.getEmpleoDependiente().getFechaIngreso())
 						) {
-				  // EMPLEODEPENDIENTE
+				  //CREA EMPLEOD EPENDIENTE
 				  EmpleoDependienteSd empleoDependienteSd = new EmpleoDependienteSd(); 
 				  empleoDependienteSd.setPersonaNatural(personaNatural);
 				  empleoDependienteSd.setPersonaJuridica(personaJuridicaSd);
@@ -1168,10 +1162,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				  empleoDependienteSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 				  empleoDependienteSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 				  
-				  empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
-				  log.error(empleoDependienteSd); 
-				  log.error("GUARDA EMPLEO");
+				  log.error("LLEGA EMPLEO DEPENDIENTE");
+				  empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd); 
+				  log.error("GUARDA EMPLEO DEPENDIENTE");
 				}
+			} else {
+				//ZONA DE ACTUALIZACION
+				
 			}
 	}
 
