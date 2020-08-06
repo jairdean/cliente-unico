@@ -101,7 +101,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private PersonaNaturalServicio personaNatServicio;
 	@EJB
 	private DireccionElectronicaSdServicio direccionElectronicaSdServicio;
-
+	@EJB
 	private InformacionAdicionalSdServicio informacionAdicionalSdServicio;
 
 	/*

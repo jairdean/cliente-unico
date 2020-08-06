@@ -7,9 +7,7 @@ package com.equivida.smartdata.servicio;
 
 import javax.ejb.Local;
 
-import com.equivida.smartdata.model.PersonaNaturalSd;
 import com.saviasoft.persistence.util.service.GenericService;
-import com.equivida.smartdata.model.DireccionSd;
 import com.equivida.smartdata.model.InformacionAdicionalSd;
 
 @Local
