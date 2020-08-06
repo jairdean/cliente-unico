@@ -742,8 +742,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 	public void GuardarInformacionPersona(RegistrosEntity.Titular registro) {
 		// 1. Se consulta persona por identificacion
-		PersonaSd existePersona = personaServicio
-				.obtenerPersonaByIdentificacion(registro.getPersona().getIdentificacion());
+		PersonaSd existePersona = personaServicio.obtenerPersonaByIdentificacion(registro.getPersona().getIdentificacion());
 
 		// SOLO INGRESAR DATOS CUADNO NO EXISTA LA PERSONA
 		if (existePersona == null) {
@@ -757,7 +756,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			CanalSd canalSd = new CanalSd();
 			canalSd.setSecCanal((short) 3);// ++++++PONER CONSTANTE++++++++++//
 
-			// PERSONA*****************************************************************************
+			//CREA PERSONA
 			PersonaSd persona = new PersonaSd();
 			persona.setIdentificacion(registro.getPersona().getIdentificacion());
 			persona.setCodTipoIdentificacion(tipoIdentificacion);
@@ -767,7 +766,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error(persona);
 			log.error("GUARDO PERSONA");
 
-			// PERSONANATURAL*************************************************************************
+			//CREA PERSONANATURAL
 			EstadoCivilSd estadoCivilSd = new EstadoCivilSd();
 			estadoCivilSd.setCodEstadoCivil(!VerificarVacios(registro.getPersonaNatural().getCodEstadoCivil())
 					? Short.parseShort(registro.getPersonaNatural().getCodEstadoCivil())
@@ -806,14 +805,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			personaNatural.setTsCreacion(new Date());
 			personaNatural.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 
-			log.error("LLEGO PERSONA NATURAL");
-			log.error("LLEGO PERSONA NATURAL");
-			log.error(personaNatural);
+			log.error("PASA PERSONA NATURAL");
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
-			log.error(personaNatural);
-			log.error("GUARDO PERSONA NATURAL");
+			log.error("GUARDA PERSONA NATURAL");
 
-			// DIRECCION***************************************************************************
+			//CREA DIRECCION
 			if (!VerificarVacios(registro.getDireccion().getDireccion().trim())) {
 				TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
 				tipoDireccionSd.setCodTipoDireccion(TipoDireccionEnum.DOMICILIO.getCodigoenBase());
@@ -846,15 +842,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				direccionsd.setTsCreacion(new Date());
 				direccionsd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 
-				log.error("LLEGO DIRECCION");
-				log.error(direccionsd);
+				log.error("LLEGA DIRECCION");
 				direccionSdServicio.ingresarDireccion(direccionsd);
-				log.error(direccionsd);
 				log.error("GUARDA DIRECCION");
 			}
 
-			// TELEFONOS
-			// ****************************************************************************************
+			//CREA TELEFONOS
 			TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
 
 			TelefonoSd telefono = new TelefonoSd();
@@ -875,11 +868,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				telefono.setCodTipoTelefono(tipoTelefonoSd);
 				telefono.setTsCreacion(new Date());
 
-				log.error("LLEGO TELEFONO1");
-				log.error(telefono);
+				log.error("LLEGA TELEFONO 1");
 				telefonoSdServicio.ingresarTelefono(telefono);
-				log.error(telefono);
-				log.error("LLEGO GUARDA TELEFONO 1");
+				log.error("GUARDA TELEFONO 1");
 			}
 
 			// AQUI VA EL MAPPER DEL TELEFONO2
@@ -899,10 +890,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 								? Short.parseShort(registro.getTelefonos().getTelefono2().getCodTipoTelefono())
 								: (short) 0);
 				telefono2.setCodTipoTelefono(tipoTelefonoSd);
-				log.error(telefono2);
+
+				log.error("LLEGA TELEFONO 2");
 				telefonoSdServicio.ingresarTelefono(telefono2);
-				log.error(telefono2);
-				log.error("LLEGO GUARDA TELEFONO 2");
+				log.error("GUARA TELEFONO 2");
 			}
 
 			// AQUI VA EL MAPPER DEL TELEFONO3
@@ -924,9 +915,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 								: (short) 0);
 				telefono3.setCodTipoTelefono(tipoTelefonoSd);
 				telefono3.setSecTelefono(null);
+				
+				log.error("LLEGA TELEFONO 3");
 				telefonoSdServicio.ingresarTelefono(telefono3);
-				log.error(telefono3);
-				log.error("LLEGO GUARDA TELEFONO 3");
+				log.error("GUARDA TELEFONO 3");
 			}
 
 			// AQUI VA EL MAPPER DEL TELEFONO4
