@@ -1153,34 +1153,22 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				  personaJuridicaSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 				  personaJuridicaSd.setTsCreacion(new Date());
 				  personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-				  
-				  log.error(personaJuridicaSd.getSecPersona());
-				  log.error(personaJuridicaSd.getCodTipoIdentificacion());
-				  log.error(personaJuridicaSd.getIdentificacion());
-				  log.error(personaJuridicaSd.getRazonSocial());
-				  log.error(personaJuridicaSd.getCodActividadEconomica());
-				  log.error(personaJuridicaSd.getActividadIess()); 
-				  log.error(personaJuridicaSd.getSecCanal());
-				  log.error(personaJuridicaSd.getUsrCreacion());
-				  log.error(personaJuridicaSd.getTsCreacion());
-				  log.error(personaJuridicaSd.getUsrModificacion());
-						  
-				  log.error("LLEGO PERSONA JURIDICA"); log.error(personaJuridicaSd);
-				  personaJuridicaServicio.crearSoloPersonaJuridica(personaJuridicaSd);
-				  log.error(personaJuridicaSd); log.error("GUARDO PERSONA JURIDICA");
+				  						  
+				  log.error("LLEGO PERSONA JURIDICA");
+				  personaJuridicaServicio.crearSoloPersonaJuridica(personaJuridicaSd); 
+				  log.error("GUARDO PERSONA JURIDICA");
 				}
 			
 				if(personaJuridicaSd.getSecPersonaJuridica() > 0 //para saber que se INSERTO una PJ
-						
+						|| !VerificarVacios(registro.getEmpleoDependiente().getFechaIngreso())
 						) {
 				  // EMPLEODEPENDIENTE
-				  EmpleoDependienteSd empleoDependienteSd = new
-				  EmpleoDependienteSd(); empleoDependienteSd.setPersonaNatural(personaNatural);
+				  EmpleoDependienteSd empleoDependienteSd = new EmpleoDependienteSd(); 
+				  empleoDependienteSd.setPersonaNatural(personaNatural);
 				  empleoDependienteSd.setPersonaJuridica(personaJuridicaSd);
 				  empleoDependienteSd.setCargo(registro.getEmpleoDependiente().getCargo());
 				  empleoDependienteSd.setMntSalario(!VerificarVacios(registro.getEmpleoDependiente().getMntSalario()) ? new BigDecimal(registro.getEmpleoDependiente().getMntSalario()) : new BigDecimal(0)); 
-				  empleoDependienteSd.setFchIngreso(!VerificarVacios(registro.getEmpleoDependiente().getFechaIngreso()) ?
-				  ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso()) : null);
+				  empleoDependienteSd.setFchIngreso(ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso()));
 				  empleoDependienteSd.setFchSalida(new Date());//				 
 				  empleoDependienteSd.setSecCanal(canalSd);
 				  empleoDependienteSd.setEstado(EstadoEnum.A.getEstadoChar());//
@@ -1188,9 +1176,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				  empleoDependienteSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 				  empleoDependienteSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 				  
-				  log.error("LLEGO EMPLEO"); log.error(empleoDependienteSd);
 				  empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
-				  log.error(empleoDependienteSd); log.error("GUARDA EMPLEO");
+				  log.error(empleoDependienteSd); 
+				  log.error("GUARDA EMPLEO");
 				}
 			}
 	}
