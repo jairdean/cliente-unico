@@ -86,4 +86,15 @@ public class PersonaJuridicaSdServicioImpl extends
 		// 2. Persiste PErsona Juridica
 		personaJuridicaDao.save(personaJuridica);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.PersonaJuridicaSdServicio#
+	 * crearSoloPersonaJuridica(com.equivida.smartdata.model.PersonaJuridicaSd)
+	 */
+	@Override
+	public void	crearSoloPersonaJuridica(PersonaJuridicaSd personaJuridica) {
+		personaJuridicaDao.save(personaJuridica);
+	}
 }

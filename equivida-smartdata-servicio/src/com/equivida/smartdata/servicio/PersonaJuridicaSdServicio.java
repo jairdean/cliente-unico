@@ -34,4 +34,11 @@ public interface PersonaJuridicaSdServicio extends
 	 */
 	void crearPersonaJuridica(PersonaSd persona,
 			PersonaJuridicaSd personaJuridica);
+	
+	/**
+	 * Crea Persona Juridica.
+	 * 
+	 * @param PersonaJuridicaSd
+	 */
+	void crearSoloPersonaJuridica(PersonaJuridicaSd personaJuridica);
 }

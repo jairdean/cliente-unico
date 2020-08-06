@@ -1124,12 +1124,14 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				informacionAdicionalSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 				informacionAdicionalSd.setTsCreacion(new Date());
 				informacionAdicionalSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-
+				log.error("INICIO GUARDA INFORMACION ADICIONAL");
 				informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
 				log.error(informacionAdicionalSd);
 				log.error("LLEGO GUARDA INFORMACION ADICIONAL");
 			}
 
+			if(!VerificarVacios(registro.getEmpleoDependiente().getRazon_Social())) {
+				
 						  //PERSONA  JURIDICA******************************************************************
 			 ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd(); 
 			 int codAodActividadEconomicaPJ = !VerificarVacios(registro.getInformacionAdicional().getCodActividadEconomica()) ?
@@ -1148,9 +1150,22 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			  personaJuridicaSd.setTsCreacion(new Date());
 			  personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 			  
+			  log.error(personaJuridicaSd.getSecPersona());//
+			  log.error(personaJuridicaSd.getCodTipoIdentificacion());//C
+			  log.error(personaJuridicaSd.getIdentificacion());
+			  log.error(personaJuridicaSd.getRazonSocial());
+			  log.error(personaJuridicaSd.getCodActividadEconomica());//
+			  log.error(personaJuridicaSd.getActividadIess()); 
+			  log.error(personaJuridicaSd.getSecCanal());//3
+			  log.error(personaJuridicaSd.getUsrCreacion());
+			  log.error(personaJuridicaSd.getTsCreacion());
+			  log.error(personaJuridicaSd.getUsrModificacion());
+					  
 			  log.error("LLEGO PERSONA JURIDICA"); log.error(personaJuridicaSd);
-			  personaJuridicaServicio.crearPersonaJuridica(persona, personaJuridicaSd);
+			  personaJuridicaServicio.crearSoloPersonaJuridica(personaJuridicaSd);
 			  log.error(personaJuridicaSd); log.error("GUARDO PERSONA JURIDICA");
+			}
+			
 			/* 
 			 * // EMPLEODEPENDIENTE************************************************************
 			 * ******************* EmpleoDependienteSd empleoDependienteSd = new
