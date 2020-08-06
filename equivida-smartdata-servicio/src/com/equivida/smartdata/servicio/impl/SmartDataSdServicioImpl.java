@@ -1130,7 +1130,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("LLEGO GUARDA INFORMACION ADICIONAL");
 			}
 
-			if(!VerificarVacios(registro.getEmpleoDependiente().getRazon_Social())) {
+			if(!VerificarVacios(registro.getEmpleoDependiente().getRazon_Social())
+					|| !VerificarVacios(registro.getEmpleoDependiente().getIdentificacion())
+					) {
 				
 						  //PERSONA  JURIDICA******************************************************************
 			 ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd(); 
@@ -1150,13 +1152,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			  personaJuridicaSd.setTsCreacion(new Date());
 			  personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 			  
-			  log.error(personaJuridicaSd.getSecPersona());//
-			  log.error(personaJuridicaSd.getCodTipoIdentificacion());//C
+			  log.error(personaJuridicaSd.getSecPersona());
+			  log.error(personaJuridicaSd.getCodTipoIdentificacion());
 			  log.error(personaJuridicaSd.getIdentificacion());
 			  log.error(personaJuridicaSd.getRazonSocial());
-			  log.error(personaJuridicaSd.getCodActividadEconomica());//
+			  log.error(personaJuridicaSd.getCodActividadEconomica());
 			  log.error(personaJuridicaSd.getActividadIess()); 
-			  log.error(personaJuridicaSd.getSecCanal());//3
+			  log.error(personaJuridicaSd.getSecCanal());
 			  log.error(personaJuridicaSd.getUsrCreacion());
 			  log.error(personaJuridicaSd.getTsCreacion());
 			  log.error(personaJuridicaSd.getUsrModificacion());
