@@ -29,6 +29,7 @@ public class InformacionAdicionalSdDaoEjb extends GenericDaoEjb<InformacionAdici
 	 * @see com.equivida.smartdata.dao.InformacionAdicionalSdDao#crearInformacionAdicional
 	 * (InformacionAdicionalSd)
 	 */
+	/*
 	@Override
 	public boolean crearInformacionAdicional(InformacionAdicionalSd inf) {
 
@@ -49,5 +50,5 @@ public class InformacionAdicionalSdDaoEjb extends GenericDaoEjb<InformacionAdici
 		insert.executeUpdate();
 
 		return true;
-	}
+	}*/
 }

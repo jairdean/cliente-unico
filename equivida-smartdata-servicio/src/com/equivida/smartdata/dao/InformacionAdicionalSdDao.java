@@ -14,6 +14,6 @@ import com.saviasoft.persistence.util.dao.GenericDao;
 @Local
 public interface InformacionAdicionalSdDao extends GenericDao<InformacionAdicionalSd, Integer> {
 	
-	boolean crearInformacionAdicional(InformacionAdicionalSd inf);
+	
 	
 }
