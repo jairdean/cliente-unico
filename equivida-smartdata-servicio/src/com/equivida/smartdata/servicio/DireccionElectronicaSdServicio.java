@@ -8,16 +8,17 @@ package com.equivida.smartdata.servicio;
 import javax.ejb.Local;
 
 import com.equivida.smartdata.model.DireccionElectronicaSd;
-import com.equivida.smartdata.model.DireccionSd;
 import com.saviasoft.persistence.util.service.GenericService;
 
 @Local
-public interface DireccionElectronicaSdServicio extends GenericService<DireccionSd, Integer> {
+public interface DireccionElectronicaSdServicio extends GenericService<DireccionElectronicaSd, Integer> {
 	/**
-	 * Ingresa una direccion.
+	 * Ingresa una Direccion ElectronicaSd.
 	 * 
-	 * @param direccion
+	 * @param DireccionElectronicaSd
 	 * @return
 	 */
 	void ingresarDireccionElectronica(DireccionElectronicaSd direccion);
+
+	void jairoflores(DireccionElectronicaSd direccion);
 }
