@@ -1139,13 +1139,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			  PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
 			  personaJuridicaSd.setSecPersona(persona);
 			  personaJuridicaSd.setCodTipoIdentificacion(tipoIdentificacion);
-			  personaJuridicaSd.setIdentificacion(registro.getEmpleoDependiente().
-			  getIdentificacion());
-			  personaJuridicaSd.setRazonSocial(registro.getEmpleoDependiente().
-			  getRazon_Social());
+			  personaJuridicaSd.setIdentificacion(registro.getEmpleoDependiente().getIdentificacion());
+			  personaJuridicaSd.setRazonSocial(registro.getEmpleoDependiente().getRazon_Social());
 			  personaJuridicaSd.setCodActividadEconomica(actividadEconomicaSdPJ);
-			  personaJuridicaSd.setActividadIess(registro.getEmpleoDependiente().
-			  getDescripcion()); personaJuridicaSd.setSecCanal(canalSd);
+			  personaJuridicaSd.setActividadIess(registro.getEmpleoDependiente().getDescripcion()); 
+			  personaJuridicaSd.setSecCanal(canalSd);
 			  personaJuridicaSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 			  personaJuridicaSd.setTsCreacion(new Date());
 			  personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
