@@ -8,7 +8,7 @@ package com.equivida.smartdata.constante;
  *
  */
 public enum UsuarioEnum {
-	USUARIO_CREACION(new String("ACTUALIZACION_EN_LINEA")), USUARIO_MODIFICACION(new String("ACTUALIZACION_EN_LINEA"));
+	USUARIO_CREACION(new String("ACTUALIZACION")), USUARIO_MODIFICACION(new String("ACTUALIZACION"));
 
 	private String usuario;
 
