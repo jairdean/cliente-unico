@@ -766,7 +766,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error(persona);
 			log.error("GUARDO PERSONA");
 
-			//CREA PERSONANATURAL
+			//CREA PERSONA NATURAL
 			EstadoCivilSd estadoCivilSd = new EstadoCivilSd();
 			estadoCivilSd.setCodEstadoCivil(!VerificarVacios(registro.getPersonaNatural().getCodEstadoCivil())
 					? Short.parseShort(registro.getPersonaNatural().getCodEstadoCivil())
@@ -1168,7 +1168,18 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				}
 			} else {
 				//ZONA DE ACTUALIZACION
+				//NO ACTUALIZAR PERSONA, PERSONA NATURAL, PERSONA JURIDICA
 				
+				 	//ACTUALIZA DIRECCION
+				
+					//ACTUALIZA TELEFONOS 1-6
+				
+					//ACTUALIZA DIRECCION ELECTRONICA 1-2
+				
+					//ACTUALIZA INFORMACION ADCIONAL
+				
+					//ACTUALIZA EMPLEOD EPENDIENTE
+				 
 			}
 	}
 
