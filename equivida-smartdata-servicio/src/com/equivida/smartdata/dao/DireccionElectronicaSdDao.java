@@ -1,22 +1,21 @@
 /**
- *DireccionDao.java
+ *DireccionElectronicaDao.java
  *
- *Tue Jan 26 12:34:07 ECT 2016
+ *Wed Aug 05 19:07:12 ECT 2020
  */
 package com.equivida.smartdata.dao;
 
 import javax.ejb.Local;
 
 import com.equivida.smartdata.model.DireccionElectronicaSd;
-import com.equivida.smartdata.model.DireccionSd;
 import com.saviasoft.persistence.util.dao.GenericDao;
 
 @Local
-public interface DireccionElectronicaSdDao extends GenericDao<DireccionSd, Integer> {
+public interface DireccionElectronicaSdDao extends GenericDao<DireccionElectronicaSd, Integer> {
 	/**
-	 * ingresa una direccion.
+	 * ingresa una Direccion ElectronicaSd.
 	 * 
-	 * @param direccion
+	 * @param DireccionElectronicaSd
 	 * @return
 	 */
 	boolean ingresarDireccionElectronica(DireccionElectronicaSd direccion);
