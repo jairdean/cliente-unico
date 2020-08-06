@@ -7,8 +7,6 @@ package com.equivida.smartdata.servicio.impl;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 
 import com.equivida.smartdata.dao.DireccionElectronicaSdDao;
 import com.equivida.smartdata.model.DireccionElectronicaSd;
@@ -29,11 +27,6 @@ public class DireccionElectronicaSdServicioImpl extends GenericServiceImpl<Direc
 		return direccionElectronicaDao;
 	}
 
-	@Override
-	public void ingresarDireccionElectronica(DireccionElectronicaSd direccion) {
-		direccionElectronicaDao.ingresarDireccionElectronica(direccion);		
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -42,7 +35,7 @@ public class DireccionElectronicaSdServicioImpl extends GenericServiceImpl<Direc
 	 * com.equivida.smartdata.model.PersonaJuridicaSd)
 	 */
 	@Override
-	public void jairoflores(DireccionElectronicaSd direccionElectronicaSd) {
+	public void ingresarDireccionElectronica(DireccionElectronicaSd direccionElectronicaSd) {
 		direccionElectronicaDao.save(direccionElectronicaSd);
 
 	}

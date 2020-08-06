@@ -1021,7 +1021,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("--->"+direccionElectronica.getDireccionElectronica());
 
 				log.error("LLEGO DIRECCION ELECTRONICA 1");
-				direccionElectronicaSdServicio.jairoflores(direccionElectronica);
+				direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
 				log.error(direccionElectronica);
 				log.error("LLEGO GUARDA DIRECCION ELECTRONICA 1");
 			}

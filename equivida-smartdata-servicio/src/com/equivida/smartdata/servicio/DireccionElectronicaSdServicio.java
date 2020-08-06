@@ -19,6 +19,4 @@ public interface DireccionElectronicaSdServicio extends GenericService<Direccion
 	 * @return
 	 */
 	void ingresarDireccionElectronica(DireccionElectronicaSd direccion);
-
-	void jairoflores(DireccionElectronicaSd direccion);
 }

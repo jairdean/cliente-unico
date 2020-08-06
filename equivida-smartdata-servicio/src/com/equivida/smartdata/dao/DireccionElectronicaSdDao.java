@@ -12,11 +12,5 @@ import com.saviasoft.persistence.util.dao.GenericDao;
 
 @Local
 public interface DireccionElectronicaSdDao extends GenericDao<DireccionElectronicaSd, Integer> {
-	/**
-	 * ingresa una Direccion ElectronicaSd.
-	 * 
-	 * @param DireccionElectronicaSd
-	 * @return
-	 */
-	boolean ingresarDireccionElectronica(DireccionElectronicaSd direccion);
+
 }
