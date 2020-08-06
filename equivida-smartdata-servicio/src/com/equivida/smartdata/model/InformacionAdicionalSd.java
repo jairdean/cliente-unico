@@ -50,6 +50,7 @@ public class InformacionAdicionalSd implements Serializable {
 	@Size(min = 1, max = 128)
 	@Column(name = "RAZON_SOCIAL")
 	private String razonSocial;
+	@Basic(optional = false)
 	@Size(max = 128)
 	@Column(name = "NOMBRE_COMERCIAL")
 	private String nombreComercial;
@@ -160,10 +161,9 @@ public class InformacionAdicionalSd implements Serializable {
 		this.secInformacionAdic = secInformacionAdic;
 	}
 
-	public InformacionAdicionalSd(Integer secInformacionAdic,
-			String identificacion, String razonSocial, Date fchInscripcion,
-			Date fchInicioActividades, String principal, String usrCreacion,
-			Date tsCreacion, String usrModificacion, Date tsModificacion) {
+	public InformacionAdicionalSd(Integer secInformacionAdic, String identificacion, String razonSocial,
+			Date fchInscripcion, Date fchInicioActividades, String principal, String usrCreacion, Date tsCreacion,
+			String usrModificacion, Date tsModificacion, String nombreComercial) {
 		this.secInformacionAdic = secInformacionAdic;
 		this.identificacion = identificacion;
 		this.razonSocial = razonSocial;
@@ -174,6 +174,7 @@ public class InformacionAdicionalSd implements Serializable {
 		this.tsCreacion = tsCreacion;
 		this.usrModificacion = usrModificacion;
 		this.tsModificacion = tsModificacion;
+		this.nombreComercial = nombreComercial;
 	}
 
 	public Integer getSecInformacionAdic() {
@@ -332,8 +333,7 @@ public class InformacionAdicionalSd implements Serializable {
 		return codTipoIdentificacion;
 	}
 
-	public void setCodTipoIdentificacion(
-			TipoIdentificacionSd codTipoIdentificacion) {
+	public void setCodTipoIdentificacion(TipoIdentificacionSd codTipoIdentificacion) {
 		this.codTipoIdentificacion = codTipoIdentificacion;
 	}
 
@@ -381,8 +381,7 @@ public class InformacionAdicionalSd implements Serializable {
 		return codActividadEconomica;
 	}
 
-	public void setCodActividadEconomica(
-			ActividadEconomicaSd codActividadEconomica) {
+	public void setCodActividadEconomica(ActividadEconomicaSd codActividadEconomica) {
 		this.codActividadEconomica = codActividadEconomica;
 	}
 
@@ -402,8 +401,7 @@ public class InformacionAdicionalSd implements Serializable {
 		}
 		InformacionAdicionalSd other = (InformacionAdicionalSd) object;
 		if ((this.secInformacionAdic == null && other.secInformacionAdic != null)
-				|| (this.secInformacionAdic != null && !this.secInformacionAdic
-						.equals(other.secInformacionAdic))) {
+				|| (this.secInformacionAdic != null && !this.secInformacionAdic.equals(other.secInformacionAdic))) {
 			return false;
 		}
 		return true;
@@ -411,8 +409,7 @@ public class InformacionAdicionalSd implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.equivida.smartdata.model.InformacionAdicional[ secInformacionAdic="
-				+ secInformacionAdic + " ]";
+		return "com.equivida.smartdata.model.InformacionAdicional[ secInformacionAdic=" + secInformacionAdic + " ]";
 	}
 
 }
