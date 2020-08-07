@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 
 import com.equivida.smartdata.dao.DireccionSdDao;
 import com.equivida.smartdata.model.DireccionSd;
+import com.equivida.smartdata.model.PersonaSd;
 import com.equivida.smartdata.servicio.DireccionSdServicio;
 import com.saviasoft.persistence.util.dao.GenericDao;
 import com.saviasoft.persistence.util.service.impl.GenericServiceImpl;
@@ -68,5 +69,16 @@ public class DireccionSdServicioImpl extends GenericServiceImpl<DireccionSd, Int
 	@Override
 	public void ingresarDireccion(DireccionSd direccion) {
 		direccionDao.save(direccion);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.DireccionSdServicio#
+	 * obtenerDireccionByPersonaSecPersona(DireccionSd)
+	 */
+	@Override
+	public DireccionSd obtenerDireccionByPersonaSecPersona(int secPersona) {
+		return direccionDao.obtenerDireccionByPersonaSecPersona(secPersona);
 	}
 }

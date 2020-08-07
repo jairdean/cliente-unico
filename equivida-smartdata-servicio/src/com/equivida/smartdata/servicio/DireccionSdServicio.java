@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import com.equivida.smartdata.model.DireccionSd;
+import com.equivida.smartdata.model.PersonaSd;
 import com.saviasoft.persistence.util.service.GenericService;
 
 @Local
@@ -38,4 +39,12 @@ public interface DireccionSdServicio extends GenericService<DireccionSd, Integer
 	 * @return
 	 */
 	void ingresarDireccion(DireccionSd direccion);
+
+	/**
+	 * Obtener DireccionSd.
+	 * 
+	 * @param secPersona
+	 * @return DireccionSd
+	 */
+	DireccionSd obtenerDireccionByPersonaSecPersona(int secPersona);
 }
