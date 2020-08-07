@@ -13,4 +13,12 @@ import com.saviasoft.persistence.util.dao.GenericDao;
 @Local
 public interface EmpleoDependienteSdDao extends GenericDao<EmpleoDependienteSd, Integer> {
 
+	/**
+	 * Obtiene EmpleoDependienteSd por secPersona
+	 * 
+	 * @param secPersona
+	 * @return secPersonaNatural
+	 */
+	EmpleoDependienteSd obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural);
+
 }

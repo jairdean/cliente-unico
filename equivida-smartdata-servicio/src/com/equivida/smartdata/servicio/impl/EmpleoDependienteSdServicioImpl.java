@@ -65,4 +65,15 @@ public class EmpleoDependienteSdServicioImpl extends GenericServiceImpl<EmpleoDe
 		empleoDependienteDao.save(empleoDependienteSd);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.EmpleoDependienteSdServicio#
+	 * obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural)
+	 */
+	@Override
+	public EmpleoDependienteSd obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural) {
+		return empleoDependienteDao.obtenerEmpleoDependienteBySecPersonaNatural(secPersonaNatural);
+	}
+
 }

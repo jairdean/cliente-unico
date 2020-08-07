@@ -743,7 +743,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	public void GuardarInformacionPersona(RegistrosEntity.Titular registro) {
 		// 1. Se consulta persona por identificacion
 		PersonaSd existePersona = personaServicio.obtenerPersonaByIdentificacion(registro.getPersona().getIdentificacion());
-		
+				
 		PaisSd paisSd = new PaisSd();
 		paisSd.setCodPais((short) 56); // ++++++PONER CONSTANTE++++++++++//
 
@@ -1227,10 +1227,14 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					//ACTUALIZA INFORMACION ADCIONAL
 					//1) Primero valido si existe la persona natural para luego actualizar la informacion adicional
 					if(existePersona.getPersonaNatural() != null && existePersona.getPersonaNatural().getSecPersonaNatural() > 0) {
-						
+						InformacionAdicionalSd informacionAdicionalSd = informacionAdicionalSdServicio.obtenerInformacionAdicionalBySecPersonaNatural(existePersona.getPersonaNatural().getSecPersonaNatural());
 					}
 					
+					
 					//ACTUALIZA EMPLEOD EPENDIENTE
+					if(existePersona.getPersonaNatural() != null && existePersona.getPersonaNatural().getSecPersonaNatural() > 0) {
+						EmpleoDependienteSd empleoDependienteSd = empleoDependienteServicio.obtenerEmpleoDependienteBySecPersonaNatural(existePersona.getPersonaNatural().getSecPersonaNatural());
+					}
 				}
 			}
 	}

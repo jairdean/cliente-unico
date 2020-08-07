@@ -12,7 +12,6 @@ import javax.persistence.Query;
 
 import com.equivida.smartdata.dao.InformacionAdicionalSdDao;
 import com.equivida.smartdata.model.InformacionAdicionalSd;
-import com.equivida.smartdata.model.PersonaSd;
 import com.saviasoft.persistence.util.dao.ejb.GenericDaoEjb;
 
 @Stateless(name = "InformacionAdicionalSdDao")
@@ -20,6 +19,28 @@ public class InformacionAdicionalSdDaoEjb extends GenericDaoEjb<InformacionAdici
 
 	public InformacionAdicionalSdDaoEjb() {
 		super(InformacionAdicionalSd.class);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.dao.InformacionAdicionalSdDao#obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural)
+	 */
+	@Override
+	public InformacionAdicionalSd obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural) {
+		StringBuffer sql = new StringBuffer(200);
+		sql.append("select d from InformacionAdicionalSd d where ");
+		sql.append("d.secPersonaNatural.secPersonaNatural = :secPersonaNatural ");
+
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("secPersonaNatural", secPersonaNatural);
+
+		List<InformacionAdicionalSd> InformacionAdicionalList = query.getResultList();
+
+		if (InformacionAdicionalList != null && !InformacionAdicionalList.isEmpty())
+			return InformacionAdicionalList.get(0);
+
+		return null;
 	}
 
 

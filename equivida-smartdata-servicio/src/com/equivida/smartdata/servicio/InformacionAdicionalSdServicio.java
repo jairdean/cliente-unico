@@ -20,4 +20,12 @@ public interface InformacionAdicionalSdServicio extends GenericService<Informaci
 	 * @return boolean
 	 */
 	void crearInformacionAdicional(InformacionAdicionalSd informacionAdicionalSd);
+
+	/**
+	 * Obtener InformacionAdicionalSd.
+	 * 
+	 * @param secPersonaNatural
+	 * @return InformacionAdicionalSd
+	 */
+	InformacionAdicionalSd obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural);
 }

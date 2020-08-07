@@ -38,6 +38,17 @@ implements InformacionAdicionalSdServicio  {
 	public void crearInformacionAdicional(InformacionAdicionalSd informacionAdicionalSd) {
 		InformacionAdicionalSdDao.save(informacionAdicionalSd);
     }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.InformacionAdicionalSdServicio#
+	 * Obtener InformacionAdicionalSd
+	 */
+	@Override
+	public InformacionAdicionalSd obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural) {
+		return InformacionAdicionalSdDao.obtenerInformacionAdicionalBySecPersonaNatural(secPersonaNatural);
+	}
     
 
 	
