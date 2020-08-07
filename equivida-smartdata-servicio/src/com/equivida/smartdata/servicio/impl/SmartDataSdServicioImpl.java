@@ -1172,51 +1172,50 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				//existePersona ==> PersonaSd
 				
 				//BUSCO DIRECCION POR existePersona.getSecPersona()
-				DireccionSd direccion = direccionSdServicio.obtenerDireccionByPersonaSecPersona(existePersona.getSecPersona());
+				DireccionSd direccionsd = direccionSdServicio.obtenerDireccionByPersonaSecPersona(existePersona.getSecPersona());
 
-				if(direccion == null) {
+				if(direccionsd == null) {
 					
 				} else {
-					/*
+					
 
-				 	//ACTUALIZA DIRECCION
-				if (!VerificarVacios(registro.getDireccion().getDireccion().trim())) {
-					TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
-					tipoDireccionSd.setCodTipoDireccion(TipoDireccionEnum.DOMICILIO.getCodigoenBase());
-
-					ProvinciaSd provinciaSdDireccion = new ProvinciaSd();
-					provinciaSdDireccion.setSecProvincia(!VerificarVacios(registro.getDireccion().getSecProvincia())
-							? Short.parseShort(registro.getDireccion().getSecProvincia())
-							: 0);
-
-					CantonSd cantoSdDireccion = new CantonSd();
-					cantoSdDireccion.setSecCanton(!VerificarVacios(registro.getDireccion().getSecCanton())
-							? Short.parseShort(registro.getDireccion().getSecCanton())
-							: 0);
-
-					ParroquiaSd parroquiaSdDireccion = new ParroquiaSd();
-					parroquiaSdDireccion.setSecParroquia(!VerificarVacios(registro.getDireccion().getSecParroquia())
-							? Short.parseShort(registro.getDireccion().getSecParroquia())
-							: 0);
-
-					DireccionSd direccionsd = new DireccionSd();
-					direccionsd.setSecPersona(persona);
-					direccionsd.setDireccion(registro.getDireccion().getDireccion());
-					direccionsd.setCodTipoDireccion(tipoDireccionSd);
-					direccionsd.setSecProvincia(provinciaSdDireccion);
-					direccionsd.setSecCanton(cantoSdDireccion);
-					direccionsd.setSecParroquia(parroquiaSdDireccion);
-					direccionsd.setSecCanal(canalSd);
-					direccionsd.setEstado(EstadoEnum.A.getEstadoChar());// -----------------------------------------
-					direccionsd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-					direccionsd.setTsCreacion(new Date());
-					direccionsd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-
-					log.error("LLEGA DIRECCION");
-					direccionSdServicio.ingresarDireccion(direccionsd);
-					log.error("GUARDA DIRECCION");
-				}
-				*/
+					 	//ACTUALIZA DIRECCION
+					if (!VerificarVacios(registro.getDireccion().getDireccion().trim())) {
+						TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
+						tipoDireccionSd.setCodTipoDireccion(TipoDireccionEnum.DOMICILIO.getCodigoenBase());
+	
+						ProvinciaSd provinciaSdDireccion = new ProvinciaSd();
+						provinciaSdDireccion.setSecProvincia(!VerificarVacios(registro.getDireccion().getSecProvincia())
+								? Short.parseShort(registro.getDireccion().getSecProvincia())
+								: 0);
+	
+						CantonSd cantoSdDireccion = new CantonSd();
+						cantoSdDireccion.setSecCanton(!VerificarVacios(registro.getDireccion().getSecCanton())
+								? Short.parseShort(registro.getDireccion().getSecCanton())
+								: 0);
+	
+						ParroquiaSd parroquiaSdDireccion = new ParroquiaSd();
+						parroquiaSdDireccion.setSecParroquia(!VerificarVacios(registro.getDireccion().getSecParroquia())
+								? Short.parseShort(registro.getDireccion().getSecParroquia())
+								: 0);
+	
+						direccionsd.setSecPersona(existePersona);
+						direccionsd.setDireccion(registro.getDireccion().getDireccion());
+						direccionsd.setCodTipoDireccion(tipoDireccionSd);
+						direccionsd.setSecProvincia(provinciaSdDireccion);
+						direccionsd.setSecCanton(cantoSdDireccion);
+						direccionsd.setSecParroquia(parroquiaSdDireccion);
+						direccionsd.setSecCanal(canalSd);
+						direccionsd.setEstado(EstadoEnum.A.getEstadoChar());// -----------------------------------------
+						direccionsd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+						direccionsd.setTsCreacion(new Date());
+						direccionsd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+	
+						log.error("LLEGA DIRECCION");
+						direccionSdServicio.ingresarDireccion(direccionsd);
+						log.error("GUARDA DIRECCION");
+					}
+				
 				}
 	
 					//ACTUALIZA TELEFONOS 1-6
