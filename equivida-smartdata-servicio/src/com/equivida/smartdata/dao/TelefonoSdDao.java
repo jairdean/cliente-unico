@@ -5,6 +5,8 @@
  */
 package com.equivida.smartdata.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import com.equivida.smartdata.model.TelefonoSd;
@@ -27,4 +29,12 @@ public interface TelefonoSdDao extends GenericDao<TelefonoSd, Integer> {
 	 * @return
 	 */
 	TelefonoSd obtenerPorDocumentoTelefono(String noDocumento, String telefono);
+
+	/**
+	 * Obtiene Telefonos por secPersona
+	 * 
+	 * @param secPersona
+	 * @return List<TelefonoSd>
+	 */
+	List<TelefonoSd> obtenerTelefonoByPersonaSecPersona(Integer secPersona);
 }

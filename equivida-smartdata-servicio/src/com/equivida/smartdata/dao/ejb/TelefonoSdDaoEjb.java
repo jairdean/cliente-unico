@@ -66,4 +66,21 @@ public class TelefonoSdDaoEjb extends GenericDaoEjb<TelefonoSd, Integer> impleme
 
 		return null;
 	}
+
+	@Override
+	public List<TelefonoSd> obtenerTelefonoByPersonaSecPersona(Integer secPersona) {
+		StringBuffer sql = new StringBuffer(200);
+		sql.append("select d from TelefonoSd d where ");
+		sql.append("d.secPersona.secPersona = :secPersona ");
+
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("secPersona", secPersona);
+
+		List<TelefonoSd> telefonoSdList = query.getResultList();
+
+		if (telefonoSdList != null && !telefonoSdList.isEmpty())
+			return telefonoSdList;
+
+		return null;
+	}
 }

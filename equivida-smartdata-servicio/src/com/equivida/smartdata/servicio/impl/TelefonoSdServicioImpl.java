@@ -71,4 +71,15 @@ public class TelefonoSdServicioImpl extends
 	public void ingresarTelefono(TelefonoSd telefono) {
 		 telefonoDao.save(telefono);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.TelefonoSdServicio#
+	 * obtenerTelefonoByPersonaSecPersona(secPersona)
+	 */
+	@Override
+	public List<TelefonoSd> obtenerTelefonoByPersonaSecPersona(Integer secPersona) {
+		return telefonoDao.obtenerTelefonoByPersonaSecPersona(secPersona);
+	}
 }

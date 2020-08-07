@@ -1219,7 +1219,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				
 	
 					//ACTUALIZA TELEFONOS 1-6
-					//List<TipoTelefonoSd> tipoTelefonoSd
+					List<TelefonoSd> telefonoSd = telefonoSdServicio.obtenerTelefonoByPersonaSecPersona(existePersona.getSecPersona());
 					
 					//ACTUALIZA DIRECCION ELECTRONICA 1-2
 				

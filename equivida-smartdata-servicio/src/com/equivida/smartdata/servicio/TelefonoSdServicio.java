@@ -37,4 +37,12 @@ public interface TelefonoSdServicio extends GenericService<TelefonoSd, Integer> 
 	 * @param telefono
 	 */
 	void ingresarTelefono(TelefonoSd telefono);
+
+	/**
+	 * Obtener tlefono por secPersona
+	 * 
+	 * @param secPersona
+	 * @return List<TelefonoSd>
+	 */
+	List<TelefonoSd> obtenerTelefonoByPersonaSecPersona(Integer secPersona);
 }
