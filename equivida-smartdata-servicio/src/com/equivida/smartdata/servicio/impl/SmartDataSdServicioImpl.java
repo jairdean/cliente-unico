@@ -743,7 +743,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	public void GuardarInformacionPersona(RegistrosEntity.Titular registro) {
 		// 1. Se consulta persona por identificacion
 		PersonaSd existePersona = personaServicio.obtenerPersonaByIdentificacion(registro.getPersona().getIdentificacion());
-
+		
 		PaisSd paisSd = new PaisSd();
 		paisSd.setCodPais((short) 56); // ++++++PONER CONSTANTE++++++++++//
 
@@ -1037,7 +1037,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			//CREA INFORMACION ADCIONAL
-			if (!VerificarVacios(registro.getInformacionAdicional().getIdentificacion().trim())
+			if (personaNatural.getSecPersonaNatural() > 0 //para saber que se INSERTO una PN
+					|| !VerificarVacios(registro.getInformacionAdicional().getIdentificacion().trim())
 					|| !VerificarVacios(registro.getInformacionAdicional().getCodTipoIdentificacion().trim())
 					|| !VerificarVacios(registro.getInformacionAdicional().getRazonSocial().trim())
 					|| !VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion().trim())
@@ -1217,7 +1218,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					}
 				
 				
-	
 					//ACTUALIZA TELEFONOS 1-6
 					List<TelefonoSd> telefonoSd = telefonoSdServicio.obtenerTelefonoByPersonaSecPersona(existePersona.getSecPersona());
 					
@@ -1225,7 +1225,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					List<DireccionElectronicaSd> direccionElectronica = direccionElectronicaSdServicio.obtenerDireccionElectronicaByPersonaSecPersona(existePersona.getSecPersona());
 					
 					//ACTUALIZA INFORMACION ADCIONAL
-				
+					//1) Primero valido si existe la persona natural para luego actualizar la informacion adicional
+					if(existePersona.getPersonaNatural() != null && existePersona.getPersonaNatural().getSecPersonaNatural() > 0) {
+						
+					}
+					
 					//ACTUALIZA EMPLEOD EPENDIENTE
 				}
 			}
