@@ -71,7 +71,7 @@ public class DireccionSdDaoEjb extends GenericDaoEjb<DireccionSd, Integer> imple
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.equivida.smartdata.dao.DireccionSdDao#obtenerPersonaByIdentificacion
+	 * com.equivida.smartdata.dao.DireccionSdDao#obtenerDireccionByPersonaSecPersona
 	 * (java.lang.String)
 	 */
 	@Override

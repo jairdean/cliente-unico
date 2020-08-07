@@ -31,11 +31,10 @@ public interface DireccionSdDao extends GenericDao<DireccionSd, Integer> {
 			String direccion);
 	
 	/**
-	 * Obtiene direccion por secSecPersona
+	 * Obtiene direccion por secPersona
 	 * 
 	 * @param secPersona
-	 * @param DireccionSd
-	 * @return
+	 * @return DireccionSd
 	 */
 	DireccionSd obtenerDireccionByPersonaSecPersona(int secPersona);
 }
