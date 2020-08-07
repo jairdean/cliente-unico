@@ -1216,16 +1216,17 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 						log.error("ACTUALIZA DIRECCION");
 					}
 				
-				}
+				
 	
 					//ACTUALIZA TELEFONOS 1-6
-				
+					//List<TipoTelefonoSd> tipoTelefonoSd
+					
 					//ACTUALIZA DIRECCION ELECTRONICA 1-2
 				
 					//ACTUALIZA INFORMACION ADCIONAL
 				
 					//ACTUALIZA EMPLEOD EPENDIENTE
-				 
+				}
 			}
 	}
 
