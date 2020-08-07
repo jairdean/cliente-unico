@@ -1,7 +1,7 @@
 /**
 *EmpleoDependienteDaoEjb.java
 *
-*Wed Feb 17 12:55:38 ECT 2016
+*Fri Aug 07 12:55:38 ECT 2020
 */
 package com.equivida.smartdata.dao.ejb;
 
@@ -24,16 +24,18 @@ public class EmpleoDependienteSdDaoEjb extends GenericDaoEjb<EmpleoDependienteSd
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.equivida.smartdata.dao.EmpleoDependienteSdDao#obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural)
+	 * @see com.equivida.smartdata.dao.EmpleoDependienteSdDao#obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatura, Integer secPersonaJuridical)
 	 */
 	@Override
-	public EmpleoDependienteSd obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural) {
+	public EmpleoDependienteSd obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural, Integer secPersonaJuridica) {
 		StringBuffer sql = new StringBuffer(200);
-		sql.append("select d from EmpleoDependienteSd d where ");
-		sql.append("d.secPersonaNatural.secPersonaNatural = :secPersonaNatural ");
+		sql.append("SELECT d from EmpleoDependienteSd d where ");
+		sql.append("d.personaNatural.secPersonaNatural = :secPersonaNatural ");
+		sql.append("AND d.personaJuridica.secPersonaJuridica = :secPersonaJuridica ");
 
 		Query query = em.createQuery(sql.toString());
 		query.setParameter("secPersonaNatural", secPersonaNatural);
+		query.setParameter("secPersonaJuridica", secPersonaJuridica);
 
 		List<EmpleoDependienteSd> empleoDependienteList = query.getResultList();
 

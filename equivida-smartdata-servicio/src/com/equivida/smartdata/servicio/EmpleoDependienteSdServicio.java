@@ -33,8 +33,9 @@ public interface EmpleoDependienteSdServicio extends GenericService<EmpleoDepend
 	 * Obtener los datos Empleo DependienteSd.
 	 * 
 	 * @param secPersonaNatural
+	 * @param secPersonaJuridica
 	 * @return EmpleoDependienteSd
 	 */
-	EmpleoDependienteSd obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural);
+	EmpleoDependienteSd obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural, Integer secPersonaJuridica);
 	
 }

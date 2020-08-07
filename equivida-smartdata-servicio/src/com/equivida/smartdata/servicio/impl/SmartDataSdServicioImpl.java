@@ -1220,21 +1220,24 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				
 					//ACTUALIZA TELEFONOS 1-6
 					List<TelefonoSd> telefonoSd = telefonoSdServicio.obtenerTelefonoByPersonaSecPersona(existePersona.getSecPersona());
-					
+					log.error("PASA TELEFONO");
 					//ACTUALIZA DIRECCION ELECTRONICA 1-2
 					List<DireccionElectronicaSd> direccionElectronica = direccionElectronicaSdServicio.obtenerDireccionElectronicaByPersonaSecPersona(existePersona.getSecPersona());
-					
+					log.error("PASA DIRECCION ELECTRONICA");
 					//ACTUALIZA INFORMACION ADCIONAL
 					//1) Primero valido si existe la persona natural para luego actualizar la informacion adicional
 					if(existePersona.getPersonaNatural() != null && existePersona.getPersonaNatural().getSecPersonaNatural() > 0) {
 						InformacionAdicionalSd informacionAdicionalSd = informacionAdicionalSdServicio.obtenerInformacionAdicionalBySecPersonaNatural(existePersona.getPersonaNatural().getSecPersonaNatural());
 					}
-					
+					log.error("PASA INFORMACION ADICIONAL");
 					
 					//ACTUALIZA EMPLEOD EPENDIENTE
-					if(existePersona.getPersonaNatural() != null && existePersona.getPersonaNatural().getSecPersonaNatural() > 0) {
-						EmpleoDependienteSd empleoDependienteSd = empleoDependienteServicio.obtenerEmpleoDependienteBySecPersonaNatural(existePersona.getPersonaNatural().getSecPersonaNatural());
+					if(existePersona.getPersonaNatural() != null && existePersona.getPersonaNatural().getSecPersonaNatural() > 0
+							&& existePersona.getPersonaJuridica() != null && existePersona.getPersonaJuridica().getSecPersonaJuridica() > 0) {
+						EmpleoDependienteSd empleoDependienteSd = 
+						empleoDependienteServicio.obtenerEmpleoDependienteBySecPersonaNatural(existePersona.getPersonaNatural().getSecPersonaNatural(), existePersona.getPersonaJuridica().getSecPersonaJuridica());
 					}
+					log.error("PASA EMPLEO DEPENDIENTE");
 				}
 			}
 	}

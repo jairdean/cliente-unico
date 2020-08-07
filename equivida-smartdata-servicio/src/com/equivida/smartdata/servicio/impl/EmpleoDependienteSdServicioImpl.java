@@ -1,7 +1,7 @@
 /**
 *EmpleoDependienteServicioImpl.java
 *
-*Wed Feb 17 12:55:38 ECT 2016
+*Fri Aug 07 12:55:38 ECT 2020
 */
 package com.equivida.smartdata.servicio.impl;
 
@@ -69,11 +69,11 @@ public class EmpleoDependienteSdServicioImpl extends GenericServiceImpl<EmpleoDe
 	 * (non-Javadoc)
 	 * 
 	 * @see com.equivida.smartdata.servicio.EmpleoDependienteSdServicio#
-	 * obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural)
+	 * obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural, Integer secPersonaJuridica)
 	 */
 	@Override
-	public EmpleoDependienteSd obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural) {
-		return empleoDependienteDao.obtenerEmpleoDependienteBySecPersonaNatural(secPersonaNatural);
+	public EmpleoDependienteSd obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural, Integer secPersonaJuridica) {
+		return empleoDependienteDao.obtenerEmpleoDependienteBySecPersonaNatural(secPersonaNatural, secPersonaJuridica);
 	}
 
 }

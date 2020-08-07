@@ -1,7 +1,7 @@
 /**
 *EmpleoDependienteDao.java
 *
-*Wed Feb 17 12:55:38 ECT 2016
+*Fri Aug 07 12:55:38 ECT 2020
 */
 package com.equivida.smartdata.dao;
 
@@ -18,7 +18,8 @@ public interface EmpleoDependienteSdDao extends GenericDao<EmpleoDependienteSd, 
 	 * 
 	 * @param secPersona
 	 * @return secPersonaNatural
+	 * @return secPersonaJuridica
 	 */
-	EmpleoDependienteSd obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural);
+	EmpleoDependienteSd obtenerEmpleoDependienteBySecPersonaNatural(Integer secPersonaNatural, Integer secPersonaJuridica);
 
 }
