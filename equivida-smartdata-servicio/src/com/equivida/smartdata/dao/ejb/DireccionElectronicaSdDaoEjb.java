@@ -5,6 +5,8 @@
  */
 package com.equivida.smartdata.dao.ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
@@ -18,6 +20,29 @@ public class DireccionElectronicaSdDaoEjb extends GenericDaoEjb<DireccionElectro
 
 	public DireccionElectronicaSdDaoEjb() {
 		super(DireccionElectronicaSd.class);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.dao.TelefonoSdDao#
+	 * obtenerDireccionElectronicaByPersonaSecPersona(Integer secPersona)
+	 */
+	@Override
+	public List<DireccionElectronicaSd> obtenerDireccionElectronicaByPersonaSecPersona(Integer secPersona) {
+		StringBuffer sql = new StringBuffer(200);
+		sql.append("select d from DireccionElectronicaSd d where ");
+		sql.append("d.secPersona.secPersona = :secPersona ");
+
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("secPersona", secPersona);
+
+		List<DireccionElectronicaSd> direccionElectronicaSdList = query.getResultList();
+
+		if (direccionElectronicaSdList != null && !direccionElectronicaSdList.isEmpty())
+			return direccionElectronicaSdList;
+
+		return null;
 	}
 
 }

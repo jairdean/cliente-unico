@@ -67,6 +67,11 @@ public class TelefonoSdDaoEjb extends GenericDaoEjb<TelefonoSd, Integer> impleme
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.dao.TelefonoSdDao#obtenerTelefonoByPersonaSecPersona(Integer secPersona)
+	 */
 	@Override
 	public List<TelefonoSd> obtenerTelefonoByPersonaSecPersona(Integer secPersona) {
 		StringBuffer sql = new StringBuffer(200);

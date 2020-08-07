@@ -5,6 +5,8 @@
  */
 package com.equivida.smartdata.servicio;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import com.equivida.smartdata.model.DireccionElectronicaSd;
@@ -19,4 +21,12 @@ public interface DireccionElectronicaSdServicio extends GenericService<Direccion
 	 * @return
 	 */
 	void ingresarDireccionElectronica(DireccionElectronicaSd direccion);
+	
+	/**
+	 * Busca Lista DireccionElectronicaSd por secPersona
+	 * 
+	 * @param secPersona
+	 * @return List<DireccionElectronicaSd>
+	 */
+	List<DireccionElectronicaSd> obtenerDireccionElectronicaByPersonaSecPersona(Integer secPersona);
 }

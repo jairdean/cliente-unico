@@ -1222,7 +1222,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					List<TelefonoSd> telefonoSd = telefonoSdServicio.obtenerTelefonoByPersonaSecPersona(existePersona.getSecPersona());
 					
 					//ACTUALIZA DIRECCION ELECTRONICA 1-2
-				
+					List<DireccionElectronicaSd> direccionElectronica = direccionElectronicaSdServicio.obtenerDireccionElectronicaByPersonaSecPersona(existePersona.getSecPersona());
+					
 					//ACTUALIZA INFORMACION ADCIONAL
 				
 					//ACTUALIZA EMPLEOD EPENDIENTE

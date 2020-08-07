@@ -5,6 +5,8 @@
  */
 package com.equivida.smartdata.servicio.impl;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -30,7 +32,7 @@ public class DireccionElectronicaSdServicioImpl extends GenericServiceImpl<Direc
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.equivida.smartdata.servicio.PersonaJuridicaSdServicio#
+	 * @see com.equivida.smartdata.servicio.DireccionElectronicaSdServicio#
 	 * crearPersonaJuridica(com.equivida.smartdata.model.PersonaSd,
 	 * com.equivida.smartdata.model.PersonaJuridicaSd)
 	 */
@@ -38,5 +40,16 @@ public class DireccionElectronicaSdServicioImpl extends GenericServiceImpl<Direc
 	public void ingresarDireccionElectronica(DireccionElectronicaSd direccionElectronicaSd) {
 		direccionElectronicaDao.save(direccionElectronicaSd);
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.DireccionElectronicaSdServicio#
+	 * obtenerDireccionElectronicaByPersonaSecPersona(Integer secPersona) {
+	 */
+	@Override
+	public List<DireccionElectronicaSd> obtenerDireccionElectronicaByPersonaSecPersona(Integer secPersona) {
+		return direccionElectronicaDao.obtenerDireccionElectronicaByPersonaSecPersona(secPersona);
 	}
 }
