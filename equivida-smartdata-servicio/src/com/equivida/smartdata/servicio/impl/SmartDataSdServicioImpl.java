@@ -1213,7 +1213,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	
 						log.error("LLEGA DIRECCION");
 						direccionSdServicio.ingresarDireccion(direccionsd);
-						log.error("GUARDA DIRECCION");
+						log.error("ACTUALIZA DIRECCION");
 					}
 				
 				}
