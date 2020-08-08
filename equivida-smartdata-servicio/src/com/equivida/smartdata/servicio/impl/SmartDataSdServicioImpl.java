@@ -1108,10 +1108,21 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			if (!VerificarVacios(registro.getTelefonos().getTelefono1().getNroTelefono())) {
 				if (listaTelefonos.size() >= 1) {
-					Integer secTelefono = listaTelefonos.get(0).getSecTelefono();
-					TelefonoSd telefono1 = MapperTelefono(registro.getTelefonos().getTelefono1(), null, null, null,
-							null, null, canalSd, existePersona);
-					telefono1.setSecTelefono(secTelefono);
+					TelefonoSd telefono1 = telefonoSdServicio.findByPk(listaTelefonos.get(0).getSecTelefono());
+					
+					//telefono1 = MapperTelefono(registro.getTelefonos().getTelefono1(), null, null, null, null, null, canalSd, existePersona);
+					TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+					telefono1.setSecPersona(existePersona);
+					telefono1.setSecCanal(canalSd);
+					telefono1.setEstado(EstadoEnum.A.getEstadoChar());
+					telefono1.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+					telefono1.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+					telefono1.setTsCreacion(new Date());
+					telefono1.setCodArea(listaTelefonos.get(0).getCodArea());
+					telefono1.setNroTelefono(listaTelefonos.get(0).getNroTelefono());
+					tipoTelefonoSd.setCodTipoTelefono((short) 0);//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+					telefono1.setCodTipoTelefono(tipoTelefonoSd);
+					
 					log.error("ACTUALIZA TELEFONO1");
 					log.error(telefono1);
 					telefonoSdServicio.update(telefono1);
@@ -1128,11 +1139,22 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			
 			if (!VerificarVacios(registro.getTelefonos().getTelefono2().getNroTelefono())) {
 				if (listaTelefonos.size() >= 2) {
-					Integer secTelefono = listaTelefonos.get(1).getSecTelefono();
-					TelefonoSd telefono2 = MapperTelefono(null, registro.getTelefonos().getTelefono2(), null, null,
-							null, null, canalSd, existePersona);
-					telefono2.setSecTelefono(secTelefono);
-					log.error("ACTUALIZA TELEFONO1");
+				TelefonoSd telefono2 = telefonoSdServicio.findByPk(listaTelefonos.get(1).getSecTelefono());
+					
+					//telefono1 = MapperTelefono(null, registro.getTelefonos().getTelefono2(), null, null, null, null, canalSd, existePersona);
+					TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+					telefono2.setSecPersona(existePersona);
+					telefono2.setSecCanal(canalSd);
+					telefono2.setEstado(EstadoEnum.A.getEstadoChar());
+					telefono2.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+					telefono2.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+					telefono2.setTsCreacion(new Date());
+					telefono2.setCodArea(listaTelefonos.get(1).getCodArea());
+					telefono2.setNroTelefono(listaTelefonos.get(1).getNroTelefono());
+					tipoTelefonoSd.setCodTipoTelefono((short) 0);//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+					telefono2.setCodTipoTelefono(tipoTelefonoSd);
+					
+					log.error("ACTUALIZA TELEFONO12");
 					log.error(telefono2);
 					telefonoSdServicio.update(telefono2);
 				} else {
@@ -1144,7 +1166,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefonoSdServicio.ingresarTelefono(telefono2);
 				}
 			}
-
+/*
 			if (!VerificarVacios(registro.getTelefonos().getTelefono3().getNroTelefono())) {
 				if (listaTelefonos.size() >= 3) {
 					Integer secTelefono = listaTelefonos.get(2).getSecTelefono();
@@ -1220,7 +1242,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefonoSdServicio.ingresarTelefono(telefono6);
 				}
 			}
-
+*/
 			/*
 			 * String telefono2 = registro.getTelefonos().getTelefono2().getNroTelefono();
 			 * if (listaTelefonos.stream().filter(x ->
@@ -1344,6 +1366,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		telefono.setEstado(EstadoEnum.A.getEstadoChar());
 		telefono.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 		telefono.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+		telefono.setTsCreacion(new Date());
 
 		if (telefono1 != null) {
 			telefono.setCodArea(telefono1.getCodArea());
