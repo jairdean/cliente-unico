@@ -375,9 +375,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("LLEGA 1");
 			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity(identificacion);
 
-			log.error("LLEGA 2");
-			log.error(registros);
-
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
 			boolean actualizaIngresa = false;
 			actualizaIngresa = GuardarInformacionPersona(registros.getTitular());
