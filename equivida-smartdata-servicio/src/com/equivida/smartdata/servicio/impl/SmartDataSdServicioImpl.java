@@ -385,18 +385,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity(identificacion);
 
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
-			boolean actualizaIngresa = false;
-			actualizaIngresa = GuardarInformacionPersona(registros.getTitular());
+			PersonaSd retornar = GuardarInformacionPersona(registros.getTitular());
 
-			if (registros.getConyuge() != null && actualizaIngresa == true)
+			if (registros.getConyuge() != null && retornar != null)
 				GuardarInformacionConyugue(registros.getConyuge());
 
 			log.error("LLEGA 2");
-
-			PersonaSd personaSd = new PersonaSd();
-			personaSd.setIdentificacion(identificacion);
-			personaSd.setDenominacion("Ejemplo");
-
+			
 			/*
 			 * Registros abc = new Registros();
 			 * 
@@ -430,7 +425,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			 * de respuesta activarPresentacionParaWs(personaSd);
 			 */
 
-			return personaSd;
+			return retornar;
 		} catch (DatabookException e) {
 			log.error(e.getMessage(), e.getCause());
 			throw new SmartdataException(e.getMessage(), e.getCause());
@@ -769,7 +764,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 	}
 
-	public boolean GuardarInformacionPersona(RegistrosEntity.Titular registro) {
+	public PersonaSd GuardarInformacionPersona(RegistrosEntity.Titular registro) {
+		PersonaSd objRetorno = new PersonaSd();
+		
 		// 1. Se consulta persona por identificacion
 		PersonaSd existePersona = personaServicio
 				.obtenerPersonaByIdentificacion(registro.getPersona().getIdentificacion());
@@ -789,6 +786,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error(persona);
 			log.error("GUARDO PERSONA");
 
+			//>>
+			objRetorno = persona;
+			
 			// CREA PERSONA NATURAL
 
 			// BUSCO LA PROFRESION
@@ -803,6 +803,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			log.error("PASA PERSONA NATURAL");
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
+			//>>
+			objRetorno.setPersonaNatural(personaNatural);
 			log.error("GUARDA PERSONA NATURAL");
 
 			// CREA DIRECCION
@@ -812,11 +814,17 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				DireccionSd direccionsd = MapeoDireccionSd(registro.getDireccion(), canalSd, persona);
 				log.error("LLEGA DIRECCION");
 				direccionSdServicio.ingresarDireccion(direccionsd);
+				//>>
+				List<DireccionSd> direccionList = new ArrayList<DireccionSd>();
+				direccionList.add(direccionsd);
+				objRetorno.setDireccionList(direccionList);
 				log.error("GUARDA DIRECCION");
 			}
 
 			// CREA TELEFONOS
 			log.error("LLEGA TELEFONOS");
+			List<TelefonoSd> listaTelefonos = new ArrayList<TelefonoSd>();
+			
 			if (!VerificarVacios(registro.getTelefonos().getTelefono1().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono1().getNroTelefono())) {
 
@@ -824,6 +832,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 						null, canalSd, persona);
 				log.error("LLEGA TELEFONO 1");
 				telefonoSdServicio.ingresarTelefono(telefono);
+				//>>
+				listaTelefonos.add(telefono);
 				log.error("GUARDA TELEFONO 1");
 			}
 
@@ -835,6 +845,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 				log.error("LLEGA TELEFONO 2");
 				telefonoSdServicio.ingresarTelefono(telefono2);
+				//>>
+				listaTelefonos.add(telefono2);
 				log.error("GUARDA TELEFONO 2");
 			}
 
@@ -846,6 +858,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 				log.error("LLEGA TELEFONO 3");
 				telefonoSdServicio.ingresarTelefono(telefono3);
+				//>>
+				listaTelefonos.add(telefono3);
 				log.error("GUARDA TELEFONO 3");
 			}
 
@@ -857,6 +871,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 				log.error("LLEGA TELEFONO 4");
 				telefonoSdServicio.ingresarTelefono(telefono4);
+				//>>
+				listaTelefonos.add(telefono4);
 				log.error("GUARDA TELEFONO 4");
 			}
 
@@ -868,6 +884,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 				log.error("LLEGA TELEFONO 5");
 				telefonoSdServicio.ingresarTelefono(telefono5);
+				//>>
+				listaTelefonos.add(telefono5);
 				log.error("GUARDA TELEFONO 5");
 			}
 
@@ -879,9 +897,14 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 				log.error("LLEGA TELEFONO 6");
 				telefonoSdServicio.ingresarTelefono(telefono6);
+				//>>
+				listaTelefonos.add(telefono6);
 				log.error("GUARDA TELEFONO 6");
 			}
 
+			//>>
+			objRetorno.setTelefonoList(listaTelefonos);
+			
 			// CREA DIRECCION ELECTRONICA 1
 			log.error("DIRECCION ELECTRONICA");
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
@@ -905,7 +928,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica2);
 				log.error("GUARDA DIRECCION ELECTRONICA 2");
 			}
-
+			
 			// CREA INFORMACION ADCIONAL
 			log.error("LLEGA INFO ADICIONAL");
 			if (personaNatural.getSecPersonaNatural() > 0 // para saber que se INSERTO una PN
@@ -950,6 +973,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				
 				log.error("LLEGA PERSONA JURIDICA");
 				personaJuridicaServicio.crearSoloPersonaJuridica(personaJuridicaSd);
+				//>>
+				objRetorno.setPersonaJuridica(personaJuridicaSd);
 				log.error("GUARDA PERSONA JURIDICA");
 			}
 
@@ -981,6 +1006,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// ZONA DE ACTUALIZACION
 			// NO ACTUALIZAR PERSONA, PERSONA NATURAL, PERSONA JURIDICA
 			// existePersona ==> PersonaSd
+			//>>
+			objRetorno = existePersona;
 
 			log.error("ACTUALIZACION------------------------------------");
 			// ACTUALIZACION DIRECCION
@@ -1006,9 +1033,17 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("INGRESA DIRECCION");
 					direccionSdServicio.ingresarDireccion(direccionsd);
 				}
+				
+				//>>
+				List<DireccionSd> listaDirec = new ArrayList<DireccionSd>();
+				listaDirec.add(direccionsd);
+				objRetorno.setDireccionList(listaDirec);
 			}
 
 			// ACTUALIZACION TELEFONOS
+			//>>
+			List<TelefonoSd> retornarListaTelefono = new ArrayList<TelefonoSd>();
+			
 			List<TelefonoSd> listaTelefonos = telefonoSdServicio
 					.obtenerTelefonoByPersonaSecPersona(existePersona.getSecPersona());
 
@@ -1036,6 +1071,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("ACTUALIZA TELEFONO1");
 					log.error(telefono1);
 					telefonoSdServicio.update(telefono1);
+					//>>
+					retornarListaTelefono.add(telefono1);
 				} else {
 					TelefonoSd telefono1 = MapperTelefono(registro.getTelefonos().getTelefono1(), null, null, null,
 							null, null, canalSd, existePersona);
@@ -1043,6 +1080,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("INGRESA TELEFONO1");
 					log.error(telefono1);
 					telefonoSdServicio.ingresarTelefono(telefono1);
+					//>>
+					retornarListaTelefono.add(telefono1);
 				}
 			}
 
@@ -1070,6 +1109,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("ACTUALIZA TELEFONO2");
 					log.error(telefono2);
 					telefonoSdServicio.update(telefono2);
+					//>>
+					retornarListaTelefono.add(telefono2);
 				} else {
 					TelefonoSd telefono2 = MapperTelefono(null, registro.getTelefonos().getTelefono2(), null, null,
 							null, null, canalSd, existePersona);
@@ -1077,6 +1118,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("INGRESA TELEFONO2");
 					log.error(telefono2);
 					telefonoSdServicio.ingresarTelefono(telefono2);
+					//>>
+					retornarListaTelefono.add(telefono2);
 				}
 			}
 
@@ -1102,6 +1145,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("ACTUALIZA TELEFONO3");
 					log.error(telefono3);
 					telefonoSdServicio.update(telefono3);
+					//>>
+					retornarListaTelefono.add(telefono3);
 				} else {
 					TelefonoSd telefono3 = MapperTelefono(null, null, registro.getTelefonos().getTelefono3(), null,
 							null, null, canalSd, existePersona);
@@ -1109,6 +1154,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("INGRESA TELEFONO3");
 					log.error(telefono3);
 					telefonoSdServicio.ingresarTelefono(telefono3);
+					//>>
+					retornarListaTelefono.add(telefono3);
 				}
 			}
 
@@ -1134,6 +1181,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("ACTUALIZA TELEFONO4");
 					log.error(telefono4);
 					telefonoSdServicio.update(telefono4);
+					//>>
+					retornarListaTelefono.add(telefono4);
 				} else {
 					TelefonoSd telefono4 = MapperTelefono(null, null, null, registro.getTelefonos().getTelefono4(),
 							null, null, canalSd, existePersona);
@@ -1141,6 +1190,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("INGRESA TELEFONO4");
 					log.error(telefono4);
 					telefonoSdServicio.ingresarTelefono(telefono4);
+					//>>
+					retornarListaTelefono.add(telefono4);
 				}
 			}
 
@@ -1166,6 +1217,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("ACTUALIZA TELEFONO5");
 					log.error(telefono5);
 					telefonoSdServicio.update(telefono5);
+					//>>
+					retornarListaTelefono.add(telefono5);
 				} else {
 					TelefonoSd telefono5 = MapperTelefono(null, null, null, null,
 							registro.getTelefonos().getTelefono5(), null, canalSd, existePersona);
@@ -1173,6 +1226,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("INGRESA TELEFONO5");
 					log.error(telefono5);
 					telefonoSdServicio.ingresarTelefono(telefono5);
+					//>>
+					retornarListaTelefono.add(telefono5);
 				}
 			}
 
@@ -1197,6 +1252,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("ACTUALIZA TELEFONO6");
 					log.error(telefono6);
 					telefonoSdServicio.update(telefono6);
+					//>>
+					retornarListaTelefono.add(telefono6);
 				} else {
 					TelefonoSd telefono6 = MapperTelefono(null, null, null, null, null,
 							registro.getTelefonos().getTelefono6(), canalSd, existePersona);
@@ -1204,8 +1261,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("INGRESA TELEFONO6");
 					log.error(telefono6);
 					telefonoSdServicio.ingresarTelefono(telefono6);
+					//>>
+					retornarListaTelefono.add(telefono6);
 				}
 			}
+			
+			//>>
+			objRetorno.setTelefonoList(retornarListaTelefono);
 			log.error("PASA TELEFONO");
 
 			// ACTUALIZA DIRECCION ELECTRONICA 1-2
@@ -1369,8 +1431,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			log.error("FIN PROCESO ACTUALIZACION TITULAR");
 		}
-		return true;
-
+		return objRetorno;	
 	}
 
 	public boolean VerificarVacios(String valor) {
