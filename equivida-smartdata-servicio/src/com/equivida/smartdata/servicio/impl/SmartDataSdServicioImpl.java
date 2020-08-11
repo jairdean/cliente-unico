@@ -1453,22 +1453,22 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("ACTUALIZA EMPLEO DEPENDIENTE");
 				}
 				else {
-					empleoDependienteSd = new EmpleoDependienteSd();
-					empleoDependienteSd.setPersonaNatural(existePersona.getPersonaNatural());
-					empleoDependienteSd.setPersonaJuridica(existePersona.getPersonaJuridica());
-					empleoDependienteSd.setCargo(registro.getEmpleoDependiente().getCargo());
-					empleoDependienteSd.setMntSalario(!VerificarVacios(registro.getEmpleoDependiente().getMntSalario())
+					EmpleoDependienteSd emplDep = new EmpleoDependienteSd();
+					emplDep.setPersonaNatural(existePersona.getPersonaNatural());
+					emplDep.setPersonaJuridica(existePersona.getPersonaJuridica());
+					emplDep.setCargo(registro.getEmpleoDependiente().getCargo());
+					emplDep.setMntSalario(!VerificarVacios(registro.getEmpleoDependiente().getMntSalario())
 							? new BigDecimal(registro.getEmpleoDependiente().getMntSalario())
 							: new BigDecimal(0));
-					empleoDependienteSd.setFchIngreso(ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso()));
-					empleoDependienteSd.setFchSalida(new Date());//
-					empleoDependienteSd.setSecCanal(canalSd);
-					empleoDependienteSd.setEstado(EstadoEnum.A.getEstadoChar());//
-					empleoDependienteSd.setTsCreacion(new Date());
-					empleoDependienteSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-					empleoDependienteSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+					emplDep.setFchIngreso(ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso()));
+					emplDep.setFchSalida(new Date());//
+					emplDep.setSecCanal(canalSd);
+					emplDep.setEstado(EstadoEnum.A.getEstadoChar());//
+					emplDep.setTsCreacion(new Date());
+					emplDep.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+					emplDep.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 					
-					empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
+					empleoDependienteServicio.crearEmpleoDependiente(emplDep);
 					log.error("GUARDA EMPLEO DEPENDIENTE");
 				}
 				log.error("PASA EMPLEO DEPENDIENTE");
