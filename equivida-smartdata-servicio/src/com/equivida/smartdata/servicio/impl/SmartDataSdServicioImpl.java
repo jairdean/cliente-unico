@@ -1107,7 +1107,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					.obtenerTelefonoByPersonaSecPersona(existePersona.getSecPersona());
 
 			if (!VerificarVacios(registro.getTelefonos().getTelefono1().getNroTelefono())) {
-				if (listaTelefonos.size() >= 1) {
+				if (listaTelefonos != null && listaTelefonos.size() >= 1) {
 					TelefonoSd telefono1 = telefonoSdServicio.findByPk(listaTelefonos.get(0).getSecTelefono());
 					
 					//telefono1 = MapperTelefono(registro.getTelefonos().getTelefono1(), null, null, null, null, null, canalSd, existePersona);
@@ -1141,7 +1141,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			
 			if (!VerificarVacios(registro.getTelefonos().getTelefono2().getNroTelefono())) {
-				if (listaTelefonos.size() >= 2) {
+				if (listaTelefonos != null && listaTelefonos.size() >= 2) {
 				TelefonoSd telefono2 = telefonoSdServicio.findByPk(listaTelefonos.get(1).getSecTelefono());
 					
 					//telefono1 = MapperTelefono(null, registro.getTelefonos().getTelefono2(), null, null, null, null, canalSd, existePersona);
@@ -1160,7 +1160,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 											: (short) (0));
 					telefono2.setCodTipoTelefono(tipoTelefonoSd);
 					
-					log.error("ACTUALIZA TELEFONO12");
+					log.error("ACTUALIZA TELEFONO2");
 					log.error(telefono2);
 					telefonoSdServicio.update(telefono2);
 				} else {
@@ -1172,16 +1172,29 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefonoSdServicio.ingresarTelefono(telefono2);
 				}
 			}
-/*
+
 			if (!VerificarVacios(registro.getTelefonos().getTelefono3().getNroTelefono())) {
-				if (listaTelefonos.size() >= 3) {
-					Integer secTelefono = listaTelefonos.get(2).getSecTelefono();
-					TelefonoSd telefono3 = MapperTelefono(null, null, registro.getTelefonos().getTelefono3(), null,
-							null, null, canalSd, existePersona);
-					telefono3.setSecTelefono(secTelefono);
-					log.error("ACTUALIZA TELEFONO3");
-					log.error(telefono3);
-					telefonoSdServicio.update(telefono3);
+				if (listaTelefonos != null && listaTelefonos.size() >= 3) {
+					TelefonoSd telefono3 = telefonoSdServicio.findByPk(listaTelefonos.get(2).getSecTelefono());
+						
+						TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+						telefono3.setSecPersona(existePersona);
+						telefono3.setSecCanal(canalSd);
+						telefono3.setEstado(EstadoEnum.A.getEstadoChar());
+						telefono3.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+						telefono3.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+						telefono3.setTsCreacion(new Date());
+						telefono3.setCodArea(listaTelefonos.get(2).getCodArea());
+						telefono3.setNroTelefono(listaTelefonos.get(2).getNroTelefono());
+						tipoTelefonoSd.setCodTipoTelefono(
+								!VerificarVacios(registro.getTelefonos().getTelefono3().getCodTipoTelefono())
+								? Short.parseShort(registro.getTelefonos().getTelefono3().getCodTipoTelefono())
+												: (short) (0));
+						telefono3.setCodTipoTelefono(tipoTelefonoSd);
+						
+						log.error("ACTUALIZA TELEFONO3");
+						log.error(telefono3);
+						telefonoSdServicio.update(telefono3);
 				} else {
 					TelefonoSd telefono3 = MapperTelefono(null, null, registro.getTelefonos().getTelefono3(), null,
 							null, null, canalSd, existePersona);
@@ -1193,14 +1206,27 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			if (!VerificarVacios(registro.getTelefonos().getTelefono4().getNroTelefono())) {
-				if (listaTelefonos.size() >= 4) {
-					Integer secTelefono = listaTelefonos.get(3).getSecTelefono();
-					TelefonoSd telefono4 = MapperTelefono(null, null, null, registro.getTelefonos().getTelefono4(),
-							null, null, canalSd, existePersona);
-					telefono4.setSecTelefono(secTelefono);
-					log.error("ACTUALIZA TELEFONO4");
-					log.error(telefono4);
-					telefonoSdServicio.update(telefono4);
+				if (listaTelefonos != null && listaTelefonos.size() >= 4) {
+					TelefonoSd telefono4 = telefonoSdServicio.findByPk(listaTelefonos.get(3).getSecTelefono());
+						
+						TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+						telefono4.setSecPersona(existePersona);
+						telefono4.setSecCanal(canalSd);
+						telefono4.setEstado(EstadoEnum.A.getEstadoChar());
+						telefono4.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+						telefono4.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+						telefono4.setTsCreacion(new Date());
+						telefono4.setCodArea(listaTelefonos.get(3).getCodArea());
+						telefono4.setNroTelefono(listaTelefonos.get(3).getNroTelefono());
+						tipoTelefonoSd.setCodTipoTelefono(
+								!VerificarVacios(registro.getTelefonos().getTelefono4().getCodTipoTelefono())
+								? Short.parseShort(registro.getTelefonos().getTelefono4().getCodTipoTelefono())
+												: (short) (0));
+						telefono4.setCodTipoTelefono(tipoTelefonoSd);
+						
+						log.error("ACTUALIZA TELEFONO4");
+						log.error(telefono4);
+						telefonoSdServicio.update(telefono4);
 				} else {
 					TelefonoSd telefono4 = MapperTelefono(null, null, null, registro.getTelefonos().getTelefono4(),
 							null, null, canalSd, existePersona);
@@ -1212,11 +1238,24 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			if (!VerificarVacios(registro.getTelefonos().getTelefono5().getNroTelefono())) {
-				if (listaTelefonos.size() >= 5) {
-					Integer secTelefono = listaTelefonos.get(4).getSecTelefono();
-					TelefonoSd telefono5 = MapperTelefono(null, null, null, null,
-							registro.getTelefonos().getTelefono5(), null, canalSd, existePersona);
-					telefono5.setSecTelefono(secTelefono);
+				if (listaTelefonos != null && listaTelefonos.size() >= 5) {
+					TelefonoSd telefono5 = telefonoSdServicio.findByPk(listaTelefonos.get(4).getSecTelefono());
+						
+						TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+						telefono5.setSecPersona(existePersona);
+						telefono5.setSecCanal(canalSd);
+						telefono5.setEstado(EstadoEnum.A.getEstadoChar());
+						telefono5.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+						telefono5.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+						telefono5.setTsCreacion(new Date());
+						telefono5.setCodArea(listaTelefonos.get(4).getCodArea());
+						telefono5.setNroTelefono(listaTelefonos.get(4).getNroTelefono());
+						tipoTelefonoSd.setCodTipoTelefono(
+								!VerificarVacios(registro.getTelefonos().getTelefono5().getCodTipoTelefono())
+								? Short.parseShort(registro.getTelefonos().getTelefono5().getCodTipoTelefono())
+												: (short) (0));
+						telefono5.setCodTipoTelefono(tipoTelefonoSd);
+
 					log.error("ACTUALIZA TELEFONO5");
 					log.error(telefono5);
 					telefonoSdServicio.update(telefono5);
@@ -1231,11 +1270,23 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 			
 			if (!VerificarVacios(registro.getTelefonos().getTelefono6().getNroTelefono())) {
-				if (listaTelefonos.size() >= 6) {
-					Integer secTelefono = listaTelefonos.get(5).getSecTelefono();
-					TelefonoSd telefono6 = MapperTelefono(null, null, null, null, null,
-							registro.getTelefonos().getTelefono6(), canalSd, existePersona);
-					telefono6.setSecTelefono(secTelefono);
+				if (listaTelefonos != null && listaTelefonos.size() >= 6) {
+					TelefonoSd telefono6 = telefonoSdServicio.findByPk(listaTelefonos.get(5).getSecTelefono());
+						
+						TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+						telefono6.setSecPersona(existePersona);
+						telefono6.setSecCanal(canalSd);
+						telefono6.setEstado(EstadoEnum.A.getEstadoChar());
+						telefono6.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+						telefono6.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+						telefono6.setTsCreacion(new Date());
+						telefono6.setCodArea(listaTelefonos.get(5).getCodArea());
+						telefono6.setNroTelefono(listaTelefonos.get(5).getNroTelefono());
+						tipoTelefonoSd.setCodTipoTelefono(
+								!VerificarVacios(registro.getTelefonos().getTelefono6().getCodTipoTelefono())
+								? Short.parseShort(registro.getTelefonos().getTelefono6().getCodTipoTelefono())
+												: (short) (0));
+						telefono6.setCodTipoTelefono(tipoTelefonoSd);
 					log.error("ACTUALIZA TELEFONO6");
 					log.error(telefono6);
 					telefonoSdServicio.update(telefono6);
@@ -1248,7 +1299,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefonoSdServicio.ingresarTelefono(telefono6);
 				}
 			}
-*/
+
 			/*
 			 * String telefono2 = registro.getTelefonos().getTelefono2().getNroTelefono();
 			 * if (listaTelefonos.stream().filter(x ->
