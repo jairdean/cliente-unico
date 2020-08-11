@@ -1110,6 +1110,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
 				log.error("GUARDA EMPLEO DEPENDIENTE");
 			}
+			
+			log.error("FIN PROCESO CREAR TITULAR");
+			
 		} else {
 			// ZONA DE ACTUALIZACION
 			// NO ACTUALIZAR PERSONA, PERSONA NATURAL, PERSONA JURIDICA
@@ -1500,6 +1503,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("PASA EMPLEO DEPENDIENTE");
 			} // FIN IF DE EMPLEO DEPENDINETE
 
+			log.error("FIN PROCESO ACTUALIZACION TITULAR");
 		}
 	}
 
