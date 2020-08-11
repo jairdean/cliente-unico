@@ -377,7 +377,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error(registros);
 
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
-			GuardarInformacionPersona(registros.getTitular());
+			boolean actualizaIngresa = false; 
+			actualizaIngresa = GuardarInformacionPersona(registros.getTitular());
+			
+			if(registros.getConyuge()!= null && actualizaIngresa == true)
+				GuardarInformacionConyugue(registros.getConyuge());
+			
 			log.error("LLEGA 2");
 
 			PersonaSd personaSd = new PersonaSd();
@@ -786,7 +791,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		personaServicio.actualizaDatosPersonales(datosActualiza);
 	}
 
-	public void GuardarInformacionPersona(RegistrosEntity.Titular registro) {
+	public void GuardarInformacionConyugue(RegistrosEntity.Conyuge registro){
+		
+		
+	}
+	
+	public boolean GuardarInformacionPersona(RegistrosEntity.Titular registro) {
 		// 1. Se consulta persona por identificacion
 		PersonaSd existePersona = personaServicio
 				.obtenerPersonaByIdentificacion(registro.getPersona().getIdentificacion());
@@ -1112,7 +1122,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 			
 			log.error("FIN PROCESO CREAR TITULAR");
-			
 		} else {
 			// ZONA DE ACTUALIZACION
 			// NO ACTUALIZAR PERSONA, PERSONA NATURAL, PERSONA JURIDICA
@@ -1505,6 +1514,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			log.error("FIN PROCESO ACTUALIZACION TITULAR");
 		}
+		return true;
 	}
 
 	public boolean VerificarVacios(String valor) {
