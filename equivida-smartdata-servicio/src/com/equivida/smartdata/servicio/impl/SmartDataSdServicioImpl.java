@@ -25,6 +25,7 @@ import com.equivida.databook.model.Registros;
 import com.equivida.databook.model.RegistrosEntity;
 import com.equivida.databook.model.RegistrosEntity.Direccion;
 import com.equivida.databook.model.RegistrosEntity.DireccionElectronico;
+import com.equivida.databook.model.RegistrosEntity.EmpleoDependiente;
 import com.equivida.databook.model.RegistrosEntity.Telefono1;
 import com.equivida.databook.model.RegistrosEntity.Telefono2;
 import com.equivida.databook.model.RegistrosEntity.Telefono3;
@@ -701,6 +702,24 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 								? correoElectronico
 								: null);
 	return dirElectronica;
+	}
+	
+	public EmpleoDependienteSd MapeoEmpleoDependiente(EmpleoDependiente empleoDependiente, PersonaNaturalSd personaNatural, PersonaJuridicaSd PersonaJuridica, CanalSd canalSd) {
+		EmpleoDependienteSd empDep = new EmpleoDependienteSd();
+		empDep.setPersonaNatural(personaNatural);
+		empDep.setPersonaJuridica(PersonaJuridica);
+		empDep.setCargo(empleoDependiente.getCargo());
+		empDep.setMntSalario(!VerificarVacios(empleoDependiente.getMntSalario())
+				? new BigDecimal(empleoDependiente.getMntSalario())
+				: new BigDecimal(0));
+		empDep.setFchIngreso(ConvertirFecha(empleoDependiente.getFechaIngreso()));
+		empDep.setFchSalida(new Date());//
+		empDep.setSecCanal(canalSd);
+		empDep.setEstado(EstadoEnum.A.getEstadoChar());//
+		empDep.setTsCreacion(new Date());
+		empDep.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+		empDep.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+		return empDep;
 	}
 	/*
 	 * (non-Javadoc)
@@ -1409,10 +1428,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					direccionElectronicaSdServicio.ingresarDireccionElectronica(d2);
 					log.error("GUARDA DIRECCION ELECTRONICA 2");
 				}
-			}
-
-			
+			}		
 			log.error("PASA DIRECCION ELECTRONICA");
+			
 			// ACTUALIZA INFORMACION ADCIONAL
 			// 1) Primero valido si existe la persona natural para luego actualizar la
 			// informacion adicional
@@ -1453,20 +1471,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("ACTUALIZA EMPLEO DEPENDIENTE");
 				}
 				else {
-					EmpleoDependienteSd emplDep = new EmpleoDependienteSd();
-					emplDep.setPersonaNatural(existePersona.getPersonaNatural());
-					emplDep.setPersonaJuridica(existePersona.getPersonaJuridica());
-					emplDep.setCargo(registro.getEmpleoDependiente().getCargo());
-					emplDep.setMntSalario(!VerificarVacios(registro.getEmpleoDependiente().getMntSalario())
-							? new BigDecimal(registro.getEmpleoDependiente().getMntSalario())
-							: new BigDecimal(0));
-					emplDep.setFchIngreso(ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso()));
-					emplDep.setFchSalida(new Date());//
-					emplDep.setSecCanal(canalSd);
-					emplDep.setEstado(EstadoEnum.A.getEstadoChar());//
-					emplDep.setTsCreacion(new Date());
-					emplDep.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-					emplDep.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+					EmpleoDependienteSd emplDep = MapeoEmpleoDependiente(registro.getEmpleoDependiente(), existePersona.getPersonaNatural(), existePersona.getPersonaJuridica(), canalSd);
 					
 					empleoDependienteServicio.crearEmpleoDependiente(emplDep);
 					log.error("GUARDA EMPLEO DEPENDIENTE");
