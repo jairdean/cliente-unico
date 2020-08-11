@@ -1339,33 +1339,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefonoSdServicio.ingresarTelefono(telefono6);
 				}
 			}
-
-			/*
-			 * String telefono2 = registro.getTelefonos().getTelefono2().getNroTelefono();
-			 * if (listaTelefonos.stream().filter(x ->
-			 * x.getNroTelefono().equals(telefono2)).findFirst().isPresent())
-			 * listaIngresar.add(telefono2); else listaActualizar.add(telefono2);
-			 * 
-			 * String telefono3 = registro.getTelefonos().getTelefono3().getNroTelefono();
-			 * if (listaTelefonos.stream().filter(x ->
-			 * x.getNroTelefono().equals(telefono3)).findFirst().isPresent())
-			 * listaIngresar.add(telefono3); else listaActualizar.add(telefono3);
-			 * 
-			 * String telefono4 = registro.getTelefonos().getTelefono4().getNroTelefono();
-			 * if (listaTelefonos.stream().filter(x ->
-			 * x.getNroTelefono().equals(telefono4)).findFirst().isPresent())
-			 * listaIngresar.add(telefono4); else listaActualizar.add(telefono4);
-			 * 
-			 * String telefono5 = registro.getTelefonos().getTelefono5().getNroTelefono();
-			 * if (listaTelefonos.stream().filter(x ->
-			 * x.getNroTelefono().equals(telefono5)).findFirst().isPresent())
-			 * listaIngresar.add(telefono5); else listaActualizar.add(telefono5);
-			 * 
-			 * String telefono6 = registro.getTelefonos().getTelefono6().getNroTelefono();
-			 * if (listaTelefonos.stream().filter(x ->
-			 * x.getNroTelefono().equals(telefono6)).findFirst().isPresent())
-			 * listaIngresar.add(telefono6); else listaActualizar.add(telefono6);
-			 */
 			log.error("PASA TELEFONO");
 
 			// ACTUALIZA DIRECCION ELECTRONICA 1-2
