@@ -160,12 +160,14 @@ public class DatabookServiceImpl implements DatabookService {
 
 			JAXBContext jc = JAXBContext.newInstance(RegistrosEntity.class);
 			InputStream xml = connection.getInputStream();
-			registrosEntity = (RegistrosEntity) jc.createUnmarshaller().unmarshal(xml);
-			/*
-			 * if (connection.getResponseCode() != 200) { throw new
-			 * RuntimeException("Failed : HTTP Error code : " +
-			 * connection.getResponseCode()); }
-			 */
+			
+			
+			 if (connection.getResponseCode() != 200) { throw new
+			 RuntimeException("Failed : HTTP Error code : " +
+			 connection.getResponseCode()); }
+			
+			 registrosEntity = (RegistrosEntity) jc.createUnmarshaller().unmarshal(xml);
+			 
 			/*
 			 * InputStreamReader in = new InputStreamReader(connection.getInputStream());
 			 * BufferedReader br = new BufferedReader(in); String output; while ((output =
@@ -173,6 +175,11 @@ public class DatabookServiceImpl implements DatabookService {
 			 */
 
 			// Registros registros = (Registros) jc.createUnmarshaller().unmarshal(xml);
+			 
+				if(!VerificarStringVacio(registrosEntity.getConyuge().getError())) {
+					registrosEntity.setConyuge(null);
+				}
+				
 			connection.disconnect();
 
 		} catch (MalformedURLException e) {
@@ -207,6 +214,12 @@ public class DatabookServiceImpl implements DatabookService {
 		}
 	}
 
+	public boolean VerificarStringVacio(String texto) {
+		if (texto.trim().isEmpty() || texto == null)
+			return true;
+		return false;
+	}
+	
 	public String getUri() {
 		return uri;
 	}

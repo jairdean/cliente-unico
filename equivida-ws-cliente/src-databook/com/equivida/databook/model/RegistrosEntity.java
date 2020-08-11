@@ -13,7 +13,7 @@ public class RegistrosEntity {
 
 	@XmlElement(required = true)
 	protected RegistrosEntity.Titular titular;
-
+	@XmlElement(required = true)
 	protected RegistrosEntity.Conyuge conyuge;
 
 	/**
@@ -221,24 +221,46 @@ public class RegistrosEntity {
 	// SECCION CONYUGE
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = "", propOrder = { "direccion", "telefonos", "persona", "direccionElectronico", "empleoDependiente",
-			"personaNatural", "informacionAdicional" })
+			"personaNatural", "informacionAdicional", "error" })
 	public static class Conyuge {
 
-		@XmlElement
+		@XmlElement(required = false)
+		protected String error;
+		@XmlElement(required = false)
 		protected Persona persona;
-		@XmlElement
+		@XmlElement(required = false)
 		protected Direccion direccion;
-		@XmlElement
+		@XmlElement(required = false)
 		protected Telefonos telefonos;
-		@XmlElement
+		@XmlElement(required = false)
 		protected DireccionElectronico direccionElectronico;
-		@XmlElement
+		@XmlElement(required = false)
 		protected EmpleoDependiente empleoDependiente;
-		@XmlElement
+		@XmlElement(required = false)
 		protected PersonaNatural personaNatural;
-		@XmlElement
+		@XmlElement(required = false)
 		protected InformacionAdicional informacionAdicional;
 
+		/**
+		 * Gets the value of the error property.
+		 * 
+		 * @return possible object is {@link String }
+		 * 
+		 */
+		public String getError() {
+			return error;
+		}
+
+		/**
+		 * Sets the value of the error property.
+		 * 
+		 * @param value allowed object is {@link String }
+		 * 
+		 */
+		public void setError(String value) {
+			this.error = value;
+		}
+		
 		/**
 		 * Gets the value of the Persona property.
 		 * 
