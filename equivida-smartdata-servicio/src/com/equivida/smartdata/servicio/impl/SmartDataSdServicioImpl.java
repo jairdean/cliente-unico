@@ -1434,10 +1434,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 								existePersona.getPersonaNatural().getSecPersonaNatural(),
 								existePersona.getPersonaJuridica().getSecPersonaJuridica());
 				
-				/*if(empleoDependienteSd != null) {
-				log.error("ACTUALIZA");
-				empleoDependienteSd.setPersonaNatural(personaNatural);
-				empleoDependienteSd.setPersonaJuridica(personaJuridicaSd);
+				if(empleoDependienteSd != null) {
+				empleoDependienteSd.setPersonaNatural(existePersona.getPersonaNatural());
+				empleoDependienteSd.setPersonaJuridica(existePersona.getPersonaJuridica());
 				empleoDependienteSd.setCargo(registro.getEmpleoDependiente().getCargo());
 				empleoDependienteSd.setMntSalario(!VerificarVacios(registro.getEmpleoDependiente().getMntSalario())
 						? new BigDecimal(registro.getEmpleoDependiente().getMntSalario())
@@ -1449,28 +1448,34 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				empleoDependienteSd.setTsCreacion(new Date());
 				empleoDependienteSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 				empleoDependienteSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-			}
-			else {
-				empleoDependienteSd = new EmpleoDependienteSd();
-				empleoDependienteSd.setPersonaNatural(personaNatural);
-				empleoDependienteSd.setPersonaJuridica(personaJuridicaSd);
-				empleoDependienteSd.setCargo(registro.getEmpleoDependiente().getCargo());
-				empleoDependienteSd.setMntSalario(!VerificarVacios(registro.getEmpleoDependiente().getMntSalario())
-						? new BigDecimal(registro.getEmpleoDependiente().getMntSalario())
-						: new BigDecimal(0));
-				empleoDependienteSd.setFchIngreso(ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso()));
-				empleoDependienteSd.setFchSalida(new Date());//
-				empleoDependienteSd.setSecCanal(canalSd);
-				empleoDependienteSd.setEstado(EstadoEnum.A.getEstadoChar());//
-				empleoDependienteSd.setTsCreacion(new Date());
-				empleoDependienteSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-				empleoDependienteSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-				log.error("INGRESA");
-			}*/
-			}
-			log.error("PASA EMPLEO DEPENDIENTE");
+				
+				empleoDependienteServicio.update(empleoDependienteSd);
+				log.error("ACTUALIZA EMPLEO DEPENDIENTE");
+				}
+				else {
+					empleoDependienteSd = new EmpleoDependienteSd();
+					empleoDependienteSd.setPersonaNatural(existePersona.getPersonaNatural());
+					empleoDependienteSd.setPersonaJuridica(existePersona.getPersonaJuridica());
+					empleoDependienteSd.setCargo(registro.getEmpleoDependiente().getCargo());
+					empleoDependienteSd.setMntSalario(!VerificarVacios(registro.getEmpleoDependiente().getMntSalario())
+							? new BigDecimal(registro.getEmpleoDependiente().getMntSalario())
+							: new BigDecimal(0));
+					empleoDependienteSd.setFchIngreso(ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso()));
+					empleoDependienteSd.setFchSalida(new Date());//
+					empleoDependienteSd.setSecCanal(canalSd);
+					empleoDependienteSd.setEstado(EstadoEnum.A.getEstadoChar());//
+					empleoDependienteSd.setTsCreacion(new Date());
+					empleoDependienteSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+					empleoDependienteSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+					
+					empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
+					log.error("GUARDA EMPLEO DEPENDIENTE");
+				}
+				log.error("PASA EMPLEO DEPENDIENTE");
+			}//FIN IF DE EMPLEO DEPENDINETE
+			
+			
 		}
-
 	}
 
 	public boolean VerificarVacios(String valor) {
