@@ -397,34 +397,37 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			personaSd.setIdentificacion(identificacion);
 			personaSd.setDenominacion("Ejemplo");
 
-			
 			/*
-			Registros abc = new Registros();
-			
-			  System.out.println("===========================transforma DB a SD consulta en DB: " +identificacion + new Date()); 
-			  DataBookHelper dbh = new DataBookHelper(abc, usuario, noPkTablasDao, estadoCivilServicio,
-			  profesionServicio, actividadEconomicaServicio, personaJuridicaServicio,
-			  personaServicio, direccionSdServicio, telefonoSdServicio);
-			  
-			  
-			  PersonaSd personaSd = dbh.getPersonaNatural();
-			  
-			  // 4. Se debe crear las relaciones con conyuge, padre, madre
-			  crearRelacionesPersonales(abc, personaSd, usuario);
-			  
-			  // 5. Obtiene o Crea Personas juridicas List<PersonaSd> listaPj =
-			  dbh.getPersonasJuridicas();
-			  
-			  // 6. Crea relaciones laborales en el caso de existir personas // juridicas
-			  if (listaPj != null && !listaPj.isEmpty()) { try {
-			  relacionarPersonaNaturalPersonaJuridica(personaSd, listaPj, registros,
-			  usuario); } catch (ParseException e) { log.error(e.getMessage(),
-			  e.getCause()); } }
-			  
-			  System.out.println("===========================FIN transforma DB a SD consulta en DB: " +identificacion + new Date());
-			  
-			 // Se pone esta linea para que se pueda presentar la informacion en xml soap de respuesta 
-			  activarPresentacionParaWs(personaSd);
+			 * Registros abc = new Registros();
+			 * 
+			 * System.out.
+			 * println("===========================transforma DB a SD consulta en DB: "
+			 * +identificacion + new Date()); DataBookHelper dbh = new DataBookHelper(abc,
+			 * usuario, noPkTablasDao, estadoCivilServicio, profesionServicio,
+			 * actividadEconomicaServicio, personaJuridicaServicio, personaServicio,
+			 * direccionSdServicio, telefonoSdServicio);
+			 * 
+			 * 
+			 * PersonaSd personaSd = dbh.getPersonaNatural();
+			 * 
+			 * // 4. Se debe crear las relaciones con conyuge, padre, madre
+			 * crearRelacionesPersonales(abc, personaSd, usuario);
+			 * 
+			 * // 5. Obtiene o Crea Personas juridicas List<PersonaSd> listaPj =
+			 * dbh.getPersonasJuridicas();
+			 * 
+			 * // 6. Crea relaciones laborales en el caso de existir personas // juridicas
+			 * if (listaPj != null && !listaPj.isEmpty()) { try {
+			 * relacionarPersonaNaturalPersonaJuridica(personaSd, listaPj, registros,
+			 * usuario); } catch (ParseException e) { log.error(e.getMessage(),
+			 * e.getCause()); } }
+			 * 
+			 * System.out.
+			 * println("===========================FIN transforma DB a SD consulta en DB: "
+			 * +identificacion + new Date());
+			 * 
+			 * // Se pone esta linea para que se pueda presentar la informacion en xml soap
+			 * de respuesta activarPresentacionParaWs(personaSd);
 			 */
 
 			return personaSd;
@@ -939,28 +942,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// CREA PERSONA JURIDICA
 			PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
-
 			if (!VerificarVacios(registro.getEmpleoDependiente().getRazon_Social())
 					|| !VerificarVacios(registro.getEmpleoDependiente().getIdentificacion())) {
-
-				ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd();
-				int codAodActividadEconomicaPJ = !VerificarVacios(
-						registro.getInformacionAdicional().getCodActividadEconomica())
-								? Integer.parseInt(registro.getInformacionAdicional().getCodActividadEconomica())
-								: 0;
-				actividadEconomicaSdPJ.setCodActividadEconomica((short) codAodActividadEconomicaPJ);
-
-				personaJuridicaSd.setSecPersona(persona);
-				personaJuridicaSd.setCodTipoIdentificacion(tipoIdentificacion);
-				personaJuridicaSd.setIdentificacion(registro.getEmpleoDependiente().getIdentificacion());
-				personaJuridicaSd.setRazonSocial(registro.getEmpleoDependiente().getRazon_Social());
-				personaJuridicaSd.setCodActividadEconomica(actividadEconomicaSdPJ);
-				personaJuridicaSd.setActividadIess(registro.getEmpleoDependiente().getDescripcion());
-				personaJuridicaSd.setSecCanal(canalSd);
-				personaJuridicaSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-				personaJuridicaSd.setTsCreacion(new Date());
-				personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-
+			
+				 personaJuridicaSd = MapperPersonaJuridica(registro.getEmpleoDependiente(), persona,
+						 tipoIdentificacion,  canalSd, registro.getInformacionAdicional().getCodActividadEconomica());
+				
 				log.error("LLEGA PERSONA JURIDICA");
 				personaJuridicaServicio.crearSoloPersonaJuridica(personaJuridicaSd);
 				log.error("GUARDA PERSONA JURIDICA");
@@ -1383,8 +1370,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("FIN PROCESO ACTUALIZACION TITULAR");
 		}
 		return true;
-		
-		
+
 	}
 
 	public boolean VerificarVacios(String valor) {
@@ -1417,7 +1403,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		CantonSd existeCanton = null;
 		ParroquiaSd existeParroquia = null;
 
-		//CONTROLO Y VERIFICO SI EXISTE LA PROVINCIA
+		// CONTROLO Y VERIFICO SI EXISTE LA PROVINCIA
 		try {
 			if (!VerificarVacios(registro.getSecProvincia().trim()))
 				existeProvincia = provinciaSdServicio.findByPk(Short.parseShort(registro.getSecProvincia().trim()));
@@ -1425,7 +1411,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("El campo secProvincia no es un tipo de dato short --->" + registro.getSecProvincia());
 		}
 
-		//CONTROLO Y VERIFICO SI EXISTE EL CANTON
+		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
 		try {
 			if (!VerificarVacios(registro.getSecCanton().trim()))
 				existeCanton = cantonSdServicio.findByPk(Short.parseShort(registro.getSecCanton().trim()));
@@ -1433,7 +1419,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("El campo secCanton no es un tipo de dato short --->" + registro.getSecCanton());
 		}
 
-		//CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
+		// CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
 		try {
 			if (!VerificarVacios(registro.getSecParroquia().trim()))
 				existeParroquia = parroquiaSdServicio.findByPk(Short.parseShort(registro.getSecParroquia().trim()));
@@ -1673,6 +1659,37 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		empDep.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 		empDep.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 		return empDep;
+	}
+
+	public PersonaJuridicaSd MapperPersonaJuridica(EmpleoDependiente registro, PersonaSd persona,
+			TipoIdentificacionSd tipoIdentificacion, CanalSd canalSd, String codigoActividadEc) {
+		
+		PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();	
+		ActividadEconomicaSd existeActividadEco = null;
+		
+		// CONTROLO Y VERIFICO SI EXISTE LA ACTIVIDAD ECONOMICA
+		try {
+			if (!VerificarVacios(codigoActividadEc.trim()))
+				existeActividadEco = actividadEconomicaServicio.findByPk(Short.parseShort(codigoActividadEc.trim()));
+		} catch (Exception e) {
+			log.error("El campo codigoActividadEconomica no es un tipo de dato short --->" + codigoActividadEc);
+		}
+
+		ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd();
+		actividadEconomicaSdPJ.setCodActividadEconomica(existeActividadEco!= null? existeActividadEco.getCodActividadEconomica():0);
+
+		personaJuridicaSd.setSecPersona(persona);
+		personaJuridicaSd.setCodTipoIdentificacion(tipoIdentificacion);
+		personaJuridicaSd.setIdentificacion(registro.getIdentificacion());
+		personaJuridicaSd.setRazonSocial(registro.getRazon_Social());
+		personaJuridicaSd.setCodActividadEconomica(actividadEconomicaSdPJ);
+		personaJuridicaSd.setActividadIess(registro.getDescripcion());
+		personaJuridicaSd.setSecCanal(canalSd);
+		personaJuridicaSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+		personaJuridicaSd.setTsCreacion(new Date());
+		personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+		
+		return personaJuridicaSd;
 	}
 
 }
