@@ -25,6 +25,8 @@ import com.equivida.databook.model.Registros;
 import com.equivida.databook.model.RegistrosEntity;
 import com.equivida.databook.model.RegistrosEntity.Direccion;
 import com.equivida.databook.model.RegistrosEntity.InformacionAdicional;
+import com.equivida.databook.model.RegistrosEntity.Persona;
+import com.equivida.databook.model.RegistrosEntity.PersonaNatural;
 import com.equivida.databook.model.RegistrosEntity.EmpleoDependiente;
 import com.equivida.databook.model.RegistrosEntity.Telefono1;
 import com.equivida.databook.model.RegistrosEntity.Telefono2;
@@ -377,12 +379,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error(registros);
 
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
-			boolean actualizaIngresa = false; 
+			boolean actualizaIngresa = false;
 			actualizaIngresa = GuardarInformacionPersona(registros.getTitular());
-			
-			if(registros.getConyuge()!= null && actualizaIngresa == true)
+
+			if (registros.getConyuge() != null && actualizaIngresa == true)
 				GuardarInformacionConyugue(registros.getConyuge());
-			
+
 			log.error("LLEGA 2");
 
 			PersonaSd personaSd = new PersonaSd();
@@ -689,43 +691,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return prop;
 	}
 
-	public DireccionElectronicaSd MapeoDireccionElectronica(String correoElectronico, PersonaSd persona,
-			CanalSd canalSd) {
-
-		TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
-		tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
-
-		DireccionElectronicaSd dirElectronica = new DireccionElectronicaSd();
-		dirElectronica.setSecPersona(persona);
-		dirElectronica.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
-		dirElectronica.setSecCanal(canalSd);
-		dirElectronica.setEstado(EstadoEnum.A.getEstadoChar());
-		dirElectronica.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-		dirElectronica.setTsCreacion(new Date());
-		dirElectronica.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-		dirElectronica.setDireccionElectronica(!VerificarVacios(correoElectronico.trim()) ? correoElectronico : null);
-		return dirElectronica;
-	}
-
-	public EmpleoDependienteSd MapeoEmpleoDependiente(EmpleoDependiente empleoDependiente,
-			PersonaNaturalSd personaNatural, PersonaJuridicaSd PersonaJuridica, CanalSd canalSd) {
-		EmpleoDependienteSd empDep = new EmpleoDependienteSd();
-		empDep.setPersonaNatural(personaNatural);
-		empDep.setPersonaJuridica(PersonaJuridica);
-		empDep.setCargo(empleoDependiente.getCargo());
-		empDep.setMntSalario(
-				!VerificarVacios(empleoDependiente.getMntSalario()) ? new BigDecimal(empleoDependiente.getMntSalario())
-						: new BigDecimal(0));
-		empDep.setFchIngreso(ConvertirFecha(empleoDependiente.getFechaIngreso()));
-		empDep.setFchSalida(new Date());//
-		empDep.setSecCanal(canalSd);
-		empDep.setEstado(EstadoEnum.A.getEstadoChar());//
-		empDep.setTsCreacion(new Date());
-		empDep.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-		empDep.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-		return empDep;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -791,76 +756,41 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		personaServicio.actualizaDatosPersonales(datosActualiza);
 	}
 
-	public void GuardarInformacionConyugue(RegistrosEntity.Conyuge registro){
-		
-		
+	public void GuardarInformacionConyugue(RegistrosEntity.Conyuge registro) {
+
 	}
-	
+
 	public boolean GuardarInformacionPersona(RegistrosEntity.Titular registro) {
 		// 1. Se consulta persona por identificacion
 		PersonaSd existePersona = personaServicio
 				.obtenerPersonaByIdentificacion(registro.getPersona().getIdentificacion());
-
-		PaisSd paisSd = new PaisSd();
-		paisSd.setCodPais((short) 56); // ++++++PONER CONSTANTE++++++++++//
-
 		CanalSd canalSd = new CanalSd();
 		canalSd.setSecCanal((short) 3);// ++++++PONER CONSTANTE++++++++++//
 
+		TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
+		tipoIdentificacion.setCodTipoIdentificacion(registro.getPersona().getCodTipoIdentificacion().charAt(0));
 		// SOLO INGRESAR DATOS CUADNO NO EXISTA LA PERSONA
 		if (existePersona == null) {
-			// INICIALIZO OBJETOS POR DEFECTO
-			TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
-			tipoIdentificacion.setCodTipoIdentificacion(registro.getPersona().getCodTipoIdentificacion().charAt(0));
 
-			// CREA PERSONA
-			PersonaSd persona = new PersonaSd();
-			persona.setIdentificacion(registro.getPersona().getIdentificacion());
-			persona.setCodTipoIdentificacion(tipoIdentificacion);
-			persona.setDenominacion(registro.getPersona().getDenominacion());
+			// CREAR PERSONA
+
+			PersonaSd persona = MapperPersona(registro.getPersona(), tipoIdentificacion);
 			log.error("LLEGO PERSONA");
 			personaServicio.IngresarPersona(persona);
 			log.error(persona);
 			log.error("GUARDO PERSONA");
 
 			// CREA PERSONA NATURAL
-			EstadoCivilSd estadoCivilSd = new EstadoCivilSd();
-			estadoCivilSd.setCodEstadoCivil(!VerificarVacios(registro.getPersonaNatural().getCodEstadoCivil())
-					? Short.parseShort(registro.getPersonaNatural().getCodEstadoCivil())
-					: 0);
 
-			ProfesionSd profesionSd = new ProfesionSd();
 			// BUSCO LA PROFRESION
+			ProfesionSd profesionSd = new ProfesionSd();
 			if (!VerificarVacios(registro.getEmpleoDependiente().getSecProfesion()))
 				profesionSd = profesionServicio.consultarPorCodigoDB(registro.getEmpleoDependiente().getSecProfesion());
 			else
 				profesionSd.setSecProfesion((short) 1);// --PREGUNTAR---
 
-			PersonaNaturalSd personaNatural = new PersonaNaturalSd();
-			personaNatural.setSecPersona(persona);
-			personaNatural.setCodTipoIdentificacion(tipoIdentificacion);
-			personaNatural.setIdentificacion(registro.getPersonaNatural().getIdentificacion());
-			personaNatural.setApellidoPaterno(registro.getPersonaNatural().getApellidoPaterno());
-			personaNatural.setApellidoMaterno(registro.getPersonaNatural().getApellidoMaterno());
-			personaNatural.setPrimerNombre(registro.getPersonaNatural().getPrimerNombre());
-			personaNatural.setSegundoNombre(registro.getPersonaNatural().getSegundoNombre());
-			personaNatural.setSexo(registro.getPersonaNatural().getSexo().charAt(0));
-			personaNatural.setCodPais(paisSd);
-			personaNatural.setCodEstadoCivil(estadoCivilSd);
-			personaNatural.setSecProfesion(profesionSd);
-			personaNatural.setFchNacimiento(!VerificarVacios(registro.getPersonaNatural().getFechaNacimiento())
-					? ConvertirFecha(registro.getPersonaNatural().getFechaNacimiento())
-					: null);
-			personaNatural.setFchMatrimonio(!VerificarVacios(registro.getPersonaNatural().getFechaMatrimonio())
-					? ConvertirFecha(registro.getPersonaNatural().getFechaMatrimonio())
-					: null);
-			personaNatural.setFchFallecimiento(!VerificarVacios(registro.getPersonaNatural().getFechaFallecimiento())
-					? ConvertirFecha(registro.getPersonaNatural().getFechaFallecimiento())
-					: null);
-			personaNatural.setSecCanal(canalSd);
-			personaNatural.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-			personaNatural.setTsCreacion(new Date());
-			personaNatural.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+			PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
+					persona, canalSd, profesionSd);
 
 			log.error("PASA PERSONA NATURAL");
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
@@ -940,47 +870,24 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("GUARDA TELEFONO 6");
 			}
 
-			// CREA DIRECCION ELECTRONICA
+			// CREA DIRECCION ELECTRONICA 1
+
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
 			tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
 
-			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())) {
-				DireccionElectronicaSd direccionElectronica = new DireccionElectronicaSd();
-				direccionElectronica.setSecPersona(persona);
-				direccionElectronica.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
-				direccionElectronica.setSecCanal(canalSd);
-				direccionElectronica.setEstado(EstadoEnum.A.getEstadoChar());
-				direccionElectronica.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-				direccionElectronica.setTsCreacion(new Date());
-				direccionElectronica.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-				log.error("--->" + registro.getDireccionElectronico().getCorreo_electronico1());
-				direccionElectronica.setDireccionElectronica(
-						!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())
-								? registro.getDireccionElectronico().getCorreo_electronico1()
-								: null);
-
-				log.error("--->" + direccionElectronica.getDireccionElectronica());
+			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())) {			
+				DireccionElectronicaSd direccionElectronica1 = MapeoDireccionElectronica(
+						registro.getDireccionElectronico().getCorreo_electronico1().trim(), persona, canalSd);
 
 				log.error("LLEGA DIRECCION ELECTRONICA 1");
-				direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica);
+				direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica1);
 				log.error("GUARDA DIRECCION ELECTRONICA 1");
 			}
 
 			// CREA DIRECCION ELECTRONICA 2
-			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {
-				DireccionElectronicaSd direccionElectronica2 = new DireccionElectronicaSd();
-				direccionElectronica2.setSecPersona(persona);
-				direccionElectronica2.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
-				direccionElectronica2.setSecCanal(canalSd);
-				direccionElectronica2.setEstado(EstadoEnum.A.getEstadoChar());
-				direccionElectronica2.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-				direccionElectronica2.setTsCreacion(new Date());
-				direccionElectronica2.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-				log.error("--->" + registro.getDireccionElectronico().getCorreo_electronico2());
-				direccionElectronica2.setDireccionElectronica(
-						!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())
-								? registro.getDireccionElectronico().getCorreo_electronico2()
-								: null);
+			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {			
+				DireccionElectronicaSd direccionElectronica2 = MapeoDireccionElectronica(
+						registro.getDireccionElectronico().getCorreo_electronico2().trim(), persona, canalSd);
 
 				log.error("LLEGA DIRECCION ELECTRONICA 2");
 				direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica2);
@@ -1071,7 +978,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
 				log.error("GUARDA EMPLEO DEPENDIENTE");
 			}
-			
+
 			log.error("FIN PROCESO CREAR TITULAR");
 		} else {
 			// ZONA DE ACTUALIZACION
@@ -1643,6 +1550,92 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		informacionAdicionalSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 
 		return informacionAdicionalSd;
+	}
+
+	public PersonaSd MapperPersona(Persona registro, TipoIdentificacionSd tipoIdentificacion) {
+
+		// CREA PERSONA
+		PersonaSd persona = new PersonaSd();
+		persona.setIdentificacion(registro.getIdentificacion());
+		persona.setCodTipoIdentificacion(tipoIdentificacion);
+		persona.setDenominacion(registro.getDenominacion());
+
+		return persona;
+	}
+
+	public PersonaNaturalSd MapperPersonaNatural(PersonaNatural registro, TipoIdentificacionSd tipoIdentificacion,
+			PersonaSd persona, CanalSd canalSd, ProfesionSd profesionSd) {
+
+		PersonaNaturalSd personaNatural = new PersonaNaturalSd();
+
+		EstadoCivilSd estadoCivilSd = new EstadoCivilSd();
+		estadoCivilSd.setCodEstadoCivil(
+				!VerificarVacios(registro.getCodEstadoCivil()) ? Short.parseShort(registro.getCodEstadoCivil()) : 0);
+
+		PaisSd paisSd = new PaisSd();
+		paisSd.setCodPais((short) 56); // ++++++PONER CONSTANTE++++++++++//
+
+		personaNatural.setSecPersona(persona);
+		personaNatural.setCodTipoIdentificacion(tipoIdentificacion);
+		personaNatural.setIdentificacion(registro.getIdentificacion());
+		personaNatural.setApellidoPaterno(registro.getApellidoPaterno());
+		personaNatural.setApellidoMaterno(registro.getApellidoMaterno());
+		personaNatural.setPrimerNombre(registro.getPrimerNombre());
+		personaNatural.setSegundoNombre(registro.getSegundoNombre());
+		personaNatural.setSexo(registro.getSexo().charAt(0));
+		personaNatural.setCodPais(paisSd);
+		personaNatural.setCodEstadoCivil(estadoCivilSd);
+		personaNatural.setSecProfesion(profesionSd);
+		personaNatural.setFchNacimiento(
+				!VerificarVacios(registro.getFechaNacimiento()) ? ConvertirFecha(registro.getFechaNacimiento()) : null);
+		personaNatural.setFchMatrimonio(
+				!VerificarVacios(registro.getFechaMatrimonio()) ? ConvertirFecha(registro.getFechaMatrimonio()) : null);
+		personaNatural.setFchFallecimiento(
+				!VerificarVacios(registro.getFechaFallecimiento()) ? ConvertirFecha(registro.getFechaFallecimiento())
+						: null);
+		personaNatural.setSecCanal(canalSd);
+		personaNatural.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+		personaNatural.setTsCreacion(new Date());
+		personaNatural.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+
+		return personaNatural;
+	}
+
+	public DireccionElectronicaSd MapeoDireccionElectronica(String correoElectronico, PersonaSd persona,
+			CanalSd canalSd) {
+
+		TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
+		tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
+
+		DireccionElectronicaSd dirElectronica = new DireccionElectronicaSd();
+		dirElectronica.setSecPersona(persona);
+		dirElectronica.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
+		dirElectronica.setSecCanal(canalSd);
+		dirElectronica.setEstado(EstadoEnum.A.getEstadoChar());
+		dirElectronica.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+		dirElectronica.setTsCreacion(new Date());
+		dirElectronica.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+		dirElectronica.setDireccionElectronica(!VerificarVacios(correoElectronico.trim()) ? correoElectronico : null);
+		return dirElectronica;
+	}
+
+	public EmpleoDependienteSd MapeoEmpleoDependiente(EmpleoDependiente empleoDependiente,
+			PersonaNaturalSd personaNatural, PersonaJuridicaSd PersonaJuridica, CanalSd canalSd) {
+		EmpleoDependienteSd empDep = new EmpleoDependienteSd();
+		empDep.setPersonaNatural(personaNatural);
+		empDep.setPersonaJuridica(PersonaJuridica);
+		empDep.setCargo(empleoDependiente.getCargo());
+		empDep.setMntSalario(
+				!VerificarVacios(empleoDependiente.getMntSalario()) ? new BigDecimal(empleoDependiente.getMntSalario())
+						: new BigDecimal(0));
+		empDep.setFchIngreso(ConvertirFecha(empleoDependiente.getFechaIngreso()));
+		empDep.setFchSalida(new Date());//
+		empDep.setSecCanal(canalSd);
+		empDep.setEstado(EstadoEnum.A.getEstadoChar());//
+		empDep.setTsCreacion(new Date());
+		empDep.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+		empDep.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+		return empDep;
 	}
 
 }
