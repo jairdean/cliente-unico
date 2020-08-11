@@ -27,5 +27,13 @@ public interface InformacionAdicionalSdServicio extends GenericService<Informaci
 	 * @param secPersonaNatural
 	 * @return InformacionAdicionalSd
 	 */
+	InformacionAdicionalSd obtenerInformacionAdicionalBySecIdentificacion(String identificacion);
+	
+	/**
+	 * Obtener InformacionAdicionalSd.
+	 * 
+	 * @param secPersonaNatural
+	 * @return InformacionAdicionalSd
+	 */
 	InformacionAdicionalSd obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural);
 }

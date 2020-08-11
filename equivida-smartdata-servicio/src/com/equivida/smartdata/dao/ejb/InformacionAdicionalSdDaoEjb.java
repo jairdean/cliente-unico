@@ -27,6 +27,34 @@ public class InformacionAdicionalSdDaoEjb extends GenericDaoEjb<InformacionAdici
 	 * @see com.equivida.smartdata.dao.InformacionAdicionalSdDao#obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural)
 	 */
 	@Override
+	public InformacionAdicionalSd obtenerInformacionAdicionalBySecIdentificacion(String identificacion) {
+		StringBuffer sql = new StringBuffer(200);
+		sql.append("select d from InformacionAdicionalSd d where ");
+		sql.append("d.identificacion = :identificacion ");
+
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("identificacion", identificacion);
+
+		List<InformacionAdicionalSd> InformacionAdicionalList = query.getResultList();
+
+		if (InformacionAdicionalList != null && !InformacionAdicionalList.isEmpty())
+			return InformacionAdicionalList.get(0);
+
+		return null;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.dao.InformacionAdicionalSdDao#obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural)
+	 */
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.dao.InformacionAdicionalSdDao#obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural)
+	 */
+	@Override
 	public InformacionAdicionalSd obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural) {
 		StringBuffer sql = new StringBuffer(200);
 		sql.append("select d from InformacionAdicionalSd d where ");
@@ -42,6 +70,7 @@ public class InformacionAdicionalSdDaoEjb extends GenericDaoEjb<InformacionAdici
 
 		return null;
 	}
+
 
 
 	/*

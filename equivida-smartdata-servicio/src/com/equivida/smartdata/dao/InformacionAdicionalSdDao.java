@@ -18,7 +18,15 @@ public interface InformacionAdicionalSdDao extends GenericDao<InformacionAdicion
 	 * @param secPersonaNatural
 	 * @return InformacionAdicionalSd
 	 */
-	InformacionAdicionalSd obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural);
+	InformacionAdicionalSd obtenerInformacionAdicionalBySecIdentificacion(String identificacion);
 	
+
+	/**
+	 * Obtiene InformacionAdicionalSd por secPersonaNatural
+	 * 
+	 * @param secPersonaNatural
+	 * @return InformacionAdicionalSd
+	 */
+	InformacionAdicionalSd obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural);
 	
 }

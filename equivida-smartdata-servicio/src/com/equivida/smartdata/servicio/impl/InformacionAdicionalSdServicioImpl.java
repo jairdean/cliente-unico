@@ -38,7 +38,7 @@ implements InformacionAdicionalSdServicio  {
 	public void crearInformacionAdicional(InformacionAdicionalSd informacionAdicionalSd) {
 		InformacionAdicionalSdDao.save(informacionAdicionalSd);
     }
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -48,6 +48,16 @@ implements InformacionAdicionalSdServicio  {
 	@Override
 	public InformacionAdicionalSd obtenerInformacionAdicionalBySecPersonaNatural(Integer secPersonaNatural) {
 		return InformacionAdicionalSdDao.obtenerInformacionAdicionalBySecPersonaNatural(secPersonaNatural);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.InformacionAdicionalSdServicio#
+	 * Obtener InformacionAdicionalSd
+	 */
+	public InformacionAdicionalSd obtenerInformacionAdicionalBySecIdentificacion(String identificacion) {
+		return InformacionAdicionalSdDao.obtenerInformacionAdicionalBySecIdentificacion(identificacion);
 	}
     
 
