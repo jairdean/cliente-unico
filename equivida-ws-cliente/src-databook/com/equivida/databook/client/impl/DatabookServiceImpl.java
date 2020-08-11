@@ -135,14 +135,15 @@ public class DatabookServiceImpl implements DatabookService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.equivida.databook.client.DatabookService#consultaDatabookRegistrosEntity()
+	 * @see
+	 * com.equivida.databook.client.DatabookService#consultaDatabookRegistrosEntity(
+	 * )
 	 */
 	@Override
 	public RegistrosEntity consultaDatabookRegistrosEntity() throws DatabookException {
 		return consumeRegistrosEntity();
 	}
-	
-	
+
 	/**
 	 * Consume el SW REST.
 	 * 
@@ -160,26 +161,23 @@ public class DatabookServiceImpl implements DatabookService {
 
 			JAXBContext jc = JAXBContext.newInstance(RegistrosEntity.class);
 			InputStream xml = connection.getInputStream();
-			
-			
-			 if (connection.getResponseCode() != 200) { throw new
-			 RuntimeException("Failed : HTTP Error code : " +
-			 connection.getResponseCode()); }
-			
-			 registrosEntity = (RegistrosEntity) jc.createUnmarshaller().unmarshal(xml);
-			 
+
+			if (connection.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP Error code : " + connection.getResponseCode());
+			}
+
+			registrosEntity = (RegistrosEntity) jc.createUnmarshaller().unmarshal(xml);
+
 			/*
 			 * InputStreamReader in = new InputStreamReader(connection.getInputStream());
 			 * BufferedReader br = new BufferedReader(in); String output; while ((output =
 			 * br.readLine()) != null) { System.out.println(output); }
 			 */
 
-			// Registros registros = (Registros) jc.createUnmarshaller().unmarshal(xml);
-			 
-				if(!VerificarStringVacio(registrosEntity.getConyuge().getError())) {
-					registrosEntity.setConyuge(null);
-				}
-				
+			if (!VerificarStringVacio(registrosEntity.getConyuge().getError())) {
+				registrosEntity.setConyuge(null);
+			}
+
 			connection.disconnect();
 
 		} catch (MalformedURLException e) {
@@ -219,7 +217,7 @@ public class DatabookServiceImpl implements DatabookService {
 			return true;
 		return false;
 	}
-	
+
 	public String getUri() {
 		return uri;
 	}
