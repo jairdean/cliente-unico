@@ -1327,9 +1327,93 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			 * listaIngresar.add(telefono6); else listaActualizar.add(telefono6);
 			 */
 			log.error("PASA TELEFONO");
+			
 			// ACTUALIZA DIRECCION ELECTRONICA 1-2
 			List<DireccionElectronicaSd> direccionElectronica = direccionElectronicaSdServicio
 					.obtenerDireccionElectronicaByPersonaSecPersona(existePersona.getSecPersona());
+			
+			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
+			tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
+
+			//CREA/ACTUALIZA DIRECCION ELECTRONICA 1
+			if(direccionElectronica != null && direccionElectronica.size() >= 1) {
+				DireccionElectronicaSd d1 = direccionElectronicaSdServicio.findByPk(direccionElectronica.get(0).getSecDireccionElectronica());
+				d1.setSecPersona(existePersona);
+				d1.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
+				d1.setSecCanal(canalSd);
+				d1.setEstado(EstadoEnum.A.getEstadoChar());
+				d1.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+				d1.setTsCreacion(new Date());
+				d1.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+				d1.setDireccionElectronica(
+						!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())
+								? registro.getDireccionElectronico().getCorreo_electronico1()
+								: null);
+				
+				log.error("ACTUALIZA DIRECCION ELECTRONICA 1");
+				log.error(d1);
+				direccionElectronicaSdServicio.update(d1);
+			} else {				
+				if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())) {
+					DireccionElectronicaSd d1 = new DireccionElectronicaSd();
+					d1.setSecPersona(existePersona);
+					d1.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
+					d1.setSecCanal(canalSd);
+					d1.setEstado(EstadoEnum.A.getEstadoChar());
+					d1.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+					d1.setTsCreacion(new Date());
+					d1.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+					d1.setDireccionElectronica(
+							!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())
+									? registro.getDireccionElectronico().getCorreo_electronico1()
+									: null);
+
+					log.error("CREA DIRECCION ELECTRONICA 1");
+					direccionElectronicaSdServicio.ingresarDireccionElectronica(d1);
+					log.error("GUARDA DIRECCION ELECTRONICA 1");
+				}
+			}
+			
+			//CREA/ACTUALIZA DIRECCION ELECTRONICA 2
+			if(direccionElectronica != null && direccionElectronica.size() >= 2) {
+				DireccionElectronicaSd d2 = direccionElectronicaSdServicio.findByPk(direccionElectronica.get(1).getSecDireccionElectronica());
+				d2.setSecPersona(existePersona);
+				d2.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
+				d2.setSecCanal(canalSd);
+				d2.setEstado(EstadoEnum.A.getEstadoChar());
+				d2.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+				d2.setTsCreacion(new Date());
+				d2.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+				d2.setDireccionElectronica(
+						!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())
+								? registro.getDireccionElectronico().getCorreo_electronico2()
+								: null);
+				
+				log.error("ACTUALIZA DIRECCION ELECTRONICA 2");
+				log.error(d2);
+				direccionElectronicaSdServicio.update(d2);
+			} else {				
+				if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {
+					DireccionElectronicaSd d2 = new DireccionElectronicaSd();
+					d2.setSecPersona(existePersona);
+					d2.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
+					d2.setSecCanal(canalSd);
+					d2.setEstado(EstadoEnum.A.getEstadoChar());
+					d2.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+					d2.setTsCreacion(new Date());
+					d2.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+					d2.setDireccionElectronica(
+							!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())
+									? registro.getDireccionElectronico().getCorreo_electronico2()
+									: null);
+
+					log.error("CREA DIRECCION ELECTRONICA 2");
+					direccionElectronicaSdServicio.ingresarDireccionElectronica(d2);
+					log.error("GUARDA DIRECCION ELECTRONICA 2");
+				}
+			}
+
+			
 			log.error("PASA DIRECCION ELECTRONICA");
 			// ACTUALIZA INFORMACION ADCIONAL
 			// 1) Primero valido si existe la persona natural para luego actualizar la
