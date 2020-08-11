@@ -1120,7 +1120,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefono1.setTsCreacion(new Date());
 					telefono1.setCodArea(listaTelefonos.get(0).getCodArea());
 					telefono1.setNroTelefono(listaTelefonos.get(0).getNroTelefono());
-					tipoTelefonoSd.setCodTipoTelefono((short) 0);//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+					tipoTelefonoSd.setCodTipoTelefono(
+							!VerificarVacios(registro.getTelefonos().getTelefono1().getCodTipoTelefono())
+							? Short.parseShort(registro.getTelefonos().getTelefono1().getCodTipoTelefono())
+											: (short) (0));
 					telefono1.setCodTipoTelefono(tipoTelefonoSd);
 					
 					log.error("ACTUALIZA TELEFONO1");
@@ -1151,7 +1154,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefono2.setTsCreacion(new Date());
 					telefono2.setCodArea(listaTelefonos.get(1).getCodArea());
 					telefono2.setNroTelefono(listaTelefonos.get(1).getNroTelefono());
-					tipoTelefonoSd.setCodTipoTelefono((short) 0);//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+					tipoTelefonoSd.setCodTipoTelefono(
+							!VerificarVacios(registro.getTelefonos().getTelefono2().getCodTipoTelefono())
+							? Short.parseShort(registro.getTelefonos().getTelefono2().getCodTipoTelefono())
+											: (short) (0));
 					telefono2.setCodTipoTelefono(tipoTelefonoSd);
 					
 					log.error("ACTUALIZA TELEFONO12");
