@@ -24,6 +24,7 @@ import com.equivida.databook.exception.DatabookException;
 import com.equivida.databook.model.Registros;
 import com.equivida.databook.model.RegistrosEntity;
 import com.equivida.databook.model.RegistrosEntity.Direccion;
+import com.equivida.databook.model.RegistrosEntity.DireccionElectronico;
 import com.equivida.databook.model.RegistrosEntity.Telefono1;
 import com.equivida.databook.model.RegistrosEntity.Telefono2;
 import com.equivida.databook.model.RegistrosEntity.Telefono3;
@@ -682,6 +683,25 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return prop;
 	}
 
+	public DireccionElectronicaSd MapeoDireccionElectronica(String correoElectronico, PersonaSd persona, CanalSd canalSd) {
+		
+		TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
+		tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
+
+	DireccionElectronicaSd dirElectronica = new DireccionElectronicaSd();
+	dirElectronica.setSecPersona(persona);
+	dirElectronica.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
+	dirElectronica.setSecCanal(canalSd);
+	dirElectronica.setEstado(EstadoEnum.A.getEstadoChar());
+	dirElectronica.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+	dirElectronica.setTsCreacion(new Date());
+	dirElectronica.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+	dirElectronica.setDireccionElectronica(
+						!VerificarVacios(correoElectronico.trim())
+								? correoElectronico
+								: null);
+	return dirElectronica;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1355,18 +1375,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				direccionElectronicaSdServicio.update(d1);
 			} else {				
 				if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())) {
-					DireccionElectronicaSd d1 = new DireccionElectronicaSd();
-					d1.setSecPersona(existePersona);
-					d1.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
-					d1.setSecCanal(canalSd);
-					d1.setEstado(EstadoEnum.A.getEstadoChar());
-					d1.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-					d1.setTsCreacion(new Date());
-					d1.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-					d1.setDireccionElectronica(
-							!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())
-									? registro.getDireccionElectronico().getCorreo_electronico1()
-									: null);
+					DireccionElectronicaSd d1 = MapeoDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico1(),existePersona, canalSd);
 
 					log.error("CREA DIRECCION ELECTRONICA 1");
 					direccionElectronicaSdServicio.ingresarDireccionElectronica(d1);
@@ -1394,18 +1403,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				direccionElectronicaSdServicio.update(d2);
 			} else {				
 				if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {
-					DireccionElectronicaSd d2 = new DireccionElectronicaSd();
-					d2.setSecPersona(existePersona);
-					d2.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
-					d2.setSecCanal(canalSd);
-					d2.setEstado(EstadoEnum.A.getEstadoChar());
-					d2.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-					d2.setTsCreacion(new Date());
-					d2.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-					d2.setDireccionElectronica(
-							!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())
-									? registro.getDireccionElectronico().getCorreo_electronico2()
-									: null);
+					DireccionElectronicaSd d2 = MapeoDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico2(),existePersona, canalSd);
 
 					log.error("CREA DIRECCION ELECTRONICA 2");
 					direccionElectronicaSdServicio.ingresarDireccionElectronica(d2);
