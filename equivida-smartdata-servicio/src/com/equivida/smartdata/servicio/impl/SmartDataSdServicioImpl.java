@@ -67,6 +67,7 @@ import com.equivida.smartdata.model.TipoParentescoRelacionSd;
 import com.equivida.smartdata.model.TipoTelefonoSd;
 import com.equivida.smartdata.model.InformacionAdicionalSd;
 import com.equivida.smartdata.servicio.ActividadEconomicaSdServicio;
+import com.equivida.smartdata.servicio.CantonSdServicio;
 import com.equivida.smartdata.servicio.DireccionElectronicaSdServicio;
 import com.equivida.smartdata.servicio.DireccionSdServicio;
 import com.equivida.smartdata.servicio.EmpleoDependienteSdServicio;
@@ -75,12 +76,14 @@ import com.equivida.smartdata.servicio.PersonaJuridicaSdServicio;
 import com.equivida.smartdata.servicio.PersonaNaturalSdServicio;
 import com.equivida.smartdata.servicio.PersonaSdServicio;
 import com.equivida.smartdata.servicio.ProfesionSdServicio;
+import com.equivida.smartdata.servicio.ProvinciaSdServicio;
 import com.equivida.smartdata.servicio.RelacionSdServicio;
 import com.equivida.smartdata.servicio.SmartDataSdServicio;
 import com.equivida.smartdata.servicio.SmartDataServicioSdRemote;
 import com.equivida.smartdata.servicio.TelefonoSdServicio;
 import com.equivida.smartdata.servicio.PersonaNaturalServicio;
 import com.equivida.smartdata.servicio.InformacionAdicionalSdServicio;
+import com.equivida.smartdata.servicio.ParroquiaSdServicio;
 
 @Stateless(name = "SmartDataSdServicio")
 public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataServicioSdRemote {
@@ -114,6 +117,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private DireccionElectronicaSdServicio direccionElectronicaSdServicio;
 	@EJB
 	private InformacionAdicionalSdServicio informacionAdicionalSdServicio;
+	@EJB
+	private ProvinciaSdServicio provinciaSdServicio;
+	@EJB
+	private CantonSdServicio cantonSdServicio;
+	@EJB
+	private ParroquiaSdServicio parroquiaSdServicio;
 
 	/*
 	 * (non-Javadoc)
@@ -797,7 +806,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("GUARDA PERSONA NATURAL");
 
 			// CREA DIRECCION
+			log.error("LLEGA DIRECCION");
 			if (!VerificarVacios(registro.getDireccion().getDireccion().trim())) {
+				log.error("---->");
 				DireccionSd direccionsd = MapeoDireccionSd(registro.getDireccion(), canalSd, persona);
 				log.error("LLEGA DIRECCION");
 				direccionSdServicio.ingresarDireccion(direccionsd);
@@ -805,6 +816,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			// CREA TELEFONOS
+			log.error("LLEGA TELEFONOS");
 			if (!VerificarVacios(registro.getTelefonos().getTelefono1().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono1().getNroTelefono())) {
 
@@ -871,11 +883,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			// CREA DIRECCION ELECTRONICA 1
-
+			log.error("DIRECCION ELECTRONICA");
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
 			tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
 
-			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())) {			
+			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())) {
 				DireccionElectronicaSd direccionElectronica1 = MapeoDireccionElectronica(
 						registro.getDireccionElectronico().getCorreo_electronico1().trim(), persona, canalSd);
 
@@ -885,7 +897,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			// CREA DIRECCION ELECTRONICA 2
-			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {			
+			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {
 				DireccionElectronicaSd direccionElectronica2 = MapeoDireccionElectronica(
 						registro.getDireccionElectronico().getCorreo_electronico2().trim(), persona, canalSd);
 
@@ -895,6 +907,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			// CREA INFORMACION ADCIONAL
+			log.error("LLEGA INFO ADICIONAL");
 			if (personaNatural.getSecPersonaNatural() > 0 // para saber que se INSERTO una PN
 					&& !VerificarVacios(registro.getInformacionAdicional().getIdentificacion().trim())
 					&& !VerificarVacios(registro.getInformacionAdicional().getCodTipoIdentificacion().trim())
@@ -1373,6 +1386,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("FIN PROCESO ACTUALIZACION TITULAR");
 		}
 		return true;
+		
+		
 	}
 
 	public boolean VerificarVacios(String valor) {
@@ -1401,20 +1416,45 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	public DireccionSd MapeoDireccionSd(Direccion registro, CanalSd canalSd, PersonaSd personaSd) {
 		DireccionSd direccionsd = new DireccionSd();
 
+		ProvinciaSd existeProvincia = null;
+		CantonSd existeCanton = null;
+		ParroquiaSd existeParroquia = null;
+
+		//CONTROLO Y VERIFICO SI EXISTE LA PROVINCIA
+		try {
+			if (!VerificarVacios(registro.getSecProvincia().trim()))
+				existeProvincia = provinciaSdServicio.findByPk(Short.parseShort(registro.getSecProvincia().trim()));
+		} catch (Exception e) {
+			log.error("El campo secProvincia no es un tipo de dato short --->" + registro.getSecProvincia());
+		}
+
+		//CONTROLO Y VERIFICO SI EXISTE EL CANTON
+		try {
+			if (!VerificarVacios(registro.getSecCanton().trim()))
+				existeCanton = cantonSdServicio.findByPk(Short.parseShort(registro.getSecCanton().trim()));
+		} catch (Exception e) {
+			log.error("El campo secCanton no es un tipo de dato short --->" + registro.getSecCanton());
+		}
+
+		//CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
+		try {
+			if (!VerificarVacios(registro.getSecParroquia().trim()))
+				existeParroquia = parroquiaSdServicio.findByPk(Short.parseShort(registro.getSecParroquia().trim()));
+		} catch (Exception e) {
+			log.error("El campo secParroquia no es un tipo de dato short --->" + registro.getSecParroquia());
+		}
+
 		TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
 		tipoDireccionSd.setCodTipoDireccion(TipoDireccionEnum.DOMICILIO.getCodigoenBase());
 
 		ProvinciaSd provinciaSdDireccion = new ProvinciaSd();
-		provinciaSdDireccion.setSecProvincia(
-				!VerificarVacios(registro.getSecProvincia()) ? Short.parseShort(registro.getSecProvincia()) : 0);
+		provinciaSdDireccion.setSecProvincia(existeProvincia != null ? existeProvincia.getSecProvincia() : 0);
 
 		CantonSd cantoSdDireccion = new CantonSd();
-		cantoSdDireccion.setSecCanton(
-				!VerificarVacios(registro.getSecCanton()) ? Short.parseShort(registro.getSecCanton()) : 0);
+		cantoSdDireccion.setSecCanton(existeCanton != null ? existeCanton.getSecCanton() : 0);
 
 		ParroquiaSd parroquiaSdDireccion = new ParroquiaSd();
-		parroquiaSdDireccion.setSecParroquia(
-				!VerificarVacios(registro.getSecParroquia()) ? Short.parseShort(registro.getSecParroquia()) : 0);
+		parroquiaSdDireccion.setSecParroquia(existeParroquia != null ? existeParroquia.getSecParroquia() : 0);
 
 		direccionsd.setSecPersona(personaSd);
 		direccionsd.setDireccion(registro.getDireccion());
@@ -1423,7 +1463,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		direccionsd.setSecCanton(cantoSdDireccion);
 		direccionsd.setSecParroquia(parroquiaSdDireccion);
 		direccionsd.setSecCanal(canalSd);
-		direccionsd.setEstado(EstadoEnum.A.getEstadoChar());// -----------------------------------------
+		direccionsd.setEstado(EstadoEnum.A.getEstadoChar());
 		direccionsd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 		direccionsd.setTsCreacion(new Date());
 		direccionsd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
