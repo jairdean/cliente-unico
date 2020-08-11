@@ -388,34 +388,34 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			personaSd.setIdentificacion(identificacion);
 			personaSd.setDenominacion("Ejemplo");
 
+			
 			/*
-			 * System.out.println(
-			 * "===========================transforma DB a SD consulta en DB: " +
-			 * identificacion + new Date()); DataBookHelper dbh = new
-			 * DataBookHelper(registros, usuario, noPkTablasDao, estadoCivilServicio,
-			 * profesionServicio, actividadEconomicaServicio, personaJuridicaServicio,
-			 * personaServicio, direccionSdServicio, telefonoSdServicio);
-			 * 
-			 * PersonaSd personaSd = dbh.getPersonaNatural();
-			 * 
-			 * // 4. Se debe crear las relaciones con conyuge, padre, madre
-			 * crearRelacionesPersonales(registros, personaSd, usuario);
-			 * 
-			 * // 5. Obtiene o Crea Personas juridicas List<PersonaSd> listaPj =
-			 * dbh.getPersonasJuridicas();
-			 * 
-			 * // 6. Crea relaciones laborales en el caso de existir personas // juridicas
-			 * if (listaPj != null && !listaPj.isEmpty()) { try {
-			 * relacionarPersonaNaturalPersonaJuridica(personaSd, listaPj, registros,
-			 * usuario); } catch (ParseException e) { log.error(e.getMessage(),
-			 * e.getCause()); } }
-			 * 
-			 * System.out.println(
-			 * "===========================FIN transforma DB a SD consulta en DB: " +
-			 * identificacion + new Date());
-			 * 
-			 * // Se pone esta linea para que se pueda presentar la informacion en // xml
-			 * soap de respuesta activarPresentacionParaWs(personaSd);
+			Registros abc = new Registros();
+			
+			  System.out.println("===========================transforma DB a SD consulta en DB: " +identificacion + new Date()); 
+			  DataBookHelper dbh = new DataBookHelper(abc, usuario, noPkTablasDao, estadoCivilServicio,
+			  profesionServicio, actividadEconomicaServicio, personaJuridicaServicio,
+			  personaServicio, direccionSdServicio, telefonoSdServicio);
+			  
+			  
+			  PersonaSd personaSd = dbh.getPersonaNatural();
+			  
+			  // 4. Se debe crear las relaciones con conyuge, padre, madre
+			  crearRelacionesPersonales(abc, personaSd, usuario);
+			  
+			  // 5. Obtiene o Crea Personas juridicas List<PersonaSd> listaPj =
+			  dbh.getPersonasJuridicas();
+			  
+			  // 6. Crea relaciones laborales en el caso de existir personas // juridicas
+			  if (listaPj != null && !listaPj.isEmpty()) { try {
+			  relacionarPersonaNaturalPersonaJuridica(personaSd, listaPj, registros,
+			  usuario); } catch (ParseException e) { log.error(e.getMessage(),
+			  e.getCause()); } }
+			  
+			  System.out.println("===========================FIN transforma DB a SD consulta en DB: " +identificacion + new Date());
+			  
+			 // Se pone esta linea para que se pueda presentar la informacion en xml soap de respuesta 
+			  activarPresentacionParaWs(personaSd);
 			 */
 
 			return personaSd;
