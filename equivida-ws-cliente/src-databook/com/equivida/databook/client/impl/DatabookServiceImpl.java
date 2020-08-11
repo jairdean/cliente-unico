@@ -174,9 +174,10 @@ public class DatabookServiceImpl implements DatabookService {
 			 * br.readLine()) != null) { System.out.println(output); }
 			 */
 
-			if (!VerificarStringVacio(registrosEntity.getConyuge().getError())) {
-				registrosEntity.setConyuge(null);
-			}
+			if (registrosEntity.getConyuge().getError() != null)
+				if (!VerificarStringVacio(registrosEntity.getConyuge().getError())) {
+					registrosEntity.setConyuge(null);
+				}
 
 			connection.disconnect();
 
