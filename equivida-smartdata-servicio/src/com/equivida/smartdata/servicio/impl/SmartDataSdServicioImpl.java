@@ -24,7 +24,6 @@ import com.equivida.databook.exception.DatabookException;
 import com.equivida.databook.model.Registros;
 import com.equivida.databook.model.RegistrosEntity;
 import com.equivida.databook.model.RegistrosEntity.Direccion;
-import com.equivida.databook.model.RegistrosEntity.DireccionElectronico;
 import com.equivida.databook.model.RegistrosEntity.EmpleoDependiente;
 import com.equivida.databook.model.RegistrosEntity.Telefono1;
 import com.equivida.databook.model.RegistrosEntity.Telefono2;
