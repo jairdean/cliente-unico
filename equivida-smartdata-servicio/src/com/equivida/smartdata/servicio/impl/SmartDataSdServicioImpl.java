@@ -372,7 +372,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// Se consulta en el WS.
 			log.error("LLEGA 1");
 			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity(identificacion);
-			
+
 			log.error("LLEGA 2");
 			log.error(registros);
 
@@ -979,84 +979,35 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// CREA INFORMACION ADCIONAL
 			if (personaNatural.getSecPersonaNatural() > 0 // para saber que se INSERTO una PN
-					|| !VerificarVacios(registro.getInformacionAdicional().getIdentificacion().trim())
-					|| !VerificarVacios(registro.getInformacionAdicional().getCodTipoIdentificacion().trim())
-					|| !VerificarVacios(registro.getInformacionAdicional().getRazonSocial().trim())
-					|| !VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion().trim())
-					|| !VerificarVacios(registro.getInformacionAdicional().getFechaInicioActividades().trim())
-					|| !VerificarVacios(registro.getInformacionAdicional().getPrincipal().trim())) {
+					&& !VerificarVacios(registro.getInformacionAdicional().getIdentificacion().trim())
+					&& !VerificarVacios(registro.getInformacionAdicional().getCodTipoIdentificacion().trim())
+					&& !VerificarVacios(registro.getInformacionAdicional().getRazonSocial().trim())
+					&& !VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion().trim())
+					&& !VerificarVacios(registro.getInformacionAdicional().getFechaInicioActividades().trim())
+					&& !VerificarVacios(registro.getInformacionAdicional().getPrincipal().trim())) {
 
-				ProvinciaSd provinciaSdInfoAdd = new ProvinciaSd();
-				provinciaSdInfoAdd
-						.setSecProvincia(!VerificarVacios(registro.getInformacionAdicional().getSecProvincia())
-								? Short.parseShort(registro.getInformacionAdicional().getSecProvincia().trim())
-								: 0);
+				InformacionAdicionalSd existeInformacionAdicionalSd = informacionAdicionalSdServicio
+						.obtenerInformacionAdicionalBySecIdentificacion(
+								registro.getInformacionAdicional().getIdentificacion());
 
-				CantonSd cantonSdInfoAdd = new CantonSd();
-				cantonSdInfoAdd.setSecCanton(!VerificarVacios(registro.getInformacionAdicional().getSecCanton())
-						? Short.parseShort(registro.getInformacionAdicional().getSecCanton().trim())
-						: 0);
+				Integer secPesonaNatural = null;
+				if (existeInformacionAdicionalSd != null)
+					secPesonaNatural = existeInformacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural();
 
-				ParroquiaSd parroquiaSdInfoAdd = new ParroquiaSd();
-				parroquiaSdInfoAdd
-						.setSecParroquia(!VerificarVacios(registro.getInformacionAdicional().getSecParroquia())
-								? Short.parseShort(registro.getInformacionAdicional().getSecParroquia().trim())
-								: 0);
+				InformacionAdicionalSd informacionAdicionalSd = MapperInformacionAdicional(
+						registro.getInformacionAdicional(), personaNatural, canalSd);
 
-				ActividadEconomicaSd actividadEconomicaSd = new ActividadEconomicaSd();
-				actividadEconomicaSd.setCodActividadEconomica(
-						!VerificarVacios(registro.getInformacionAdicional().getCodActividadEconomica().trim())
-								? Short.parseShort(registro.getInformacionAdicional().getCodActividadEconomica())
-								: 1);
-
-				TipoIdentificacionSd tipoIdentificacionInfoAdd = new TipoIdentificacionSd();
-				tipoIdentificacionInfoAdd.setCodTipoIdentificacion(
-						registro.getInformacionAdicional().getCodTipoIdentificacion().charAt(0));
-
-				InformacionAdicionalSd informacionAdicionalSd = new InformacionAdicionalSd();
-				informacionAdicionalSd.setSecPersonaNatural(personaNatural);
-				informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacionInfoAdd);
-				informacionAdicionalSd.setIdentificacion(registro.getInformacionAdicional().getIdentificacion());
-				informacionAdicionalSd.setRazonSocial(registro.getInformacionAdicional().getRazonSocial());
-				informacionAdicionalSd.setNombreComercial(registro.getInformacionAdicional().getNombreComercial());
-				informacionAdicionalSd
-						.setFchInscripcion(!VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion())
-								? ConvertirFecha(registro.getInformacionAdicional().getFechaInscripcion())
-								: null);
-				informacionAdicionalSd.setFchInicioActividades(
-						!VerificarVacios(registro.getInformacionAdicional().getFechaInicioActividades())
-								? ConvertirFecha(registro.getInformacionAdicional().getFechaInicioActividades())
-								: null);
-				informacionAdicionalSd.setFchCancelacion(
-						!VerificarVacios(registro.getInformacionAdicional().getFechaCancelacionActividades())
-								? ConvertirFecha(registro.getInformacionAdicional().getFechaCancelacionActividades())
-								: null);
-				informacionAdicionalSd.setFchSuspension(
-						!VerificarVacios(registro.getInformacionAdicional().getFechaSuspencionActividades())
-								? ConvertirFecha(registro.getInformacionAdicional().getFechaSuspencionActividades())
-								: null);
-				informacionAdicionalSd.setFchReinicio(
-						!VerificarVacios(registro.getInformacionAdicional().getFechaReinicioActividades())
-								? ConvertirFecha(registro.getInformacionAdicional().getFechaReinicioActividades())
-								: null);
-				informacionAdicionalSd.setPrincipal(registro.getInformacionAdicional().getPrincipal());
-				informacionAdicionalSd.setNumero(registro.getInformacionAdicional().getNumero());
-				informacionAdicionalSd.setSecundaria(registro.getInformacionAdicional().getSecundaria());
-				informacionAdicionalSd.setReferencia(registro.getInformacionAdicional().getReferencia());
-				informacionAdicionalSd.setTelefono(registro.getInformacionAdicional().getTelefono());
-				informacionAdicionalSd.setEMail("jjj");// -------------------------------------------------------
-				informacionAdicionalSd.setCodActividadEconomica(actividadEconomicaSd);
-				informacionAdicionalSd.setSecProvincia(provinciaSdInfoAdd);
-				informacionAdicionalSd.setSecCanton(cantonSdInfoAdd);
-				informacionAdicionalSd.setSecParroquia(parroquiaSdInfoAdd);
-				informacionAdicionalSd.setSecCanal(canalSd);
-				informacionAdicionalSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-				informacionAdicionalSd.setTsCreacion(new Date());
-				informacionAdicionalSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-
-				log.error("LLEGA INFORMACION ADICIONAL");
-				informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
-				log.error("GUARDA INFORMACION ADICIONAL");
+				if (secPesonaNatural == informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural()
+						|| secPesonaNatural == null) {
+					log.error("LLEGA INFORMACION ADICIONAL");
+					informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
+					log.error("GUARDA INFORMACION ADICIONAL");
+				} else {
+					log.error(secPesonaNatural + "<---->"
+							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
+					log.error("Ya existe el registro en la persona natural "
+							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
+				}
 			}
 
 			// CREA PERSONA JURIDICA
