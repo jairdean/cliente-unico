@@ -1401,7 +1401,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
 				}
 			} else {
-				objRetorno.setPersonaNatural(new PersonaNaturalSd());
+				PersonaNaturalSd personaNatural = new PersonaNaturalSd();
+				List<InformacionAdicionalSd> lista = new ArrayList<InformacionAdicionalSd>();
+				InformacionAdicionalSd informacionAdicional = new InformacionAdicionalSd();
+				lista.add(informacionAdicional);
+				personaNatural.setInformacionAdicionalList(lista);
+				objRetorno.setPersonaNatural(personaNatural);
 			}
 
 			log.error("PASA INFORMACION ADICIONAL");
