@@ -387,10 +387,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
 			PersonaSd retornar = GuardarInformacionPersona(registros.getTitular());
-
+/*
 			if (registros.getConyuge() != null && retornar != null)
 				GuardarInformacionConyugue(registros.getConyuge());
-
+*/
 			log.error("LLEGA 2");
 
 			/*
@@ -425,7 +425,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			 * // Se pone esta linea para que se pueda presentar la informacion en xml soap
 			 * de respuesta activarPresentacionParaWs(personaSd);
 			 */
-
+			log.error("xxxx");
+			//log.error(retornar.getPersonaNatural().getEmpleoDependienteList());
+			log.error("xxxx");
 			return retornar;
 		} catch (DatabookException e) {
 			log.error(e.getMessage(), e.getCause());
@@ -1390,15 +1392,21 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 						log.error("INGRESA INFORMACIONADICIONAL");
 						log.error(informacionAdicionalSd);
 					}
-
-					//>>
-
 				} else {
 					log.error(secPesonaNatural + "<---->"
 							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
 					log.error("Ya existe el registro en la persona natural "
 							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
 				}
+				
+				//>>
+				PersonaNaturalSd personaNatural = new PersonaNaturalSd();
+				List<InformacionAdicionalSd> lista = new ArrayList<InformacionAdicionalSd>();
+				lista.add(informacionAdicionalSd);
+				personaNatural = existePersona.getPersonaNatural();
+				personaNatural.setInformacionAdicionalList(lista);
+				objRetorno.setPersonaNatural(personaNatural);
+				
 			} else {
 				PersonaNaturalSd personaNatural = new PersonaNaturalSd();
 				List<InformacionAdicionalSd> lista = new ArrayList<InformacionAdicionalSd>();
