@@ -1489,10 +1489,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			} else {
 				//>>
 				List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
-				empleoDependienteList.add(new EmpleoDependienteSd());
+				empleoDependienteList.add(null);
+				
 				PersonaNaturalSd perN = new PersonaNaturalSd();
 				perN = existePersona.getPersonaNatural();
 				perN.setEmpleoDependienteList(empleoDependienteList);
+				
 				objRetorno.setPersonaNatural(perN);
 			}
 
