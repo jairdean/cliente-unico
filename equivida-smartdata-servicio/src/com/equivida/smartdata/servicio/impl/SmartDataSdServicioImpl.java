@@ -985,8 +985,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							"Ya existe el registro en la persona natural no se puede duplicar la informacion adicional"
 									+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
 				}
-				
-				//>>
+
+				// >>
 				List<InformacionAdicionalSd> informacionAdicionalList = new ArrayList<InformacionAdicionalSd>();
 				informacionAdicionalList.add(informacionAdicionalSd);
 				personaNatural.setInformacionAdicionalList(informacionAdicionalList);
@@ -1026,8 +1026,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("LLEGA EMPLEO DEPENDIENTE");
 				empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
 				log.error("GUARDA EMPLEO DEPENDIENTE");
-				
-				//>>
+
+				// >>
 				List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
 				empleoDependienteList.add(empleoDependienteSd);
 				personaNatural.setEmpleoDependienteList(empleoDependienteList);
@@ -1040,6 +1040,21 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			objRetorno = existePersona;
 
 			log.error("ACTUALIZACION------------------------------------");
+			log.error(existePersona.getPersonaNatural());
+			// VERIFICO SI EXISTE LA PERSONA NATURAL
+			if (existePersona.getPersonaNatural() == null) {
+				// CREA PERSONA NATURAL
+				PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
+						existePersona, canalSd, registro.getEmpleoDependiente().getSecProfesion());
+
+				log.error("PASA PERSONA NATURAL");
+				personaNaturalServicio.insertarPersonaNatural(personaNatural);
+				// >>
+				objRetorno.setPersonaNatural(personaNatural);
+				existePersona.setPersonaNatural(personaNatural);
+				log.error("GUARDA PERSONA NATURAL");
+			}
+
 			// ACTUALIZACION DIRECCION
 			DireccionSd direccionsd = direccionSdServicio
 					.obtenerDireccionByPersonaSecPersona(existePersona.getSecPersona());
@@ -1414,17 +1429,18 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("Ya existe el registro en la persona natural "
 							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
 				}
-				
-				//>>
+
+				// >>
 				PersonaNaturalSd personaNatural = new PersonaNaturalSd();
 				List<InformacionAdicionalSd> lista = new ArrayList<InformacionAdicionalSd>();
 				lista.add(informacionAdicionalSd);
 				personaNatural = existePersona.getPersonaNatural();
 				personaNatural.setInformacionAdicionalList(lista);
 				objRetorno.setPersonaNatural(personaNatural);
-				
+
 			} else {
 				PersonaNaturalSd personaNatural = new PersonaNaturalSd();
+				personaNatural = existePersona.getPersonaNatural();		
 				List<InformacionAdicionalSd> lista = new ArrayList<InformacionAdicionalSd>();
 				InformacionAdicionalSd informacionAdicional = new InformacionAdicionalSd();
 				lista.add(informacionAdicional);
@@ -1462,8 +1478,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 					empleoDependienteServicio.update(empleoDependienteSd);
 					log.error("ACTUALIZA EMPLEO DEPENDIENTE");
-					
-					//>>
+
+					// >>
 					List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
 					empleoDependienteList.add(empleoDependienteSd);
 					PersonaNaturalSd perN = new PersonaNaturalSd();
@@ -1475,8 +1491,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							existePersona.getPersonaNatural(), existePersona.getPersonaJuridica(), canalSd);
 					empleoDependienteServicio.crearEmpleoDependiente(emplDep);
 					log.error("GUARDA EMPLEO DEPENDIENTE");
-					
-					//>>
+
+					// >>
 					List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
 					empleoDependienteList.add(emplDep);
 					PersonaNaturalSd perN = new PersonaNaturalSd();
@@ -1487,7 +1503,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 				log.error("PASA EMPLEO DEPENDIENTE");
 			} else {
-				//>>
+				// >>
 				List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
 				empleoDependienteList.add(new EmpleoDependienteSd());
 				PersonaNaturalSd perN = new PersonaNaturalSd();
