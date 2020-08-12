@@ -97,4 +97,9 @@ public class PersonaJuridicaSdServicioImpl extends
 	public void	crearSoloPersonaJuridica(PersonaJuridicaSd personaJuridica) {
 		personaJuridicaDao.save(personaJuridica);
 	}
+	
+	@Override
+	public PersonaJuridicaSd buscarPersonaPorIdentificacion(String identificacion) {
+		return personaJuridicaDao.obtenerPersonaJuridicaPorIdentifiacion(identificacion);
+	}
 }

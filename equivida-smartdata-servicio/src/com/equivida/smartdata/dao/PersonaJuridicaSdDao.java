@@ -13,4 +13,5 @@ import com.saviasoft.persistence.util.dao.GenericDao;
 @Local
 public interface PersonaJuridicaSdDao extends GenericDao<PersonaJuridicaSd, Integer> {
 
+	PersonaJuridicaSd obtenerPersonaJuridicaPorIdentifiacion(String identificacion);
 }
