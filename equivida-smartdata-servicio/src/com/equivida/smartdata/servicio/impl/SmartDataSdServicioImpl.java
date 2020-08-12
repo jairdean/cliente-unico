@@ -135,9 +135,29 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public PersonaSd consultaClienteSmartData(String identificacion, boolean conRelaciones) throws SmartdataException {
 
-		PersonaSd persona = new PersonaSd();
-		PersonaNaturalSd pn = personaNatServicio.consumirServicio(identificacion);
-		persona.setIdentificacion("" + pn.getSecPersona());
+		// 1. Se busca Cliente en las tablas del esquema SMARTDATA
+		PersonaNaturalSd pn = personaNaturalServicio.obtenerPersonaByIdentificacion(identificacion, conRelaciones);
+
+		PersonaSd persona = null;
+
+		// 2. Hay ocaciones en las que no existe la persona en la tabla PersonaNatural,
+		// en tonces se busca en la tabla Persona
+		if (pn == null) {
+			System.out.println(
+					"===========================No hay PersonaNaturalSd, se consulta PersonaSd con identificacion: "
+							+ identificacion + " - " + new Date());
+			persona = personaServicio.obtenerPersonaByIdentificacion(identificacion);
+
+		}
+
+		if (pn == null && persona == null) {
+			throw new SmartdataException(
+					"No se encuentra datos con identificacion: ".concat(identificacion).concat(" en Smartdata"));
+		}
+
+		if (pn != null) {
+			return pn.getSecPersona();
+		}
 
 		return persona;
 
@@ -1689,7 +1709,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		informacionAdicionalSd.setSecundaria(registro.getSecundaria());
 		informacionAdicionalSd.setReferencia(registro.getReferencia());
 		informacionAdicionalSd.setTelefono(registro.getTelefono());
-		informacionAdicionalSd.setEMail("jjj");// -------------------------------------------------------
+		informacionAdicionalSd.setEMail("");// FALTA ESTE DATO
 		informacionAdicionalSd.setCodActividadEconomica(actividadEconomicaSd);
 		informacionAdicionalSd.setSecProvincia(provinciaSdInfoAdd);
 		informacionAdicionalSd.setSecCanton(cantonSdInfoAdd);
