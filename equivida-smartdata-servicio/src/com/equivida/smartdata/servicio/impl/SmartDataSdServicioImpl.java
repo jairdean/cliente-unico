@@ -961,13 +961,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("LLEGA INFORMACION ADICIONAL");
 					informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
 					log.error("GUARDA INFORMACION ADICIONAL");
-					
-					//>>
-					List<InformacionAdicionalSd> informacionAdicionalList = new ArrayList<InformacionAdicionalSd>();
-					informacionAdicionalList.add(informacionAdicionalSd);
-					personaNatural.setInformacionAdicionalList(informacionAdicionalList);
-					objRetorno.setPersonaNatural(personaNatural);
-					
 				} else {
 					log.error(secPesonaNatural + "<---->"
 							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
@@ -975,6 +968,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							"Ya existe el registro en la persona natural no se puede duplicar la informacion adicional"
 									+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
 				}
+				
+				//>>
+				List<InformacionAdicionalSd> informacionAdicionalList = new ArrayList<InformacionAdicionalSd>();
+				informacionAdicionalList.add(informacionAdicionalSd);
+				personaNatural.setInformacionAdicionalList(informacionAdicionalList);
+				objRetorno.setPersonaNatural(personaNatural);
 			}
 
 			// CREA PERSONA JURIDICA
