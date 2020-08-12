@@ -387,10 +387,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
 			PersonaSd retornar = GuardarInformacionPersona(registros.getTitular());
-/*
+
 			if (registros.getConyuge() != null && retornar != null)
 				GuardarInformacionConyugue(registros.getConyuge());
-*/
+
 			log.error("LLEGA 2");
 
 			/*
@@ -425,9 +425,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			 * // Se pone esta linea para que se pueda presentar la informacion en xml soap
 			 * de respuesta activarPresentacionParaWs(personaSd);
 			 */
-			log.error("xxxx");
-			//log.error(retornar.getPersonaNatural().getEmpleoDependienteList());
-			log.error("xxxx");
 			return retornar;
 		} catch (DatabookException e) {
 			log.error(e.getMessage(), e.getCause());
@@ -1445,18 +1442,39 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 					empleoDependienteServicio.update(empleoDependienteSd);
 					log.error("ACTUALIZA EMPLEO DEPENDIENTE");
+					
 					//>>
+					List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
+					empleoDependienteList.add(empleoDependienteSd);
+					PersonaNaturalSd perN = new PersonaNaturalSd();
+					perN = existePersona.getPersonaNatural();
+					perN.setEmpleoDependienteList(empleoDependienteList);
+					objRetorno.setPersonaNatural(perN);
 				} else {
 					EmpleoDependienteSd emplDep = MapeoEmpleoDependiente(registro.getEmpleoDependiente(),
 							existePersona.getPersonaNatural(), existePersona.getPersonaJuridica(), canalSd);
-
 					empleoDependienteServicio.crearEmpleoDependiente(emplDep);
 					log.error("GUARDA EMPLEO DEPENDIENTE");
+					
 					//>>
+					List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
+					empleoDependienteList.add(emplDep);
+					PersonaNaturalSd perN = new PersonaNaturalSd();
+					perN = existePersona.getPersonaNatural();
+					perN.setEmpleoDependienteList(empleoDependienteList);
+					objRetorno.setPersonaNatural(perN);
 				}
 
 				log.error("PASA EMPLEO DEPENDIENTE");
-			} // FIN IF DE EMPLEO DEPENDINETE
+			} else {
+				//>>
+				List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
+				empleoDependienteList.add(new EmpleoDependienteSd());
+				PersonaNaturalSd perN = new PersonaNaturalSd();
+				perN = existePersona.getPersonaNatural();
+				perN.setEmpleoDependienteList(empleoDependienteList);
+				objRetorno.setPersonaNatural(perN);
+			}
 
 			log.error("FIN PROCESO ACTUALIZACION TITULAR");
 		}
