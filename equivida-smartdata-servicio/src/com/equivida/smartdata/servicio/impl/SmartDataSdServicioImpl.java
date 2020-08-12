@@ -34,6 +34,7 @@ import com.equivida.databook.model.RegistrosEntity.Telefono3;
 import com.equivida.databook.model.RegistrosEntity.Telefono4;
 import com.equivida.databook.model.RegistrosEntity.Telefono5;
 import com.equivida.databook.model.RegistrosEntity.Telefono6;
+import com.equivida.databook.model.RegistrosEntity.Titular;
 import com.equivida.smartdata.constante.EstadoEnum;
 import com.equivida.smartdata.constante.PropiedadesKeyEnum;
 import com.equivida.smartdata.constante.TipoDireccionEnum;
@@ -760,11 +761,22 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		personaServicio.actualizaDatosPersonales(datosActualiza);
 	}
 
-	public void GuardarInformacionConyugue(RegistrosEntity.Conyuge registro) {
+	public void GuardarInformacionConyugue(RegistrosEntity.Conyuge registro) {	
+		log.error("ENTRA CONYUGE");
+		Titular conyuge = new Titular();
+		conyuge.setPersona(registro.getPersona());
+		conyuge.setPersonaNatural(registro.getPersonaNatural());
+		conyuge.setDireccionElectronico(registro.getDireccionElectronico());
+		conyuge.setDireccion(registro.getDireccion());
+		conyuge.setInformacionAdicional(registro.getInformacionAdicional());
+		conyuge.setTelefonos(registro.getTelefonos());
+		conyuge.setEmpleoDependiente(registro.getEmpleoDependiente());
 
+		log.error("LLEGA CONYUGE");
+		GuardarInformacionPersona(conyuge);
 	}
 
-	public PersonaSd GuardarInformacionPersona(RegistrosEntity.Titular registro) {
+	public PersonaSd GuardarInformacionPersona(Titular registro) {
 		PersonaSd objRetorno = new PersonaSd();
 
 		// 1. Se consulta persona por identificacion
@@ -993,9 +1005,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("FIN PROCESO CREAR TITULAR");
 		} else {
 			// ZONA DE ACTUALIZACION
-			// NO ACTUALIZAR PERSONA, PERSONA NATURAL, PERSONA JURIDICA
-			// existePersona ==> PersonaSd
-			// >>
 			objRetorno = existePersona;
 
 			log.error("ACTUALIZACION------------------------------------");
@@ -1255,7 +1264,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				}
 			}
 
-			// >>
 			objRetorno.setTelefonoList(retornarListaTelefono);
 			log.error("PASA TELEFONO");
 
@@ -1789,5 +1797,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		return personaJuridicaSd;
 	}
+	
+	
 
 }
