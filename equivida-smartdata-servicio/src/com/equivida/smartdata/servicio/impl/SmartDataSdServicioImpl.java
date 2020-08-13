@@ -407,13 +407,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// Se consulta en el WS.
 			log.error("LLEGA 1");
 			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity(identificacion);
-			
-			if(registros.getTitular() == null || registros.getTitular().getPersona() == null) {
+
+			if (registros.getTitular() == null || registros.getTitular().getPersona() == null) {
 				/*
-				 <?xml version="1.0" encoding="UTF-8"?>
-				<registros>
-				<error>NUT no existe</error>
-				</registros>
+				 * <?xml version="1.0" encoding="UTF-8"?> <registros> <error>NUT no
+				 * existe</error> </registros>
 				 */
 				log.error("NUT no existe");
 				return null;
@@ -1364,7 +1362,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 						tipoTelefonoSd = existeTipoTelefono;
 					else
 						tipoTelefonoSd.setCodTipoTelefono((short) 0);
-					
+
 					telefono6.setSecPersona(existePersona);
 					telefono6.setSecCanal(canalSd);
 					telefono6.setEstado(EstadoEnum.A.getEstadoChar());
@@ -1907,9 +1905,17 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		PersonaNaturalSd personaNatural = new PersonaNaturalSd();
 
+		// CONTROLO Y VERIFICO QUE EXISTA EL ESTADO CIVIL
 		EstadoCivilSd estadoCivilSd = new EstadoCivilSd();
-		estadoCivilSd.setCodEstadoCivil(
-				!VerificarVacios(registro.getCodEstadoCivil()) ? Short.parseShort(registro.getCodEstadoCivil()) : 0);
+		try {
+			if (!VerificarVacios(registro.getCodEstadoCivil().trim()))
+				estadoCivilSd = estadoCivilServicio.findByPk(Short.parseShort(registro.getCodEstadoCivil().trim()));
+			else
+				estadoCivilSd.setCodEstadoCivil((short) 0);
+		} catch (Exception e) {
+			log.error("El campo estado civil no es un tipo de dato short --->" + registro.getCodEstadoCivil().trim());
+			estadoCivilSd.setCodEstadoCivil((short) 0);
+		}
 
 		PaisSd paisSd = new PaisSd();
 		paisSd.setCodPais((short) 56); // ++++++PONER CONSTANTE++++++++++//
