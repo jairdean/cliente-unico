@@ -407,6 +407,17 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// Se consulta en el WS.
 			log.error("LLEGA 1");
 			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity(identificacion);
+			
+			if(registros.getTitular() == null || registros.getTitular().getPersona() == null) {
+				/*
+				 <?xml version="1.0" encoding="UTF-8"?>
+				<registros>
+				<error>NUT no existe</error>
+				</registros>
+				 */
+				log.error("NUT no existe");
+				return null;
+			}
 
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
 			PersonaSd retornar = GuardarInformacionPersona(registros.getTitular());
