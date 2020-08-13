@@ -1520,7 +1520,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				PersonaNaturalSd personaNatural = new PersonaNaturalSd();
 				personaNatural = existePersona.getPersonaNatural();
 				List<InformacionAdicionalSd> lista = new ArrayList<InformacionAdicionalSd>();
-				InformacionAdicionalSd informacionAdicional = new InformacionAdicionalSd();
+				InformacionAdicionalSd informacionAdicional = null;
 				lista.add(informacionAdicional);
 				personaNatural.setInformacionAdicionalList(lista);
 				objRetorno.setPersonaNatural(personaNatural);
