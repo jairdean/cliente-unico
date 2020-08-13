@@ -1403,7 +1403,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
 			tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
 
-			// CREA/ACTUALIZA DIRECCION ELECTRONICA 1
+			//SE CONTROLA EN CASO DE QUE EL CORREO 1 ESTE VACIO Y EL CORREO 2 ESTE LLENO
+			if(VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim()) && !VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim()))
+				registro.getDireccionElectronico().setCorreo_electronico1(registro.getDireccionElectronico().getCorreo_electronico2());
+			
+				// CREA/ACTUALIZA DIRECCION ELECTRONICA 1
 			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())) {
 				if (direccionElectronica != null && direccionElectronica.size() >= 1) {
 					DireccionElectronicaSd d1 = direccionElectronicaSdServicio
@@ -1434,8 +1438,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// CREA/ACTUALIZA DIRECCION ELECTRONICA 2
 			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {
 
-				if (registro.getDireccionElectronico().getCorreo_electronico1()
-						.equalsIgnoreCase(registro.getDireccionElectronico().getCorreo_electronico2()) == false) {
+				if (registro.getDireccionElectronico().getCorreo_electronico1() != null
+						&& registro.getDireccionElectronico().getCorreo_electronico1().equalsIgnoreCase(
+								registro.getDireccionElectronico().getCorreo_electronico2()) == false) {
 
 					if (direccionElectronica != null && direccionElectronica.size() >= 2) {
 
@@ -1456,6 +1461,16 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					} else {
 						DireccionElectronicaSd d2 = MapeoDireccionElectronica(
 								registro.getDireccionElectronico().getCorreo_electronico2(), existePersona, canalSd);
+
+						log.error(d2);
+						log.error(d2.getSecPersona());
+						log.error(d2.getDireccionElectronica());
+						log.error(d2.getCodTipoDireccionElectronica());
+						log.error(d2.getSecCanal());
+						log.error(d2.getEstado());
+						log.error(d2.getUsrCreacion());
+						log.error(d2.getTsCreacion());
+						log.error(d2.getUsrModificacion());
 
 						log.error("CREA DIRECCION ELECTRONICA 2");
 						direccionElectronicaSdServicio.ingresarDireccionElectronica(d2);
