@@ -956,12 +956,16 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// CREA DIRECCION ELECTRONICA 2
 			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {
-				DireccionElectronicaSd direccionElectronica2 = MapeoDireccionElectronica(
-						registro.getDireccionElectronico().getCorreo_electronico2().trim(), persona, canalSd);
+				if (registro.getDireccionElectronico().getCorreo_electronico1()
+						.equalsIgnoreCase(registro.getDireccionElectronico().getCorreo_electronico2()) == false) {
 
-				log.error("LLEGA DIRECCION ELECTRONICA 2");
-				direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica2);
-				log.error("GUARDA DIRECCION ELECTRONICA 2");
+					DireccionElectronicaSd direccionElectronica2 = MapeoDireccionElectronica(
+							registro.getDireccionElectronico().getCorreo_electronico2().trim(), persona, canalSd);
+
+					log.error("LLEGA DIRECCION ELECTRONICA 2");
+					direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica2);
+					log.error("GUARDA DIRECCION ELECTRONICA 2");
+				}
 			}
 
 			// CREA INFORMACION ADCIONAL
@@ -1429,32 +1433,37 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// CREA/ACTUALIZA DIRECCION ELECTRONICA 2
 			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {
-				if (direccionElectronica != null && direccionElectronica.size() >= 2) {
 
-					DireccionElectronicaSd d2 = direccionElectronicaSdServicio
-							.findByPk(direccionElectronica.get(1).getSecDireccionElectronica());
-					d2.setSecPersona(existePersona);
-					d2.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
-					d2.setSecCanal(canalSd);
-					d2.setEstado(EstadoEnum.A.getEstadoChar());
-					d2.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-					d2.setTsCreacion(new Date());
-					d2.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-					d2.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico2());
+				if (registro.getDireccionElectronico().getCorreo_electronico1()
+						.equalsIgnoreCase(registro.getDireccionElectronico().getCorreo_electronico2()) == false) {
 
-					log.error("ACTUALIZA DIRECCION ELECTRONICA 2");
-					log.error(d2);
-					direccionElectronicaSdServicio.update(d2);
-				} else {
-					DireccionElectronicaSd d2 = MapeoDireccionElectronica(
-							registro.getDireccionElectronico().getCorreo_electronico2(), existePersona, canalSd);
+					if (direccionElectronica != null && direccionElectronica.size() >= 2) {
 
-					log.error("CREA DIRECCION ELECTRONICA 2");
-					direccionElectronicaSdServicio.ingresarDireccionElectronica(d2);
-					log.error("GUARDA DIRECCION ELECTRONICA 2");
+						DireccionElectronicaSd d2 = direccionElectronicaSdServicio
+								.findByPk(direccionElectronica.get(1).getSecDireccionElectronica());
+						d2.setSecPersona(existePersona);
+						d2.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
+						d2.setSecCanal(canalSd);
+						d2.setEstado(EstadoEnum.A.getEstadoChar());
+						d2.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+						d2.setTsCreacion(new Date());
+						d2.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+						d2.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico2());
 
+						log.error("ACTUALIZA DIRECCION ELECTRONICA 2");
+						log.error(d2);
+						direccionElectronicaSdServicio.update(d2);
+					} else {
+						DireccionElectronicaSd d2 = MapeoDireccionElectronica(
+								registro.getDireccionElectronico().getCorreo_electronico2(), existePersona, canalSd);
+
+						log.error("CREA DIRECCION ELECTRONICA 2");
+						direccionElectronicaSdServicio.ingresarDireccionElectronica(d2);
+						log.error("GUARDA DIRECCION ELECTRONICA 2");
+
+					}
+					log.error("PASA DIRECCION ELECTRONICA");
 				}
-				log.error("PASA DIRECCION ELECTRONICA");
 			}
 
 			// ACTUALIZA INFORMACION ADCIONAL
