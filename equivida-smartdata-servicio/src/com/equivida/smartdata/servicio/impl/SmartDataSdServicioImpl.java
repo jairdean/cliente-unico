@@ -82,6 +82,7 @@ import com.equivida.smartdata.servicio.RelacionSdServicio;
 import com.equivida.smartdata.servicio.SmartDataSdServicio;
 import com.equivida.smartdata.servicio.SmartDataServicioSdRemote;
 import com.equivida.smartdata.servicio.TelefonoSdServicio;
+import com.equivida.smartdata.servicio.TipoTelefonoSdServicio;
 import com.equivida.smartdata.servicio.PersonaNaturalServicio;
 import com.equivida.smartdata.servicio.InformacionAdicionalSdServicio;
 import com.equivida.smartdata.servicio.ParroquiaSdServicio;
@@ -124,6 +125,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private CantonSdServicio cantonSdServicio;
 	@EJB
 	private ParroquiaSdServicio parroquiaSdServicio;
+	@EJB
+	private TipoTelefonoSdServicio tipoTelefonoSdServicio;
 
 	/*
 	 * (non-Javadoc)
@@ -1096,9 +1099,21 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				if (listaTelefonos != null && listaTelefonos.size() >= 1) {
 					TelefonoSd telefono1 = telefonoSdServicio.findByPk(listaTelefonos.get(0).getSecTelefono());
 
-					// telefono1 = MapperTelefono(registro.getTelefonos().getTelefono1(), null,
-					// null, null, null, null, canalSd, existePersona);
+					TipoTelefonoSd existeTipoTelefono = null;
+					try {
+						if (!VerificarVacios(registro.getTelefonos().getTelefono1().getCodTipoTelefono().trim()))
+							existeTipoTelefono = tipoTelefonoSdServicio.findByPk(Short
+									.parseShort(registro.getTelefonos().getTelefono1().getCodTipoTelefono().trim()));
+					} catch (Exception e) {
+						log.error("El campo tipo telefono no es un tipo de dato short --->"
+								+ registro.getTelefonos().getTelefono1().getCodTipoTelefono().trim());
+					}
+
 					TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+					if (existeTipoTelefono != null)
+						tipoTelefonoSd = existeTipoTelefono;
+					else
+						tipoTelefonoSd.setCodTipoTelefono((short) 0);
 					telefono1.setSecPersona(existePersona);
 					telefono1.setSecCanal(canalSd);
 					telefono1.setEstado(EstadoEnum.A.getEstadoChar());
@@ -1107,10 +1122,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefono1.setTsCreacion(new Date());
 					telefono1.setCodArea(listaTelefonos.get(0).getCodArea());
 					telefono1.setNroTelefono(listaTelefonos.get(0).getNroTelefono());
-					tipoTelefonoSd.setCodTipoTelefono(
-							!VerificarVacios(registro.getTelefonos().getTelefono1().getCodTipoTelefono())
-									? Short.parseShort(registro.getTelefonos().getTelefono1().getCodTipoTelefono())
-									: (short) (0));
 					telefono1.setCodTipoTelefono(tipoTelefonoSd);
 
 					log.error("ACTUALIZA TELEFONO1");
@@ -1134,9 +1145,23 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				if (listaTelefonos != null && listaTelefonos.size() >= 2) {
 					TelefonoSd telefono2 = telefonoSdServicio.findByPk(listaTelefonos.get(1).getSecTelefono());
 
-					// telefono1 = MapperTelefono(null, registro.getTelefonos().getTelefono2(),
-					// null, null, null, null, canalSd, existePersona);
+					// CONTROLO QUE EL CODIGO DEL TELEFONO SEA VALIDO
+					TipoTelefonoSd existeTipoTelefono = null;
+					try {
+						if (!VerificarVacios(registro.getTelefonos().getTelefono2().getCodTipoTelefono().trim()))
+							existeTipoTelefono = tipoTelefonoSdServicio.findByPk(Short
+									.parseShort(registro.getTelefonos().getTelefono2().getCodTipoTelefono().trim()));
+					} catch (Exception e) {
+						log.error("El campo tipo telefono no es un tipo de dato short --->"
+								+ registro.getTelefonos().getTelefono2().getCodTipoTelefono().trim());
+					}
+
 					TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+					if (existeTipoTelefono != null)
+						tipoTelefonoSd = existeTipoTelefono;
+					else
+						tipoTelefonoSd.setCodTipoTelefono((short) 0);
+
 					telefono2.setSecPersona(existePersona);
 					telefono2.setSecCanal(canalSd);
 					telefono2.setEstado(EstadoEnum.A.getEstadoChar());
@@ -1145,10 +1170,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefono2.setTsCreacion(new Date());
 					telefono2.setCodArea(listaTelefonos.get(1).getCodArea());
 					telefono2.setNroTelefono(listaTelefonos.get(1).getNroTelefono());
-					tipoTelefonoSd.setCodTipoTelefono(
-							!VerificarVacios(registro.getTelefonos().getTelefono2().getCodTipoTelefono())
-									? Short.parseShort(registro.getTelefonos().getTelefono2().getCodTipoTelefono())
-									: (short) (0));
 					telefono2.setCodTipoTelefono(tipoTelefonoSd);
 
 					log.error("ACTUALIZA TELEFONO2");
@@ -1172,7 +1193,23 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				if (listaTelefonos != null && listaTelefonos.size() >= 3) {
 					TelefonoSd telefono3 = telefonoSdServicio.findByPk(listaTelefonos.get(2).getSecTelefono());
 
+					// CONTROLO QUE EL CODIGO DEL TELEFONO SEA VALIDO
+					TipoTelefonoSd existeTipoTelefono = null;
+					try {
+						if (!VerificarVacios(registro.getTelefonos().getTelefono3().getCodTipoTelefono().trim()))
+							existeTipoTelefono = tipoTelefonoSdServicio.findByPk(Short
+									.parseShort(registro.getTelefonos().getTelefono3().getCodTipoTelefono().trim()));
+					} catch (Exception e) {
+						log.error("El campo tipo telefono no es un tipo de dato short --->"
+								+ registro.getTelefonos().getTelefono3().getCodTipoTelefono().trim());
+					}
+
 					TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+					if (existeTipoTelefono != null)
+						tipoTelefonoSd = existeTipoTelefono;
+					else
+						tipoTelefonoSd.setCodTipoTelefono((short) 0);
+
 					telefono3.setSecPersona(existePersona);
 					telefono3.setSecCanal(canalSd);
 					telefono3.setEstado(EstadoEnum.A.getEstadoChar());
@@ -1181,10 +1218,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefono3.setTsCreacion(new Date());
 					telefono3.setCodArea(listaTelefonos.get(2).getCodArea());
 					telefono3.setNroTelefono(listaTelefonos.get(2).getNroTelefono());
-					tipoTelefonoSd.setCodTipoTelefono(
-							!VerificarVacios(registro.getTelefonos().getTelefono3().getCodTipoTelefono())
-									? Short.parseShort(registro.getTelefonos().getTelefono3().getCodTipoTelefono())
-									: (short) (0));
 					telefono3.setCodTipoTelefono(tipoTelefonoSd);
 
 					log.error("ACTUALIZA TELEFONO3");
@@ -1208,7 +1241,23 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				if (listaTelefonos != null && listaTelefonos.size() >= 4) {
 					TelefonoSd telefono4 = telefonoSdServicio.findByPk(listaTelefonos.get(3).getSecTelefono());
 
+					// CONTROLO QUE EL CODIGO DEL TELEFONO SEA VALIDO
+					TipoTelefonoSd existeTipoTelefono = null;
+					try {
+						if (!VerificarVacios(registro.getTelefonos().getTelefono4().getCodTipoTelefono().trim()))
+							existeTipoTelefono = tipoTelefonoSdServicio.findByPk(Short
+									.parseShort(registro.getTelefonos().getTelefono4().getCodTipoTelefono().trim()));
+					} catch (Exception e) {
+						log.error("El campo tipo telefono no es un tipo de dato short --->"
+								+ registro.getTelefonos().getTelefono4().getCodTipoTelefono().trim());
+					}
+
 					TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+					if (existeTipoTelefono != null)
+						tipoTelefonoSd = existeTipoTelefono;
+					else
+						tipoTelefonoSd.setCodTipoTelefono((short) 0);
+
 					telefono4.setSecPersona(existePersona);
 					telefono4.setSecCanal(canalSd);
 					telefono4.setEstado(EstadoEnum.A.getEstadoChar());
@@ -1217,10 +1266,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefono4.setTsCreacion(new Date());
 					telefono4.setCodArea(listaTelefonos.get(3).getCodArea());
 					telefono4.setNroTelefono(listaTelefonos.get(3).getNroTelefono());
-					tipoTelefonoSd.setCodTipoTelefono(
-							!VerificarVacios(registro.getTelefonos().getTelefono4().getCodTipoTelefono())
-									? Short.parseShort(registro.getTelefonos().getTelefono4().getCodTipoTelefono())
-									: (short) (0));
 					telefono4.setCodTipoTelefono(tipoTelefonoSd);
 
 					log.error("ACTUALIZA TELEFONO4");
@@ -1244,7 +1289,23 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				if (listaTelefonos != null && listaTelefonos.size() >= 5) {
 					TelefonoSd telefono5 = telefonoSdServicio.findByPk(listaTelefonos.get(4).getSecTelefono());
 
+					// CONTROLO QUE EL CODIGO DEL TELEFONO SEA VALIDO
+					TipoTelefonoSd existeTipoTelefono = null;
+					try {
+						if (!VerificarVacios(registro.getTelefonos().getTelefono5().getCodTipoTelefono().trim()))
+							existeTipoTelefono = tipoTelefonoSdServicio.findByPk(Short
+									.parseShort(registro.getTelefonos().getTelefono5().getCodTipoTelefono().trim()));
+					} catch (Exception e) {
+						log.error("El campo tipo telefono no es un tipo de dato short --->"
+								+ registro.getTelefonos().getTelefono5().getCodTipoTelefono().trim());
+					}
+
 					TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+					if (existeTipoTelefono != null)
+						tipoTelefonoSd = existeTipoTelefono;
+					else
+						tipoTelefonoSd.setCodTipoTelefono((short) 0);
+
 					telefono5.setSecPersona(existePersona);
 					telefono5.setSecCanal(canalSd);
 					telefono5.setEstado(EstadoEnum.A.getEstadoChar());
@@ -1253,10 +1314,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefono5.setTsCreacion(new Date());
 					telefono5.setCodArea(listaTelefonos.get(4).getCodArea());
 					telefono5.setNroTelefono(listaTelefonos.get(4).getNroTelefono());
-					tipoTelefonoSd.setCodTipoTelefono(
-							!VerificarVacios(registro.getTelefonos().getTelefono5().getCodTipoTelefono())
-									? Short.parseShort(registro.getTelefonos().getTelefono5().getCodTipoTelefono())
-									: (short) (0));
 					telefono5.setCodTipoTelefono(tipoTelefonoSd);
 
 					log.error("ACTUALIZA TELEFONO5");
@@ -1280,7 +1337,23 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				if (listaTelefonos != null && listaTelefonos.size() >= 6) {
 					TelefonoSd telefono6 = telefonoSdServicio.findByPk(listaTelefonos.get(5).getSecTelefono());
 
+					// CONTROLO QUE EL CODIGO DEL TELEFONO SEA VALIDO
+					TipoTelefonoSd existeTipoTelefono = null;
+					try {
+						if (!VerificarVacios(registro.getTelefonos().getTelefono6().getCodTipoTelefono().trim()))
+							existeTipoTelefono = tipoTelefonoSdServicio.findByPk(Short
+									.parseShort(registro.getTelefonos().getTelefono6().getCodTipoTelefono().trim()));
+					} catch (Exception e) {
+						log.error("El campo tipo telefono no es un tipo de dato short --->"
+								+ registro.getTelefonos().getTelefono6().getCodTipoTelefono().trim());
+					}
+
 					TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+					if (existeTipoTelefono != null)
+						tipoTelefonoSd = existeTipoTelefono;
+					else
+						tipoTelefonoSd.setCodTipoTelefono((short) 0);
+					
 					telefono6.setSecPersona(existePersona);
 					telefono6.setSecCanal(canalSd);
 					telefono6.setEstado(EstadoEnum.A.getEstadoChar());
@@ -1289,10 +1362,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					telefono6.setTsCreacion(new Date());
 					telefono6.setCodArea(listaTelefonos.get(5).getCodArea());
 					telefono6.setNroTelefono(listaTelefonos.get(5).getNroTelefono());
-					tipoTelefonoSd.setCodTipoTelefono(
-							!VerificarVacios(registro.getTelefonos().getTelefono6().getCodTipoTelefono())
-									? Short.parseShort(registro.getTelefonos().getTelefono6().getCodTipoTelefono())
-									: (short) (0));
 					telefono6.setCodTipoTelefono(tipoTelefonoSd);
 					log.error("ACTUALIZA TELEFONO6");
 					log.error(telefono6);
@@ -1440,7 +1509,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			} else {
 				PersonaNaturalSd personaNatural = new PersonaNaturalSd();
-				personaNatural = existePersona.getPersonaNatural();		
+				personaNatural = existePersona.getPersonaNatural();
 				List<InformacionAdicionalSd> lista = new ArrayList<InformacionAdicionalSd>();
 				InformacionAdicionalSd informacionAdicional = new InformacionAdicionalSd();
 				lista.add(informacionAdicional);
@@ -1506,11 +1575,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				// >>
 				List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
 				empleoDependienteList.add(null);
-				
+
 				PersonaNaturalSd perN = new PersonaNaturalSd();
 				perN = existePersona.getPersonaNatural();
 				perN.setEmpleoDependienteList(empleoDependienteList);
-				
+
 				objRetorno.setPersonaNatural(perN);
 			}
 
@@ -1613,46 +1682,101 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		telefono.setTsCreacion(new Date());
 
 		if (telefono1 != null) {
+
+			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
+			TipoTelefonoSd existeTipoTelefono = null;
+			try {
+				if (!VerificarVacios(telefono1.getCodTipoTelefono().trim()))
+					existeTipoTelefono = tipoTelefonoSdServicio
+							.findByPk(Short.parseShort(telefono1.getCodTipoTelefono().trim()));
+			} catch (Exception e) {
+				log.error("El campo tipo telefono no es un tipo de dato short --->"
+						+ telefono1.getCodTipoTelefono().trim());
+			}
+
+			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
 			telefono.setCodArea(telefono1.getCodArea());
 			telefono.setNroTelefono(telefono1.getNroTelefono());
-			tipoTelefonoSd.setCodTipoTelefono(
-					!VerificarVacios(telefono1.getCodTipoTelefono()) ? Short.parseShort(telefono1.getCodTipoTelefono())
-							: (short) 0);
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		} else if (telefono2 != null) {
+			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
+			TipoTelefonoSd existeTipoTelefono = null;
+			try {
+				if (!VerificarVacios(telefono2.getCodTipoTelefono().trim()))
+					existeTipoTelefono = tipoTelefonoSdServicio
+							.findByPk(Short.parseShort(telefono2.getCodTipoTelefono().trim()));
+			} catch (Exception e) {
+				log.error("El campo tipo telefono no es un tipo de dato short --->"
+						+ telefono2.getCodTipoTelefono().trim());
+			}
+
+			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
 			telefono.setCodArea(telefono2.getCodArea());
 			telefono.setNroTelefono(telefono2.getNroTelefono());
-			tipoTelefonoSd.setCodTipoTelefono(
-					!VerificarVacios(telefono2.getCodTipoTelefono()) ? Short.parseShort(telefono2.getCodTipoTelefono())
-							: (short) 0);
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		} else if (telefono3 != null) {
+			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
+			TipoTelefonoSd existeTipoTelefono = null;
+			try {
+				if (!VerificarVacios(telefono3.getCodTipoTelefono().trim()))
+					existeTipoTelefono = tipoTelefonoSdServicio
+							.findByPk(Short.parseShort(telefono3.getCodTipoTelefono().trim()));
+			} catch (Exception e) {
+				log.error("El campo tipo telefono no es un tipo de dato short --->"
+						+ telefono3.getCodTipoTelefono().trim());
+			}
+
+			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
 			telefono.setCodArea(telefono3.getCodArea());
 			telefono.setNroTelefono(telefono3.getNroTelefono());
-			tipoTelefonoSd.setCodTipoTelefono(
-					!VerificarVacios(telefono3.getCodTipoTelefono()) ? Short.parseShort(telefono3.getCodTipoTelefono())
-							: (short) 0);
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		} else if (telefono4 != null) {
+			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
+			TipoTelefonoSd existeTipoTelefono = null;
+			try {
+				if (!VerificarVacios(telefono4.getCodTipoTelefono().trim()))
+					existeTipoTelefono = tipoTelefonoSdServicio
+							.findByPk(Short.parseShort(telefono4.getCodTipoTelefono().trim()));
+			} catch (Exception e) {
+				log.error("El campo tipo telefono no es un tipo de dato short --->"
+						+ telefono4.getCodTipoTelefono().trim());
+			}
+
+			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
 			telefono.setCodArea(telefono4.getCodArea());
 			telefono.setNroTelefono(telefono4.getNroTelefono());
-			tipoTelefonoSd.setCodTipoTelefono(
-					!VerificarVacios(telefono4.getCodTipoTelefono()) ? Short.parseShort(telefono4.getCodTipoTelefono())
-							: (short) 0);
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		} else if (telefono5 != null) {
+			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
+			TipoTelefonoSd existeTipoTelefono = null;
+			try {
+				if (!VerificarVacios(telefono5.getCodTipoTelefono().trim()))
+					existeTipoTelefono = tipoTelefonoSdServicio
+							.findByPk(Short.parseShort(telefono5.getCodTipoTelefono().trim()));
+			} catch (Exception e) {
+				log.error("El campo tipo telefono no es un tipo de dato short --->"
+						+ telefono5.getCodTipoTelefono().trim());
+			}
+
+			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
 			telefono.setCodArea(telefono5.getCodArea());
 			telefono.setNroTelefono(telefono5.getNroTelefono());
-			tipoTelefonoSd.setCodTipoTelefono(
-					!VerificarVacios(telefono5.getCodTipoTelefono()) ? Short.parseShort(telefono5.getCodTipoTelefono())
-							: (short) 0);
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		} else if (telefono6 != null) {
+			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
+			TipoTelefonoSd existeTipoTelefono = null;
+			try {
+				if (!VerificarVacios(telefono6.getCodTipoTelefono().trim()))
+					existeTipoTelefono = tipoTelefonoSdServicio
+							.findByPk(Short.parseShort(telefono6.getCodTipoTelefono().trim()));
+			} catch (Exception e) {
+				log.error("El campo tipo telefono no es un tipo de dato short --->"
+						+ telefono6.getCodTipoTelefono().trim());
+			}
+
+			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
 			telefono.setCodArea(telefono6.getCodArea());
 			telefono.setNroTelefono(telefono6.getNroTelefono());
-			tipoTelefonoSd.setCodTipoTelefono(
-					!VerificarVacios(telefono6.getCodTipoTelefono()) ? Short.parseShort(telefono6.getCodTipoTelefono())
-							: (short) 0);
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		}
 
