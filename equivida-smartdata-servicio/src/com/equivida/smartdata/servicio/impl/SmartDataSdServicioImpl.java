@@ -412,6 +412,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				<error>NUT no existe</error>
 				</registros>
 				 */
+				log.error("NUT no existe");
 				return null;
 			}
 
