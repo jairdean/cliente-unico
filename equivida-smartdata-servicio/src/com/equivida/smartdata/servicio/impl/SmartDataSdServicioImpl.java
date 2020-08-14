@@ -128,7 +128,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private ParroquiaSdServicio parroquiaSdServicio;
 	@EJB
 	private TipoTelefonoSdServicio tipoTelefonoSdServicio;
-	
 	/*
 	 * (non-Javadoc)
 	 * 
