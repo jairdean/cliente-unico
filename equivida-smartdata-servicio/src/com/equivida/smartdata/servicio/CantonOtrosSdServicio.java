@@ -14,7 +14,7 @@ import com.saviasoft.persistence.util.service.GenericService;
 public interface CantonOtrosSdServicio extends GenericService<CantonOtrosSd, Short> {
 
 	/**
-	 * Obtener obtenerSecProvinobtenerSecCantonOtroByCodCantIessciaOtroByCodProvIess.
+	 * Obtener obtenerSecCantonOtroByCodCantIess.
 	 * 
 	 * @param codCantIess
 	 * @return secCantonOtros
