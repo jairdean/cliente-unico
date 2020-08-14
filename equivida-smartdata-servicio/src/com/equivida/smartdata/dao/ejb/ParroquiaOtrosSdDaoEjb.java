@@ -27,7 +27,7 @@ public class ParroquiaOtrosSdDaoEjb extends GenericDaoEjb<ParroquiaOtrosSd, Shor
 	 * @see com.equivida.smartdata.dao.ParroquiaOtrosSdDao#obtenerSecParroquiaOtroByCodParrIess(String codParrIess)
 	 */
 	@Override
-	public Short obtenerSecParroquiaOtroByCodParrIess(String codParrIess) {
+	public ParroquiaOtrosSd obtenerSecParroquiaOtroByCodParrIess(String codParrIess) {
 		StringBuffer sql = new StringBuffer(200);
 		sql.append("select d from ParroquiaOtrosSd d where ");
 		sql.append("d.codParroquiaIess = :codParrIess ");
@@ -38,7 +38,7 @@ public class ParroquiaOtrosSdDaoEjb extends GenericDaoEjb<ParroquiaOtrosSd, Shor
 		List<ParroquiaOtrosSd> parroquiaOtrosSdList = query.getResultList();
 
 		if (parroquiaOtrosSdList != null && !parroquiaOtrosSdList.isEmpty())
-			return parroquiaOtrosSdList.get(0).getSecParroquia();
+			return parroquiaOtrosSdList.get(0);
 
 		return null;
 	}

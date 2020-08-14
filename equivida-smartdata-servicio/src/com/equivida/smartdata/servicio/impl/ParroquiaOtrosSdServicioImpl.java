@@ -33,7 +33,7 @@ public class ParroquiaOtrosSdServicioImpl extends GenericServiceImpl<ParroquiaOt
 	 * obtenerSecParroquiaOtroByCodParrIess
 	 */
 	@Override
-	public Short obtenerSecParroquiaOtroByCodParrIess(String codParrIess) {
+	public ParroquiaOtrosSd obtenerSecParroquiaOtroByCodParrIess(String codParrIess) {
 		return parroquiaOtrosSdDao.obtenerSecParroquiaOtroByCodParrIess(codParrIess);
 	}
 }

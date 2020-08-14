@@ -19,5 +19,5 @@ public interface ParroquiaOtrosSdDao extends GenericDao<ParroquiaOtrosSd, Short>
 	 * @param codParrIess
 	 * @return SecParroquiaOtro
 	 */
-	Short obtenerSecParroquiaOtroByCodParrIess(String codParrIess);
+	ParroquiaOtrosSd obtenerSecParroquiaOtroByCodParrIess(String codParrIess);
 }
