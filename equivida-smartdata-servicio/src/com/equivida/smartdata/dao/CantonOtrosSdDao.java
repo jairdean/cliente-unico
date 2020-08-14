@@ -19,5 +19,13 @@ public interface CantonOtrosSdDao extends GenericDao<CantonOtrosSd, Short> {
 	 * @param codCantIess
 	 * @return SecCantonOtro
 	 */
-	Short obtenerSecCantonOtroByCodCantIess(Integer codCantIess);
+	Short obtenerSecCantonOtroByCodCantIess(String codCantIess);
+	
+	/**
+	 * Obtiene SecCantonOtro por codCantSri
+	 * 
+	 * @param codCantSri
+	 * @return SecCantonOtro
+	 */
+	Short obtenerSecCantonOtroByCodCantSri(String codCantSri);
 }
