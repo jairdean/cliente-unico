@@ -19,5 +19,5 @@ public interface ProvinciaOtrosSdDao extends GenericDao<ProvinciaOtrosSd, Short>
 	 * @param codProvIess
 	 * @return secProvinciaOtros
 	 */
-	Short obtenerSecProvinciaOtroByCodProvIess(Integer codProvIess);
+	ProvinciaOtrosSd obtenerSecProvinciaOtroByCodProvIess(Integer codProvIess);
 }

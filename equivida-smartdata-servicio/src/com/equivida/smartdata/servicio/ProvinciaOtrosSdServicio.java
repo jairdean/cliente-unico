@@ -19,6 +19,6 @@ public interface ProvinciaOtrosSdServicio extends GenericService<ProvinciaOtrosS
 	 * @param codProvIess
 	 * @return secProvinciaOtros
 	 */
-	Short obtenerSecProvinciaOtroByCodProvIess(Integer codProvIess);
+	ProvinciaOtrosSd obtenerSecProvinciaOtroByCodProvIess(Integer codProvIess);
 	
 }

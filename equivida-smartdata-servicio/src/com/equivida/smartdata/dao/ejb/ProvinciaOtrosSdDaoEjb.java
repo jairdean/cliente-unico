@@ -27,7 +27,7 @@ public class ProvinciaOtrosSdDaoEjb extends GenericDaoEjb<ProvinciaOtrosSd, Shor
 	 * @see com.equivida.smartdata.dao.ProvinciaOtrosSdDao#obtenerSecProvinciaOtroByCodProvIess(Integer codProvIess)
 	 */
 	@Override
-	public Short obtenerSecProvinciaOtroByCodProvIess(Integer codProvIess) {
+	public ProvinciaOtrosSd obtenerSecProvinciaOtroByCodProvIess(Integer codProvIess) {
 		StringBuffer sql = new StringBuffer(200);
 		sql.append("select d from ProvinciaOtrosSd d where ");
 		sql.append("d.codProvinciaIess = :codProvIess ");
@@ -38,7 +38,7 @@ public class ProvinciaOtrosSdDaoEjb extends GenericDaoEjb<ProvinciaOtrosSd, Shor
 		List<ProvinciaOtrosSd> provinciaOtrosSdList = query.getResultList();
 
 		if (provinciaOtrosSdList != null && !provinciaOtrosSdList.isEmpty())
-			return provinciaOtrosSdList.get(0).getSecProvincia();
+			return provinciaOtrosSdList.get(0);
 
 		return null;
 	}
