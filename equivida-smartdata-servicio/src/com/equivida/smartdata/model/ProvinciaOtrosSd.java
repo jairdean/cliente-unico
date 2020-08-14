@@ -9,30 +9,26 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author jairo
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "PROVINCIA_OTROS")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ProvinciaOtrosSd implements Serializable {
-	
-	@JoinColumn(name = "SEC_PROVINCIA", referencedColumnName = "SEC_PROVINCIA")
-	@ManyToOne(optional = false)
-	@XmlTransient
-	private ProvinciaSd secProvincia;
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Basic(optional = false)
+	@Column(name = "SEC_PROVINCIA")
+	private Short secProvincia;
 
 	@Basic(optional = false)
 	@Size(max = 2)
@@ -47,20 +43,21 @@ public class ProvinciaOtrosSd implements Serializable {
 	public ProvinciaOtrosSd() {
 	}
 
-	public ProvinciaOtrosSd(ProvinciaSd secProvincia) {
+	public ProvinciaOtrosSd(Short secProvincia) {
 		this.secProvincia = secProvincia;
 	}
 
-	public ProvinciaOtrosSd(String codProvinciaIess, String codProvinciaSri) {
+	public ProvinciaOtrosSd(Short secProvincia, String codProvinciaIess, String codProvinciaSri) {
+		this.secProvincia = secProvincia;
 		this.codProvinciaIess = codProvinciaIess;
 		this.codProvinciaSri = codProvinciaSri;
 	}
 
-	public ProvinciaSd getSecProvincia() {
+	public Short getSecProvincia() {
 		return secProvincia;
 	}
 
-	public void setSecProvincia(ProvinciaSd secProvincia) {
+	public void setSecProvincia(Short secProvincia) {
 		this.secProvincia = secProvincia;
 	}
 

@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,15 +25,16 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author jairo
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "PARROQUIA_OTROS")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ParroquiaOtrosSd implements Serializable {
-	
-	@JoinColumn(name = "SEC_PARROQUIA", referencedColumnName = "SEC_PARROQUIA")
-	@ManyToOne(optional = false)
-	@XmlTransient
-	private ParroquiaSd secParroquia;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Basic(optional = false)
+	@Column(name = "SEC_PARROQUIA")
+	private Short secParroquia;
 
 	@Basic(optional = false)
 	@Size(max = 6)
@@ -46,20 +49,21 @@ public class ParroquiaOtrosSd implements Serializable {
 	public ParroquiaOtrosSd() {
 	}
 
-	public ParroquiaOtrosSd(ParroquiaSd secParroquia) {
+	public ParroquiaOtrosSd(Short secParroquia) {
 		this.secParroquia = secParroquia;
 	}
 
-	public ParroquiaOtrosSd(String codParroquiaIess, String codParroquiaSri) {
+	public ParroquiaOtrosSd(Short secParroquia, String codParroquiaIess, String codParroquiaSri) {
+		this.secParroquia = secParroquia;
 		this.codParroquiaIess = codParroquiaIess;
 		this.codParroquiaSri = codParroquiaSri;
 	}
 
-	public ParroquiaSd getSecParroquia() {
+	public Short getSecParroquia() {
 		return secParroquia;
 	}
 
-	public void setSecParroquia(ParroquiaSd secParroquia) {
+	public void setSecParroquia(Short secParroquia) {
 		this.secParroquia = secParroquia;
 	}
 
