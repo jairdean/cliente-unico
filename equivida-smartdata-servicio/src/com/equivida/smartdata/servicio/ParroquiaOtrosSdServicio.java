@@ -6,7 +6,6 @@
 package com.equivida.smartdata.servicio;
 
 import javax.ejb.Local;
-
 import com.equivida.smartdata.model.ParroquiaOtrosSd;
 import com.saviasoft.persistence.util.service.GenericService;
 
@@ -20,5 +19,5 @@ public interface ParroquiaOtrosSdServicio extends GenericService<ParroquiaOtrosS
 	 * @return secParroquiaOtros
 	 */
 	Short obtenerSecParroquiaOtroByCodParrIess(String codParrIess);
-	
+
 }

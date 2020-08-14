@@ -15,8 +15,8 @@ import com.saviasoft.persistence.util.dao.GenericDao;
 import com.saviasoft.persistence.util.service.impl.GenericServiceImpl;
 
 @Stateless(name = "ParroquiaOtrosSdServicio")
-public class ParroquiaOtrosSdServicioImpl extends GenericServiceImpl<ParroquiaOtrosSd, Short> 
-implements ParroquiaOtrosSdServicio {
+public class ParroquiaOtrosSdServicioImpl extends GenericServiceImpl<ParroquiaOtrosSd, Short>
+		implements ParroquiaOtrosSdServicio {
 
 	@EJB
 	private ParroquiaOtrosSdDao parroquiaOtrosSdDao;
@@ -29,8 +29,8 @@ implements ParroquiaOtrosSdServicio {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.equivida.smartdata.servicio.ParroquiaOtrosSdServicio#
-	 * Obtener obtenerSecParroquiaOtroByCodParrIess
+	 * @see com.equivida.smartdata.servicio.ParroquiaOtrosSdServicio# Obtener
+	 * obtenerSecParroquiaOtroByCodParrIess
 	 */
 	@Override
 	public Short obtenerSecParroquiaOtroByCodParrIess(String codParrIess) {
