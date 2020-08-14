@@ -20,4 +20,12 @@ public interface ParroquiaOtrosSdServicio extends GenericService<ParroquiaOtrosS
 	 */
 	ParroquiaOtrosSd obtenerSecParroquiaOtroByCodParrIess(String codParrIess);
 
+	/**
+	 * Obtener obtenerSecParroquiaOtroByCodParrSri.
+	 * 
+	 * @param codParrIess
+	 * @return codParroquiaSri
+	 */
+	ParroquiaOtrosSd obtenerSecParroquiaOtroByCodParrSri(String codParroquiaSri);
+
 }

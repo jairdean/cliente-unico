@@ -36,4 +36,15 @@ public class ParroquiaOtrosSdServicioImpl extends GenericServiceImpl<ParroquiaOt
 	public ParroquiaOtrosSd obtenerSecParroquiaOtroByCodParrIess(String codParrIess) {
 		return parroquiaOtrosSdDao.obtenerSecParroquiaOtroByCodParrIess(codParrIess);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.ParroquiaOtrosSdServicio# Obtener
+	 * obtenerSecParroquiaOtroByCodParrIess
+	 */
+	@Override
+	public ParroquiaOtrosSd obtenerSecParroquiaOtroByCodParrSri(String codParroquiaSri) {
+		return parroquiaOtrosSdDao.obtenerSecParroquiaOtroByCodParrSri(codParroquiaSri);
+	}
 }
