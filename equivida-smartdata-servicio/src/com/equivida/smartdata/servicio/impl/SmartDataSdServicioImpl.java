@@ -87,6 +87,7 @@ import com.equivida.smartdata.servicio.TelefonoSdServicio;
 import com.equivida.smartdata.servicio.TipoTelefonoSdServicio;
 import com.equivida.smartdata.servicio.PersonaNaturalServicio;
 import com.equivida.smartdata.servicio.InformacionAdicionalSdServicio;
+import com.equivida.smartdata.servicio.ParroquiaOtrosSdServicio;
 import com.equivida.smartdata.servicio.ParroquiaSdServicio;
 
 @Stateless(name = "SmartDataSdServicio")
@@ -133,6 +134,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private ProvinciaOtrosSdServicio provinciaOtrosSdServicio;
 	@EJB
 	private CantonOtrosSdServicio cantonOtrosSdServicio;
+	@EJB
+	private ParroquiaOtrosSdServicio parroquiaOtrosSdServicio;
+	
 	/*
 	 * (non-Javadoc)
 	 * 
