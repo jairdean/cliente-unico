@@ -68,6 +68,7 @@ import com.equivida.smartdata.model.TipoParentescoRelacionSd;
 import com.equivida.smartdata.model.TipoTelefonoSd;
 import com.equivida.smartdata.model.InformacionAdicionalSd;
 import com.equivida.smartdata.servicio.ActividadEconomicaSdServicio;
+import com.equivida.smartdata.servicio.CantonOtrosSdServicio;
 import com.equivida.smartdata.servicio.CantonSdServicio;
 import com.equivida.smartdata.servicio.DireccionElectronicaSdServicio;
 import com.equivida.smartdata.servicio.DireccionSdServicio;
@@ -130,7 +131,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private TipoTelefonoSdServicio tipoTelefonoSdServicio;
 	@EJB
 	private ProvinciaOtrosSdServicio provinciaOtrosSdServicio;
-	
+	@EJB
+	private CantonOtrosSdServicio cantonOtrosSdServicio;
 	/*
 	 * (non-Javadoc)
 	 * 
