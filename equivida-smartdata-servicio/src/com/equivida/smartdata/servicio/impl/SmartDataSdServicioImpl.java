@@ -48,14 +48,12 @@ import com.equivida.smartdata.exception.SmartdataException;
 import com.equivida.smartdata.helper.DataBookHelper;
 import com.equivida.smartdata.model.ActividadEconomicaSd;
 import com.equivida.smartdata.model.CanalSd;
-import com.equivida.smartdata.model.CantonOtrosSd;
 import com.equivida.smartdata.model.CantonSd;
 import com.equivida.smartdata.model.DireccionElectronicaSd;
 import com.equivida.smartdata.model.DireccionSd;
 import com.equivida.smartdata.model.EmpleoDependienteSd;
 import com.equivida.smartdata.model.EstadoCivilSd;
 import com.equivida.smartdata.model.PaisSd;
-import com.equivida.smartdata.model.ParroquiaOtrosSd;
 import com.equivida.smartdata.model.ParroquiaSd;
 import com.equivida.smartdata.model.PersonaJuridicaSd;
 import com.equivida.smartdata.model.PersonaNaturalSd;
@@ -71,7 +69,6 @@ import com.equivida.smartdata.model.TipoParentescoRelacionSd;
 import com.equivida.smartdata.model.TipoTelefonoSd;
 import com.equivida.smartdata.model.InformacionAdicionalSd;
 import com.equivida.smartdata.servicio.ActividadEconomicaSdServicio;
-import com.equivida.smartdata.servicio.CantonOtrosSdServicio;
 import com.equivida.smartdata.servicio.CantonSdServicio;
 import com.equivida.smartdata.servicio.DireccionElectronicaSdServicio;
 import com.equivida.smartdata.servicio.DireccionSdServicio;
@@ -81,7 +78,6 @@ import com.equivida.smartdata.servicio.PersonaJuridicaSdServicio;
 import com.equivida.smartdata.servicio.PersonaNaturalSdServicio;
 import com.equivida.smartdata.servicio.PersonaSdServicio;
 import com.equivida.smartdata.servicio.ProfesionSdServicio;
-import com.equivida.smartdata.servicio.ProvinciaOtrosSdServicio;
 import com.equivida.smartdata.servicio.ProvinciaSdServicio;
 import com.equivida.smartdata.servicio.RelacionSdServicio;
 import com.equivida.smartdata.servicio.SmartDataSdServicio;
@@ -90,7 +86,6 @@ import com.equivida.smartdata.servicio.TelefonoSdServicio;
 import com.equivida.smartdata.servicio.TipoTelefonoSdServicio;
 import com.equivida.smartdata.servicio.PersonaNaturalServicio;
 import com.equivida.smartdata.servicio.InformacionAdicionalSdServicio;
-import com.equivida.smartdata.servicio.ParroquiaOtrosSdServicio;
 import com.equivida.smartdata.servicio.ParroquiaSdServicio;
 
 @Stateless(name = "SmartDataSdServicio")
@@ -133,12 +128,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private ParroquiaSdServicio parroquiaSdServicio;
 	@EJB
 	private TipoTelefonoSdServicio tipoTelefonoSdServicio;
-	@EJB
-	private ProvinciaOtrosSdServicio provinciaOtrosSdServicio;
-	@EJB
-	private CantonOtrosSdServicio cantonOtrosSdServicio;
-	@EJB
-	private ParroquiaOtrosSdServicio parroquiaOtrosSdServicio;
 
 	/*
 	 * (non-Javadoc)
