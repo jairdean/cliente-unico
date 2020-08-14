@@ -33,7 +33,19 @@ implements CantonOtrosSdServicio {
 	 * Obtener obtenerSecCantonOtroByCodCantIess
 	 */
 	@Override
-	public Short obtenerSecCantonOtroByCodCantIess(Integer codCantIess) {
+	public Short obtenerSecCantonOtroByCodCantIess(String codCantIess) {
 		return cantonOtrosSdDao.obtenerSecCantonOtroByCodCantIess(codCantIess);
+	}
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.CantonOtrosSdServicio#
+	 * Obtener obtenerSecCantonOtroByCodCantIess
+	 */
+	@Override
+	public Short obtenerSecCantonOtroByCodCantSri(String codCantSri) {
+		return cantonOtrosSdDao.obtenerSecCantonOtroByCodCantSri(codCantSri);
 	}
 }

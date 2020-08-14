@@ -133,6 +133,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private ProvinciaOtrosSdServicio provinciaOtrosSdServicio;
 	@EJB
 	private CantonOtrosSdServicio cantonOtrosSdServicio;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1408,11 +1409,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
 			tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
 
-			//SE CONTROLA EN CASO DE QUE EL CORREO 1 ESTE VACIO Y EL CORREO 2 ESTE LLENO
-			if(VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim()) && !VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim()))
-				registro.getDireccionElectronico().setCorreo_electronico1(registro.getDireccionElectronico().getCorreo_electronico2());
-			
-				// CREA/ACTUALIZA DIRECCION ELECTRONICA 1
+			// SE CONTROLA EN CASO DE QUE EL CORREO 1 ESTE VACIO Y EL CORREO 2 ESTE LLENO
+			if (VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())
+					&& !VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim()))
+				registro.getDireccionElectronico()
+						.setCorreo_electronico1(registro.getDireccionElectronico().getCorreo_electronico2());
+
+			// CREA/ACTUALIZA DIRECCION ELECTRONICA 1
 			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())) {
 				if (direccionElectronica != null && direccionElectronica.size() >= 1) {
 					DireccionElectronicaSd d1 = direccionElectronicaSdServicio
@@ -1653,7 +1656,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		DireccionSd direccionsd = new DireccionSd();
 
 		ProvinciaSd existeProvincia = null;
-		CantonSd existeCanton = null;
 		ParroquiaSd existeParroquia = null;
 
 		// CONTROLO Y VERIFICO SI EXISTE LA PROVINCIA
@@ -1664,11 +1666,31 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("El campo secProvincia no es un tipo de dato short --->" + registro.getSecProvincia());
 		}
 
+		
+		CantonSd cantoSdDireccion = new CantonSd();
+		Short secCanton = null;
 		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
 		try {
-			if (!VerificarVacios(registro.getSecCanton().trim()))
-				existeCanton = cantonSdServicio.findByPk(Short.parseShort(registro.getSecCanton().trim()));
+			if (!VerificarVacios(registro.getSecCanton().trim())) {	
+				secCanton = cantonOtrosSdServicio.obtenerSecCantonOtroByCodCantIess(registro.getSecCanton().trim());
+				log.error("BUSCA SEC CANTON: "+secCanton);
+				if(secCanton == null) {
+					secCanton = cantonOtrosSdServicio.obtenerSecCantonOtroByCodCantSri(registro.getSecCanton().trim());
+					log.error("BUSCA SEC CANTON: "+secCanton);
+				}
+				if(secCanton != null) {
+					cantoSdDireccion = cantonSdServicio.findByPk(secCanton);
+					if(cantoSdDireccion==null) {
+						cantoSdDireccion = new CantonSd();
+						cantoSdDireccion.setSecCanton((short)0);
+					}			
+				}
+				else {
+					cantoSdDireccion.setSecCanton((short)0);
+				}
+			}
 		} catch (Exception e) {
+			cantoSdDireccion.setSecCanton((short)0);
 			log.error("El campo secCanton no es un tipo de dato short --->" + registro.getSecCanton());
 		}
 
@@ -1685,9 +1707,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		ProvinciaSd provinciaSdDireccion = new ProvinciaSd();
 		provinciaSdDireccion.setSecProvincia(existeProvincia != null ? existeProvincia.getSecProvincia() : 0);
-
-		CantonSd cantoSdDireccion = new CantonSd();
-		cantoSdDireccion.setSecCanton(existeCanton != null ? existeCanton.getSecCanton() : 0);
 
 		ParroquiaSd parroquiaSdDireccion = new ParroquiaSd();
 		parroquiaSdDireccion.setSecParroquia(existeParroquia != null ? existeParroquia.getSecParroquia() : 0);
