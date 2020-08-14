@@ -10,11 +10,14 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,12 +27,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @Table(name = "CANTON_OTROS")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CantonOtrosSd implements Serializable {
-	private static final long serialVersionUID = 1L;
-	@Id
-	@Basic(optional = false)
-	@NotNull
-	@Column(name = "SEC_CANTON")
-	private Short secCanton;
+	
+	@JoinColumn(name = "SEC_CANTON", referencedColumnName = "SEC_CANTON")
+	@ManyToOne(optional = false)
+	@XmlTransient
+	private CantonSd secCanton;
 
 	@Basic(optional = false)
 	@Size(max = 4)
@@ -44,21 +46,20 @@ public class CantonOtrosSd implements Serializable {
 	public CantonOtrosSd() {
 	}
 
-	public CantonOtrosSd(Short secCanton) {
+	public CantonOtrosSd(CantonSd secCanton) {
 		this.secCanton = secCanton;
 	}
 
-	public CantonOtrosSd(Short secCanton, String codCantonIess, String codCantonSri) {
-		this.secCanton = secCanton;
+	public CantonOtrosSd(String codCantonIess, String codCantonSri) {
 		this.codCantonIess = codCantonIess;
 		this.codCantonSri = codCantonSri;
 	}
 
-	public Short getSecCanton() {
+	public CantonSd getSecCanton() {
 		return secCanton;
 	}
 
-	public void setSecCanton(Short secCanton) {
+	public void setSecCanton(CantonSd secCanton) {
 		this.secCanton = secCanton;
 	}
 
