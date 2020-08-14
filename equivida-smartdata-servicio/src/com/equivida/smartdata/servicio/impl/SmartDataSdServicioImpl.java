@@ -47,6 +47,7 @@ import com.equivida.smartdata.exception.SmartdataException;
 import com.equivida.smartdata.helper.DataBookHelper;
 import com.equivida.smartdata.model.ActividadEconomicaSd;
 import com.equivida.smartdata.model.CanalSd;
+import com.equivida.smartdata.model.CantonOtrosSd;
 import com.equivida.smartdata.model.CantonSd;
 import com.equivida.smartdata.model.DireccionElectronicaSd;
 import com.equivida.smartdata.model.DireccionSd;
@@ -1671,26 +1672,20 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		
 		CantonSd cantoSdDireccion = new CantonSd();
-		Short secCanton = null;
+		CantonOtrosSd cantonotroSd = null;
 		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
 		try {
 			if (!VerificarVacios(registro.getSecCanton().trim())) {	
-				secCanton = cantonOtrosSdServicio.obtenerSecCantonOtroByCodCantIess(registro.getSecCanton().trim());
-				log.error("BUSCA SEC CANTON: "+secCanton);
-				if(secCanton == null) {
-					secCanton = cantonOtrosSdServicio.obtenerSecCantonOtroByCodCantSri(registro.getSecCanton().trim());
-					log.error("BUSCA SEC CANTON: "+secCanton);
+				cantonotroSd = cantonOtrosSdServicio.obtenerSecCantonOtroByCodCantIess(registro.getSecCanton().trim());
+				log.error("BUSCA SEC CANTON: "+cantonotroSd);
+				if(cantonotroSd == null) {
+					cantonotroSd = cantonOtrosSdServicio.obtenerSecCantonOtroByCodCantSri(registro.getSecCanton().trim());
+					log.error("BUSCA SEC CANTON: "+cantonotroSd);
 				}
-				if(secCanton != null) {
-					cantoSdDireccion = cantonSdServicio.findByPk(secCanton);
-					if(cantoSdDireccion==null) {
-						cantoSdDireccion = new CantonSd();
-						cantoSdDireccion.setSecCanton((short)0);
-					}			
-				}
-				else {
+				if(cantonotroSd != null) 
+					cantoSdDireccion = cantonotroSd.getSecCanton();			
+				else 
 					cantoSdDireccion.setSecCanton((short)0);
-				}
 			}
 		} catch (Exception e) {
 			cantoSdDireccion.setSecCanton((short)0);

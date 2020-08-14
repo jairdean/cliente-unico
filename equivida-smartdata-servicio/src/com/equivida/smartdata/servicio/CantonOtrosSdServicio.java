@@ -19,7 +19,7 @@ public interface CantonOtrosSdServicio extends GenericService<CantonOtrosSd, Sho
 	 * @param codCantIess
 	 * @return secCantonOtros
 	 */
-	Short obtenerSecCantonOtroByCodCantIess(String codCantIess);
+	CantonOtrosSd obtenerSecCantonOtroByCodCantIess(String codCantIess);
 	
 	/**
 	 * Obtener obtenerSecCantonOtroByCodCantSri.
@@ -27,5 +27,5 @@ public interface CantonOtrosSdServicio extends GenericService<CantonOtrosSd, Sho
 	 * @param codCantSri
 	 * @return secCantonOtros
 	 */
-	Short obtenerSecCantonOtroByCodCantSri(String codCantSri);
+	CantonOtrosSd obtenerSecCantonOtroByCodCantSri(String codCantSri);
 }

@@ -33,7 +33,7 @@ implements CantonOtrosSdServicio {
 	 * Obtener obtenerSecCantonOtroByCodCantIess
 	 */
 	@Override
-	public Short obtenerSecCantonOtroByCodCantIess(String codCantIess) {
+	public CantonOtrosSd obtenerSecCantonOtroByCodCantIess(String codCantIess) {
 		return cantonOtrosSdDao.obtenerSecCantonOtroByCodCantIess(codCantIess);
 	}
 	
@@ -45,7 +45,7 @@ implements CantonOtrosSdServicio {
 	 * Obtener obtenerSecCantonOtroByCodCantIess
 	 */
 	@Override
-	public Short obtenerSecCantonOtroByCodCantSri(String codCantSri) {
+	public CantonOtrosSd obtenerSecCantonOtroByCodCantSri(String codCantSri) {
 		return cantonOtrosSdDao.obtenerSecCantonOtroByCodCantSri(codCantSri);
 	}
 }

@@ -20,14 +20,16 @@ public class CantonOtrosSdDaoEjb extends GenericDaoEjb<CantonOtrosSd, Short> imp
 	public CantonOtrosSdDaoEjb() {
 		super(CantonOtrosSd.class);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.equivida.smartdata.dao.CantonOtrosSdDao#obtenerSecCantonOtroByCodCantIess(Integer codCantIess)
+	 * @see
+	 * com.equivida.smartdata.dao.CantonOtrosSdDao#obtenerSecCantonOtroByCodCantIess
+	 * (Integer codCantIess)
 	 */
 	@Override
-	public Short obtenerSecCantonOtroByCodCantIess(String codCantIess) {
+	public CantonOtrosSd obtenerSecCantonOtroByCodCantIess(String codCantIess) {
 		StringBuffer sql = new StringBuffer(200);
 		sql.append("select d from CantonOtrosSd d where ");
 		sql.append("d.codCantonIess = :codCantIess ");
@@ -38,18 +40,20 @@ public class CantonOtrosSdDaoEjb extends GenericDaoEjb<CantonOtrosSd, Short> imp
 		List<CantonOtrosSd> cantonOtrosSdList = query.getResultList();
 
 		if (cantonOtrosSdList != null && !cantonOtrosSdList.isEmpty())
-			return cantonOtrosSdList.get(0).getSecCanton();
+			return cantonOtrosSdList.get(0);
 
 		return null;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.equivida.smartdata.dao.CantonOtrosSdDao#obtenerSecCantonOtroByCodCantIess(Integer codCantIess)
+	 * @see
+	 * com.equivida.smartdata.dao.CantonOtrosSdDao#obtenerSecCantonOtroByCodCantIess
+	 * (Integer codCantIess)
 	 */
 	@Override
-	public Short obtenerSecCantonOtroByCodCantSri(String codCantSri) {
+	public CantonOtrosSd obtenerSecCantonOtroByCodCantSri(String codCantSri) {
 		StringBuffer sql = new StringBuffer(200);
 		sql.append("select d from CantonOtrosSd d where ");
 		sql.append("d.codCantonSri = :codCantSri ");
@@ -60,7 +64,7 @@ public class CantonOtrosSdDaoEjb extends GenericDaoEjb<CantonOtrosSd, Short> imp
 		List<CantonOtrosSd> cantonOtrosSdList = query.getResultList();
 
 		if (cantonOtrosSdList != null && !cantonOtrosSdList.isEmpty())
-			return cantonOtrosSdList.get(0).getSecCanton();
+			return cantonOtrosSdList.get(0);
 
 		return null;
 	}
