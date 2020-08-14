@@ -32,14 +32,12 @@ public class ProvinciaOtrosSd implements Serializable {
 	private Short secProvincia;
 
 	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 2)
+	@Size(max = 2)
 	@Column(name = "COD_PROVINCIA_IESS")
 	private String codProvinciaIess;
 
 	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 3)
+	@Size(max = 3)
 	@Column(name = "COD_PROVINCIA_SRI")
 	private String codProvinciaSri;
 
