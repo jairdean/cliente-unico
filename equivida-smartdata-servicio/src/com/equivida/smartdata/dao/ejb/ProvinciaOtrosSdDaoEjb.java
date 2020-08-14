@@ -30,7 +30,7 @@ public class ProvinciaOtrosSdDaoEjb extends GenericDaoEjb<ProvinciaOtrosSd, Shor
 	public Short obtenerSecProvinciaOtroByCodProvIess(Integer codProvIess) {
 		StringBuffer sql = new StringBuffer(200);
 		sql.append("select d from ProvinciaOtrosSd d where ");
-		sql.append("d.secProvincia = :codProvIess ");
+		sql.append("d.codProvinciaIess = :codProvIess ");
 
 		Query query = em.createQuery(sql.toString());
 		query.setParameter("codProvIess", codProvIess);
