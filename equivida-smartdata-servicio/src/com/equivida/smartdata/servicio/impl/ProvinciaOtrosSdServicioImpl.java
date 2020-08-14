@@ -34,7 +34,7 @@ implements ProvinciaOtrosSdServicio {
 	 * Obtener SecProvinciaOtroByCodProvIess
 	 */
 	@Override
-	public Short obtenerSecProvinciaOtroByCodProvIess(Integer codProvIess) {
+	public ProvinciaOtrosSd obtenerSecProvinciaOtroByCodProvIess(Integer codProvIess) {
 		return provinciaOtrosDao.obtenerSecProvinciaOtroByCodProvIess(codProvIess);
 	}
 }
