@@ -35,6 +35,7 @@ import com.equivida.databook.model.RegistrosEntity.Telefono4;
 import com.equivida.databook.model.RegistrosEntity.Telefono5;
 import com.equivida.databook.model.RegistrosEntity.Telefono6;
 import com.equivida.databook.model.RegistrosEntity.Titular;
+import com.equivida.smartdata.constante.ConsultaEnEnum;
 import com.equivida.smartdata.constante.EstadoEnum;
 import com.equivida.smartdata.constante.PropiedadesKeyEnum;
 import com.equivida.smartdata.constante.TipoDireccionEnum;
@@ -1570,13 +1571,20 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					&& existePersona.getPersonaNatural().getSecPersonaNatural() != null
 					&& existePersona.getPersonaJuridica() != null
 					&& existePersona.getPersonaJuridica().getSecPersonaJuridica() != null) {
+				
 				EmpleoDependienteSd empleoDependienteSd = empleoDependienteServicio
 						.obtenerEmpleoDependienteBySecPersonaNatural(
 								existePersona.getPersonaNatural().getSecPersonaNatural(),
 								existePersona.getPersonaJuridica().getSecPersonaJuridica());
 
+				
 				if (empleoDependienteSd != null) {
-					empleoDependienteSd.setPersonaNatural(existePersona.getPersonaNatural());
+					Integer secEmpleo = empleoDependienteSd.getSecEmpleoDependiente();
+					empleoDependienteSd = MapeoEmpleoDependiente(registro.getEmpleoDependiente(),
+							existePersona.getPersonaNatural(), existePersona.getPersonaJuridica(), canalSd);
+					empleoDependienteSd.setSecEmpleoDependiente(secEmpleo);
+					
+					/*empleoDependienteSd.setPersonaNatural(existePersona.getPersonaNatural());
 					empleoDependienteSd.setPersonaJuridica(existePersona.getPersonaJuridica());
 					empleoDependienteSd.setCargo(registro.getEmpleoDependiente().getCargo());
 					empleoDependienteSd.setMntSalario(!VerificarVacios(registro.getEmpleoDependiente().getMntSalario())
@@ -1590,11 +1598,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					empleoDependienteSd.setTsCreacion(new Date());
 					empleoDependienteSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 					empleoDependienteSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-
+					 */
+					
 					empleoDependienteServicio.update(empleoDependienteSd);
 					log.error("ACTUALIZA EMPLEO DEPENDIENTE");
-
-					// >>
 					List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
 					empleoDependienteList.add(empleoDependienteSd);
 					PersonaNaturalSd perN = new PersonaNaturalSd();
@@ -1671,69 +1678,15 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("El campo secProvincia no es un tipo de dato short --->" + registro.getSecProvincia());
 		}
 
-		CantonSd cantoSdDireccion = new CantonSd();
-		CantonOtrosSd cantonotroSd = null;
-		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
-		try {
-			if (!VerificarVacios(registro.getSecCanton().trim())) {
-				cantonotroSd = cantonOtrosSdServicio.obtenerSecCantonOtroByCodCantIess(registro.getSecCanton().trim());
-				log.error("BUSCA SEC CANTON: " + cantonotroSd);
-				if (cantonotroSd == null) {
-					cantonotroSd = cantonOtrosSdServicio
-							.obtenerSecCantonOtroByCodCantSri(registro.getSecCanton().trim());
-					log.error("BUSCA SEC CANTON: " + cantonotroSd);
-				}
-				if (cantonotroSd != null) {
-					cantoSdDireccion = cantonSdServicio.findByPk(cantonotroSd.getSecCanton());
-				}
-				else {
-					cantoSdDireccion.setSecCanton((short) 0);
-				}
-			}
-		} catch (Exception e) {
-			cantoSdDireccion.setSecCanton((short) 0);
-			log.error("El campo secCanton no es un tipo de dato short --->" + registro.getSecCanton());
-		}
-
+		CantonSd cantoSdDireccion = TraerCantonSd(registro.getSecCanton());
+		ParroquiaSd parroquiaSdDireccion = TraerParroquiaSd(registro.getSecParroquia());
 		// CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
-		ParroquiaSd parroquiaSd = new ParroquiaSd();
-		ParroquiaOtrosSd parroquiaOtrosSd = new ParroquiaOtrosSd();
-		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
-		try {
-			if (!VerificarVacios(registro.getSecParroquia().trim())) {
-				parroquiaOtrosSd = parroquiaOtrosSdServicio
-						.obtenerSecParroquiaOtroByCodParrIess(registro.getSecParroquia().trim());
-				log.error("BUSCA SEC PARROQUIA: " + parroquiaOtrosSd);
-				if (parroquiaOtrosSd == null) {
-					parroquiaOtrosSd = parroquiaOtrosSdServicio
-							.obtenerSecParroquiaOtroByCodParrSri(registro.getSecParroquia().trim());
-					log.error("BUSCA SEC PARROQUIA: " + parroquiaOtrosSd);
-				}
-				if (parroquiaOtrosSd != null)
-					parroquiaSd = parroquiaSdServicio.findByPk(parroquiaOtrosSd.getSecParroquia());
-				else
-					parroquiaSd.setSecParroquia((short) 0);
-			}
-		} catch (Exception e) {
-			parroquiaSd.setSecParroquia((short) 0);
-			log.error("El campo secPaqrroquia no es un tipo de dato short --->" + registro.getSecParroquia());
-		}
-
-		try {
-			if (!VerificarVacios(registro.getSecParroquia().trim()))
-				existeParroquia = parroquiaSdServicio.findByPk(Short.parseShort(registro.getSecParroquia().trim()));
-		} catch (Exception e) {
-			log.error("El campo secParroquia no es un tipo de dato short --->" + registro.getSecParroquia());
-		}
 
 		TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
 		tipoDireccionSd.setCodTipoDireccion(TipoDireccionEnum.DOMICILIO.getCodigoenBase());
 
 		ProvinciaSd provinciaSdDireccion = new ProvinciaSd();
 		provinciaSdDireccion.setSecProvincia(existeProvincia != null ? existeProvincia.getSecProvincia() : 0);
-
-		ParroquiaSd parroquiaSdDireccion = new ParroquiaSd();
-		parroquiaSdDireccion.setSecParroquia(existeParroquia != null ? existeParroquia.getSecParroquia() : 0);
 
 		direccionsd.setSecPersona(personaSd);
 		direccionsd.setDireccion(registro.getDireccion());
@@ -1881,21 +1834,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("El campo secProvincia no es un tipo de dato short --->" + registro.getSecProvincia());
 		}
 
-		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
-		try {
-			if (!VerificarVacios(registro.getSecCanton().trim()))
-				existeCanton = cantonSdServicio.findByPk(Short.parseShort(registro.getSecCanton().trim()));
-		} catch (Exception e) {
-			log.error("El campo secCanton no es un tipo de dato short --->" + registro.getSecCanton());
-		}
+		// SACO EL CANTON SD
+		CantonSd cantonSdInfoAdd = TraerCantonSd(registro.getSecCanton());
 
-		// CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
-		try {
-			if (!VerificarVacios(registro.getSecParroquia().trim()))
-				existeParroquia = parroquiaSdServicio.findByPk(Short.parseShort(registro.getSecParroquia().trim()));
-		} catch (Exception e) {
-			log.error("El campo secParroquia no es un tipo de dato short --->" + registro.getSecParroquia());
-		}
+		// SACO LA PARROQUIA SD
+		ParroquiaSd parroquiaSdInfoAdd = TraerParroquiaSd(registro.getSecParroquia());
 
 		// CONTROLO Y VERIFICO SI EXISTE LA ACTIVIDAD ECONOMICA
 		try {
@@ -1909,12 +1852,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		ProvinciaSd provinciaSdInfoAdd = new ProvinciaSd();
 		provinciaSdInfoAdd.setSecProvincia(existeProvincia != null ? existeProvincia.getSecProvincia() : 0);
-
-		CantonSd cantonSdInfoAdd = new CantonSd();
-		cantonSdInfoAdd.setSecCanton(existeCanton != null ? existeCanton.getSecCanton() : 0);
-
-		ParroquiaSd parroquiaSdInfoAdd = new ParroquiaSd();
-		parroquiaSdInfoAdd.setSecParroquia(existeParroquia != null ? existeParroquia.getSecParroquia() : 0);
 
 		ActividadEconomicaSd actividadEconomicaSd = new ActividadEconomicaSd();
 		actividadEconomicaSd.setCodActividadEconomica(
@@ -2099,4 +2036,56 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return personaJuridicaSd;
 	}
 
+	public ParroquiaSd TraerParroquiaSd(String secParroquia) {
+		// CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
+		ParroquiaSd parroquiaSd = new ParroquiaSd();
+		Short  primarySecParroquia = null;
+		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
+		try {
+			if (!VerificarVacios(secParroquia.trim())) {
+				primarySecParroquia = noPkTablasDao.obtenerCodigoParroquiaPorCodigoDB(secParroquia.trim(), ConsultaEnEnum.IESS);
+				log.error("BUSCA SEC PARROQUIA: " + primarySecParroquia);
+				if (primarySecParroquia == null) {
+					primarySecParroquia = noPkTablasDao
+							.obtenerCodigoParroquiaPorCodigoDB(secParroquia.trim(), ConsultaEnEnum.SRI);
+					log.error("BUSCA SEC PARROQUIA: " + primarySecParroquia);
+				}
+				if (primarySecParroquia != null)
+					parroquiaSd = parroquiaSdServicio.findByPk(primarySecParroquia);
+				else
+					parroquiaSd.setSecParroquia((short) 0);
+			}
+		} catch (Exception e) {
+			parroquiaSd.setSecParroquia((short) 0);
+			log.error("El campo secPaqrroquia no es un tipo de dato short --->" + secParroquia.trim());
+		}
+
+		return parroquiaSd;
+	}
+
+	public CantonSd TraerCantonSd(String secCanton) {
+		CantonSd cantonSd = new CantonSd();
+		Short primarySecCanton = null;
+		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
+		try {
+			if (!VerificarVacios(secCanton.trim())) {
+				primarySecCanton = noPkTablasDao.obtenerCodigoCantonPorCodigoDB(secCanton.trim(), ConsultaEnEnum.IESS);
+				log.error("BUSCA SEC CANTON: " + primarySecCanton);
+				if (primarySecCanton == null) {
+					primarySecCanton = noPkTablasDao.obtenerCodigoCantonPorCodigoDB(secCanton.trim(), ConsultaEnEnum.SRI);
+					log.error("BUSCA SEC CANTON: " + primarySecCanton);
+				}
+				if (primarySecCanton != null) {
+					cantonSd = cantonSdServicio.findByPk(primarySecCanton);
+				} else {
+					cantonSd.setSecCanton((short) 0);
+				}
+			}
+		} catch (Exception e) {
+			cantonSd.setSecCanton((short) 0);
+			log.error("El campo secCanton no es un tipo de dato short --->" + secCanton);
+		}
+
+		return cantonSd;
+	}
 }
