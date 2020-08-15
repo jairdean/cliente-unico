@@ -27,7 +27,6 @@ import com.equivida.databook.model.RegistrosEntity.Direccion;
 import com.equivida.databook.model.RegistrosEntity.InformacionAdicional;
 import com.equivida.databook.model.RegistrosEntity.Persona;
 import com.equivida.databook.model.RegistrosEntity.PersonaNatural;
-import com.equivida.databook.model.RegistrosEntity.EmpleoDependiente;
 import com.equivida.databook.model.RegistrosEntity.Telefono1;
 import com.equivida.databook.model.RegistrosEntity.Telefono2;
 import com.equivida.databook.model.RegistrosEntity.Telefono3;
@@ -35,6 +34,7 @@ import com.equivida.databook.model.RegistrosEntity.Telefono4;
 import com.equivida.databook.model.RegistrosEntity.Telefono5;
 import com.equivida.databook.model.RegistrosEntity.Telefono6;
 import com.equivida.databook.model.RegistrosEntity.Titular;
+import com.equivida.databook.model.RegistrosEntity.Trabajo;
 import com.equivida.smartdata.constante.ConsultaEnEnum;
 import com.equivida.smartdata.constante.EstadoEnum;
 import com.equivida.smartdata.constante.PropiedadesKeyEnum;
@@ -128,6 +128,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private ParroquiaSdServicio parroquiaSdServicio;
 	@EJB
 	private TipoTelefonoSdServicio tipoTelefonoSdServicio;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -801,7 +802,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		conyuge.setDireccion(registro.getDireccion());
 		conyuge.setInformacionAdicional(registro.getInformacionAdicional());
 		conyuge.setTelefonos(registro.getTelefonos());
-		conyuge.setEmpleoDependiente(registro.getEmpleoDependiente());
+		conyuge.setEmpleos(registro.getEmpleos());
 
 		log.error("LLEGA CONYUGE");
 		GuardarInformacionPersona(conyuge);
@@ -818,11 +819,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
 		tipoIdentificacion.setCodTipoIdentificacion(registro.getPersona().getCodTipoIdentificacion().charAt(0));
+
+		TipoIdentificacionSd tipoIdentificacionRuc = new TipoIdentificacionSd();
+		tipoIdentificacionRuc.setCodTipoIdentificacion('R');
 		// SOLO INGRESAR DATOS CUADNO NO EXISTA LA PERSONA
 		if (existePersona == null) {
 
 			// CREAR PERSONA
-
 			PersonaSd persona = MapperPersona(registro.getPersona(), tipoIdentificacion);
 			log.error("LLEGO PERSONA");
 			personaServicio.IngresarPersona(persona);
@@ -834,7 +837,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// CREA PERSONA NATURAL
 			PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
-					persona, canalSd, registro.getEmpleoDependiente().getSecProfesion());
+					persona, canalSd, registro.getEmpleos().getEmpleoActual().getSecProfesion());
 
 			log.error("PASA PERSONA NATURAL");
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
@@ -1009,46 +1012,25 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				objRetorno.setPersonaNatural(personaNatural);
 			}
 
-			// CREA PERSONA JURIDICA
-			PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
-			if (!VerificarVacios(registro.getEmpleoDependiente().getRazon_Social())
-					|| !VerificarVacios(registro.getEmpleoDependiente().getIdentificacion())) {
+			// VERIFICAR DATOS PERSONA JURIDICA EMPLEO ACTUAL
+			PersonaJuridicaSd existePersonaJuridicaActual = CrearPersonaJuridicaEmpleo(
+					registro.getEmpleos().getEmpleoActual(), tipoIdentificacionRuc, canalSd,
+					registro.getInformacionAdicional().getCodActividadEconomica());
 
-				PersonaJuridicaSd existePersonaJuridica = personaJuridicaServicio
-						.buscarPersonaPorIdentificacion(registro.getEmpleoDependiente().getIdentificacion().trim());
+			EmpleoDependiente(existePersonaJuridicaActual, personaNatural, registro.getEmpleos().getEmpleoActual(),
+					canalSd);
 
-				if (existePersonaJuridica == null) {
-					personaJuridicaSd = MapperPersonaJuridica(registro.getEmpleoDependiente(), persona,
-							tipoIdentificacion, canalSd, registro.getInformacionAdicional().getCodActividadEconomica());
+			// VERIFICAR DATOS PERSONA JURIDICA EMPLEO 1
+			PersonaJuridicaSd existePersonaJuridica1 = CrearPersonaJuridicaEmpleo(registro.getEmpleos().getEmpleo1(),
+					tipoIdentificacionRuc, canalSd, registro.getInformacionAdicional().getCodActividadEconomica());
 
-					log.error("LLEGA PERSONA JURIDICA");
-					personaJuridicaServicio.crearSoloPersonaJuridica(personaJuridicaSd);
+			EmpleoDependiente(existePersonaJuridica1, personaNatural, registro.getEmpleos().getEmpleo1(), canalSd);
 
-					objRetorno.setPersonaJuridica(personaJuridicaSd);
-					log.error("GUARDA PERSONA JURIDICA");
-				} else {
-					log.error("Ya existe una persona juridica con la cedula "
-							+ registro.getEmpleoDependiente().getIdentificacion().trim());
-				}
-			}
+			// VERIFICAR DATOS PERSONA JURIDICA EMPLEO 2
+			PersonaJuridicaSd existePersonaJuridica2 = CrearPersonaJuridicaEmpleo(registro.getEmpleos().getEmpleo2(),
+					tipoIdentificacionRuc, canalSd, registro.getInformacionAdicional().getCodActividadEconomica());
 
-			log.error("SSSS");
-			if (personaJuridicaSd.getSecPersonaJuridica() != null
-					&& !VerificarVacios(registro.getEmpleoDependiente().getFechaIngreso())) {
-				// CREA EMPLEOD EPENDIENTE
-				log.error("AAAA");
-				EmpleoDependienteSd empleoDependienteSd = MapeoEmpleoDependiente(registro.getEmpleoDependiente(),
-						personaNatural, personaJuridicaSd, canalSd);
-				log.error("LLEGA EMPLEO DEPENDIENTE");
-				empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
-				log.error("GUARDA EMPLEO DEPENDIENTE");
-
-				// >>
-				List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
-				empleoDependienteList.add(empleoDependienteSd);
-				personaNatural.setEmpleoDependienteList(empleoDependienteList);
-				objRetorno.setPersonaNatural(personaNatural);
-			}
+			EmpleoDependiente(existePersonaJuridica2, personaNatural, registro.getEmpleos().getEmpleo2(), canalSd);
 
 			log.error("FIN PROCESO CREAR TITULAR");
 		} else {
@@ -1057,11 +1039,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			log.error("ACTUALIZACION------------------------------------");
 			log.error(existePersona.getPersonaNatural());
+
 			// VERIFICO SI EXISTE LA PERSONA NATURAL
 			if (existePersona.getPersonaNatural() == null) {
 				// CREA PERSONA NATURAL
 				PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
-						existePersona, canalSd, registro.getEmpleoDependiente().getSecProfesion());
+						existePersona, canalSd, registro.getEmpleos().getEmpleoActual().getSecProfesion());
 
 				log.error("PASA PERSONA NATURAL");
 				personaNaturalServicio.insertarPersonaNatural(personaNatural);
@@ -1554,75 +1537,29 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			log.error("PASA INFORMACION ADICIONAL");
 
-			// ACTUALIZA EMPLEOD EPENDIENTE)
-			if (existePersona.getPersonaNatural() != null
-					&& existePersona.getPersonaNatural().getSecPersonaNatural() != null
-					&& existePersona.getPersonaJuridica() != null
-					&& existePersona.getPersonaJuridica().getSecPersonaJuridica() != null) {
-				
-				EmpleoDependienteSd empleoDependienteSd = empleoDependienteServicio
-						.obtenerEmpleoDependienteBySecPersonaNatural(
-								existePersona.getPersonaNatural().getSecPersonaNatural(),
-								existePersona.getPersonaJuridica().getSecPersonaJuridica());
+			// ACTUALIZAR EMPLEO ACTUAL
+			PersonaJuridicaSd existePersonaJuridica = CrearPersonaJuridicaEmpleo(
+					registro.getEmpleos().getEmpleoActual(), tipoIdentificacionRuc, canalSd,
+					registro.getInformacionAdicional().getCodActividadEconomica());
 
-				
-				if (empleoDependienteSd != null) {
-					Integer secEmpleo = empleoDependienteSd.getSecEmpleoDependiente();
-					empleoDependienteSd = MapeoEmpleoDependiente(registro.getEmpleoDependiente(),
-							existePersona.getPersonaNatural(), existePersona.getPersonaJuridica(), canalSd);
-					empleoDependienteSd.setSecEmpleoDependiente(secEmpleo);
-					
-					/*empleoDependienteSd.setPersonaNatural(existePersona.getPersonaNatural());
-					empleoDependienteSd.setPersonaJuridica(existePersona.getPersonaJuridica());
-					empleoDependienteSd.setCargo(registro.getEmpleoDependiente().getCargo());
-					empleoDependienteSd.setMntSalario(!VerificarVacios(registro.getEmpleoDependiente().getMntSalario())
-							? new BigDecimal(registro.getEmpleoDependiente().getMntSalario())
-							: new BigDecimal(0));
-					empleoDependienteSd
-							.setFchIngreso(ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso()));
-					empleoDependienteSd.setFchSalida(new Date());//
-					empleoDependienteSd.setSecCanal(canalSd);
-					empleoDependienteSd.setEstado(EstadoEnum.A.getEstadoChar());//
-					empleoDependienteSd.setTsCreacion(new Date());
-					empleoDependienteSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-					empleoDependienteSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-					 */
-					
-					empleoDependienteServicio.update(empleoDependienteSd);
-					log.error("ACTUALIZA EMPLEO DEPENDIENTE");
-					List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
-					empleoDependienteList.add(empleoDependienteSd);
-					PersonaNaturalSd perN = new PersonaNaturalSd();
-					perN = existePersona.getPersonaNatural();
-					perN.setEmpleoDependienteList(empleoDependienteList);
-					objRetorno.setPersonaNatural(perN);
-				} else {
-					EmpleoDependienteSd emplDep = MapeoEmpleoDependiente(registro.getEmpleoDependiente(),
-							existePersona.getPersonaNatural(), existePersona.getPersonaJuridica(), canalSd);
-					empleoDependienteServicio.crearEmpleoDependiente(emplDep);
-					log.error("GUARDA EMPLEO DEPENDIENTE");
+			ActualizarEmpleoDependiente(existePersona.getPersonaNatural(), existePersonaJuridica,
+					registro.getEmpleos().getEmpleoActual(), canalSd);
 
-					// >>
-					List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
-					empleoDependienteList.add(emplDep);
-					PersonaNaturalSd perN = new PersonaNaturalSd();
-					perN = existePersona.getPersonaNatural();
-					perN.setEmpleoDependienteList(empleoDependienteList);
-					objRetorno.setPersonaNatural(perN);
-				}
+			// ACTUALIZAR EMPLEO 1
+			PersonaJuridicaSd existePersonaJuridica1 = CrearPersonaJuridicaEmpleo(
+					registro.getEmpleos().getEmpleo1(), tipoIdentificacionRuc, canalSd,
+					registro.getInformacionAdicional().getCodActividadEconomica());
 
-				log.error("PASA EMPLEO DEPENDIENTE");
-			} else {
-				// >>
-				List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
-				empleoDependienteList.add(null);
+			ActualizarEmpleoDependiente(existePersona.getPersonaNatural(), existePersonaJuridica1,
+					registro.getEmpleos().getEmpleo1(), canalSd);
 
-				PersonaNaturalSd perN = new PersonaNaturalSd();
-				perN = existePersona.getPersonaNatural();
-				perN.setEmpleoDependienteList(empleoDependienteList);
+			// ACTUALIZAR EMPLEO 2
+			PersonaJuridicaSd existePersonaJuridica2 = CrearPersonaJuridicaEmpleo(
+					registro.getEmpleos().getEmpleo2(), tipoIdentificacionRuc, canalSd,
+					registro.getInformacionAdicional().getCodActividadEconomica());
 
-				objRetorno.setPersonaNatural(perN);
-			}
+			ActualizarEmpleoDependiente(existePersona.getPersonaNatural(), existePersonaJuridica2,
+					registro.getEmpleos().getEmpleo2(), canalSd);
 
 			log.error("FIN PROCESO ACTUALIZACION TITULAR");
 		}
@@ -1660,7 +1597,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
 		CantonSd cantoSdDireccion = TraerCantonSd(registro.getSecCanton());
-		
+
 		// CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
 		ParroquiaSd parroquiaSdDireccion = TraerParroquiaSd(registro.getSecParroquia());
 
@@ -1952,8 +1889,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return dirElectronica;
 	}
 
-	public EmpleoDependienteSd MapeoEmpleoDependiente(EmpleoDependiente empleoDependiente,
-			PersonaNaturalSd personaNatural, PersonaJuridicaSd PersonaJuridica, CanalSd canalSd) {
+	public EmpleoDependienteSd MapeoEmpleoDependiente(Trabajo empleoDependiente, PersonaNaturalSd personaNatural,
+			PersonaJuridicaSd PersonaJuridica, CanalSd canalSd) {
 		EmpleoDependienteSd empDep = new EmpleoDependienteSd();
 		empDep.setPersonaNatural(personaNatural);
 		empDep.setPersonaJuridica(PersonaJuridica);
@@ -1971,7 +1908,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return empDep;
 	}
 
-	public PersonaJuridicaSd MapperPersonaJuridica(EmpleoDependiente registro, PersonaSd persona,
+	public PersonaJuridicaSd MapperPersonaJuridica(Trabajo registro, PersonaSd persona,
 			TipoIdentificacionSd tipoIdentificacion, CanalSd canalSd, String codigoActividadEc) {
 
 		PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
@@ -2006,15 +1943,16 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	public ParroquiaSd TraerParroquiaSd(String secParroquia) {
 		// CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
 		ParroquiaSd parroquiaSd = new ParroquiaSd();
-		Short  primarySecParroquia = null;
+		Short primarySecParroquia = null;
 		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
 		try {
 			if (!VerificarVacios(secParroquia.trim())) {
-				primarySecParroquia = noPkTablasDao.obtenerCodigoParroquiaPorCodigoDB(secParroquia.trim(), ConsultaEnEnum.IESS);
+				primarySecParroquia = noPkTablasDao.obtenerCodigoParroquiaPorCodigoDB(secParroquia.trim(),
+						ConsultaEnEnum.IESS);
 				log.error("BUSCA SEC PARROQUIA: " + primarySecParroquia);
 				if (primarySecParroquia == null) {
-					primarySecParroquia = noPkTablasDao
-							.obtenerCodigoParroquiaPorCodigoDB(secParroquia.trim(), ConsultaEnEnum.SRI);
+					primarySecParroquia = noPkTablasDao.obtenerCodigoParroquiaPorCodigoDB(secParroquia.trim(),
+							ConsultaEnEnum.SRI);
 					log.error("BUSCA SEC PARROQUIA: " + primarySecParroquia);
 				}
 				if (primarySecParroquia != null)
@@ -2039,7 +1977,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				primarySecCanton = noPkTablasDao.obtenerCodigoCantonPorCodigoDB(secCanton.trim(), ConsultaEnEnum.IESS);
 				log.error("BUSCA SEC CANTON: " + primarySecCanton);
 				if (primarySecCanton == null) {
-					primarySecCanton = noPkTablasDao.obtenerCodigoCantonPorCodigoDB(secCanton.trim(), ConsultaEnEnum.SRI);
+					primarySecCanton = noPkTablasDao.obtenerCodigoCantonPorCodigoDB(secCanton.trim(),
+							ConsultaEnEnum.SRI);
 					log.error("BUSCA SEC CANTON: " + primarySecCanton);
 				}
 				if (primarySecCanton != null) {
@@ -2055,17 +1994,19 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		return cantonSd;
 	}
-	
+
 	public ProvinciaSd TraerProvinciaSd(String secProvincia) {
 		ProvinciaSd provinciaSd = new ProvinciaSd();
 		Short primarySecProvincia = null;
 		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
 		try {
 			if (!VerificarVacios(secProvincia.trim())) {
-				primarySecProvincia = noPkTablasDao.obtenerCodigoProvinciaPorCodigoDB(secProvincia.trim(), ConsultaEnEnum.IESS);
+				primarySecProvincia = noPkTablasDao.obtenerCodigoProvinciaPorCodigoDB(secProvincia.trim(),
+						ConsultaEnEnum.IESS);
 				log.error("BUSCA SEC PROVINCIA: " + secProvincia);
 				if (primarySecProvincia == null) {
-					primarySecProvincia = noPkTablasDao.obtenerCodigoProvinciaPorCodigoDB(secProvincia.trim(), ConsultaEnEnum.SRI);
+					primarySecProvincia = noPkTablasDao.obtenerCodigoProvinciaPorCodigoDB(secProvincia.trim(),
+							ConsultaEnEnum.SRI);
 					log.error("BUSCA SEC PROVINCIA: " + primarySecProvincia);
 				}
 				if (primarySecProvincia != null) {
@@ -2080,5 +2021,127 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		}
 
 		return provinciaSd;
+	}
+
+	public PersonaJuridicaSd CrearPersonaJuridicaEmpleo(Trabajo trabajo, TipoIdentificacionSd tipoIdentificacionRuc,
+			CanalSd canalSd, String codigoActividadEconomica) {
+
+		PersonaJuridicaSd existePersonaJuridica = new PersonaJuridicaSd();
+		if (!VerificarVacios(trabajo.getRazon_Social().trim())
+				|| !VerificarVacios(trabajo.getIdentificacion().trim())) {
+
+			// VERIFICAR SI EXISTE PERSONA
+			PersonaSd existePersonaJ = personaServicio.obtenerPersonaByIdentificacion(trabajo.getIdentificacion());
+
+			// SI NO EXISTE LA PERSONA JURIDICA DENTO DE PERSONA GUARDO LA PERSONA JURIDICA
+			if (existePersonaJ == null) {
+				existePersonaJ = new PersonaSd();
+				existePersonaJ.setIdentificacion(trabajo.getIdentificacion());
+				existePersonaJ.setCodTipoIdentificacion(tipoIdentificacionRuc);
+				existePersonaJ.setDenominacion(trabajo.getRazon_Social());
+
+				log.error("LLEGO PERSONA R");
+				personaServicio.IngresarPersona(existePersonaJ);
+				log.error(existePersonaJ);
+				log.error("GUARDO PERSONA R");
+			}
+
+			// BUSCO LA PERSONA JURIDICA DENTRO DE LA TABLA PERSONA JURIDICA
+			existePersonaJuridica = personaJuridicaServicio.findByPk(existePersonaJ.getSecPersona());
+
+			// SI NO EXISTE SE PROCEDE A INGRESAR LA PERSONA JURIDICA
+			if (existePersonaJuridica == null) {
+				existePersonaJuridica = MapperPersonaJuridica(trabajo, existePersonaJ, tipoIdentificacionRuc, canalSd,
+						codigoActividadEconomica);
+
+				log.error("LLEGA PERSONA JURIDICA");
+				personaJuridicaServicio.crearSoloPersonaJuridica(existePersonaJuridica);
+				log.error("GUARDA PERSONA JURIDICA");
+			}
+		}
+		return existePersonaJuridica;
+	}
+
+	public void EmpleoDependiente(PersonaJuridicaSd existePersonaJuridica, PersonaNaturalSd personaNatrual,
+			Trabajo trabajo, CanalSd canalSd) {
+		// ACA SE INGRESAN LOS DATOS DEL EMPLEO
+		EmpleoDependienteSd empleoDependienteSd = new EmpleoDependienteSd();
+		if (existePersonaJuridica.getSecPersonaJuridica() != null && !VerificarVacios(trabajo.getFechaIngreso())) {
+
+			// CREA EMPLEOD EPENDIENTE
+			log.error("AAAA");
+			empleoDependienteSd = MapeoEmpleoDependiente(trabajo, personaNatrual, existePersonaJuridica, canalSd);
+			log.error("LLEGA EMPLEO DEPENDIENTE");
+			empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
+			log.error("GUARDA EMPLEO DEPENDIENTE");
+		}
+	}
+
+	public void ActualizarEmpleoDependiente(PersonaNaturalSd personaNatural, PersonaJuridicaSd personaJuridica,
+			Trabajo trabajo, CanalSd canalSd) {
+		if (personaNatural != null && personaNatural.getSecPersonaNatural() != null && personaJuridica != null
+				&& personaJuridica.getSecPersonaJuridica() != null && !VerificarVacios(trabajo.getFechaIngreso())) {
+
+			EmpleoDependienteSd empleoDependienteSd = empleoDependienteServicio
+					.obtenerEmpleoDependienteBySecPersonaNatural(personaNatural.getSecPersonaNatural(),
+							personaJuridica.getSecPersonaJuridica());
+
+			if (empleoDependienteSd != null) {
+				Integer secEmpleo = empleoDependienteSd.getSecEmpleoDependiente();
+				empleoDependienteSd = MapeoEmpleoDependiente(trabajo, personaNatural, personaJuridica, canalSd);
+				empleoDependienteSd.setSecEmpleoDependiente(secEmpleo);
+
+				/*
+				 * empleoDependienteSd.setPersonaNatural(existePersona.getPersonaNatural());
+				 * empleoDependienteSd.setPersonaJuridica(existePersona.getPersonaJuridica());
+				 * empleoDependienteSd.setCargo(registro.getEmpleoDependiente().getCargo());
+				 * empleoDependienteSd.setMntSalario(!VerificarVacios(registro.
+				 * getEmpleoDependiente().getMntSalario()) ? new
+				 * BigDecimal(registro.getEmpleoDependiente().getMntSalario()) : new
+				 * BigDecimal(0)); empleoDependienteSd
+				 * .setFchIngreso(ConvertirFecha(registro.getEmpleoDependiente().getFechaIngreso
+				 * ())); empleoDependienteSd.setFchSalida(new Date());//
+				 * empleoDependienteSd.setSecCanal(canalSd);
+				 * empleoDependienteSd.setEstado(EstadoEnum.A.getEstadoChar());//
+				 * empleoDependienteSd.setTsCreacion(new Date());
+				 * empleoDependienteSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+				 * empleoDependienteSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.
+				 * getValor());
+				 */
+
+				empleoDependienteServicio.update(empleoDependienteSd);
+				log.error("ACTUALIZA EMPLEO DEPENDIENTE");
+				List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
+				empleoDependienteList.add(empleoDependienteSd);
+				PersonaNaturalSd perN = new PersonaNaturalSd();
+				perN = personaNatural;
+				perN.setEmpleoDependienteList(empleoDependienteList);
+				// objRetorno.setPersonaNatural(perN);
+			} else {
+				EmpleoDependienteSd emplDep = MapeoEmpleoDependiente(trabajo, personaNatural, personaJuridica, canalSd);
+				empleoDependienteServicio.crearEmpleoDependiente(emplDep);
+				log.error("GUARDA EMPLEO DEPENDIENTE");
+
+				// >>
+				List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
+				empleoDependienteList.add(emplDep);
+				PersonaNaturalSd perN = new PersonaNaturalSd();
+				perN = personaNatural;
+				perN.setEmpleoDependienteList(empleoDependienteList);
+				// objRetorno.setPersonaNatural(perN);
+			}
+
+			log.error("PASA EMPLEO DEPENDIENTE");
+		} else {
+			// >>
+			List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
+			empleoDependienteList.add(null);
+
+			PersonaNaturalSd perN = new PersonaNaturalSd();
+			perN = personaNatural;
+			perN.setEmpleoDependienteList(empleoDependienteList);
+
+			// objRetorno.setPersonaNatural(perN);
+		}
 	}
 }
