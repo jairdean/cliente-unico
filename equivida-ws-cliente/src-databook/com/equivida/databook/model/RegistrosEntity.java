@@ -260,7 +260,7 @@ public class RegistrosEntity {
 		public void setError(String value) {
 			this.error = value;
 		}
-
+		
 		/**
 		 * Gets the value of the Persona property.
 		 * 
@@ -1030,7 +1030,7 @@ public class RegistrosEntity {
 			this.segundoNombre = value;
 		}
 	}
-
+		
 	// SECCION EMPLEOS
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = "", propOrder = { "empleo1", "empleo2", "empleoActual" })
@@ -1038,1048 +1038,398 @@ public class RegistrosEntity {
 	public static class Empleos {
 
 		@XmlElement
-		protected Trabajo1 empleo1;
+		protected Trabajo empleo1;
 		@XmlElement
-		protected Trabajo2 empleo2;
+		protected Trabajo empleo2;
 		@XmlElement
-		protected TrabajoActual empleoActual;
+		protected Trabajo empleoActual;		
 
 		/**
-		 * Gets the value of the Trabajo1 property.
+		 * Gets the value of the Empleo1 property.
 		 * 
-		 * @return possible object is {@link Trabajo1 }
+		 * @return possible object is {@link Trabajo }
 		 * 
 		 */
-		public Trabajo1 getEmpleo1() {
+		public Trabajo getEmpleo1() {
 			return empleo1;
 		}
 
 		/**
-		 * Sets the value of the Trabajo1 property.
+		 * Sets the value of the Empleo1 property.
 		 * 
-		 * @param value allowed object is {@link Trabajo1 }
+		 * @param value allowed object is {@link Trabajo }
 		 * 
 		 */
-		public void setEmpleo1(Trabajo1 value) {
+		public void setEmpleo1(Trabajo value) {
 			this.empleo1 = value;
 		}
-
+		
 		/**
-		 * Gets the value of the Trabajo2 property.
+		 * Gets the value of the Empleo2 property.
 		 * 
-		 * @return possible object is {@link Trabajo2 }
+		 * @return possible object is {@link Trabajo }
 		 * 
 		 */
-		public Trabajo2 getEmpleo2() {
+		public Trabajo getEmpleo2() {
 			return empleo2;
 		}
 
 		/**
-		 * Sets the value of the Trabajo2 property.
+		 * Sets the value of the Empleo1 property.
 		 * 
-		 * @param value allowed object is {@link Trabajo2 }
+		 * @param value allowed object is {@link Trabajo }
 		 * 
 		 */
-		public void setEmpleo2(Trabajo2 value) {
+		public void setEmpleo2(Trabajo value) {
 			this.empleo2 = value;
 		}
-
+		
 		/**
-		 * Gets the value of the TrabajoActual property.
+		 * Gets the value of the EmpleoActual property.
 		 * 
-		 * @return possible object is {@link TrabajoActual }
+		 * @return possible object is {@link Trabajo }
 		 * 
 		 */
-		public TrabajoActual getEmpleoActual() {
+		public Trabajo getEmpleoActual() {
 			return empleoActual;
 		}
 
 		/**
-		 * Sets the value of the TrabajoActual property.
+		 * Sets the value of the EmpleoActual property.
 		 * 
-		 * @param value allowed object is {@link TrabajoActual }
+		 * @param value allowed object is {@link Trabajo }
 		 * 
 		 */
-		public void setEmpleoActual(TrabajoActual value) {
+		public void setEmpleoActual(Trabajo value) {
 			this.empleoActual = value;
 		}
 	}
 
-	// SECCION TRABAJO1
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "direccion", "fechaIngreso", "codPais", "razon_Social", "nro_Telefono",
-			"sec_Canton", "sec_Provincia", "sec_Parroquia", "mntSalario", "codArea", "descripcion", "secProfesion",
-			"identificacion", "actividad_Economica", "cargo" })
-	@XmlRootElement(name = "empleos")
-	public static class Trabajo1 {
-
-		protected String direccion;
-		protected String fechaIngreso;
-		protected String codPais;
-		protected String razon_Social;
-		protected String nro_Telefono;
-		protected String sec_Canton;
-		protected String sec_Provincia;
-		protected String sec_Parroquia;
-		protected String mntSalario;
-		protected String codArea;
-		protected String descripcion;
-		protected String secProfesion;
-		protected String identificacion;
-		protected String actividad_Economica;
-		protected String cargo;
-
-		/**
-		 * Gets the value of the cargo property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getCargo() {
-			return cargo;
-		}
-
-		/**
-		 * Sets the value of the cargo property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setCargo(String value) {
-			this.cargo = value;
-		}
-
-		/**
-		 * Gets the value of the actividad_Economica property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getActividad_Economica() {
-			return actividad_Economica;
-		}
-
-		/**
-		 * Sets the value of the actividad_Economica property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setActividad_Economica(String value) {
-			this.actividad_Economica = value;
-		}
-
-		/**
-		 * Gets the value of the identificacion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getIdentificacion() {
-			return identificacion;
-		}
-
-		/**
-		 * Sets the value of the identificacion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setIdentificacion(String value) {
-			this.identificacion = value;
-		}
-
-		/**
-		 * Gets the value of the secProfesion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSecProfesion() {
-			return secProfesion;
-		}
-
-		/**
-		 * Sets the value of the secProfesion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSecProfesion(String value) {
-			this.secProfesion = value;
-		}
-
-		/**
-		 * Gets the value of the descripcion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getDescripcion() {
-			return descripcion;
-		}
-
-		/**
-		 * Sets the value of the descripcion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setDescripcion(String value) {
-			this.descripcion = value;
-		}
-
-		/**
-		 * Gets the value of the codArea property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getCodArea() {
-			return codArea;
-		}
-
-		/**
-		 * Sets the value of the codArea property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setCodArea(String value) {
-			this.codArea = value;
-		}
-
-		/**
-		 * Gets the value of the mntSalario property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getMntSalario() {
-			return mntSalario;
-		}
-
-		/**
-		 * Sets the value of the mntSalario property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setMntSalario(String value) {
-			this.mntSalario = value;
-		}
-
-		/**
-		 * Gets the value of the sec_Parroquia property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSec_Parroquia() {
-			return sec_Parroquia;
-		}
-
-		/**
-		 * Sets the value of the sec_Parroquia property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSec_Parroquia(String value) {
-			this.sec_Parroquia = value;
-		}
-
-		/**
-		 * Gets the value of the sec_Provincia property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSec_Provincia() {
-			return sec_Provincia;
-		}
-
-		/**
-		 * Sets the value of the sec_Provincia property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSec_Provincia(String value) {
-			this.sec_Provincia = value;
-		}
-
-		/**
-		 * Gets the value of the sec_Canton property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSec_Canton() {
-			return sec_Canton;
-		}
-
-		/**
-		 * Sets the value of the sec_Canton property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSec_Canton(String value) {
-			this.sec_Canton = value;
-		}
-
-		/**
-		 * Gets the value of the nro_Telefono property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getNro_Telefono() {
-			return nro_Telefono;
-		}
-
-		/**
-		 * Sets the value of the nro_Telefono property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setNro_Telefono(String value) {
-			this.nro_Telefono = value;
-		}
-
-		/**
-		 * Gets the value of the razon_Social property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getRazon_Social() {
-			return razon_Social;
-		}
-
-		/**
-		 * Sets the value of the razon_Social property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setRazon_Social(String value) {
-			this.razon_Social = value;
-		}
-
-		/**
-		 * Gets the value of the codPais property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getCodPais() {
-			return codPais;
-		}
-
-		/**
-		 * Sets the value of the codPais property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setCodPais(String value) {
-			this.codPais = value;
-		}
-
-		/**
-		 * Gets the value of the fechaIngreso property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getFechaIngreso() {
-			return fechaIngreso;
-		}
-
-		/**
-		 * Sets the value of the fechaIngreso property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setFechaIngreso(String value) {
-			this.fechaIngreso = value;
-		}
-
-		/**
-		 * Gets the value of the direccion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getDireccion() {
-			return direccion;
-		}
-
-		/**
-		 * Sets the value of the direccion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setDireccion(String value) {
-			this.direccion = value;
-		}
-	}
-
-	// SECCION TRABAJO2
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "direccion", "fechaIngreso", "codPais", "razon_Social", "nro_Telefono",
-			"sec_Canton", "sec_Provincia", "sec_Parroquia", "mntSalario", "codArea", "descripcion", "secProfesion",
-			"identificacion", "actividad_Economica", "cargo" })
-	@XmlRootElement(name = "empleos")
-	public static class Trabajo2 {
-
-		protected String direccion;
-		protected String fechaIngreso;
-		protected String codPais;
-		protected String razon_Social;
-		protected String nro_Telefono;
-		protected String sec_Canton;
-		protected String sec_Provincia;
-		protected String sec_Parroquia;
-		protected String mntSalario;
-		protected String codArea;
-		protected String descripcion;
-		protected String secProfesion;
-		protected String identificacion;
-		protected String actividad_Economica;
-		protected String cargo;
-
-		/**
-		 * Gets the value of the cargo property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getCargo() {
-			return cargo;
-		}
-
-		/**
-		 * Sets the value of the cargo property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setCargo(String value) {
-			this.cargo = value;
-		}
-
-		/**
-		 * Gets the value of the actividad_Economica property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getActividad_Economica() {
-			return actividad_Economica;
-		}
-
-		/**
-		 * Sets the value of the actividad_Economica property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setActividad_Economica(String value) {
-			this.actividad_Economica = value;
-		}
-
-		/**
-		 * Gets the value of the identificacion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getIdentificacion() {
-			return identificacion;
-		}
-
-		/**
-		 * Sets the value of the identificacion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setIdentificacion(String value) {
-			this.identificacion = value;
-		}
-
-		/**
-		 * Gets the value of the secProfesion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSecProfesion() {
-			return secProfesion;
-		}
-
-		/**
-		 * Sets the value of the secProfesion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSecProfesion(String value) {
-			this.secProfesion = value;
-		}
-
-		/**
-		 * Gets the value of the descripcion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getDescripcion() {
-			return descripcion;
-		}
-
-		/**
-		 * Sets the value of the descripcion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setDescripcion(String value) {
-			this.descripcion = value;
-		}
-
-		/**
-		 * Gets the value of the codArea property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getCodArea() {
-			return codArea;
-		}
-
-		/**
-		 * Sets the value of the codArea property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setCodArea(String value) {
-			this.codArea = value;
-		}
-
-		/**
-		 * Gets the value of the mntSalario property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getMntSalario() {
-			return mntSalario;
-		}
-
-		/**
-		 * Sets the value of the mntSalario property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setMntSalario(String value) {
-			this.mntSalario = value;
-		}
-
-		/**
-		 * Gets the value of the sec_Parroquia property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSec_Parroquia() {
-			return sec_Parroquia;
-		}
-
-		/**
-		 * Sets the value of the sec_Parroquia property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSec_Parroquia(String value) {
-			this.sec_Parroquia = value;
-		}
-
-		/**
-		 * Gets the value of the sec_Provincia property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSec_Provincia() {
-			return sec_Provincia;
-		}
-
-		/**
-		 * Sets the value of the sec_Provincia property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSec_Provincia(String value) {
-			this.sec_Provincia = value;
-		}
-
-		/**
-		 * Gets the value of the sec_Canton property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSec_Canton() {
-			return sec_Canton;
-		}
-
-		/**
-		 * Sets the value of the sec_Canton property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSec_Canton(String value) {
-			this.sec_Canton = value;
-		}
-
-		/**
-		 * Gets the value of the nro_Telefono property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getNro_Telefono() {
-			return nro_Telefono;
-		}
-
-		/**
-		 * Sets the value of the nro_Telefono property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setNro_Telefono(String value) {
-			this.nro_Telefono = value;
-		}
-
-		/**
-		 * Gets the value of the razon_Social property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getRazon_Social() {
-			return razon_Social;
-		}
-
-		/**
-		 * Sets the value of the razon_Social property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setRazon_Social(String value) {
-			this.razon_Social = value;
-		}
-
-		/**
-		 * Gets the value of the codPais property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getCodPais() {
-			return codPais;
-		}
-
-		/**
-		 * Sets the value of the codPais property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setCodPais(String value) {
-			this.codPais = value;
-		}
-
-		/**
-		 * Gets the value of the fechaIngreso property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getFechaIngreso() {
-			return fechaIngreso;
-		}
-
-		/**
-		 * Sets the value of the fechaIngreso property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setFechaIngreso(String value) {
-			this.fechaIngreso = value;
-		}
-
-		/**
-		 * Gets the value of the direccion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getDireccion() {
-			return direccion;
-		}
-
-		/**
-		 * Sets the value of the direccion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setDireccion(String value) {
-			this.direccion = value;
-		}
-	}
-
-	// SECCION TRABAJOACTUAL
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "direccion", "fechaIngreso", "codPais", "razon_Social", "nro_Telefono",
-			"sec_Canton", "sec_Provincia", "sec_Parroquia", "mntSalario", "codArea", "descripcion", "secProfesion",
-			"identificacion", "actividad_Economica", "cargo" })
-	@XmlRootElement(name = "empleos")
-	public static class TrabajoActual {
-
-		protected String direccion;
-		protected String fechaIngreso;
-		protected String codPais;
-		protected String razon_Social;
-		protected String nro_Telefono;
-		protected String sec_Canton;
-		protected String sec_Provincia;
-		protected String sec_Parroquia;
-		protected String mntSalario;
-		protected String codArea;
-		protected String descripcion;
-		protected String secProfesion;
-		protected String identificacion;
-		protected String actividad_Economica;
-		protected String cargo;
-
-		/**
-		 * Gets the value of the cargo property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getCargo() {
-			return cargo;
-		}
-
-		/**
-		 * Sets the value of the cargo property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setCargo(String value) {
-			this.cargo = value;
-		}
-
-		/**
-		 * Gets the value of the actividad_Economica property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getActividad_Economica() {
-			return actividad_Economica;
-		}
-
-		/**
-		 * Sets the value of the actividad_Economica property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setActividad_Economica(String value) {
-			this.actividad_Economica = value;
-		}
-
-		/**
-		 * Gets the value of the identificacion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getIdentificacion() {
-			return identificacion;
-		}
-
-		/**
-		 * Sets the value of the identificacion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setIdentificacion(String value) {
-			this.identificacion = value;
-		}
-
-		/**
-		 * Gets the value of the secProfesion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSecProfesion() {
-			return secProfesion;
-		}
-
-		/**
-		 * Sets the value of the secProfesion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSecProfesion(String value) {
-			this.secProfesion = value;
-		}
-
-		/**
-		 * Gets the value of the descripcion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getDescripcion() {
-			return descripcion;
-		}
-
-		/**
-		 * Sets the value of the descripcion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setDescripcion(String value) {
-			this.descripcion = value;
-		}
-
-		/**
-		 * Gets the value of the codArea property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getCodArea() {
-			return codArea;
-		}
-
-		/**
-		 * Sets the value of the codArea property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setCodArea(String value) {
-			this.codArea = value;
-		}
-
-		/**
-		 * Gets the value of the mntSalario property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getMntSalario() {
-			return mntSalario;
-		}
-
-		/**
-		 * Sets the value of the mntSalario property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setMntSalario(String value) {
-			this.mntSalario = value;
-		}
-
-		/**
-		 * Gets the value of the sec_Parroquia property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSec_Parroquia() {
-			return sec_Parroquia;
-		}
-
-		/**
-		 * Sets the value of the sec_Parroquia property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSec_Parroquia(String value) {
-			this.sec_Parroquia = value;
-		}
-
-		/**
-		 * Gets the value of the sec_Provincia property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSec_Provincia() {
-			return sec_Provincia;
-		}
-
-		/**
-		 * Sets the value of the sec_Provincia property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSec_Provincia(String value) {
-			this.sec_Provincia = value;
-		}
-
-		/**
-		 * Gets the value of the sec_Canton property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getSec_Canton() {
-			return sec_Canton;
-		}
-
-		/**
-		 * Sets the value of the sec_Canton property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setSec_Canton(String value) {
-			this.sec_Canton = value;
-		}
-
-		/**
-		 * Gets the value of the nro_Telefono property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getNro_Telefono() {
-			return nro_Telefono;
-		}
-
-		/**
-		 * Sets the value of the nro_Telefono property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setNro_Telefono(String value) {
-			this.nro_Telefono = value;
-		}
-
-		/**
-		 * Gets the value of the razon_Social property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getRazon_Social() {
-			return razon_Social;
-		}
-
-		/**
-		 * Sets the value of the razon_Social property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setRazon_Social(String value) {
-			this.razon_Social = value;
-		}
-
-		/**
-		 * Gets the value of the codPais property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getCodPais() {
-			return codPais;
-		}
-
-		/**
-		 * Sets the value of the codPais property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setCodPais(String value) {
-			this.codPais = value;
-		}
-
-		/**
-		 * Gets the value of the fechaIngreso property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getFechaIngreso() {
-			return fechaIngreso;
-		}
-
-		/**
-		 * Sets the value of the fechaIngreso property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setFechaIngreso(String value) {
-			this.fechaIngreso = value;
-		}
-
-		/**
-		 * Gets the value of the direccion property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getDireccion() {
-			return direccion;
-		}
-
-		/**
-		 * Sets the value of the direccion property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setDireccion(String value) {
-			this.direccion = value;
-		}
-	}
-
+	// SECCION EMPLEOS
+		@XmlAccessorType(XmlAccessType.FIELD)
+		@XmlType(name = "", propOrder = { "direccion", "fechaIngreso", "codPais", "razon_Social", "nro_Telefono",
+				"sec_Canton", "sec_Provincia", "sec_Parroquia", "mntSalario", "codArea", "descripcion", "secProfesion",
+				"identificacion", "actividad_Economica", "cargo" })
+		@XmlRootElement(name = "empleos")
+		public static class Trabajo {
+
+			protected String direccion;
+			protected String fechaIngreso;
+			protected String codPais;
+			protected String razon_Social;
+			protected String nro_Telefono;
+			protected String sec_Canton;
+			protected String sec_Provincia;
+			protected String sec_Parroquia;
+			protected String mntSalario;
+			protected String codArea;
+			protected String descripcion;
+			protected String secProfesion;
+			protected String identificacion;
+			protected String actividad_Economica;
+			protected String cargo;
+
+			/**
+			 * Gets the value of the cargo property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getCargo() {
+				return cargo;
+			}
+
+			/**
+			 * Sets the value of the cargo property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setCargo(String value) {
+				this.cargo = value;
+			}
+
+			/**
+			 * Gets the value of the actividad_Economica property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getActividad_Economica() {
+				return actividad_Economica;
+			}
+
+			/**
+			 * Sets the value of the actividad_Economica property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setActividad_Economica(String value) {
+				this.actividad_Economica = value;
+			}
+
+			/**
+			 * Gets the value of the identificacion property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getIdentificacion() {
+				return identificacion;
+			}
+
+			/**
+			 * Sets the value of the identificacion property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setIdentificacion(String value) {
+				this.identificacion = value;
+			}
+
+			/**
+			 * Gets the value of the secProfesion property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getSecProfesion() {
+				return secProfesion;
+			}
+
+			/**
+			 * Sets the value of the secProfesion property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setSecProfesion(String value) {
+				this.secProfesion = value;
+			}
+
+			/**
+			 * Gets the value of the descripcion property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getDescripcion() {
+				return descripcion;
+			}
+
+			/**
+			 * Sets the value of the descripcion property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setDescripcion(String value) {
+				this.descripcion = value;
+			}
+
+			/**
+			 * Gets the value of the codArea property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getCodArea() {
+				return codArea;
+			}
+
+			/**
+			 * Sets the value of the codArea property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setCodArea(String value) {
+				this.codArea = value;
+			}
+
+			/**
+			 * Gets the value of the mntSalario property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getMntSalario() {
+				return mntSalario;
+			}
+
+			/**
+			 * Sets the value of the mntSalario property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setMntSalario(String value) {
+				this.mntSalario = value;
+			}
+
+			/**
+			 * Gets the value of the sec_Parroquia property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getSec_Parroquia() {
+				return sec_Parroquia;
+			}
+
+			/**
+			 * Sets the value of the sec_Parroquia property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setSec_Parroquia(String value) {
+				this.sec_Parroquia = value;
+			}
+
+			/**
+			 * Gets the value of the sec_Provincia property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getSec_Provincia() {
+				return sec_Provincia;
+			}
+
+			/**
+			 * Sets the value of the sec_Provincia property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setSec_Provincia(String value) {
+				this.sec_Provincia = value;
+			}
+
+			/**
+			 * Gets the value of the sec_Canton property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getSec_Canton() {
+				return sec_Canton;
+			}
+
+			/**
+			 * Sets the value of the sec_Canton property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setSec_Canton(String value) {
+				this.sec_Canton = value;
+			}
+
+			/**
+			 * Gets the value of the nro_Telefono property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getNro_Telefono() {
+				return nro_Telefono;
+			}
+
+			/**
+			 * Sets the value of the nro_Telefono property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setNro_Telefono(String value) {
+				this.nro_Telefono = value;
+			}
+
+			/**
+			 * Gets the value of the razon_Social property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getRazon_Social() {
+				return razon_Social;
+			}
+
+			/**
+			 * Sets the value of the razon_Social property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setRazon_Social(String value) {
+				this.razon_Social = value;
+			}
+
+			/**
+			 * Gets the value of the codPais property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getCodPais() {
+				return codPais;
+			}
+
+			/**
+			 * Sets the value of the codPais property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setCodPais(String value) {
+				this.codPais = value;
+			}
+
+			/**
+			 * Gets the value of the fechaIngreso property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getFechaIngreso() {
+				return fechaIngreso;
+			}
+
+			/**
+			 * Sets the value of the fechaIngreso property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setFechaIngreso(String value) {
+				this.fechaIngreso = value;
+			}
+
+			/**
+			 * Gets the value of the direccion property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getDireccion() {
+				return direccion;
+			}
+
+			/**
+			 * Sets the value of the direccion property.
+			 * 
+			 * @param value allowed object is {@link String }
+			 * 
+			 */
+			public void setDireccion(String value) {
+				this.direccion = value;
+			}
+		}
+		
 	// SECCION DIRECCIONELECTRONICO
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = "", propOrder = { "correo_electronico1", "correo_electronico2" })
