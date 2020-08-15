@@ -948,8 +948,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
 			tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
 
+			DireccionElectronicaSd direccionElectronica1 = new DireccionElectronicaSd();
 			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())) {
-				DireccionElectronicaSd direccionElectronica1 = MapeoDireccionElectronica(
+				direccionElectronica1 = MapeoDireccionElectronica(
 						registro.getDireccionElectronico().getCorreo_electronico1().trim(), persona, canalSd);
 
 				log.error("LLEGA DIRECCION ELECTRONICA 1");
@@ -958,11 +959,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			// CREA DIRECCION ELECTRONICA 2
+			DireccionElectronicaSd direccionElectronica2 = new DireccionElectronicaSd();
 			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {
 				if (registro.getDireccionElectronico().getCorreo_electronico1()
 						.equalsIgnoreCase(registro.getDireccionElectronico().getCorreo_electronico2()) == false) {
 
-					DireccionElectronicaSd direccionElectronica2 = MapeoDireccionElectronica(
+					direccionElectronica2 = MapeoDireccionElectronica(
 							registro.getDireccionElectronico().getCorreo_electronico2().trim(), persona, canalSd);
 
 					log.error("LLEGA DIRECCION ELECTRONICA 2");
@@ -970,6 +972,17 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("GUARDA DIRECCION ELECTRONICA 2");
 				}
 			}
+
+			List<DireccionElectronicaSd> listaDireccionElectronica = new ArrayList<DireccionElectronicaSd>();
+			if (direccionElectronica1.getSecDireccionElectronica() != null)
+				listaDireccionElectronica.add(direccionElectronica1);
+			else
+				listaDireccionElectronica.add(null);
+
+			if (direccionElectronica2.getSecDireccionElectronica() != null)
+				listaDireccionElectronica.add(direccionElectronica2);
+
+			objRetorno.setDireccionElectronicaSinBase(listaDireccionElectronica);
 
 			// CREA INFORMACION ADCIONAL
 			log.error("LLEGA INFO ADICIONAL");
@@ -1496,8 +1509,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			if (d2.getSecDireccionElectronica() != null)
 				listaDireccionElectronica.add(d2);
 
-			 objRetorno.setDireccionElectronicaSinBase(listaDireccionElectronica);
-			
+			objRetorno.setDireccionElectronicaSinBase(listaDireccionElectronica);
+
 			// ACTUALIZA INFORMACION ADCIONAL
 			if (existePersona.getPersonaNatural() != null
 					&& existePersona.getPersonaNatural().getSecPersonaNatural() != null
