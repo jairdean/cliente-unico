@@ -2105,8 +2105,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// VERIFICAR SI EXISTE PERSONA
 			PersonaSd existePersonaJ = personaServicio.obtenerPersonaByIdentificacion(trabajo.getIdentificacion());
 
+			log.error("LLEGA ");
+			log.error(existePersonaJ);
+
 			// SI NO EXISTE LA PERSONA JURIDICA DENTO DE PERSONA GUARDO LA PERSONA JURIDICA
 			if (existePersonaJ == null) {
+				log.error("ENTRA");
+
 				existePersonaJ = new PersonaSd();
 				existePersonaJ.setIdentificacion(trabajo.getIdentificacion());
 				existePersonaJ.setCodTipoIdentificacion(tipoIdentificacionRuc);
@@ -2118,9 +2123,14 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("GUARDO PERSONA R");
 			}
 
+			log.error("PASA");
+
+			log.error("aqui esta el error ya me vien en la consultas de arriba el persona juridica");
 			// BUSCO LA PERSONA JURIDICA DENTRO DE LA TABLA PERSONA JURIDICA
 			existePersonaJuridica = personaJuridicaServicio
 					.buscarPersonaPorIdentificacion(existePersonaJ.getIdentificacion());
+
+			log.error(existePersonaJuridica);
 
 			// SI NO EXISTE SE PROCEDE A INGRESAR LA PERSONA JURIDICA
 			if (existePersonaJuridica == null) {
