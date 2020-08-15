@@ -1017,20 +1017,39 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					registro.getEmpleos().getEmpleoActual(), tipoIdentificacionRuc, canalSd,
 					registro.getInformacionAdicional().getCodActividadEconomica());
 
-			EmpleoDependiente(existePersonaJuridicaActual, personaNatural, registro.getEmpleos().getEmpleoActual(),
-					canalSd);
+			EmpleoDependienteSd empleoActual = EmpleoDependiente(existePersonaJuridicaActual, personaNatural,
+					registro.getEmpleos().getEmpleoActual(), canalSd);
 
 			// VERIFICAR DATOS PERSONA JURIDICA EMPLEO 1
 			PersonaJuridicaSd existePersonaJuridica1 = CrearPersonaJuridicaEmpleo(registro.getEmpleos().getEmpleo1(),
 					tipoIdentificacionRuc, canalSd, registro.getInformacionAdicional().getCodActividadEconomica());
 
-			EmpleoDependiente(existePersonaJuridica1, personaNatural, registro.getEmpleos().getEmpleo1(), canalSd);
+			EmpleoDependienteSd empleo1 = EmpleoDependiente(existePersonaJuridica1, personaNatural,
+					registro.getEmpleos().getEmpleo1(), canalSd);
 
 			// VERIFICAR DATOS PERSONA JURIDICA EMPLEO 2
 			PersonaJuridicaSd existePersonaJuridica2 = CrearPersonaJuridicaEmpleo(registro.getEmpleos().getEmpleo2(),
 					tipoIdentificacionRuc, canalSd, registro.getInformacionAdicional().getCodActividadEconomica());
 
-			EmpleoDependiente(existePersonaJuridica2, personaNatural, registro.getEmpleos().getEmpleo2(), canalSd);
+			EmpleoDependienteSd empleo2 = EmpleoDependiente(existePersonaJuridica2, personaNatural,
+					registro.getEmpleos().getEmpleo2(), canalSd);
+
+			List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
+			if (empleoActual.getSecEmpleoDependiente() != null)
+				empleoDependienteList.add(empleoActual);
+			else
+				empleoDependienteList.add(null);
+
+			if (empleo1.getSecEmpleoDependiente() != null)
+				empleoDependienteList.add(empleo1);
+
+			if (empleo2.getSecEmpleoDependiente() != null)
+				empleoDependienteList.add(empleo2);
+
+			PersonaNaturalSd perN = new PersonaNaturalSd();
+			perN = persona.getPersonaNatural();
+			perN.setEmpleoDependienteList(empleoDependienteList);
+			objRetorno.setPersonaNatural(perN);
 
 			log.error("FIN PROCESO CREAR TITULAR");
 		} else {
@@ -1392,10 +1411,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				registro.getDireccionElectronico()
 						.setCorreo_electronico1(registro.getDireccionElectronico().getCorreo_electronico2());
 
-			// CREA/ACTUALIZA DIRECCION ELECTRONICA 1
+			// CREA ACTUALIZA DIRECCION ELECTRONICA 1
+			DireccionElectronicaSd d1 = new DireccionElectronicaSd();
 			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().trim())) {
 				if (direccionElectronica != null && direccionElectronica.size() >= 1) {
-					DireccionElectronicaSd d1 = direccionElectronicaSdServicio
+					d1 = direccionElectronicaSdServicio
 							.findByPk(direccionElectronica.get(0).getSecDireccionElectronica());
 					d1.setSecPersona(existePersona);
 					d1.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
@@ -1411,8 +1431,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					direccionElectronicaSdServicio.update(d1);
 				} else {
 
-					DireccionElectronicaSd d1 = MapeoDireccionElectronica(
-							registro.getDireccionElectronico().getCorreo_electronico1(), existePersona, canalSd);
+					d1 = MapeoDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico1(),
+							existePersona, canalSd);
 
 					log.error("CREA DIRECCION ELECTRONICA 1");
 					direccionElectronicaSdServicio.ingresarDireccionElectronica(d1);
@@ -1421,6 +1441,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			// CREA/ACTUALIZA DIRECCION ELECTRONICA 2
+			DireccionElectronicaSd d2 = new DireccionElectronicaSd();
 			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().trim())) {
 
 				if (registro.getDireccionElectronico().getCorreo_electronico1() != null
@@ -1429,7 +1450,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 					if (direccionElectronica != null && direccionElectronica.size() >= 2) {
 
-						DireccionElectronicaSd d2 = direccionElectronicaSdServicio
+						d2 = direccionElectronicaSdServicio
 								.findByPk(direccionElectronica.get(1).getSecDireccionElectronica());
 						d2.setSecPersona(existePersona);
 						d2.setCodTipoDireccionElectronica(tipoDireccionElectronicaSd);
@@ -1444,8 +1465,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 						log.error(d2);
 						direccionElectronicaSdServicio.update(d2);
 					} else {
-						DireccionElectronicaSd d2 = MapeoDireccionElectronica(
-								registro.getDireccionElectronico().getCorreo_electronico2(), existePersona, canalSd);
+						d2 = MapeoDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico2(),
+								existePersona, canalSd);
 
 						log.error(d2);
 						log.error(d2.getSecPersona());
@@ -1466,6 +1487,17 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				}
 			}
 
+			List<DireccionElectronicaSd> listaDireccionElectronica = new ArrayList<DireccionElectronicaSd>();
+			if (d1.getSecDireccionElectronica() != null)
+				listaDireccionElectronica.add(d1);
+			else
+				listaDireccionElectronica.add(null);
+
+			if (d2.getSecDireccionElectronica() != null)
+				listaDireccionElectronica.add(d2);
+
+			 objRetorno.setDireccionElectronicaSinBase(listaDireccionElectronica);
+			
 			// ACTUALIZA INFORMACION ADCIONAL
 			if (existePersona.getPersonaNatural() != null
 					&& existePersona.getPersonaNatural().getSecPersonaNatural() != null
@@ -1559,19 +1591,26 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			EmpleoDependienteSd empleo2 = ActualizarEmpleoDependiente(existePersona.getPersonaNatural(),
 					existePersonaJuridica2, registro.getEmpleos().getEmpleo2(), canalSd);
-			
+
+			log.error("MAPEO OBJETO");
+			log.error(empleoActual);
+			log.error(empleo1);
+			log.error(empleo2);
+
 			List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
-			if(empleoActual.getSecEmpleoDependiente() != null) 		
+			if (empleoActual.getSecEmpleoDependiente() != null)
 				empleoDependienteList.add(empleoActual);
-			else 
+			else
 				empleoDependienteList.add(null);
-			
-			if(empleo1.getSecEmpleoDependiente() != null) 		
+
+			log.error("MAPEO OBJETO");
+
+			if (empleo1.getSecEmpleoDependiente() != null)
 				empleoDependienteList.add(empleo1);
 
-			if(empleo2.getSecEmpleoDependiente() != null) 		
+			if (empleo2.getSecEmpleoDependiente() != null)
 				empleoDependienteList.add(empleo2);
-				
+
 			PersonaNaturalSd perN = new PersonaNaturalSd();
 			perN = existePersona.getPersonaNatural();
 			perN.setEmpleoDependienteList(empleoDependienteList);
@@ -2140,8 +2179,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				empleoDependienteServicio.update(empleoDependienteSd);
 				log.error("ACTUALIZA EMPLEO DEPENDIENTE");
 			} else {
-				EmpleoDependienteSd emplDep = MapeoEmpleoDependiente(trabajo, personaNatural, personaJuridica, canalSd);
-				empleoDependienteServicio.crearEmpleoDependiente(emplDep);
+				empleoDependienteSd = MapeoEmpleoDependiente(trabajo, personaNatural, personaJuridica, canalSd);
+				empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
 				log.error("GUARDA EMPLEO DEPENDIENTE");
 			}
 			log.error("PASA EMPLEO DEPENDIENTE");
