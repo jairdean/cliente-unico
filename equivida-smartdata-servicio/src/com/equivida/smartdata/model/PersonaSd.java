@@ -40,7 +40,8 @@ import com.equivida.smartdata.constante.TipoParentescoEnum;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "secPersona", "codTipoIdentificacion", "identificacion",
 		"denominacion", "personaNatural", "relacionesSinBase", "relaciones",
-		"conyuge", "direccionNoPersisteList", "todosTelefonos", "vehiculoList" })
+		"conyuge", "direccionNoPersisteList", "todosTelefonos", "vehiculoList",
+		"direccionElectronicaSinBase"})
 public class PersonaSd implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -84,7 +85,12 @@ public class PersonaSd implements Serializable {
 	private List<RelacionSd> relacionesSinBase; // RElaciones para mostrar pero
 												// que no estan en la base de
 												// datos los objetos
-
+	
+	@XmlElement(name = "direccionElectronica")
+	@Transient
+	List<DireccionElectronicaSd> direccionElectronicaSinBase; // DireccionElectronicaSd para mostrar pero que no estan en la base de datos los objetos
+	
+	
 	@XmlElement(name = "direccion")
 	@Transient
 	private List<DireccionSd> direccionNoPersisteList;
@@ -269,6 +275,20 @@ public class PersonaSd implements Serializable {
 	}
 
 	/**
+	 * @return the direccionElectronicaSinBase
+	 */
+	public List<DireccionElectronicaSd> getDireccionElectronicaSinBase() {
+		return direccionElectronicaSinBase;
+	}
+
+	/**
+	 * @param direccionElectronicaSinBase
+	 */
+	public void setDireccionElectronicaSinBase(List<DireccionElectronicaSd> direccionElectronicaSinBase) {
+		this.direccionElectronicaSinBase = direccionElectronicaSinBase;
+	}
+
+	/**
 	 * @return the relacionesSinBase
 	 */
 	public List<RelacionSd> getRelacionesSinBase() {
@@ -282,7 +302,7 @@ public class PersonaSd implements Serializable {
 	public void setRelacionesSinBase(List<RelacionSd> relacionesSinBase) {
 		this.relacionesSinBase = relacionesSinBase;
 	}
-
+	
 	/**
 	 * Devuelve las relaciones que estan en la base y las que no tienen datos en
 	 * la base pero se pueden mostrar.
