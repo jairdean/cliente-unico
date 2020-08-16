@@ -836,7 +836,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			objRetorno = persona;
 
 			// CREA PERSONA NATURAL
-			PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
+			PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(),
 					persona, canalSd, registro.getEmpleos().getEmpleoActual().getSecProfesion());
 
 			log.error("PASA PERSONA NATURAL");
@@ -1075,7 +1075,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// VERIFICO SI EXISTE LA PERSONA NATURAL
 			if (existePersona.getPersonaNatural() == null) {
 				// CREA PERSONA NATURAL
-				PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
+				PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(),
 						existePersona, canalSd, registro.getEmpleos().getEmpleoActual().getSecProfesion());
 
 				log.error("PASA PERSONA NATURAL");
@@ -1883,9 +1883,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return persona;
 	}
 
-	public PersonaNaturalSd MapperPersonaNatural(PersonaNatural registro, TipoIdentificacionSd tipoIdentificacion,
+	public PersonaNaturalSd MapperPersonaNatural(PersonaNatural registro,
 			PersonaSd persona, CanalSd canalSd, String codigoProfesion) {
 
+		TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
+		tipoIdentificacion.setCodTipoIdentificacion('C');
+		
 		PersonaNaturalSd personaNatural = new PersonaNaturalSd();
 
 		// CONTROLO Y VERIFICO QUE EXISTA EL ESTADO CIVIL
@@ -2127,8 +2130,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			log.error("aqui esta el error ya me vien en la consultas de arriba el persona juridica");
 			// BUSCO LA PERSONA JURIDICA DENTRO DE LA TABLA PERSONA JURIDICA
-			existePersonaJuridica = personaJuridicaServicio
-					.buscarPersonaPorIdentificacion(existePersonaJ.getIdentificacion());
+			if (existePersonaJ.getPersonaJuridica() == null)
+				existePersonaJuridica = personaJuridicaServicio
+						.buscarPersonaPorIdentificacion(existePersonaJ.getIdentificacion());
+			else
+				existePersonaJuridica = existePersonaJ.getPersonaJuridica();
 
 			log.error(existePersonaJuridica);
 
