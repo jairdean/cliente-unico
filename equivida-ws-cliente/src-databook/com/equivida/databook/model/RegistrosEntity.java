@@ -58,14 +58,14 @@ public class RegistrosEntity {
 
 	// SECCION TITULAR
 	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "direccion", "telefonos", "persona", "direccionElectronico", "empleos",
+	@XmlType(name = "", propOrder = { "direcciones", "telefonos", "persona", "direccionElectronico", "empleos",
 			"personaNatural", "informacionAdicional" })
 	public static class Titular {
 
 		@XmlElement
 		protected Persona persona;
 		@XmlElement
-		protected Direccion direccion;
+		protected Direcciones direcciones;
 		@XmlElement
 		protected Telefonos telefonos;
 		@XmlElement
@@ -98,23 +98,23 @@ public class RegistrosEntity {
 		}
 
 		/**
-		 * Gets the value of the Direccion property.
+		 * Gets the value of the Direcciones property.
 		 * 
-		 * @return possible object is {@link Direccion }
+		 * @return possible object is {@link Direcciones }
 		 * 
 		 */
-		public Direccion getDireccion() {
-			return direccion;
+		public Direcciones getDirecciones() {
+			return direcciones;
 		}
 
 		/**
-		 * Sets the value of the Direccion property.
+		 * Sets the value of the Direcciones property.
 		 * 
-		 * @param value allowed object is {@link Direccion }
+		 * @param value allowed object is {@link Direcciones }
 		 * 
 		 */
-		public void setDireccion(Direccion value) {
-			this.direccion = value;
+		public void setDirecciones(Direcciones value) {
+			this.direcciones = value;
 		}
 
 		/**
@@ -220,7 +220,7 @@ public class RegistrosEntity {
 
 	// SECCION CONYUGE
 	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "direccion", "telefonos", "persona", "direccionElectronico", "empleos",
+	@XmlType(name = "", propOrder = { "direcciones", "telefonos", "persona", "direccionElectronico", "empleos",
 			"personaNatural", "informacionAdicional", "error" })
 	public static class Conyuge {
 
@@ -229,7 +229,7 @@ public class RegistrosEntity {
 		@XmlElement(required = false)
 		protected Persona persona;
 		@XmlElement(required = false)
-		protected Direccion direccion;
+		protected Direcciones direcciones;
 		@XmlElement(required = false)
 		protected Telefonos telefonos;
 		@XmlElement(required = false)
@@ -282,23 +282,23 @@ public class RegistrosEntity {
 		}
 
 		/**
-		 * Gets the value of the Direccion property.
+		 * Gets the value of the Direcciones property.
 		 * 
-		 * @return possible object is {@link Direccion }
+		 * @return possible object is {@link Direcciones }
 		 * 
 		 */
-		public Direccion getDireccion() {
-			return direccion;
+		public Direcciones getDirecciones() {
+			return direcciones;
 		}
 
 		/**
-		 * Sets the value of the Direccion property.
+		 * Sets the value of the Direcciones property.
 		 * 
-		 * @param value allowed object is {@link Direccion }
+		 * @param value allowed object is {@link Direcciones }
 		 * 
 		 */
-		public void setDireccion(Direccion value) {
-			this.direccion = value;
+		public void setDirecciones(Direcciones value) {
+			this.direcciones = value;
 		}
 
 		/**
@@ -402,6 +402,58 @@ public class RegistrosEntity {
 		}
 	}
 
+	// SECCION EMPLEOS
+		@XmlAccessorType(XmlAccessType.FIELD)
+		@XmlType(name = "", propOrder = { "direccion1", "direccion2"})
+		@XmlRootElement(name = "direcciones")
+		public static class Direcciones {
+
+			@XmlElement
+			protected Direccion direccion1;
+			@XmlElement
+			protected Direccion direccion2;
+	
+
+			/**
+			 * Gets the value of the direccion1 property.
+			 * 
+			 * @return possible object is {@link Direccion }
+			 * 
+			 */
+			public Direccion getDireccion1() {
+				return direccion1;
+			}
+
+			/**
+			 * Sets the value of the direccion1 property.
+			 * 
+			 * @param value allowed object is {@link Direccion }
+			 * 
+			 */
+			public void setDireccion1(Direccion value) {
+				this.direccion1 = value;
+			}
+			
+			/**
+			 * Gets the value of the direccion2 property.
+			 * 
+			 * @return possible object is {@link Direccion }
+			 * 
+			 */
+			public Direccion getDireccion2() {
+				return direccion2;
+			}
+
+			/**
+			 * Sets the value of the direccion2 property.
+			 * 
+			 * @param value allowed object is {@link Direccion }
+			 * 
+			 */
+			public void setDireccion2(Direccion value) {
+				this.direccion2 = value;
+			}
+		}
 	// SECCION INFORMACIONADICIONAL
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = "", propOrder = { "numero", "secundaria", "telefono", "secParroquia", "direccion", "principal",
