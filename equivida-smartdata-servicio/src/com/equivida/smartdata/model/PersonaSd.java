@@ -88,7 +88,7 @@ public class PersonaSd implements Serializable {
 	
 	@XmlElement(name = "direccionElectronica")
 	@Transient
-	List<DireccionElectronicaSd> direccionElectronicaSinBase; // DireccionElectronicaSd para mostrar pero que no estan en la base de datos los objetos
+	private List<DireccionElectronicaSd> direccionElectronicaSinBase; // DireccionElectronicaSd para mostrar pero que no estan en la base de datos los objetos
 	
 	
 	@XmlElement(name = "direccion")
