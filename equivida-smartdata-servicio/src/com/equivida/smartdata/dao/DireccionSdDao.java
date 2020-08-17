@@ -5,6 +5,8 @@
  */
 package com.equivida.smartdata.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import com.equivida.smartdata.model.DireccionSd;
@@ -34,7 +36,7 @@ public interface DireccionSdDao extends GenericDao<DireccionSd, Integer> {
 	 * Obtiene direccion por secPersona
 	 * 
 	 * @param secPersona
-	 * @return DireccionSd
+	 * @return List<DireccionSd>
 	 */
-	DireccionSd obtenerDireccionByPersonaSecPersona(int secPersona);
+	List<DireccionSd> obtenerDireccionByPersonaSecPersona(int secPersona);
 }

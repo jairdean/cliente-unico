@@ -78,7 +78,7 @@ public class DireccionSdServicioImpl extends GenericServiceImpl<DireccionSd, Int
 	 * obtenerDireccionByPersonaSecPersona(DireccionSd)
 	 */
 	@Override
-	public DireccionSd obtenerDireccionByPersonaSecPersona(int secPersona) {
+	public List<DireccionSd> obtenerDireccionByPersonaSecPersona(int secPersona) {
 		return direccionDao.obtenerDireccionByPersonaSecPersona(secPersona);
 	}
 }

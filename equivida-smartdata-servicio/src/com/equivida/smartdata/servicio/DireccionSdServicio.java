@@ -44,7 +44,7 @@ public interface DireccionSdServicio extends GenericService<DireccionSd, Integer
 	 * Obtener DireccionSd.
 	 * 
 	 * @param secPersona
-	 * @return DireccionSd
+	 * @return List<DireccionSd>
 	 */
-	DireccionSd obtenerDireccionByPersonaSecPersona(int secPersona);
+	List<DireccionSd> obtenerDireccionByPersonaSecPersona(int secPersona);
 }

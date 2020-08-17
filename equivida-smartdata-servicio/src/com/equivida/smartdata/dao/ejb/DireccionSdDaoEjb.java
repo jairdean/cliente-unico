@@ -66,7 +66,7 @@ public class DireccionSdDaoEjb extends GenericDaoEjb<DireccionSd, Integer> imple
 
 		return null;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -75,7 +75,7 @@ public class DireccionSdDaoEjb extends GenericDaoEjb<DireccionSd, Integer> imple
 	 * (java.lang.String)
 	 */
 	@Override
-	public DireccionSd obtenerDireccionByPersonaSecPersona(int secPersona) {
+	public List<DireccionSd> obtenerDireccionByPersonaSecPersona(int secPersona) {
 		StringBuffer sql = new StringBuffer(200);
 		sql.append("select d from DireccionSd d where ");
 		sql.append("d.secPersona.secPersona = :secPersona ");
@@ -86,7 +86,7 @@ public class DireccionSdDaoEjb extends GenericDaoEjb<DireccionSd, Integer> imple
 		List<DireccionSd> direccionList = query.getResultList();
 
 		if (direccionList != null && !direccionList.isEmpty()) {
-			return direccionList.get(0);
+			return direccionList;
 		}
 
 		return null;
