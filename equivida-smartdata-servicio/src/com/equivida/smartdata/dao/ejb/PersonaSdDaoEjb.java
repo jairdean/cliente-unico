@@ -66,10 +66,12 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer> implement
 
 		List<PersonaSd> respList = query.getResultList();
 
+		log.error("PASA BASE");
 		if (respList != null && !respList.isEmpty()) {
 			return respList.get(0);
 		}
 
+		
 		return null;
 	}
 }
