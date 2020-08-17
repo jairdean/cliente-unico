@@ -819,6 +819,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
 		tipoIdentificacion.setCodTipoIdentificacion(registro.getPersona().getCodTipoIdentificacion().charAt(0));
+		if (tipoIdentificacion.getCodTipoIdentificacion() != null)
+			if (tipoIdentificacion.getCodTipoIdentificacion() != 'C'
+					&& tipoIdentificacion.getCodTipoIdentificacion() != 'R')
+				tipoIdentificacion.setCodTipoIdentificacion('C');
 
 		TipoIdentificacionSd tipoIdentificacionRuc = new TipoIdentificacionSd();
 		tipoIdentificacionRuc.setCodTipoIdentificacion('R');
@@ -836,7 +840,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			objRetorno = persona;
 
 			// CREA PERSONA NATURAL
-			PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(),
+			PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
 					persona, canalSd, registro.getEmpleos().getEmpleoActual().getSecProfesion());
 
 			log.error("PASA PERSONA NATURAL");
@@ -986,13 +990,15 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// CREA INFORMACION ADCIONAL
 			log.error("LLEGA INFO ADICIONAL");
-			if (personaNatural.getSecPersonaNatural() > 0 // para saber que se INSERTO una PN
+			if (personaNatural != null && personaNatural.getSecPersonaNatural() != null // PN
 					&& !VerificarVacios(registro.getInformacionAdicional().getIdentificacion().trim())
 					&& !VerificarVacios(registro.getInformacionAdicional().getCodTipoIdentificacion().trim())
 					&& !VerificarVacios(registro.getInformacionAdicional().getRazonSocial().trim())
 					&& !VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion().trim())
 					&& !VerificarVacios(registro.getInformacionAdicional().getFechaInicioActividades().trim())
 					&& !VerificarVacios(registro.getInformacionAdicional().getPrincipal().trim())) {
+
+				log.error("ENTRAAAA INFORMACION ADICIONAL");
 
 				InformacionAdicionalSd existeInformacionAdicionalSd = informacionAdicionalSdServicio
 						.obtenerInformacionAdicionalBySecIdentificacion(
@@ -1010,17 +1016,24 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("LLEGA INFORMACION ADICIONAL");
 					informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
 					log.error("GUARDA INFORMACION ADICIONAL");
+
+					List<InformacionAdicionalSd> informacionAdicionalList = new ArrayList<InformacionAdicionalSd>();
+					informacionAdicionalList.add(informacionAdicionalSd);
+					personaNatural.setInformacionAdicionalList(informacionAdicionalList);
+					objRetorno.setPersonaNatural(personaNatural);
 				} else {
 					log.error(secPesonaNatural + "<---->"
 							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
 					log.error(
 							"Ya existe el registro en la persona natural no se puede duplicar la informacion adicional"
 									+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
-				}
 
-				// >>
+					personaNatural.setInformacionAdicionalList(null);
+					objRetorno.setPersonaNatural(personaNatural);
+				}
+			} else {
 				List<InformacionAdicionalSd> informacionAdicionalList = new ArrayList<InformacionAdicionalSd>();
-				informacionAdicionalList.add(informacionAdicionalSd);
+				informacionAdicionalList.add(null);
 				personaNatural.setInformacionAdicionalList(informacionAdicionalList);
 				objRetorno.setPersonaNatural(personaNatural);
 			}
@@ -1075,7 +1088,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// VERIFICO SI EXISTE LA PERSONA NATURAL
 			if (existePersona.getPersonaNatural() == null) {
 				// CREA PERSONA NATURAL
-				PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(),
+				PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
 						existePersona, canalSd, registro.getEmpleos().getEmpleoActual().getSecProfesion());
 
 				log.error("PASA PERSONA NATURAL");
@@ -1834,6 +1847,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		TipoIdentificacionSd tipoIdentificacionInfoAdd = new TipoIdentificacionSd();
 		tipoIdentificacionInfoAdd.setCodTipoIdentificacion(registro.getCodTipoIdentificacion().charAt(0));
 
+		if (tipoIdentificacionInfoAdd.getCodTipoIdentificacion() != null)
+			if (tipoIdentificacionInfoAdd.getCodTipoIdentificacion() != 'C'
+					&& tipoIdentificacionInfoAdd.getCodTipoIdentificacion() != 'R')
+				tipoIdentificacionInfoAdd.setCodTipoIdentificacion('R');
+
 		informacionAdicionalSd.setSecPersonaNatural(personaNatural);
 		informacionAdicionalSd.setCodTipoIdentificacion(tipoIdentificacionInfoAdd);
 		informacionAdicionalSd.setIdentificacion(registro.getIdentificacion());
@@ -1883,12 +1901,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return persona;
 	}
 
-	public PersonaNaturalSd MapperPersonaNatural(PersonaNatural registro,
+	public PersonaNaturalSd MapperPersonaNatural(PersonaNatural registro, TipoIdentificacionSd tipoIdentificacion,
 			PersonaSd persona, CanalSd canalSd, String codigoProfesion) {
 
-		TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
-		tipoIdentificacion.setCodTipoIdentificacion('C');
-		
 		PersonaNaturalSd personaNatural = new PersonaNaturalSd();
 
 		// CONTROLO Y VERIFICO QUE EXISTA EL ESTADO CIVIL
