@@ -1877,7 +1877,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		informacionAdicionalSd.setSecundaria(registro.getSecundaria());
 		informacionAdicionalSd.setReferencia(registro.getReferencia());
 		informacionAdicionalSd.setTelefono(registro.getTelefono());
-		informacionAdicionalSd.setEMail("");// FALTA ESTE DATO
+		informacionAdicionalSd.setEMail(registro.getEmail());
 		informacionAdicionalSd.setCodActividadEconomica(actividadEconomicaSd);
 		informacionAdicionalSd.setSecProvincia(provinciaSdInfoAdd);
 		informacionAdicionalSd.setSecCanton(cantonSdInfoAdd);

@@ -407,7 +407,7 @@ public class RegistrosEntity {
 	@XmlType(name = "", propOrder = { "numero", "secundaria", "telefono", "secParroquia", "direccion", "principal",
 			"referencia", "secProvincia", "razonSocial", "secCanton", "identificacion", "codTipoIdentificacion",
 			"nombreComercial", "fechaInscripcion", "codActividadEconomica", "fechaReinicioActividades",
-			"fechaSuspencionActividades", "fechaInicioActividades", "fechaCancelacionActividades" })
+			"fechaSuspencionActividades", "fechaInicioActividades", "fechaCancelacionActividades", "email" })
 	@XmlRootElement(name = "informacionAdicional")
 	public static class InformacionAdicional {
 
@@ -430,6 +430,27 @@ public class RegistrosEntity {
 		protected String fechaSuspencionActividades;
 		protected String fechaInicioActividades;
 		protected String fechaCancelacionActividades;
+		protected String email;
+		
+		/**
+		 * Gets the value of the email property.
+		 * 
+		 * @return possible object is {@link String }
+		 * 
+		 */
+		public String getEmail() {
+			return email;
+		}
+
+		/**
+		 * Sets the value of the email property.
+		 * 
+		 * @param value allowed object is {@link String }
+		 * 
+		 */
+		public void setEmail(String value) {
+			this.email = value;
+		}
 
 		/**
 		 * Gets the value of the fechaCancelacionActividades property.
