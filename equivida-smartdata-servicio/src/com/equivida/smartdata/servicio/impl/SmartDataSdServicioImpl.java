@@ -799,7 +799,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		conyuge.setPersona(registro.getPersona());
 		conyuge.setPersonaNatural(registro.getPersonaNatural());
 		conyuge.setDireccionElectronico(registro.getDireccionElectronico());
-		conyuge.setDireccion(registro.getDireccion());
+		conyuge.setDirecciones(registro.getDirecciones());
 		conyuge.setInformacionAdicional(registro.getInformacionAdicional());
 		conyuge.setTelefonos(registro.getTelefonos());
 		conyuge.setEmpleos(registro.getEmpleos());
@@ -849,20 +849,42 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			objRetorno.setPersonaNatural(personaNatural);
 			log.error("GUARDA PERSONA NATURAL");
 
-			// CREA DIRECCION
-			log.error("LLEGA DIRECCION");
-			if (!VerificarVacios(registro.getDireccion().getDireccion().trim())) {
+			// CREA DIRECCION 1
+			List<DireccionSd> direccionList = new ArrayList<DireccionSd>();
+			log.error("LLEGA DIRECCION 1");
+			if (!VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())) {
 				log.error("---->");
-				DireccionSd direccionsd = MapeoDireccionSd(registro.getDireccion(), canalSd, persona);
-				log.error("LLEGA DIRECCION");
+				DireccionSd direccionsd = MapeoDireccionSd(registro.getDirecciones().getDireccion1(), canalSd, persona);
+				log.error("LLEGA DIRECCION 1");
 				direccionSdServicio.ingresarDireccion(direccionsd);
 				// >>
-				List<DireccionSd> direccionList = new ArrayList<DireccionSd>();
+				
 				direccionList.add(direccionsd);
 				objRetorno.setDireccionList(direccionList);
-				log.error("GUARDA DIRECCION");
+				log.error("GUARDA DIRECCION 1");
 			}
 
+			log.error("LLEGA DIRECCION 2");
+			if (!VerificarVacios(registro.getDirecciones().getDireccion2().getDireccion().trim())) {
+				
+				if(registro.getDirecciones().getDireccion1().getDireccion().trim().equalsIgnoreCase(registro.getDirecciones().getDireccion2().getDireccion().trim()) == false) 
+				{
+				log.error("---->");
+				DireccionSd direccionsd = MapeoDireccionSd(registro.getDirecciones().getDireccion2(), canalSd, persona);
+				log.error("LLEGA DIRECCION 2");
+				direccionSdServicio.ingresarDireccion(direccionsd);
+				// >>
+				direccionList.add(direccionsd);
+				objRetorno.setDireccionList(direccionList);
+				log.error("GUARDA DIRECCION ");
+				}
+			}
+			
+			if(direccionList.size() == 0) {
+				direccionList.add(null);
+				objRetorno.setDireccionList(direccionList);
+			}
+			
 			// CREA TELEFONOS
 			log.error("LLEGA TELEFONOS");
 			List<TelefonoSd> listaTelefonos = new ArrayList<TelefonoSd>();
@@ -1120,20 +1142,48 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			// ACTUALIZACION DIRECCION
-			DireccionSd direccionsd = direccionSdServicio
+			List<DireccionSd> direccionesConsultadasList = direccionSdServicio
 					.obtenerDireccionByPersonaSecPersona(existePersona.getSecPersona());
 
+			//SE CONTROLA EN CASO DE QUE EL DIRECCION 1 ESTE VACIO Y EL DIRECCION 2 ESTE LLENO
+			if (VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())
+					&& !VerificarVacios(registro.getDirecciones().getDireccion2().getDireccion().trim())) {
+				registro.getDirecciones().setDireccion1(registro.getDirecciones().getDireccion2());
+			}
+			
+			if(!VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())) 
+			{
+				int secDirecion = direccionesConsultadasList.get(0).getSecDireccion();
+				
+				direccionsd = MapeoDireccionSd(registro.getDirecciones().getDireccion1(), canalSd, existePersona);
+				direccionsd.setSecDireccion(secDirecion);
+				
+				if(direccionesConsultadasList != null && direccionesConsultadasList.size() >= 1) {
+					
+
+					
+					log.error(direccionsd);
+					if (direccionsd.getSecDireccion() != null) {
+						log.error("ACTUALIZA DIRECCION");
+						direccionSdServicio.update(direccionsd);
+					
+				}				
+			}
+			
+			}
+			
 			Integer secDirecion = null;
 			if (direccionsd != null) {
 				secDirecion = direccionsd.getSecDireccion();
 				log.error(direccionsd.getSecDireccion());
 			}
 
-			if (!VerificarVacios(registro.getDireccion().getDireccion().trim())) {
-				direccionsd = MapeoDireccionSd(registro.getDireccion(), canalSd, existePersona);
+			log.error("LLEGA DIRECCION 1");
+			if (!VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())) {
+				direccionsd = MapeoDireccionSd(registro.getDirecciones().getDireccion1(), canalSd, existePersona);
 				direccionsd.setSecDireccion(secDirecion);
 
-				log.error("INFORMACION");
+				
 				log.error(direccionsd);
 				if (direccionsd.getSecDireccion() != null) {
 					log.error("ACTUALIZA DIRECCION");
