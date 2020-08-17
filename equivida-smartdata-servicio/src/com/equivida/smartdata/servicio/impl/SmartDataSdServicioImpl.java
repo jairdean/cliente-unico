@@ -880,7 +880,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			if (direccionList.size() == 0)
 				direccionList.add(null);
 
-			objRetorno.setDireccionList(direccionList);
+			objRetorno.setDireccionNoPersisteList(direccionList);
 
 			// CREA TELEFONOS
 			log.error("LLEGA TELEFONOS");
@@ -1163,10 +1163,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				direccionsd1.setSecDireccion(secDirecion);
 
 				if (direccionsd1.getSecDireccion() != null) {
-					log.error("ACTUALIZA DIRECCION");
+					log.error("ACTUALIZA DIRECCION 1");
 					direccionSdServicio.update(direccionsd1);
 				} else {
-					log.error("INGRESA DIRECCION");
+					log.error("INGRESA DIRECCION 1");
 					direccionSdServicio.ingresarDireccion(direccionsd1);
 				}
 
@@ -1200,7 +1200,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			if (listaDirec.size() == 0)
 				listaDirec.add(null);
 
-			objRetorno.setDireccionList(listaDirec);
+			objRetorno.setDireccionNoPersisteList(listaDirec);
 
 			// ACTUALIZACION TELEFONOS
 			// >>
