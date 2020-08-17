@@ -722,9 +722,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	private Properties obtenerArchivoPropiedades() throws FileNotFoundException, IOException {
 		Properties prop = new Properties();
 
-		System.out.println("LLEGA");
 		prop.load(new FileInputStream("../server/equivida/conf/databookActualizado.properties"));
-		System.out.println("NO LLEGA");
 		return prop;
 	}
 
