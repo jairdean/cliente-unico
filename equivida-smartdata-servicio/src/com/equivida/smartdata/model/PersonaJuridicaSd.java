@@ -97,15 +97,7 @@ public class PersonaJuridicaSd implements Serializable {
 	@XmlTransient
 	private List<EmpleoDependienteSd> empleoDependienteList;
 	
-	@Basic(optional = false)
-	@Column(name = "LLEVA_CONTABILIDAD", length = 1, columnDefinition = "char(11)")
-	private String llevaContabilidad;
 	
-	@Basic(optional = false)
-	@Column(name = "LISTA_BLANCA", length = 1, columnDefinition = "char(11)")
-	private String listaBlanca;
-	
-
 	public PersonaJuridicaSd() {
 	}
 
@@ -115,7 +107,7 @@ public class PersonaJuridicaSd implements Serializable {
 
 	public PersonaJuridicaSd(Integer secPersonaJuridica, String identificacion,
 			String razonSocial, String usrCreacion, Date tsCreacion,
-			String usrModificacion, Date tsModificacion, String llevaContabilidad, String listaBlanca) {
+			String usrModificacion, Date tsModificacion) {
 		this.secPersonaJuridica = secPersonaJuridica;
 		this.identificacion = identificacion;
 		this.razonSocial = razonSocial;
@@ -123,24 +115,6 @@ public class PersonaJuridicaSd implements Serializable {
 		this.tsCreacion = tsCreacion;
 		this.usrModificacion = usrModificacion;
 		this.tsModificacion = tsModificacion;
-		this.llevaContabilidad = llevaContabilidad;
-		this.listaBlanca = listaBlanca;
-	}
-
-	public String getListaBlanca() {
-		return listaBlanca;
-	}
-
-	public void setListaBlanca(String listaBlanca) {
-		this.listaBlanca = listaBlanca;
-	}
-	
-	public String getLlevaContabilidad() {
-		return llevaContabilidad;
-	}
-
-	public void setLlevaContabilidad(String llevaContabilidad) {
-		this.llevaContabilidad = llevaContabilidad;
 	}
 	
 	public Integer getSecPersonaJuridica() {
