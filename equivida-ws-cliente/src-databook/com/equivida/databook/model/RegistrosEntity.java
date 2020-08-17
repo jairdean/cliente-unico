@@ -1644,7 +1644,7 @@ public class RegistrosEntity {
 	// SECCION DIRECCION
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = "", propOrder = { "numero", "secParroquia", "direccion", "referencia", "secProvincia", "secCanton",
-			"tipoDireccion", "callePrincipal", "calleSecundaria", "email" })
+			"tipoDireccion", "callePrincipal", "calleSecundaria" })
 	@XmlRootElement(name = "direccion")
 	public static class Direccion {
 
@@ -1657,27 +1657,7 @@ public class RegistrosEntity {
 		protected String tipoDireccion;
 		protected String callePrincipal;
 		protected String calleSecundaria;
-		protected String email;
 
-		/**
-		 * Gets the value of the email property.
-		 * 
-		 * @return possible object is {@link String }
-		 * 
-		 */
-		public String getEmail() {
-			return email;
-		}
-
-		/**
-		 * Sets the value of the email property.
-		 * 
-		 * @param value allowed object is {@link String }
-		 * 
-		 */
-		public void setEmail(String value) {
-			this.email = value;
-		}
 
 		/**
 		 * Gets the value of the calleSecundaria property.
