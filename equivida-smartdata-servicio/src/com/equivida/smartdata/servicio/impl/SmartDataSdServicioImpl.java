@@ -23,7 +23,8 @@ import com.equivida.databook.client.impl.DatabookServiceImpl;
 import com.equivida.databook.exception.DatabookException;
 import com.equivida.databook.model.Registros;
 import com.equivida.databook.model.RegistrosEntity;
-import com.equivida.databook.model.RegistrosEntity.Direccion;
+import com.equivida.databook.model.RegistrosEntity.Direccion1;
+import com.equivida.databook.model.RegistrosEntity.Direccion2;
 import com.equivida.databook.model.RegistrosEntity.InformacionAdicional;
 import com.equivida.databook.model.RegistrosEntity.Persona;
 import com.equivida.databook.model.RegistrosEntity.PersonaNatural;
@@ -852,7 +853,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("LLEGA DIRECCION 1");
 			if (!VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())) {
 				log.error("---->");
-				DireccionSd direccionsd = MapeoDireccionSd(registro.getDirecciones().getDireccion1(), canalSd, persona);
+				DireccionSd direccionsd = MapeoDireccion1Sd(registro.getDirecciones().getDireccion1(), canalSd, persona);
 				log.error("LLEGA DIRECCION 1");
 				direccionSdServicio.ingresarDireccion(direccionsd);
 				// >>
@@ -867,7 +868,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				if (registro.getDirecciones().getDireccion1().getDireccion().trim()
 						.equalsIgnoreCase(registro.getDirecciones().getDireccion2().getDireccion().trim()) == false) {
 					log.error("---->");
-					DireccionSd direccionsd = MapeoDireccionSd(registro.getDirecciones().getDireccion2(), canalSd,
+					DireccionSd direccionsd = MapeoDireccion2Sd(registro.getDirecciones().getDireccion2(), canalSd,
 							persona);
 					log.error("LLEGA DIRECCION 2");
 					direccionSdServicio.ingresarDireccion(direccionsd);
@@ -1144,22 +1145,43 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			List<DireccionSd> direccionesConsultadasList = direccionSdServicio
 					.obtenerDireccionByPersonaSecPersona(existePersona.getSecPersona());
 
+			log.error("LISTA DIRECCIONES EN LA BASE");
+			log.error(direccionesConsultadasList);
+			log.error("FIN LISTA DIRECCIONES EN LA BASE");
+			
 			// SE CONTROLA EN CASO DE QUE EL DIRECCION 1 ESTE VACIO Y EL DIRECCION 2 ESTE
 			// LLENO
 			if (VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())
 					&& !VerificarVacios(registro.getDirecciones().getDireccion2().getDireccion().trim())) {
-				registro.getDirecciones().setDireccion1(registro.getDirecciones().getDireccion2());
+				
+				Direccion1 objD1 = new Direccion1();
+				objD1.setCallePrincipal(registro.getDirecciones().getDireccion2().getCallePrincipal());
+				objD1.setCalleSecundaria(registro.getDirecciones().getDireccion2().getCalleSecundaria());
+				objD1.setDireccion(registro.getDirecciones().getDireccion2().getDireccion());
+				objD1.setNumero(registro.getDirecciones().getDireccion2().getNumero());
+				objD1.setReferencia(registro.getDirecciones().getDireccion2().getReferencia());
+				objD1.setSecCanton(registro.getDirecciones().getDireccion2().getSecCanton());
+				objD1.setSecParroquia(registro.getDirecciones().getDireccion2().getSecParroquia());
+				objD1.setSecProvincia(registro.getDirecciones().getDireccion2().getSecProvincia());
+				objD1.setTipoDireccion(registro.getDirecciones().getDireccion2().getTipoDireccion());			
+				
+				registro.getDirecciones().setDireccion1(objD1);
+				
 			}
 
+			
 			List<DireccionSd> listaDirec = new ArrayList<DireccionSd>();
 			DireccionSd direccionsd1 = new DireccionSd();
 			if (!VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())) {
+				
+				log.error("ENTRA IF DIRECCION 1>>"+registro.getDirecciones().getDireccion1().getDireccion().trim()+"<<");
+				
 				Integer secDirecion = null;
 				if (direccionesConsultadasList != null && direccionesConsultadasList.size() >= 1) {
 					secDirecion = direccionesConsultadasList.get(0).getSecDireccion();
 					log.error(direccionesConsultadasList.get(0).getSecDireccion());
 				}
-				direccionsd1 = MapeoDireccionSd(registro.getDirecciones().getDireccion1(), canalSd, existePersona);
+				direccionsd1 = MapeoDireccion1Sd(registro.getDirecciones().getDireccion1(), canalSd, existePersona);
 				direccionsd1.setSecDireccion(secDirecion);
 
 				if (direccionsd1.getSecDireccion() != null) {
@@ -1173,17 +1195,20 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				listaDirec.add(direccionsd1);
 			}
 
+		
 			DireccionSd direccionsd2 = new DireccionSd();
 			if (!VerificarVacios(registro.getDirecciones().getDireccion2().getDireccion().trim())
-					&& registro.getDirecciones().getDireccion2().getDireccion()
+					&& !registro.getDirecciones().getDireccion2().getDireccion()
 							.equalsIgnoreCase(registro.getDirecciones().getDireccion1().getDireccion())) {
 
+				log.error("ENTRA IF DIRECCION 2>>"+registro.getDirecciones().getDireccion2().getDireccion().trim()+"<<");
+				
 				Integer secDirecion = null;
 				if (direccionesConsultadasList != null && direccionesConsultadasList.size() >= 2) {
 					secDirecion = direccionesConsultadasList.get(1).getSecDireccion();
 					log.error(direccionesConsultadasList.get(1).getSecDireccion());
 				}
-				direccionsd2 = MapeoDireccionSd(registro.getDirecciones().getDireccion2(), canalSd, existePersona);
+				direccionsd2 = MapeoDireccion2Sd(registro.getDirecciones().getDireccion2(), canalSd, existePersona);
 				direccionsd2.setSecDireccion(secDirecion);
 
 				if (direccionsd2.getSecDireccion() != null) {
@@ -1801,7 +1826,37 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return date;
 	}
 
-	public DireccionSd MapeoDireccionSd(Direccion registro, CanalSd canalSd, PersonaSd personaSd) {
+	public DireccionSd MapeoDireccion1Sd(Direccion1 registro, CanalSd canalSd, PersonaSd personaSd) {
+		DireccionSd direccionsd = new DireccionSd();
+
+		// CONTROLO Y VERIFICO SI EXISTE LA PROVINCIA
+		ProvinciaSd provinciaSdDireccion = TraerProvinciaSd(registro.getSecProvincia());
+
+		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
+		CantonSd cantoSdDireccion = TraerCantonSd(registro.getSecCanton());
+
+		// CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
+		ParroquiaSd parroquiaSdDireccion = TraerParroquiaSd(registro.getSecParroquia());
+
+		TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
+		tipoDireccionSd.setCodTipoDireccion(TipoDireccionEnum.DOMICILIO.getCodigoenBase());
+
+		direccionsd.setSecPersona(personaSd);
+		direccionsd.setDireccion(registro.getDireccion());
+		direccionsd.setCodTipoDireccion(tipoDireccionSd);
+		direccionsd.setSecProvincia(provinciaSdDireccion);
+		direccionsd.setSecCanton(cantoSdDireccion);
+		direccionsd.setSecParroquia(parroquiaSdDireccion);
+		direccionsd.setSecCanal(canalSd);
+		direccionsd.setEstado(EstadoEnum.A.getEstadoChar());
+		direccionsd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+		direccionsd.setTsCreacion(new Date());
+		direccionsd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+
+		return direccionsd;
+	}
+	
+	public DireccionSd MapeoDireccion2Sd(Direccion2 registro, CanalSd canalSd, PersonaSd personaSd) {
 		DireccionSd direccionsd = new DireccionSd();
 
 		// CONTROLO Y VERIFICO SI EXISTE LA PROVINCIA
@@ -2234,7 +2289,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 		} catch (Exception e) {
 			provinciaSd.setSecProvincia((short) 0);
-			log.error("El campo secCanton no es un tipo de dato short --->" + secProvincia);
+			log.error("El campo secProvincia no es un tipo de dato short --->" + secProvincia);
 		}
 
 		return provinciaSd;
