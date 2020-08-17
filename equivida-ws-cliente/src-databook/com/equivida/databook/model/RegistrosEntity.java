@@ -1453,12 +1453,13 @@ public class RegistrosEntity {
 		
 	// SECCION DIRECCIONELECTRONICO
 	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "correo_electronico1", "correo_electronico2" })
+	@XmlType(name = "", propOrder = { "correo_electronico1", "correo_electronico2", "correo_electronico3" })
 	@XmlRootElement(name = "direccionElectronico")
 	public static class DireccionElectronico {
 
 		protected String correo_electronico1;
 		protected String correo_electronico2;
+		protected String correo_electronico3;
 
 		/**
 		 * Gets the value of the correo_electronico1 property.
@@ -1498,6 +1499,27 @@ public class RegistrosEntity {
 		 */
 		public void setCorreo_electronico2(String value) {
 			this.correo_electronico2 = value;
+		}
+		
+
+		/**
+		 * Gets the value of the correo_electronico3 property.
+		 * 
+		 * @return possible object is {@link String }
+		 * 
+		 */
+		public String getCorreo_electronico3() {
+			return correo_electronico3;
+		}
+
+		/**
+		 * Sets the value of the correo_electronico3 property.
+		 * 
+		 * @param value allowed object is {@link String }
+		 * 
+		 */
+		public void setCorreo_electronico3(String value) {
+			this.correo_electronico3 = value;
 		}
 	}
 

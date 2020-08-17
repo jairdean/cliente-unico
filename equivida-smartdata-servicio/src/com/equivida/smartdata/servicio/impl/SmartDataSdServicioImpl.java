@@ -976,6 +976,26 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("GUARDA DIRECCION ELECTRONICA 2");
 				}
 			}
+			
+			// CREA DIRECCION ELECTRONICA 3
+			DireccionElectronicaSd direccionElectronica3 = new DireccionElectronicaSd();
+			if (!VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico3().trim())) {
+				
+				if (registro.getDireccionElectronico().getCorreo_electronico1()
+						.equalsIgnoreCase(registro.getDireccionElectronico().getCorreo_electronico2()) == false
+						&& registro.getDireccionElectronico().getCorreo_electronico1()
+						.equalsIgnoreCase(registro.getDireccionElectronico().getCorreo_electronico3()) == false
+						&& registro.getDireccionElectronico().getCorreo_electronico2()
+						.equalsIgnoreCase(registro.getDireccionElectronico().getCorreo_electronico3()) == false) {
+
+					direccionElectronica3 = MapeoDireccionElectronica(
+							registro.getDireccionElectronico().getCorreo_electronico3().trim(), persona, canalSd);
+
+					log.error("LLEGA DIRECCION ELECTRONICA 3");
+					direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica3);
+					log.error("GUARDA DIRECCION ELECTRONICA 3");
+				}
+			}
 
 			List<DireccionElectronicaSd> listaDireccionElectronica = new ArrayList<DireccionElectronicaSd>();
 			if (direccionElectronica1.getSecDireccionElectronica() != null)
