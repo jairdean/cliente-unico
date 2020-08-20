@@ -158,9 +158,10 @@ public class DatabookServiceImpl implements DatabookService {
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("Accept", "application/xml");
+			connection.setRequestProperty("Accept-Charset", "utf-8");
 
 			JAXBContext jc = JAXBContext.newInstance(RegistrosEntity.class);
-			InputStream xml = connection.getInputStream();
+			InputStream xml = connection.getInputStream();;
 
 			if (connection.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP Error code : " + connection.getResponseCode());
