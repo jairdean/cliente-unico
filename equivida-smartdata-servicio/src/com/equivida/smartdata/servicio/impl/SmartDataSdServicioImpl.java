@@ -422,9 +422,37 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// INGRESO RESGISTROS DE LA PERSONA EN LA BASE DE DATOS
 			PersonaSd retornar = GuardarInformacionPersona(registros.getTitular());
 
+			PersonaSd objetoConyugue = null;
 			if (registros.getConyuge() != null && retornar != null)
-				GuardarInformacionConyugue(registros.getConyuge());
+				objetoConyugue = GuardarInformacionConyugue(registros.getConyuge());
 
+			if(registros.getConyuge() != null && retornar != null && objetoConyugue !=null ) {
+			try {
+				RelacionSd r = new RelacionSd();
+			
+				TipoParentescoRelacionSd tp = new TipoParentescoRelacionSd();
+				tp.setCodTipoParentesco((short)TipoParentescoEnum.CONYUGE.getCodigoTipoParentesco());
+			
+				CanalSd canalSd = new CanalSd();
+				canalSd.setSecCanal((short) 1);
+				
+				r.setPersonaP(retornar);
+				r.setPersonaR(objetoConyugue);
+				r.setTipoParentesco(tp);
+				r.setSecCanal(canalSd);
+				r.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+				r.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+				r.setTsCreacion(new Date());
+				
+				relacionServicio.create(r);
+				
+				log.error("Se ha guardado la relacion para: "+retornar.getIdentificacion()+" con perosnaR: "+objetoConyugue.getIdentificacion());
+				}catch(Exception e) {
+					log.error("No se ha posido guardar la relacion para: "+retornar.getIdentificacion()+" con perosnaR: "+objetoConyugue.getIdentificacion());
+					log.error(e);
+				}
+			}
+			
 			log.error("LLEGA 2");
 
 			/*
@@ -792,7 +820,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		personaServicio.actualizaDatosPersonales(datosActualiza);
 	}
 
-	public void GuardarInformacionConyugue(RegistrosEntity.Conyuge registro) {
+	public PersonaSd GuardarInformacionConyugue(RegistrosEntity.Conyuge registro) {
 		log.error("ENTRA CONYUGE");
 		Titular conyuge = new Titular();
 		conyuge.setPersona(registro.getPersona());
@@ -804,7 +832,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		conyuge.setEmpleos(registro.getEmpleos());
 
 		log.error("LLEGA CONYUGE");
-		GuardarInformacionPersona(conyuge);
+		return GuardarInformacionPersona(conyuge);
 	}
 
 	public PersonaSd GuardarInformacionPersona(Titular registro) {
