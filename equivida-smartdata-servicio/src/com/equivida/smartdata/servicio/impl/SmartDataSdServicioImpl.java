@@ -838,15 +838,17 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return GuardarInformacionPersona(conyuge);
 	}
 
+	//METODO QUE REALIZA TODA LA LOGICA DE INGRESO Y ACTUALIZACION DE UNA PERSONA
 	public PersonaSd GuardarInformacionPersona(Titular registro) {
 		PersonaSd objRetorno = new PersonaSd();
 
-		// 1. Se consulta persona por identificacion
+		// 1. CONULTA LA PERSONA POR SU IDENTIFICACION
 		PersonaSd existePersona = personaServicio
 				.obtenerPersonaByIdentificacion(registro.getPersona().getIdentificacion());
 		CanalSd canalSd = new CanalSd();
-		canalSd.setSecCanal((short) 3);// ++++++PONER CONSTANTE++++++++++//
+		canalSd.setSecCanal((short) 3);
 
+		//SE DECLARAN VARIABLES GLOBALES PARA EL PROCESO
 		TipoIdentificacionSd tipoIdentificacion = new TipoIdentificacionSd();
 		tipoIdentificacion.setCodTipoIdentificacion(registro.getPersona().getCodTipoIdentificacion().charAt(0));
 		if (tipoIdentificacion.getCodTipoIdentificacion() != null)
@@ -856,7 +858,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		TipoIdentificacionSd tipoIdentificacionRuc = new TipoIdentificacionSd();
 		tipoIdentificacionRuc.setCodTipoIdentificacion('R');
-		// SOLO INGRESAR DATOS CUADNO NO EXISTA LA PERSONA
+		
+		//SE REGISTRA LA PERSONA EN CASO DE NO EXISTIR
 		if (existePersona == null) {
 
 			// CREAR PERSONA
@@ -864,18 +867,16 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("LLEGO PERSONA");
 			personaServicio.IngresarPersona(persona);
 			log.error(persona);
+			
 			log.error("GUARDO PERSONA");
-
-			// >>
 			objRetorno = persona;
 
 			// CREA PERSONA NATURAL
 			PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
 					persona, canalSd, registro.getEmpleos().getEmpleoActual().getSecProfesion());
-
 			log.error("PASA PERSONA NATURAL");
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
-			// >>
+			
 			objRetorno.setPersonaNatural(personaNatural);
 			log.error("GUARDA PERSONA NATURAL");
 
@@ -894,6 +895,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("GUARDA DIRECCION 1");
 			}
 
+			// CREA DIRECCION 2
 			log.error("LLEGA DIRECCION 2");
 			if (!VerificarVacios(registro.getDirecciones().getDireccion2().getDireccion().trim())) {
 
@@ -912,13 +914,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			if (direccionList.size() == 0)
 				direccionList.add(null);
-
 			objRetorno.setDireccionNoPersisteList(direccionList);
 
 			// CREA TELEFONOS
 			log.error("LLEGA TELEFONOS");
 			List<TelefonoSd> listaTelefonos = new ArrayList<TelefonoSd>();
 
+			//CREAR TELEFONO1
 			if (!VerificarVacios(registro.getTelefonos().getTelefono1().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono1().getNroTelefono())) {
 
@@ -931,6 +933,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("GUARDA TELEFONO 1");
 			}
 
+			//CREAR TELEFONO2
 			if (!VerificarVacios(registro.getTelefonos().getTelefono2().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono2().getNroTelefono())) {
 
@@ -944,6 +947,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("GUARDA TELEFONO 2");
 			}
 
+			//CREAR TELEFONO3
 			if (!VerificarVacios(registro.getTelefonos().getTelefono3().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono3().getNroTelefono())) {
 
@@ -957,6 +961,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("GUARDA TELEFONO 3");
 			}
 
+			//CREAR TELEFONO4
 			if (!VerificarVacios(registro.getTelefonos().getTelefono4().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono4().getNroTelefono())) {
 
@@ -970,6 +975,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("GUARDA TELEFONO 4");
 			}
 
+			//CREAR TELEFONO5
 			if (!VerificarVacios(registro.getTelefonos().getTelefono5().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono5().getNroTelefono())) {
 
@@ -983,6 +989,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("GUARDA TELEFONO 5");
 			}
 
+			//CREAR TELEFONO6
 			if (!VerificarVacios(registro.getTelefonos().getTelefono6().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono6().getNroTelefono())) {
 
@@ -996,9 +1003,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				log.error("GUARDA TELEFONO 6");
 			}
 
-			// >>
 			objRetorno.setTelefonoList(listaTelefonos);
 
+			
 			// CREA DIRECCION ELECTRONICA 1
 			log.error("DIRECCION ELECTRONICA");
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
@@ -1153,7 +1160,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			log.error("FIN PROCESO CREAR TITULAR");
 		} else {
-			// ZONA DE ACTUALIZACION
+			//SE ACTUALIZA LOS DATOS DE LA PERSONA EN CASO DE QUE YA EXISTA
 			objRetorno = existePersona;
 
 			log.error("ACTUALIZACION------------------------------------");
@@ -1182,7 +1189,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			log.error("FIN LISTA DIRECCIONES EN LA BASE");
 
 			// SE CONTROLA EN CASO DE QUE EL DIRECCION 1 ESTE VACIO Y EL DIRECCION 2 ESTE
-			// LLENO
 			if (VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())
 					&& !VerificarVacios(registro.getDirecciones().getDireccion2().getDireccion().trim())) {
 
@@ -1198,7 +1204,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				objD1.setTipoDireccion(registro.getDirecciones().getDireccion2().getTipoDireccion());
 
 				registro.getDirecciones().setDireccion1(objD1);
-
 			}
 
 			List<DireccionSd> listaDirec = new ArrayList<DireccionSd>();
@@ -1223,7 +1228,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("INGRESA DIRECCION 1");
 					direccionSdServicio.ingresarDireccion(direccionsd1);
 				}
-
 				listaDirec.add(direccionsd1);
 			}
 
@@ -1250,7 +1254,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					log.error("INGRESA DIRECCION 2");
 					direccionSdServicio.ingresarDireccion(direccionsd2);
 				}
-
 				listaDirec.add(direccionsd2);
 			}
 
@@ -1331,17 +1334,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
 			tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
-
-			/*
-			 * // SE CONTROLA EN CASO DE QUE EL CORREO 1 ESTE VACIO Y EL CORREO 2 ESTE LLENO
-			 * if
-			 * (VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico1().
-			 * trim()) &&
-			 * !VerificarVacios(registro.getDireccionElectronico().getCorreo_electronico2().
-			 * trim())) registro.getDireccionElectronico()
-			 * .setCorreo_electronico1(registro.getDireccionElectronico().
-			 * getCorreo_electronico2());
-			 */
 
 			// CREA ACTUALIZA DIRECCION ELECTRONICA 1
 			DireccionElectronicaSd d1 = new DireccionElectronicaSd();
@@ -1606,6 +1598,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 	}
 
+	// METODOS DE CONTROL DE FORMA
 	public boolean VerificarVacios(String valor) {
 		if (valor.trim().isEmpty() || valor == null)
 			return true;
@@ -1627,6 +1620,108 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		}
 
 		return date;
+	}
+
+	// METODOS DE MAPEO DE DATOS
+	public PersonaSd MapperPersona(Persona registro, TipoIdentificacionSd tipoIdentificacion) {
+
+		// CREA PERSONA
+		PersonaSd persona = new PersonaSd();
+		persona.setIdentificacion(registro.getIdentificacion());
+		persona.setCodTipoIdentificacion(tipoIdentificacion);
+		persona.setDenominacion(registro.getDenominacion());
+
+		return persona;
+	}
+
+	public PersonaNaturalSd MapperPersonaNatural(PersonaNatural registro, TipoIdentificacionSd tipoIdentificacion,
+			PersonaSd persona, CanalSd canalSd, String codigoProfesion) {
+
+		PersonaNaturalSd personaNatural = new PersonaNaturalSd();
+
+		// CONTROLO Y VERIFICO QUE EXISTA EL ESTADO CIVIL
+		EstadoCivilSd estadoCivilSd = new EstadoCivilSd();
+		try {
+			if (!VerificarVacios(registro.getCodEstadoCivil().trim()))
+				estadoCivilSd = estadoCivilServicio.findByPk(Short.parseShort(registro.getCodEstadoCivil().trim()));
+			else
+				estadoCivilSd.setCodEstadoCivil((short) 0);
+		} catch (Exception e) {
+			log.error("El campo estado civil no es un tipo de dato short --->" + registro.getCodEstadoCivil().trim());
+			estadoCivilSd.setCodEstadoCivil((short) 0);
+		}
+
+		PaisSd paisSd = new PaisSd();
+		paisSd.setCodPais((short) 56); // ++++++PONER CONSTANTE++++++++++//
+
+		// BUSCO LA PROFRESION
+		ProfesionSd profesionSd = new ProfesionSd();
+		if (!VerificarVacios(codigoProfesion.trim()))
+			profesionSd = profesionServicio.consultarPorCodigoDB(codigoProfesion);
+		else
+			profesionSd.setSecProfesion((short) 1);
+
+		if (profesionSd == null) {
+			profesionSd = new ProfesionSd();
+			profesionSd.setSecProfesion((short) 1);
+		}
+
+		personaNatural.setSecPersona(persona);
+		personaNatural.setCodTipoIdentificacion(tipoIdentificacion);
+		personaNatural.setIdentificacion(registro.getIdentificacion());
+		personaNatural.setApellidoPaterno(registro.getApellidoPaterno());
+		personaNatural.setApellidoMaterno(registro.getApellidoMaterno());
+		personaNatural.setPrimerNombre(registro.getPrimerNombre());
+		personaNatural.setSegundoNombre(registro.getSegundoNombre());
+		personaNatural.setSexo(registro.getSexo().charAt(0));
+		personaNatural.setCodPais(paisSd);
+		personaNatural.setCodEstadoCivil(estadoCivilSd);
+		personaNatural.setSecProfesion(profesionSd);
+		personaNatural.setFchNacimiento(
+				!VerificarVacios(registro.getFechaNacimiento()) ? ConvertirFecha(registro.getFechaNacimiento()) : null);
+		personaNatural.setFchMatrimonio(
+				!VerificarVacios(registro.getFechaMatrimonio()) ? ConvertirFecha(registro.getFechaMatrimonio()) : null);
+		personaNatural.setFchFallecimiento(
+				!VerificarVacios(registro.getFechaFallecimiento()) ? ConvertirFecha(registro.getFechaFallecimiento())
+						: null);
+		personaNatural.setSecCanal(canalSd);
+		personaNatural.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+		personaNatural.setTsCreacion(new Date());
+		personaNatural.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+
+		return personaNatural;
+	}
+	
+	public PersonaJuridicaSd MapperPersonaJuridica(Trabajo registro, PersonaSd persona,
+			TipoIdentificacionSd tipoIdentificacion, CanalSd canalSd, String codigoActividadEc) {
+
+		PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
+		ActividadEconomicaSd existeActividadEco = null;
+
+		// CONTROLO Y VERIFICO SI EXISTE LA ACTIVIDAD ECONOMICA
+		try {
+			if (!VerificarVacios(codigoActividadEc.trim()))
+				existeActividadEco = actividadEconomicaServicio.findByPk(Short.parseShort(codigoActividadEc.trim()));
+		} catch (Exception e) {
+			log.error("El campo codigoActividadEconomica no es un tipo de dato short --->" + codigoActividadEc);
+		}
+
+		ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd();
+		actividadEconomicaSdPJ.setCodActividadEconomica(
+				existeActividadEco != null ? existeActividadEco.getCodActividadEconomica() : 1);
+
+		personaJuridicaSd.setSecPersona(persona);
+		personaJuridicaSd.setCodTipoIdentificacion(tipoIdentificacion);
+		personaJuridicaSd.setIdentificacion(registro.getIdentificacion());
+		personaJuridicaSd.setRazonSocial(registro.getRazon_Social());
+		personaJuridicaSd.setCodActividadEconomica(actividadEconomicaSdPJ);
+		personaJuridicaSd.setActividadIess(registro.getDescripcion());
+		personaJuridicaSd.setSecCanal(canalSd);
+		personaJuridicaSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+		personaJuridicaSd.setTsCreacion(new Date());
+		personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+
+		return personaJuridicaSd;
 	}
 
 	public DireccionSd MapeoDireccion1Sd(Direccion1 registro, CanalSd canalSd, PersonaSd personaSd) {
@@ -1815,75 +1910,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return informacionAdicionalSd;
 	}
 
-	public PersonaSd MapperPersona(Persona registro, TipoIdentificacionSd tipoIdentificacion) {
-
-		// CREA PERSONA
-		PersonaSd persona = new PersonaSd();
-		persona.setIdentificacion(registro.getIdentificacion());
-		persona.setCodTipoIdentificacion(tipoIdentificacion);
-		persona.setDenominacion(registro.getDenominacion());
-
-		return persona;
-	}
-
-	public PersonaNaturalSd MapperPersonaNatural(PersonaNatural registro, TipoIdentificacionSd tipoIdentificacion,
-			PersonaSd persona, CanalSd canalSd, String codigoProfesion) {
-
-		PersonaNaturalSd personaNatural = new PersonaNaturalSd();
-
-		// CONTROLO Y VERIFICO QUE EXISTA EL ESTADO CIVIL
-		EstadoCivilSd estadoCivilSd = new EstadoCivilSd();
-		try {
-			if (!VerificarVacios(registro.getCodEstadoCivil().trim()))
-				estadoCivilSd = estadoCivilServicio.findByPk(Short.parseShort(registro.getCodEstadoCivil().trim()));
-			else
-				estadoCivilSd.setCodEstadoCivil((short) 0);
-		} catch (Exception e) {
-			log.error("El campo estado civil no es un tipo de dato short --->" + registro.getCodEstadoCivil().trim());
-			estadoCivilSd.setCodEstadoCivil((short) 0);
-		}
-
-		PaisSd paisSd = new PaisSd();
-		paisSd.setCodPais((short) 56); // ++++++PONER CONSTANTE++++++++++//
-
-		// BUSCO LA PROFRESION
-		ProfesionSd profesionSd = new ProfesionSd();
-		if (!VerificarVacios(codigoProfesion.trim()))
-			profesionSd = profesionServicio.consultarPorCodigoDB(codigoProfesion);
-		else
-			profesionSd.setSecProfesion((short) 1);
-
-		if (profesionSd == null) {
-			profesionSd = new ProfesionSd();
-			profesionSd.setSecProfesion((short) 1);
-		}
-
-		personaNatural.setSecPersona(persona);
-		personaNatural.setCodTipoIdentificacion(tipoIdentificacion);
-		personaNatural.setIdentificacion(registro.getIdentificacion());
-		personaNatural.setApellidoPaterno(registro.getApellidoPaterno());
-		personaNatural.setApellidoMaterno(registro.getApellidoMaterno());
-		personaNatural.setPrimerNombre(registro.getPrimerNombre());
-		personaNatural.setSegundoNombre(registro.getSegundoNombre());
-		personaNatural.setSexo(registro.getSexo().charAt(0));
-		personaNatural.setCodPais(paisSd);
-		personaNatural.setCodEstadoCivil(estadoCivilSd);
-		personaNatural.setSecProfesion(profesionSd);
-		personaNatural.setFchNacimiento(
-				!VerificarVacios(registro.getFechaNacimiento()) ? ConvertirFecha(registro.getFechaNacimiento()) : null);
-		personaNatural.setFchMatrimonio(
-				!VerificarVacios(registro.getFechaMatrimonio()) ? ConvertirFecha(registro.getFechaMatrimonio()) : null);
-		personaNatural.setFchFallecimiento(
-				!VerificarVacios(registro.getFechaFallecimiento()) ? ConvertirFecha(registro.getFechaFallecimiento())
-						: null);
-		personaNatural.setSecCanal(canalSd);
-		personaNatural.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-		personaNatural.setTsCreacion(new Date());
-		personaNatural.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-
-		return personaNatural;
-	}
-
 	public DireccionElectronicaSd MapeoDireccionElectronica(String correoElectronico, PersonaSd persona,
 			CanalSd canalSd) {
 
@@ -1921,38 +1947,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return empDep;
 	}
 
-	public PersonaJuridicaSd MapperPersonaJuridica(Trabajo registro, PersonaSd persona,
-			TipoIdentificacionSd tipoIdentificacion, CanalSd canalSd, String codigoActividadEc) {
-
-		PersonaJuridicaSd personaJuridicaSd = new PersonaJuridicaSd();
-		ActividadEconomicaSd existeActividadEco = null;
-
-		// CONTROLO Y VERIFICO SI EXISTE LA ACTIVIDAD ECONOMICA
-		try {
-			if (!VerificarVacios(codigoActividadEc.trim()))
-				existeActividadEco = actividadEconomicaServicio.findByPk(Short.parseShort(codigoActividadEc.trim()));
-		} catch (Exception e) {
-			log.error("El campo codigoActividadEconomica no es un tipo de dato short --->" + codigoActividadEc);
-		}
-
-		ActividadEconomicaSd actividadEconomicaSdPJ = new ActividadEconomicaSd();
-		actividadEconomicaSdPJ.setCodActividadEconomica(
-				existeActividadEco != null ? existeActividadEco.getCodActividadEconomica() : 1);
-
-		personaJuridicaSd.setSecPersona(persona);
-		personaJuridicaSd.setCodTipoIdentificacion(tipoIdentificacion);
-		personaJuridicaSd.setIdentificacion(registro.getIdentificacion());
-		personaJuridicaSd.setRazonSocial(registro.getRazon_Social());
-		personaJuridicaSd.setCodActividadEconomica(actividadEconomicaSdPJ);
-		personaJuridicaSd.setActividadIess(registro.getDescripcion());
-		personaJuridicaSd.setSecCanal(canalSd);
-		personaJuridicaSd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-		personaJuridicaSd.setTsCreacion(new Date());
-		personaJuridicaSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-
-		return personaJuridicaSd;
-	}
-
+	
+	//METODOS DE CONTROL DE CLAVES FORANEAS
 	public ParroquiaSd TraerParroquiaSd(String secParroquia) {
 		// CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
 		ParroquiaSd parroquiaSd = new ParroquiaSd();
@@ -1979,23 +1975,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		}
 
 		return parroquiaSd;
-	}
-
-	public TipoTelefonoSd TraerTipoTelefono(String codigoTipoTelefono) {
-		TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
-		try {
-			if (!VerificarVacios(codigoTipoTelefono.trim()))
-				tipoTelefonoSd = tipoTelefonoSdServicio.findByPk(Short.parseShort(codigoTipoTelefono.trim()));
-			if (tipoTelefonoSd == null) {
-				tipoTelefonoSd = new TipoTelefonoSd();
-				tipoTelefonoSd.setCodTipoTelefono((short) 0);
-			}
-		} catch (Exception e) {
-			log.error("El campo tipo telefono no es un tipo de dato short --->" + codigoTipoTelefono.trim());
-			tipoTelefonoSd.setCodTipoTelefono((short) 0);
-		}
-
-		return tipoTelefonoSd;
 	}
 
 	public CantonSd TraerCantonSd(String secCanton) {
@@ -2052,7 +2031,25 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		return provinciaSd;
 	}
+	
+	public TipoTelefonoSd TraerTipoTelefono(String codigoTipoTelefono) {
+		TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+		try {
+			if (!VerificarVacios(codigoTipoTelefono.trim()))
+				tipoTelefonoSd = tipoTelefonoSdServicio.findByPk(Short.parseShort(codigoTipoTelefono.trim()));
+			if (tipoTelefonoSd == null) {
+				tipoTelefonoSd = new TipoTelefonoSd();
+				tipoTelefonoSd.setCodTipoTelefono((short) 0);
+			}
+		} catch (Exception e) {
+			log.error("El campo tipo telefono no es un tipo de dato short --->" + codigoTipoTelefono.trim());
+			tipoTelefonoSd.setCodTipoTelefono((short) 0);
+		}
 
+		return tipoTelefonoSd;
+	}
+
+	//METODOS DE ACTUALIZACION E INGRESO DE DATOS PARA LISTAS
 	public PersonaJuridicaSd CrearPersonaJuridicaEmpleo(Trabajo trabajo, TipoIdentificacionSd tipoIdentificacionRuc,
 			CanalSd canalSd, String codigoActividadEconomica) {
 
@@ -2221,4 +2218,5 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		}
 		return telefono;
 	}
+	
 }
