@@ -95,15 +95,17 @@ public class TelefonoSdDaoEjb extends GenericDaoEjb<TelefonoSd, Integer> impleme
 	 * @see com.equivida.smartdata.dao.TelefonoSdDao#obtenerTelefonoBySecPersonaAndNroTeefono(Integer secPersona, String nroTelefono) {
 	 */
 	@Override
-	public TelefonoSd obtenerTelefonoBySecPersonaAndNroTeefono(Integer secPersona, String nroTelefono) {
+	public TelefonoSd obtenerTelefonoBySecPersonaAndNroTeefono(Integer secPersona, String nroTelefono, String codArea) {
 		StringBuffer sql = new StringBuffer(200);
 		sql.append("select d from TelefonoSd d where ");
 		sql.append("d.secPersona.secPersona = :secPersona ");
 		sql.append(" AND d.nroTelefono = :nroTelefono ");
+		sql.append(" AND d.codArea = :codArea ");
 
 		Query query = em.createQuery(sql.toString());
 		query.setParameter("secPersona", secPersona);
 		query.setParameter("nroTelefono", nroTelefono);
+		query.setParameter("codArea", codArea);
 
 		List<TelefonoSd> telefonoSdList = query.getResultList();
 

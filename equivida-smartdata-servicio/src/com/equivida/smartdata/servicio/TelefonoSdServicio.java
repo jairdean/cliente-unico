@@ -47,10 +47,10 @@ public interface TelefonoSdServicio extends GenericService<TelefonoSd, Integer> 
 	List<TelefonoSd> obtenerTelefonoByPersonaSecPersona(Integer secPersona);
 
 	/**
-	 * Obtener telefono por secPersona y nroTelefono
+	 * Obtener telefono por secPersona ,nroTelefono, codArea
 	 * 
-	 * @param secPersona, nroTelefono
+	 * @param secPersona, nroTelefono, codArea
 	 * @return TelefonoSd
 	 */
-	TelefonoSd obtenerTelefonoBySecPersonaAndNroTeefono(Integer secPersona, String nroTelefono);
+	TelefonoSd obtenerTelefonoBySecPersonaAndNroTeefono(Integer secPersona, String nroTelefono, String codArea);
 }
