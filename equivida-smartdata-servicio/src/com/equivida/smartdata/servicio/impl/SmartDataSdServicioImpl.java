@@ -1264,176 +1264,62 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// TELEFONO1
 			if (!VerificarVacios(registro.getTelefonos().getTelefono1().getNroTelefono())) {
+				TelefonoSd telefono1 = ActualizaTelefono(existePersona, canalSd,
+						registro.getTelefonos().getTelefono1().getNroTelefono(),
+						registro.getTelefonos().getTelefono1().getCodArea(), registro.getTelefonos().getTelefono1(),
+						null, null, null, null, null);
 
-				TelefonoSd telefono = telefonoSdServicio.obtenerTelefonoBySecPersonaAndNroTeefono(
-						existePersona.getSecPersona(), registro.getTelefonos().getTelefono1().getNroTelefono(), registro.getTelefonos().getTelefono1().getCodArea());
-
-				Integer secTelefono = null;
-				if (telefono != null) {
-					secTelefono = telefono.getSecTelefono();
-					log.error(secTelefono);
-				}
-				telefono = MapperTelefono(registro.getTelefonos().getTelefono1(), null, null, null, null, null, canalSd,
-						existePersona);
-				telefono.setSecTelefono(secTelefono);
-
-				if (telefono.getSecTelefono() == null) {
-					log.error("INGRESA TELEFONO1");
-					log.error(telefono);
-					telefonoSdServicio.ingresarTelefono(telefono);
-					retornarListaTelefono.add(telefono);
-
-				} else {
-					log.error("ACTUALIZA TELEFONO1");
-					log.error(telefono);
-					telefonoSdServicio.update(telefono);
-					retornarListaTelefono.add(telefono);
-				}
+				retornarListaTelefono.add(telefono1);
 			}
 
 			// TELEFONO2
 			if (!VerificarVacios(registro.getTelefonos().getTelefono2().getNroTelefono())) {
+				TelefonoSd telefono2 = ActualizaTelefono(existePersona, canalSd,
+						registro.getTelefonos().getTelefono2().getNroTelefono(),
+						registro.getTelefonos().getTelefono2().getCodArea(), null,
+						registro.getTelefonos().getTelefono2(), null, null, null, null);
 
-				TelefonoSd telefono2 = telefonoSdServicio.obtenerTelefonoBySecPersonaAndNroTeefono(
-						existePersona.getSecPersona(), registro.getTelefonos().getTelefono2().getNroTelefono(), registro.getTelefonos().getTelefono2().getCodArea());
-
-				Integer secTelefono = null;
-				if (telefono2 != null) {
-					secTelefono = telefono2.getSecTelefono();
-					log.error(secTelefono);
-				}
-				telefono2 = MapperTelefono(null, registro.getTelefonos().getTelefono2(), null, null, null, null,
-						canalSd, existePersona);
-				telefono2.setSecTelefono(secTelefono);
-
-				if (telefono2.getSecTelefono() == null) {
-					log.error("INGRESA TELEFONO2");
-					log.error(telefono2);
-					telefonoSdServicio.ingresarTelefono(telefono2);
-					retornarListaTelefono.add(telefono2);
-
-				} else {
-					log.error("ACTUALIZA TELEFONO2");
-					log.error(telefono2);
-					telefonoSdServicio.update(telefono2);
-					retornarListaTelefono.add(telefono2);
-				}
+				retornarListaTelefono.add(telefono2);
 			}
 
 			// TELEFONO3
 			if (!VerificarVacios(registro.getTelefonos().getTelefono3().getNroTelefono())) {
+				TelefonoSd telefono3 = ActualizaTelefono(existePersona, canalSd,
+						registro.getTelefonos().getTelefono3().getNroTelefono(),
+						registro.getTelefonos().getTelefono3().getCodArea(), null, null,
+						registro.getTelefonos().getTelefono3(), null, null, null);
 
-				TelefonoSd telefono3 = telefonoSdServicio.obtenerTelefonoBySecPersonaAndNroTeefono(
-						existePersona.getSecPersona(), registro.getTelefonos().getTelefono3().getNroTelefono(), registro.getTelefonos().getTelefono3().getCodArea());
-
-				Integer secTelefono = null;
-				if (telefono3 != null) {
-					secTelefono = telefono3.getSecTelefono();
-					log.error(secTelefono);
-				}
-				telefono3 = MapperTelefono(null, null, registro.getTelefonos().getTelefono3(), null, null, null,
-						canalSd, existePersona);
-				telefono3.setSecTelefono(secTelefono);
-
-				if (telefono3.getSecTelefono() == null) {
-					log.error("INGRESA TELEFONO3");
-					log.error(telefono3);
-					telefonoSdServicio.ingresarTelefono(telefono3);
-					retornarListaTelefono.add(telefono3);
-
-				} else {
-					log.error("ACTUALIZA TELEFONO3");
-					log.error(telefono3);
-					telefonoSdServicio.update(telefono3);
-					retornarListaTelefono.add(telefono3);
-				}
+				retornarListaTelefono.add(telefono3);
 			}
 
 			// TELEFONO4
 			if (!VerificarVacios(registro.getTelefonos().getTelefono4().getNroTelefono())) {
+				TelefonoSd telefono4 = ActualizaTelefono(existePersona, canalSd,
+						registro.getTelefonos().getTelefono4().getNroTelefono(),
+						registro.getTelefonos().getTelefono4().getCodArea(), null, null, null,
+						registro.getTelefonos().getTelefono4(), null, null);
 
-				TelefonoSd telefono4 = telefonoSdServicio.obtenerTelefonoBySecPersonaAndNroTeefono(
-						existePersona.getSecPersona(), registro.getTelefonos().getTelefono4().getNroTelefono(), registro.getTelefonos().getTelefono4().getCodArea());
-
-				Integer secTelefono = null;
-				if (telefono4 != null) {
-					secTelefono = telefono4.getSecTelefono();
-					log.error(secTelefono);
-				}
-				telefono4 = MapperTelefono(null, null, null, registro.getTelefonos().getTelefono4(), null, null,
-						canalSd, existePersona);
-				telefono4.setSecTelefono(secTelefono);
-
-				if (telefono4.getSecTelefono() == null) {
-					log.error("INGRESA TELEFONO4");
-					log.error(telefono4);
-					telefonoSdServicio.ingresarTelefono(telefono4);
-					retornarListaTelefono.add(telefono4);
-
-				} else {
-					log.error("ACTUALIZA TELEFONO4");
-					log.error(telefono4);
-					telefonoSdServicio.update(telefono4);
-					retornarListaTelefono.add(telefono4);
-				}
+				retornarListaTelefono.add(telefono4);
 			}
 
-			// TELEFONO3
+			// TELEFONO5
 			if (!VerificarVacios(registro.getTelefonos().getTelefono5().getNroTelefono())) {
+				TelefonoSd telefono5 = ActualizaTelefono(existePersona, canalSd,
+						registro.getTelefonos().getTelefono5().getNroTelefono(),
+						registro.getTelefonos().getTelefono5().getCodArea(), null, null, null, null,
+						registro.getTelefonos().getTelefono5(), null);
 
-				TelefonoSd telefono5 = telefonoSdServicio.obtenerTelefonoBySecPersonaAndNroTeefono(
-						existePersona.getSecPersona(), registro.getTelefonos().getTelefono5().getNroTelefono(), registro.getTelefonos().getTelefono5().getCodArea());
-
-				Integer secTelefono = null;
-				if (telefono5 != null) {
-					secTelefono = telefono5.getSecTelefono();
-					log.error(secTelefono);
-				}
-				telefono5 = MapperTelefono(null, null, null, null, registro.getTelefonos().getTelefono5(), null,
-						canalSd, existePersona);
-				telefono5.setSecTelefono(secTelefono);
-
-				if (telefono5.getSecTelefono() == null) {
-					log.error("INGRESA TELEFONO5");
-					log.error(telefono5);
-					telefonoSdServicio.ingresarTelefono(telefono5);
-					retornarListaTelefono.add(telefono5);
-
-				} else {
-					log.error("ACTUALIZA TELEFONO5");
-					log.error(telefono5);
-					telefonoSdServicio.update(telefono5);
-					retornarListaTelefono.add(telefono5);
-				}
+				retornarListaTelefono.add(telefono5);
 			}
 
 			// TELEFONO6
 			if (!VerificarVacios(registro.getTelefonos().getTelefono6().getNroTelefono())) {
+				TelefonoSd telefono6 = ActualizaTelefono(existePersona, canalSd,
+						registro.getTelefonos().getTelefono6().getNroTelefono(),
+						registro.getTelefonos().getTelefono6().getCodArea(), null, null, null, null, null,
+						registro.getTelefonos().getTelefono6());
 
-				TelefonoSd telefono6 = telefonoSdServicio.obtenerTelefonoBySecPersonaAndNroTeefono(
-						existePersona.getSecPersona(), registro.getTelefonos().getTelefono6().getNroTelefono(), registro.getTelefonos().getTelefono6().getCodArea());
-
-				Integer secTelefono = null;
-				if (telefono6 != null) {
-					secTelefono = telefono6.getSecTelefono();
-					log.error(secTelefono);
-				}
-				telefono6 = MapperTelefono(null, null, null, null, null, registro.getTelefonos().getTelefono6(),
-						canalSd, existePersona);
-				telefono6.setSecTelefono(secTelefono);
-
-				if (telefono6.getSecTelefono() == null) {
-					log.error("INGRESA TELEFONO6");
-					log.error(telefono6);
-					telefonoSdServicio.ingresarTelefono(telefono6);
-					retornarListaTelefono.add(telefono6);
-
-				} else {
-					log.error("ACTUALIZA TELEFONO6");
-					log.error(telefono6);
-					telefonoSdServicio.update(telefono6);
-					retornarListaTelefono.add(telefono6);
-				}
+				retornarListaTelefono.add(telefono6);
 			}
 
 			objRetorno.setTelefonoList(retornarListaTelefono);
@@ -1816,104 +1702,42 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		telefono.setTsCreacion(new Date());
 
 		if (telefono1 != null) {
-
 			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
-			TipoTelefonoSd existeTipoTelefono = null;
-			try {
-				if (!VerificarVacios(telefono1.getCodTipoTelefono().trim()))
-					existeTipoTelefono = tipoTelefonoSdServicio
-							.findByPk(Short.parseShort(telefono1.getCodTipoTelefono().trim()));
-			} catch (Exception e) {
-				log.error("El campo tipo telefono no es un tipo de dato short --->"
-						+ telefono1.getCodTipoTelefono().trim());
-			}
-
-			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
+			tipoTelefonoSd = TraerTipoTelefono(telefono1.getCodTipoTelefono());
 			telefono.setCodArea(telefono1.getCodArea());
 			telefono.setNroTelefono(telefono1.getNroTelefono());
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		} else if (telefono2 != null) {
 			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
-			TipoTelefonoSd existeTipoTelefono = null;
-			try {
-				if (!VerificarVacios(telefono2.getCodTipoTelefono().trim()))
-					existeTipoTelefono = tipoTelefonoSdServicio
-							.findByPk(Short.parseShort(telefono2.getCodTipoTelefono().trim()));
-			} catch (Exception e) {
-				log.error("El campo tipo telefono no es un tipo de dato short --->"
-						+ telefono2.getCodTipoTelefono().trim());
-			}
-
-			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
+			tipoTelefonoSd = TraerTipoTelefono(telefono2.getCodTipoTelefono());
 			telefono.setCodArea(telefono2.getCodArea());
 			telefono.setNroTelefono(telefono2.getNroTelefono());
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		} else if (telefono3 != null) {
 			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
-			TipoTelefonoSd existeTipoTelefono = null;
-			try {
-				if (!VerificarVacios(telefono3.getCodTipoTelefono().trim()))
-					existeTipoTelefono = tipoTelefonoSdServicio
-							.findByPk(Short.parseShort(telefono3.getCodTipoTelefono().trim()));
-			} catch (Exception e) {
-				log.error("El campo tipo telefono no es un tipo de dato short --->"
-						+ telefono3.getCodTipoTelefono().trim());
-			}
-
-			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
+			tipoTelefonoSd = TraerTipoTelefono(telefono3.getCodTipoTelefono());
 			telefono.setCodArea(telefono3.getCodArea());
 			telefono.setNroTelefono(telefono3.getNroTelefono());
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		} else if (telefono4 != null) {
 			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
-			TipoTelefonoSd existeTipoTelefono = null;
-			try {
-				if (!VerificarVacios(telefono4.getCodTipoTelefono().trim()))
-					existeTipoTelefono = tipoTelefonoSdServicio
-							.findByPk(Short.parseShort(telefono4.getCodTipoTelefono().trim()));
-			} catch (Exception e) {
-				log.error("El campo tipo telefono no es un tipo de dato short --->"
-						+ telefono4.getCodTipoTelefono().trim());
-			}
-
-			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
+			tipoTelefonoSd = TraerTipoTelefono(telefono4.getCodTipoTelefono());
 			telefono.setCodArea(telefono4.getCodArea());
 			telefono.setNroTelefono(telefono4.getNroTelefono());
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		} else if (telefono5 != null) {
 			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
-			TipoTelefonoSd existeTipoTelefono = null;
-			try {
-				if (!VerificarVacios(telefono5.getCodTipoTelefono().trim()))
-					existeTipoTelefono = tipoTelefonoSdServicio
-							.findByPk(Short.parseShort(telefono5.getCodTipoTelefono().trim()));
-			} catch (Exception e) {
-				log.error("El campo tipo telefono no es un tipo de dato short --->"
-						+ telefono5.getCodTipoTelefono().trim());
-			}
-
-			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
+			tipoTelefonoSd = TraerTipoTelefono(telefono5.getCodTipoTelefono());
 			telefono.setCodArea(telefono5.getCodArea());
 			telefono.setNroTelefono(telefono5.getNroTelefono());
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		} else if (telefono6 != null) {
 			// CONTROLO Y VERIFICO SI EXISTE EL CODIGO DEL TELEFONO
-			TipoTelefonoSd existeTipoTelefono = null;
-			try {
-				if (!VerificarVacios(telefono6.getCodTipoTelefono().trim()))
-					existeTipoTelefono = tipoTelefonoSdServicio
-							.findByPk(Short.parseShort(telefono6.getCodTipoTelefono().trim()));
-			} catch (Exception e) {
-				log.error("El campo tipo telefono no es un tipo de dato short --->"
-						+ telefono6.getCodTipoTelefono().trim());
-			}
-
-			tipoTelefonoSd.setCodTipoTelefono(existeTipoTelefono != null ? existeTipoTelefono.getCodTipoTelefono() : 0);
+			tipoTelefonoSd = TraerTipoTelefono(telefono6.getCodTipoTelefono());
 			telefono.setCodArea(telefono6.getCodArea());
 			telefono.setNroTelefono(telefono6.getNroTelefono());
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		}
-
 		return telefono;
 	}
 
@@ -2157,6 +1981,23 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return parroquiaSd;
 	}
 
+	public TipoTelefonoSd TraerTipoTelefono(String codigoTipoTelefono) {
+		TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
+		try {
+			if (!VerificarVacios(codigoTipoTelefono.trim()))
+				tipoTelefonoSd = tipoTelefonoSdServicio.findByPk(Short.parseShort(codigoTipoTelefono.trim()));
+			if (tipoTelefonoSd == null) {
+				tipoTelefonoSd = new TipoTelefonoSd();
+				tipoTelefonoSd.setCodTipoTelefono((short) 0);
+			}
+		} catch (Exception e) {
+			log.error("El campo tipo telefono no es un tipo de dato short --->" + codigoTipoTelefono.trim());
+			tipoTelefonoSd.setCodTipoTelefono((short) 0);
+		}
+
+		return tipoTelefonoSd;
+	}
+
 	public CantonSd TraerCantonSd(String secCanton) {
 		CantonSd cantonSd = new CantonSd();
 		Short primarySecCanton = null;
@@ -2336,29 +2177,48 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return empleoDependienteSd;
 	}
 
-	/*
-	 * public TelefonoSd ActualizaTelefono(String numeroTelefono, int secPersona,
-	 * int TipoTelefono) {
-	 * 
-	 * if
-	 * (!VerificarVacios(registro.getTelefonos().getTelefono2().getNroTelefono())) {
-	 * 
-	 * TelefonoSd telefono =
-	 * telefonoSdServicio.obtenerTelefonoBySecPersonaAndNroTeefono(
-	 * existePersona.getSecPersona(),
-	 * registro.getTelefonos().getTelefono2().getNroTelefono());
-	 * 
-	 * Integer secTelefono = null; if (telefono != null) { secTelefono =
-	 * telefono.getSecTelefono(); log.error(secTelefono); } telefono =
-	 * MapperTelefono(null, registro.getTelefonos().getTelefono2(), null, null,
-	 * null, null, canalSd, existePersona); telefono.setSecTelefono(secTelefono);
-	 * 
-	 * if (telefono.getSecTelefono() == null) { log.error("INGRESA TELEFONO2");
-	 * log.error(telefono); telefonoSdServicio.ingresarTelefono(telefono);
-	 * retornarListaTelefono.add(telefono);
-	 * 
-	 * } else { log.error("ACTUALIZA TELEFONO2"); log.error(telefono);
-	 * telefonoSdServicio.update(telefono); retornarListaTelefono.add(telefono); } }
-	 * }
-	 */
+	public TelefonoSd ActualizaTelefono(PersonaSd existePersona, CanalSd canalSd, String numeroTelefono,
+			String codigoArea, Telefono1 telefono1, Telefono2 telefono2, Telefono3 telefono3, Telefono4 telefono4,
+			Telefono5 telefono5, Telefono6 telefono6) {
+
+		TelefonoSd telefono = telefonoSdServicio.obtenerTelefonoBySecPersonaAndNroTeefono(existePersona.getSecPersona(),
+				numeroTelefono, codigoArea);
+
+		Integer secTelefono = null;
+		if (telefono != null) {
+			secTelefono = telefono.getSecTelefono();
+			log.error(secTelefono);
+		}
+
+		if (telefono1 != null)
+			telefono = MapperTelefono(telefono1, null, null, null, null, null, canalSd, existePersona);
+
+		if (telefono2 != null)
+			telefono = MapperTelefono(null, telefono2, null, null, null, null, canalSd, existePersona);
+
+		if (telefono3 != null)
+			telefono = MapperTelefono(null, null, telefono3, null, null, null, canalSd, existePersona);
+
+		if (telefono4 != null)
+			telefono = MapperTelefono(null, null, null, telefono4, null, null, canalSd, existePersona);
+
+		if (telefono5 != null)
+			telefono = MapperTelefono(null, null, null, null, telefono5, null, canalSd, existePersona);
+
+		if (telefono6 != null)
+			telefono = MapperTelefono(null, null, null, null, null, telefono6, canalSd, existePersona);
+
+		telefono.setSecTelefono(secTelefono);
+		if (telefono.getSecTelefono() == null) {
+			log.error("INGRESA TELEFONO");
+			log.error(telefono);
+			telefonoSdServicio.ingresarTelefono(telefono);
+
+		} else {
+			log.error("ACTUALIZA TELEFONO");
+			log.error(telefono);
+			telefonoSdServicio.update(telefono);
+		}
+		return telefono;
+	}
 }
