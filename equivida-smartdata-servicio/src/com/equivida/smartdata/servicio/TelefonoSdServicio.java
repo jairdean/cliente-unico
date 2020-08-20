@@ -45,4 +45,12 @@ public interface TelefonoSdServicio extends GenericService<TelefonoSd, Integer> 
 	 * @return List<TelefonoSd>
 	 */
 	List<TelefonoSd> obtenerTelefonoByPersonaSecPersona(Integer secPersona);
+
+	/**
+	 * Obtener telefono por secPersona y nroTelefono
+	 * 
+	 * @param secPersona, nroTelefono
+	 * @return TelefonoSd
+	 */
+	TelefonoSd obtenerTelefonoBySecPersonaAndNroTeefono(Integer secPersona, String nroTelefono);
 }

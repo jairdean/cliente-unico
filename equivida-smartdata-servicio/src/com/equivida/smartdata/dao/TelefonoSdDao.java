@@ -37,4 +37,12 @@ public interface TelefonoSdDao extends GenericDao<TelefonoSd, Integer> {
 	 * @return List<TelefonoSd>
 	 */
 	List<TelefonoSd> obtenerTelefonoByPersonaSecPersona(Integer secPersona);
+
+	/**
+	 * Obtiene Telefono por secPersona y nroTelefono
+	 * 
+	 * @param secPersona, nroTelefono
+	 * @return TelefonoSd
+	 */
+	TelefonoSd obtenerTelefonoBySecPersonaAndNroTeefono(Integer secPersona, String nroTelefono);
 }

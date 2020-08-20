@@ -82,4 +82,15 @@ public class TelefonoSdServicioImpl extends
 	public List<TelefonoSd> obtenerTelefonoByPersonaSecPersona(Integer secPersona) {
 		return telefonoDao.obtenerTelefonoByPersonaSecPersona(secPersona);
 	}
+
+	
+	@Override	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.TelefonoSdServicio#
+	 * obtenerTelefonoBySecPersonaAndNroTeefono(secPersona, nroTelefono)
+	 */
+	public TelefonoSd obtenerTelefonoBySecPersonaAndNroTeefono(Integer secPersona, String nroTelefono) {
+		return telefonoDao.obtenerTelefonoBySecPersonaAndNroTeefono(secPersona, nroTelefono);
+	}
 }
