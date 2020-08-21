@@ -39,7 +39,7 @@ public class EmpleoDependienteSd implements Serializable {
 	@Column(name = "SEC_EMPLEO_DEPENDIENTE")
 	private Integer secEmpleoDependiente;
 	@Basic(optional = false)
-	@Column(name = "CARGO", length = 32, nullable = false)
+	@Column(name = "CARGO", length = 250, nullable = false)
 	private String cargo;
 	@Column(name = "MNT_SALARIO", precision = 12, scale = 2, columnDefinition = "decimal(12,2)")
 	private BigDecimal mntSalario;
