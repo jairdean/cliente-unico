@@ -408,7 +408,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	public PersonaSd consultaDatabook(String identificacion, String usuario) throws SmartdataException {
 		try {
 			// Se consulta en el WS.
-			log.error("LLEGA 1");
 			RegistrosEntity registros = obtenerRegistrosWsRegistrosEntity(identificacion);
 
 			if (registros.getTitular() == null || registros.getTitular().getPersona() == null) {
@@ -446,18 +445,12 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					r.setTsCreacion(new Date());
 
 					relacionServicio.create(r);
-
-					log.error("Se ha guardado la relacion para: " + retornar.getIdentificacion() + " con perosnaR: "
-							+ objetoConyugue.getIdentificacion());
 				} catch (Exception e) {
 					log.error("No se ha posido guardar la relacion para: " + retornar.getIdentificacion()
 							+ " con perosnaR: " + objetoConyugue.getIdentificacion());
 					log.error(e);
 				}
 			}
-
-			log.error("LLEGA 2");
-
 			/*
 			 * Registros abc = new Registros();
 			 * 
@@ -824,7 +817,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	}
 
 	public PersonaSd GuardarInformacionConyugue(RegistrosEntity.Conyuge registro) {
-		log.error("ENTRA CONYUGE");
 		Titular conyuge = new Titular();
 		conyuge.setPersona(registro.getPersona());
 		conyuge.setPersonaNatural(registro.getPersonaNatural());
@@ -834,7 +826,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		conyuge.setTelefonos(registro.getTelefonos());
 		conyuge.setEmpleos(registro.getEmpleos());
 
-		log.error("LLEGA CONYUGE");
 		return GuardarInformacionPersona(conyuge);
 	}
 
@@ -864,51 +855,37 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			// CREAR PERSONA
 			PersonaSd persona = MapperPersona(registro.getPersona(), tipoIdentificacion);
-			log.error("LLEGO PERSONA");
 			personaServicio.IngresarPersona(persona);
-			log.error(persona);
 			
-			log.error("GUARDO PERSONA");
 			objRetorno = persona;
 
 			// CREA PERSONA NATURAL
 			PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
 					persona, canalSd, registro.getEmpleos().getEmpleoActual().getSecProfesion());
-			log.error("PASA PERSONA NATURAL");
 			personaNaturalServicio.insertarPersonaNatural(personaNatural);
 			
 			objRetorno.setPersonaNatural(personaNatural);
-			log.error("GUARDA PERSONA NATURAL");
 
 			// CREA DIRECCION 1
 			List<DireccionSd> direccionList = new ArrayList<DireccionSd>();
-			log.error("LLEGA DIRECCION 1");
 			if (!VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())) {
-				log.error("---->");
 				DireccionSd direccionsd = MapeoDireccion1Sd(registro.getDirecciones().getDireccion1(), canalSd,
 						persona);
-				log.error("LLEGA DIRECCION 1");
 				direccionSdServicio.ingresarDireccion(direccionsd);
 				// >>
 
 				direccionList.add(direccionsd);
-				log.error("GUARDA DIRECCION 1");
 			}
 
 			// CREA DIRECCION 2
-			log.error("LLEGA DIRECCION 2");
 			if (!VerificarVacios(registro.getDirecciones().getDireccion2().getDireccion().trim())) {
 
 				if (registro.getDirecciones().getDireccion1().getDireccion().trim()
 						.equalsIgnoreCase(registro.getDirecciones().getDireccion2().getDireccion().trim()) == false) {
-					log.error("---->");
 					DireccionSd direccionsd = MapeoDireccion2Sd(registro.getDirecciones().getDireccion2(), canalSd,
 							persona);
-					log.error("LLEGA DIRECCION 2");
 					direccionSdServicio.ingresarDireccion(direccionsd);
-					// >>
 					direccionList.add(direccionsd);
-					log.error("GUARDA DIRECCION ");
 				}
 			}
 
@@ -917,7 +894,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			objRetorno.setDireccionNoPersisteList(direccionList);
 
 			// CREA TELEFONOS
-			log.error("LLEGA TELEFONOS");
 			List<TelefonoSd> listaTelefonos = new ArrayList<TelefonoSd>();
 
 			//CREAR TELEFONO1
@@ -926,11 +902,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 				TelefonoSd telefono = MapperTelefono(registro.getTelefonos().getTelefono1(), null, null, null, null,
 						null, canalSd, persona);
-				log.error("LLEGA TELEFONO 1");
 				telefonoSdServicio.ingresarTelefono(telefono);
-				// >>
 				listaTelefonos.add(telefono);
-				log.error("GUARDA TELEFONO 1");
 			}
 
 			//CREAR TELEFONO2
@@ -940,11 +913,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono2 = MapperTelefono(null, registro.getTelefonos().getTelefono2(), null, null, null,
 						null, canalSd, persona);
 
-				log.error("LLEGA TELEFONO 2");
 				telefonoSdServicio.ingresarTelefono(telefono2);
-				// >>
 				listaTelefonos.add(telefono2);
-				log.error("GUARDA TELEFONO 2");
 			}
 
 			//CREAR TELEFONO3
@@ -954,11 +924,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono3 = MapperTelefono(null, null, registro.getTelefonos().getTelefono3(), null, null,
 						null, canalSd, persona);
 
-				log.error("LLEGA TELEFONO 3");
 				telefonoSdServicio.ingresarTelefono(telefono3);
-				// >>
 				listaTelefonos.add(telefono3);
-				log.error("GUARDA TELEFONO 3");
 			}
 
 			//CREAR TELEFONO4
@@ -968,11 +935,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono4 = MapperTelefono(null, null, null, registro.getTelefonos().getTelefono4(), null,
 						null, canalSd, persona);
 
-				log.error("LLEGA TELEFONO 4");
 				telefonoSdServicio.ingresarTelefono(telefono4);
-				// >>
 				listaTelefonos.add(telefono4);
-				log.error("GUARDA TELEFONO 4");
 			}
 
 			//CREAR TELEFONO5
@@ -982,11 +946,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono5 = MapperTelefono(null, null, null, null, registro.getTelefonos().getTelefono5(),
 						null, canalSd, persona);
 
-				log.error("LLEGA TELEFONO 5");
 				telefonoSdServicio.ingresarTelefono(telefono5);
-				// >>
 				listaTelefonos.add(telefono5);
-				log.error("GUARDA TELEFONO 5");
 			}
 
 			//CREAR TELEFONO6
@@ -996,18 +957,14 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono6 = MapperTelefono(null, null, null, null, null,
 						registro.getTelefonos().getTelefono6(), canalSd, persona);
 
-				log.error("LLEGA TELEFONO 6");
 				telefonoSdServicio.ingresarTelefono(telefono6);
-				// >>
 				listaTelefonos.add(telefono6);
-				log.error("GUARDA TELEFONO 6");
 			}
 
 			objRetorno.setTelefonoList(listaTelefonos);
 
 			
 			// CREA DIRECCION ELECTRONICA 1
-			log.error("DIRECCION ELECTRONICA");
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
 			tipoDireccionElectronicaSd.setCodTipoDireccionElectronica((short) 1);
 
@@ -1016,9 +973,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				direccionElectronica1 = MapeoDireccionElectronica(
 						registro.getDireccionElectronico().getCorreo_electronico1().trim(), persona, canalSd);
 
-				log.error("LLEGA DIRECCION ELECTRONICA 1");
 				direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica1);
-				log.error("GUARDA DIRECCION ELECTRONICA 1");
 			}
 
 			// CREA DIRECCION ELECTRONICA 2
@@ -1031,9 +986,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					direccionElectronica2 = MapeoDireccionElectronica(
 							registro.getDireccionElectronico().getCorreo_electronico2().trim(), persona, canalSd);
 
-					log.error("LLEGA DIRECCION ELECTRONICA 2");
 					direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica2);
-					log.error("GUARDA DIRECCION ELECTRONICA 2");
 				}
 			}
 
@@ -1049,9 +1002,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					direccionElectronica3 = MapeoDireccionElectronica(
 							registro.getDireccionElectronico().getCorreo_electronico3().trim(), persona, canalSd);
 
-					log.error("LLEGA DIRECCION ELECTRONICA 3");
 					direccionElectronicaSdServicio.ingresarDireccionElectronica(direccionElectronica3);
-					log.error("GUARDA DIRECCION ELECTRONICA 3");
 				}
 			}
 
@@ -1070,7 +1021,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			objRetorno.setDireccionElectronicaSinBase(listaDireccionElectronica);
 
 			// CREA INFORMACION ADCIONAL
-			log.error("LLEGA INFO ADICIONAL");
 			if (personaNatural != null && personaNatural.getSecPersonaNatural() != null // PN
 					&& !VerificarVacios(registro.getInformacionAdicional().getIdentificacion().trim())
 					&& !VerificarVacios(registro.getInformacionAdicional().getCodTipoIdentificacion().trim())
@@ -1078,8 +1028,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					&& !VerificarVacios(registro.getInformacionAdicional().getFechaInscripcion().trim())
 					&& !VerificarVacios(registro.getInformacionAdicional().getFechaInicioActividades().trim())
 					&& !VerificarVacios(registro.getInformacionAdicional().getPrincipal().trim())) {
-
-				log.error("ENTRAAAA INFORMACION ADICIONAL");
 
 				InformacionAdicionalSd existeInformacionAdicionalSd = informacionAdicionalSdServicio
 						.obtenerInformacionAdicionalBySecIdentificacion(
@@ -1094,9 +1042,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 				if (secPesonaNatural == informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural()
 						|| secPesonaNatural == null) {
-					log.error("LLEGA INFORMACION ADICIONAL");
 					informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
-					log.error("GUARDA INFORMACION ADICIONAL");
 
 					List<InformacionAdicionalSd> informacionAdicionalList = new ArrayList<InformacionAdicionalSd>();
 					informacionAdicionalList.add(informacionAdicionalSd);
@@ -1158,13 +1104,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			perN.setEmpleoDependienteList(empleoDependienteList);
 			objRetorno.setPersonaNatural(perN);
 
-			log.error("FIN PROCESO CREAR TITULAR");
 		} else {
 			//SE ACTUALIZA LOS DATOS DE LA PERSONA EN CASO DE QUE YA EXISTA
 			objRetorno = existePersona;
-
-			log.error("ACTUALIZACION------------------------------------");
-			log.error(existePersona.getPersonaNatural());
 
 			// VERIFICO SI EXISTE LA PERSONA NATURAL
 			if (existePersona.getPersonaNatural() == null) {
@@ -1172,21 +1114,14 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				PersonaNaturalSd personaNatural = MapperPersonaNatural(registro.getPersonaNatural(), tipoIdentificacion,
 						existePersona, canalSd, registro.getEmpleos().getEmpleoActual().getSecProfesion());
 
-				log.error("PASA PERSONA NATURAL");
 				personaNaturalServicio.insertarPersonaNatural(personaNatural);
-				// >>
 				objRetorno.setPersonaNatural(personaNatural);
 				existePersona.setPersonaNatural(personaNatural);
-				log.error("GUARDA PERSONA NATURAL");
 			}
 
 			// ACTUALIZACION DIRECCION
 			List<DireccionSd> direccionesConsultadasList = direccionSdServicio
 					.obtenerDireccionByPersonaSecPersona(existePersona.getSecPersona());
-
-			log.error("LISTA DIRECCIONES EN LA BASE");
-			log.error(direccionesConsultadasList);
-			log.error("FIN LISTA DIRECCIONES EN LA BASE");
 
 			// SE CONTROLA EN CASO DE QUE EL DIRECCION 1 ESTE VACIO Y EL DIRECCION 2 ESTE
 			if (VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())
@@ -1210,22 +1145,16 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			DireccionSd direccionsd1 = new DireccionSd();
 			if (!VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())) {
 
-				log.error("ENTRA IF DIRECCION 1>>" + registro.getDirecciones().getDireccion1().getDireccion().trim()
-						+ "<<");
-
 				Integer secDirecion = null;
 				if (direccionesConsultadasList != null && direccionesConsultadasList.size() >= 1) {
 					secDirecion = direccionesConsultadasList.get(0).getSecDireccion();
-					log.error(direccionesConsultadasList.get(0).getSecDireccion());
 				}
 				direccionsd1 = MapeoDireccion1Sd(registro.getDirecciones().getDireccion1(), canalSd, existePersona);
 				direccionsd1.setSecDireccion(secDirecion);
 
 				if (direccionsd1.getSecDireccion() != null) {
-					log.error("ACTUALIZA DIRECCION 1");
 					direccionSdServicio.update(direccionsd1);
 				} else {
-					log.error("INGRESA DIRECCION 1");
 					direccionSdServicio.ingresarDireccion(direccionsd1);
 				}
 				listaDirec.add(direccionsd1);
@@ -1236,22 +1165,16 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					&& !registro.getDirecciones().getDireccion2().getDireccion()
 							.equalsIgnoreCase(registro.getDirecciones().getDireccion1().getDireccion())) {
 
-				log.error("ENTRA IF DIRECCION 2>>" + registro.getDirecciones().getDireccion2().getDireccion().trim()
-						+ "<<");
-
 				Integer secDirecion = null;
 				if (direccionesConsultadasList != null && direccionesConsultadasList.size() >= 2) {
 					secDirecion = direccionesConsultadasList.get(1).getSecDireccion();
-					log.error(direccionesConsultadasList.get(1).getSecDireccion());
 				}
 				direccionsd2 = MapeoDireccion2Sd(registro.getDirecciones().getDireccion2(), canalSd, existePersona);
 				direccionsd2.setSecDireccion(secDirecion);
 
 				if (direccionsd2.getSecDireccion() != null) {
-					log.error("ACTUALIZA DIRECCION 2");
 					direccionSdServicio.update(direccionsd2);
 				} else {
-					log.error("INGRESA DIRECCION 2");
 					direccionSdServicio.ingresarDireccion(direccionsd2);
 				}
 				listaDirec.add(direccionsd2);
@@ -1326,7 +1249,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			}
 
 			objRetorno.setTelefonoList(retornarListaTelefono);
-			log.error("PASA TELEFONO");
 
 			// ACTUALIZA DIRECCION ELECTRONICA 1-2
 			List<DireccionElectronicaSd> direccionElectronica = direccionElectronicaSdServicio
@@ -1349,18 +1271,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					d1.setTsCreacion(new Date());
 					d1.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 					d1.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico1());
-
-					log.error("ACTUALIZA DIRECCION ELECTRONICA 1");
-					log.error(d1);
 					direccionElectronicaSdServicio.update(d1);
 				} else {
 
 					d1 = MapeoDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico1(),
 							existePersona, canalSd);
 
-					log.error("CREA DIRECCION ELECTRONICA 1");
 					direccionElectronicaSdServicio.ingresarDireccionElectronica(d1);
-					log.error("GUARDA DIRECCION ELECTRONICA 1");
 				}
 			}
 
@@ -1383,30 +1300,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 						d2.setTsCreacion(new Date());
 						d2.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 						d2.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico2());
-
-						log.error("ACTUALIZA DIRECCION ELECTRONICA 2");
-						log.error(d2);
 						direccionElectronicaSdServicio.update(d2);
 					} else {
 						d2 = MapeoDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico2(),
 								existePersona, canalSd);
 
-						log.error(d2);
-						log.error(d2.getSecPersona());
-						log.error(d2.getDireccionElectronica());
-						log.error(d2.getCodTipoDireccionElectronica());
-						log.error(d2.getSecCanal());
-						log.error(d2.getEstado());
-						log.error(d2.getUsrCreacion());
-						log.error(d2.getTsCreacion());
-						log.error(d2.getUsrModificacion());
-
-						log.error("CREA DIRECCION ELECTRONICA 2");
 						direccionElectronicaSdServicio.ingresarDireccionElectronica(d2);
-						log.error("GUARDA DIRECCION ELECTRONICA 2");
-
 					}
-					log.error("PASA DIRECCION ELECTRONICA");
 				}
 			}
 
@@ -1431,30 +1331,13 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 						d3.setTsCreacion(new Date());
 						d3.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 						d3.setDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico3());
-
-						log.error("ACTUALIZA DIRECCION ELECTRONICA 3");
-						log.error(d3);
 						direccionElectronicaSdServicio.update(d3);
 					} else {
 						d3 = MapeoDireccionElectronica(registro.getDireccionElectronico().getCorreo_electronico3(),
 								existePersona, canalSd);
-
-						log.error(d3);
-						log.error(d3.getSecPersona());
-						log.error(d3.getDireccionElectronica());
-						log.error(d3.getCodTipoDireccionElectronica());
-						log.error(d3.getSecCanal());
-						log.error(d3.getEstado());
-						log.error(d3.getUsrCreacion());
-						log.error(d3.getTsCreacion());
-						log.error(d3.getUsrModificacion());
-
-						log.error("CREA DIRECCION ELECTRONICA 3");
+		
 						direccionElectronicaSdServicio.ingresarDireccionElectronica(d3);
-						log.error("GUARDA DIRECCION ELECTRONICA 3");
-
 					}
-					log.error("PASA DIRECCION ELECTRONICA");
 				}
 			}
 
@@ -1506,15 +1389,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				if (secPesonaNatural == informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural()
 						|| secPesonaNatural == null) {
 					if (informacionAdicionalSd.getSecInformacionAdic() != null) {
-						log.error("ACTUALIZA");
 						informacionAdicionalSdServicio.update(informacionAdicionalSd);
-						log.error("ACTUALIZA INFORMACIONADICIONAL");
-						log.error(informacionAdicionalSd);
 					} else {
-						log.error("INGRESA");
 						informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
-						log.error("INGRESA INFORMACIONADICIONAL");
-						log.error(informacionAdicionalSd);
 					}
 				} else {
 					log.error(secPesonaNatural + "<---->"
@@ -1540,10 +1417,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				personaNatural.setInformacionAdicionalList(lista);
 				objRetorno.setPersonaNatural(personaNatural);
 			}
-
-			log.error("PASA INFORMACION ADICIONAL");
-
-			log.error("LLEGA EMPLEOS");
 			// ACTUALIZAR EMPLEO ACTUAL
 			PersonaJuridicaSd existePersonaJuridica = CrearPersonaJuridicaEmpleo(
 					registro.getEmpleos().getEmpleoActual(), tipoIdentificacionRuc, canalSd,
@@ -1566,18 +1439,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			EmpleoDependienteSd empleo2 = ActualizarEmpleoDependiente(existePersona.getPersonaNatural(),
 					existePersonaJuridica2, registro.getEmpleos().getEmpleo2(), canalSd);
 
-			log.error("MAPEO OBJETO");
-			log.error(empleoActual);
-			log.error(empleo1);
-			log.error(empleo2);
-
 			List<EmpleoDependienteSd> empleoDependienteList = new ArrayList<EmpleoDependienteSd>();
 			if (empleoActual.getSecEmpleoDependiente() != null)
 				empleoDependienteList.add(empleoActual);
 			else
 				empleoDependienteList.add(null);
-
-			log.error("MAPEO OBJETO");
 
 			if (empleo1.getSecEmpleoDependiente() != null)
 				empleoDependienteList.add(empleo1);
@@ -1589,9 +1455,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			perN = existePersona.getPersonaNatural();
 			perN.setEmpleoDependienteList(empleoDependienteList);
 			objRetorno.setPersonaNatural(perN);
-
-			log.error("FIN EMPLEOS");
-			log.error("FIN PROCESO ACTUALIZACION TITULAR");
 		}
 
 		return objRetorno;
@@ -1958,11 +1821,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			if (!VerificarVacios(secParroquia.trim())) {
 				primarySecParroquia = noPkTablasDao.obtenerCodigoParroquiaPorCodigoDB(secParroquia.trim(),
 						ConsultaEnEnum.IESS);
-				log.error("BUSCA SEC PARROQUIA: " + primarySecParroquia);
 				if (primarySecParroquia == null) {
 					primarySecParroquia = noPkTablasDao.obtenerCodigoParroquiaPorCodigoDB(secParroquia.trim(),
 							ConsultaEnEnum.SRI);
-					log.error("BUSCA SEC PARROQUIA: " + primarySecParroquia);
 				}
 				if (primarySecParroquia != null)
 					parroquiaSd = parroquiaSdServicio.findByPk(primarySecParroquia);
@@ -1984,11 +1845,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		try {
 			if (!VerificarVacios(secCanton.trim())) {
 				primarySecCanton = noPkTablasDao.obtenerCodigoCantonPorCodigoDB(secCanton.trim(), ConsultaEnEnum.IESS);
-				log.error("BUSCA SEC CANTON: " + primarySecCanton);
 				if (primarySecCanton == null) {
 					primarySecCanton = noPkTablasDao.obtenerCodigoCantonPorCodigoDB(secCanton.trim(),
 							ConsultaEnEnum.SRI);
-					log.error("BUSCA SEC CANTON: " + primarySecCanton);
 				}
 				if (primarySecCanton != null) {
 					cantonSd = cantonSdServicio.findByPk(primarySecCanton);
@@ -2012,11 +1871,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			if (!VerificarVacios(secProvincia.trim())) {
 				primarySecProvincia = noPkTablasDao.obtenerCodigoProvinciaPorCodigoDB(secProvincia.trim(),
 						ConsultaEnEnum.IESS);
-				log.error("BUSCA SEC PROVINCIA: " + secProvincia);
 				if (primarySecProvincia == null) {
 					primarySecProvincia = noPkTablasDao.obtenerCodigoProvinciaPorCodigoDB(secProvincia.trim(),
 							ConsultaEnEnum.SRI);
-					log.error("BUSCA SEC PROVINCIA: " + primarySecProvincia);
 				}
 				if (primarySecProvincia != null) {
 					provinciaSd = provinciaSdServicio.findByPk(primarySecProvincia);
@@ -2053,8 +1910,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	public PersonaJuridicaSd CrearPersonaJuridicaEmpleo(Trabajo trabajo, TipoIdentificacionSd tipoIdentificacionRuc,
 			CanalSd canalSd, String codigoActividadEconomica) {
 
-		log.error("Entra CrearPersonaJuridicaEmpleo");
-
 		PersonaJuridicaSd existePersonaJuridica = new PersonaJuridicaSd();
 		if (!VerificarVacios(trabajo.getRazon_Social().trim())
 				|| !VerificarVacios(trabajo.getIdentificacion().trim())) {
@@ -2062,27 +1917,16 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			// VERIFICAR SI EXISTE PERSONA
 			PersonaSd existePersonaJ = personaServicio.obtenerPersonaByIdentificacion(trabajo.getIdentificacion());
 
-			log.error("LLEGA ");
-			log.error(existePersonaJ);
-
 			// SI NO EXISTE LA PERSONA JURIDICA DENTO DE PERSONA GUARDO LA PERSONA JURIDICA
 			if (existePersonaJ == null) {
-				log.error("ENTRA");
-
 				existePersonaJ = new PersonaSd();
 				existePersonaJ.setIdentificacion(trabajo.getIdentificacion());
 				existePersonaJ.setCodTipoIdentificacion(tipoIdentificacionRuc);
 				existePersonaJ.setDenominacion(trabajo.getRazon_Social());
-
-				log.error("LLEGO PERSONA R");
+				
 				personaServicio.IngresarPersona(existePersonaJ);
-				log.error(existePersonaJ);
-				log.error("GUARDO PERSONA R");
 			}
 
-			log.error("PASA");
-
-			log.error("aqui esta el error ya me vien en la consultas de arriba el persona juridica");
 			// BUSCO LA PERSONA JURIDICA DENTRO DE LA TABLA PERSONA JURIDICA
 			if (existePersonaJ.getPersonaJuridica() == null)
 				existePersonaJuridica = personaJuridicaServicio
@@ -2090,43 +1934,27 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			else
 				existePersonaJuridica = existePersonaJ.getPersonaJuridica();
 
-			log.error(existePersonaJuridica);
-
 			// SI NO EXISTE SE PROCEDE A INGRESAR LA PERSONA JURIDICA
 			if (existePersonaJuridica == null) {
 				existePersonaJuridica = MapperPersonaJuridica(trabajo, existePersonaJ, tipoIdentificacionRuc, canalSd,
 						codigoActividadEconomica);
-
-				log.error("LLEGA PERSONA JURIDICA");
 				personaJuridicaServicio.crearSoloPersonaJuridica(existePersonaJuridica);
-				log.error("GUARDA PERSONA JURIDICA");
 			}
 		}
-
-		log.error("Sale CrearPersonaJuridicaEmpleo");
-		log.error(existePersonaJuridica);
-
 		return existePersonaJuridica;
 	}
 
 	public EmpleoDependienteSd EmpleoDependiente(PersonaJuridicaSd existePersonaJuridica,
 			PersonaNaturalSd personaNatrual, Trabajo trabajo, CanalSd canalSd) {
 
-		log.error("Entra EmpleoDependiente");
-
 		// ACA SE INGRESAN LOS DATOS DEL EMPLEO
 		EmpleoDependienteSd empleoDependienteSd = new EmpleoDependienteSd();
 		if (existePersonaJuridica.getSecPersonaJuridica() != null && !VerificarVacios(trabajo.getFechaIngreso())) {
 
 			// CREA EMPLEOD EPENDIENTE
-			log.error("AAAA");
 			empleoDependienteSd = MapeoEmpleoDependiente(trabajo, personaNatrual, existePersonaJuridica, canalSd);
-			log.error("LLEGA EMPLEO DEPENDIENTE");
 			empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
-			log.error("GUARDA EMPLEO DEPENDIENTE");
 		}
-
-		log.error("Sale EmpleoDependiente");
 
 		return empleoDependienteSd;
 	}
@@ -2136,7 +1964,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		EmpleoDependienteSd empleoDependienteSd = new EmpleoDependienteSd();
 
-		log.error("Entra ActualizarEmpleoDependiente");
 		if (personaNatural != null && personaNatural.getSecPersonaNatural() != null && personaJuridica != null
 				&& personaJuridica.getSecPersonaJuridica() != null && !VerificarVacios(trabajo.getFechaIngreso())) {
 
@@ -2160,17 +1987,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				empleoDependienteSd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 
 				empleoDependienteServicio.update(empleoDependienteSd);
-				log.error("ACTUALIZA EMPLEO DEPENDIENTE");
 			} else {
 				empleoDependienteSd = MapeoEmpleoDependiente(trabajo, personaNatural, personaJuridica, canalSd);
 				empleoDependienteServicio.crearEmpleoDependiente(empleoDependienteSd);
-				log.error("GUARDA EMPLEO DEPENDIENTE");
 			}
-			log.error("PASA EMPLEO DEPENDIENTE");
 		}
-
-		log.error("Sale ActualizarEmpleoDependiente");
-
 		return empleoDependienteSd;
 	}
 
@@ -2184,7 +2005,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		Integer secTelefono = null;
 		if (telefono != null) {
 			secTelefono = telefono.getSecTelefono();
-			log.error(secTelefono);
 		}
 
 		if (telefono1 != null)
@@ -2207,13 +2027,9 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		telefono.setSecTelefono(secTelefono);
 		if (telefono.getSecTelefono() == null) {
-			log.error("INGRESA TELEFONO");
-			log.error(telefono);
 			telefonoSdServicio.ingresarTelefono(telefono);
 
 		} else {
-			log.error("ACTUALIZA TELEFONO");
-			log.error(telefono);
 			telefonoSdServicio.update(telefono);
 		}
 		return telefono;
