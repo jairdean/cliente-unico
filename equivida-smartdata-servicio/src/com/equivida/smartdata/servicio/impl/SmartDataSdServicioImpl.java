@@ -1117,6 +1117,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				personaNaturalServicio.insertarPersonaNatural(personaNatural);
 				objRetorno.setPersonaNatural(personaNatural);
 				existePersona.setPersonaNatural(personaNatural);
+			}else {
+				if(!VerificarVacios(String.valueOf(existePersona.getPersonaNatural().getSexo())))
+					existePersona.getPersonaNatural().setSexoStr(String.valueOf(existePersona.getPersonaNatural().getSexo()));
+				objRetorno.setPersonaNatural(existePersona.getPersonaNatural());
 			}
 
 			// ACTUALIZACION DIRECCION
@@ -1537,6 +1541,10 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		personaNatural.setPrimerNombre(registro.getPrimerNombre());
 		personaNatural.setSegundoNombre(registro.getSegundoNombre());
 		personaNatural.setSexo(registro.getSexo().charAt(0));
+		
+		if(!VerificarVacios(String.valueOf(registro.getSexo().charAt(0))))
+			personaNatural.setSexoStr(String.valueOf(registro.getSexo().charAt(0)));
+		
 		personaNatural.setCodPais(paisSd);
 		personaNatural.setCodEstadoCivil(estadoCivilSd);
 		personaNatural.setSecProfesion(profesionSd);
