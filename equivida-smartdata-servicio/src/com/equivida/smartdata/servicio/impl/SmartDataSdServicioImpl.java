@@ -1276,41 +1276,41 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			//DIRECCION 2
 			if (!VerificarVacios(registro.getDirecciones().getDireccion2().getDireccion().trim())) {
 
-				DireccionSd direccionSd1 = ActualizaDireccion(registro.getDirecciones().getDireccion2().getDireccion(),
+				DireccionSd direccionSd2 = ActualizaDireccion(registro.getDirecciones().getDireccion2().getDireccion(),
 						registro.getDirecciones().getDireccion2().getSecProvincia(),
 						registro.getDirecciones().getDireccion2().getSecCanton(),
 						registro.getDirecciones().getDireccion2().getSecParroquia(), canalSd, existePersona, TipoDireccionEnum.DOMICILIO.getCodigoenBase());
-				listaDirec.add(direccionSd1);
+				listaDirec.add(direccionSd2);
 			}
 			
 			//DIRECCION EMPLEO ACTUAL
 			if (!VerificarVacios(registro.getEmpleos().getEmpleoActual().getDireccion().trim())) {
 
-				DireccionSd direccionSd1 = ActualizaDireccion(registro.getEmpleos().getEmpleoActual().getDireccion(),
+				DireccionSd direccionEmpleoActual = ActualizaDireccion(registro.getEmpleos().getEmpleoActual().getDireccion(),
 						registro.getEmpleos().getEmpleoActual().getSec_Provincia(),
 						registro.getEmpleos().getEmpleoActual().getSec_Canton(),
 						registro.getEmpleos().getEmpleoActual().getSec_Parroquia(), canalSd, existePersona, TipoDireccionEnum.TRABAJO.getCodigoenBase());
-				listaDirec.add(direccionSd1);
+				listaDirec.add(direccionEmpleoActual);
 			}
 			
 			//DIRECCION EMPLEO 1
 			if (!VerificarVacios(registro.getEmpleos().getEmpleo1().getDireccion().trim())) {
 
-				DireccionSd direccionSd1 = ActualizaDireccion(registro.getEmpleos().getEmpleo1().getDireccion(),
+				DireccionSd direccionEmpleo1 = ActualizaDireccion(registro.getEmpleos().getEmpleo1().getDireccion(),
 						registro.getEmpleos().getEmpleo1().getSec_Provincia(),
 						registro.getEmpleos().getEmpleo1().getSec_Canton(),
 						registro.getEmpleos().getEmpleo1().getSec_Parroquia(), canalSd, existePersona, TipoDireccionEnum.TRABAJO.getCodigoenBase());
-				listaDirec.add(direccionSd1);
+				listaDirec.add(direccionEmpleo1);
 			}
 			
 			//DIRECCION EMPLEO 2
 			if (!VerificarVacios(registro.getEmpleos().getEmpleo2().getDireccion().trim())) {
 
-				DireccionSd direccionSd1 = ActualizaDireccion(registro.getEmpleos().getEmpleo2().getDireccion(),
+				DireccionSd direccionEmpleo2 = ActualizaDireccion(registro.getEmpleos().getEmpleo2().getDireccion(),
 						registro.getEmpleos().getEmpleo2().getSec_Provincia(),
 						registro.getEmpleos().getEmpleo2().getSec_Canton(),
 						registro.getEmpleos().getEmpleo2().getSec_Parroquia(), canalSd, existePersona, TipoDireccionEnum.TRABAJO.getCodigoenBase());
-				listaDirec.add(direccionSd1);
+				listaDirec.add(direccionEmpleo2);
 			}
 			
 			if (listaDirec.size() == 0)
