@@ -888,6 +888,60 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					direccionList.add(direccionsd);
 				}
 			}
+			
+			// CREA DIRECCION EMPLEO ACTUAL
+			if (!VerificarVacios(registro.getEmpleos().getEmpleoActual().getDireccion().trim()) &&
+					!VerificarVacios(registro.getEmpleos().getEmpleoActual().getSec_Canton().trim()) &&
+					!VerificarVacios(registro.getEmpleos().getEmpleoActual().getSec_Provincia().trim()) &&
+					!VerificarVacios(registro.getEmpleos().getEmpleoActual().getSec_Parroquia().trim())
+					) {
+				DireccionSd direccionsd = MapeoDireccioneAdicionales(registro.getEmpleos().getEmpleoActual().getDireccion(), 
+						registro.getEmpleos().getEmpleoActual().getSec_Provincia(),
+						registro.getEmpleos().getEmpleoActual().getSec_Canton(),
+						registro.getEmpleos().getEmpleoActual().getSec_Parroquia(),
+						canalSd,
+						persona);
+				direccionSdServicio.ingresarDireccion(direccionsd);
+				// >>
+
+				direccionList.add(direccionsd);
+			}
+			
+			// CREA DIRECCION EMPLEO1
+			if (!VerificarVacios(registro.getEmpleos().getEmpleo1().getDireccion().trim()) &&
+					!VerificarVacios(registro.getEmpleos().getEmpleo1().getSec_Canton().trim()) &&
+					!VerificarVacios(registro.getEmpleos().getEmpleo1().getSec_Provincia().trim()) &&
+					!VerificarVacios(registro.getEmpleos().getEmpleo1().getSec_Parroquia().trim())
+					) {
+				DireccionSd direccionsd = MapeoDireccioneAdicionales(registro.getEmpleos().getEmpleo1().getDireccion(), 
+						registro.getEmpleos().getEmpleo1().getSec_Provincia(),
+						registro.getEmpleos().getEmpleo1().getSec_Canton(),
+						registro.getEmpleos().getEmpleo1().getSec_Parroquia(),
+						canalSd,
+						persona);
+				direccionSdServicio.ingresarDireccion(direccionsd);
+				// >>
+
+				direccionList.add(direccionsd);
+			}
+			
+			// CREA DIRECCION EMPLEO ACTUA
+			if (!VerificarVacios(registro.getEmpleos().getEmpleo2().getDireccion().trim()) &&
+					!VerificarVacios(registro.getEmpleos().getEmpleo2().getSec_Canton().trim()) &&
+					!VerificarVacios(registro.getEmpleos().getEmpleo2().getSec_Provincia().trim()) &&
+					!VerificarVacios(registro.getEmpleos().getEmpleo2().getSec_Parroquia().trim())
+					) {
+				DireccionSd direccionsd = MapeoDireccioneAdicionales(registro.getEmpleos().getEmpleo2().getDireccion(), 
+						registro.getEmpleos().getEmpleo2().getSec_Provincia(),
+						registro.getEmpleos().getEmpleo2().getSec_Canton(),
+						registro.getEmpleos().getEmpleo2().getSec_Parroquia(),
+						canalSd,
+						persona);
+				direccionSdServicio.ingresarDireccion(direccionsd);
+				// >>
+
+				direccionList.add(direccionsd);
+			}
 
 			if (direccionList.size() == 0)
 				direccionList.add(null);
@@ -1210,7 +1264,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				}
 				listaDirec.add(direccionsd2);
 			}
-
+			
 			if (listaDirec.size() == 0)
 				listaDirec.add(null);
 
@@ -1718,6 +1772,36 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		return direccionsd;
 	}
 
+	public DireccionSd MapeoDireccioneAdicionales(String direccion, String secProvincia, String secCanton, String secParroquia, CanalSd canalSd, PersonaSd personaSd) {
+		DireccionSd direccionsd = new DireccionSd();
+
+		// CONTROLO Y VERIFICO SI EXISTE LA PROVINCIA
+		ProvinciaSd provinciaSdDireccion = TraerProvinciaSd(secProvincia);
+
+		// CONTROLO Y VERIFICO SI EXISTE EL CANTON
+		CantonSd cantoSdDireccion = TraerCantonSd(secCanton);
+
+		// CONTROLO Y VERIFICO SI EXISTE LA PARROQUIA
+		ParroquiaSd parroquiaSdDireccion = TraerParroquiaSd(secParroquia);
+
+		TipoDireccionSd tipoDireccionSd = new TipoDireccionSd();
+		tipoDireccionSd.setCodTipoDireccion(TipoDireccionEnum.TRABAJO.getCodigoenBase());
+
+		direccionsd.setSecPersona(personaSd);
+		direccionsd.setDireccion(direccion);
+		direccionsd.setCodTipoDireccion(tipoDireccionSd);
+		direccionsd.setSecProvincia(provinciaSdDireccion);
+		direccionsd.setSecCanton(cantoSdDireccion);
+		direccionsd.setSecParroquia(parroquiaSdDireccion);
+		direccionsd.setSecCanal(canalSd);
+		direccionsd.setEstado(EstadoEnum.A.getEstadoChar());
+		direccionsd.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+		direccionsd.setTsCreacion(new Date());
+		direccionsd.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+
+		return direccionsd;
+	}
+	
 	public TelefonoSd MapperTelefono(Telefono1 telefono1, Telefono2 telefono2, Telefono3 telefono3, Telefono4 telefono4,
 			Telefono5 telefono5, Telefono6 telefono6, CanalSd canalSd, PersonaSd persona, String telefonoEmpleo) {
 		TelefonoSd telefono = new TelefonoSd();
