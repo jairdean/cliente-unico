@@ -1929,7 +1929,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			telefono.setCodArea(telefonoEmpleo.substring(0, 2));
 			telefono.setNroTelefono(telefonoEmpleo);
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
-			log.error("ESTE QUIERO");	
 		}
 		log.error(telefono);
 		return telefono;
