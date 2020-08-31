@@ -1673,6 +1673,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			direccionSdServicio.ingresarDireccion(direccionEncontrada);
 		} else {
 			// actualizar
+			direccionEncontrada.setSecDireccion(secDireccion);
 			direccionSdServicio.update(direccionEncontrada);
 		}
 
