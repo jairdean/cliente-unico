@@ -901,7 +901,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					&& !VerificarVacios(registro.getTelefonos().getTelefono1().getNroTelefono())) {
 
 				TelefonoSd telefono = MapperTelefono(registro.getTelefonos().getTelefono1(), null, null, null, null,
-						null, canalSd, persona);
+						null, canalSd, persona, null);
 				telefonoSdServicio.ingresarTelefono(telefono);
 				listaTelefonos.add(telefono);
 			}
@@ -911,7 +911,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					&& !VerificarVacios(registro.getTelefonos().getTelefono2().getNroTelefono())) {
 
 				TelefonoSd telefono2 = MapperTelefono(null, registro.getTelefonos().getTelefono2(), null, null, null,
-						null, canalSd, persona);
+						null, canalSd, persona, null);
 
 				telefonoSdServicio.ingresarTelefono(telefono2);
 				listaTelefonos.add(telefono2);
@@ -922,7 +922,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					&& !VerificarVacios(registro.getTelefonos().getTelefono3().getNroTelefono())) {
 
 				TelefonoSd telefono3 = MapperTelefono(null, null, registro.getTelefonos().getTelefono3(), null, null,
-						null, canalSd, persona);
+						null, canalSd, persona, null);
 
 				telefonoSdServicio.ingresarTelefono(telefono3);
 				listaTelefonos.add(telefono3);
@@ -933,7 +933,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					&& !VerificarVacios(registro.getTelefonos().getTelefono4().getNroTelefono())) {
 
 				TelefonoSd telefono4 = MapperTelefono(null, null, null, registro.getTelefonos().getTelefono4(), null,
-						null, canalSd, persona);
+						null, canalSd, persona, null);
 
 				telefonoSdServicio.ingresarTelefono(telefono4);
 				listaTelefonos.add(telefono4);
@@ -944,7 +944,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					&& !VerificarVacios(registro.getTelefonos().getTelefono5().getNroTelefono())) {
 
 				TelefonoSd telefono5 = MapperTelefono(null, null, null, null, registro.getTelefonos().getTelefono5(),
-						null, canalSd, persona);
+						null, canalSd, persona, null);
 
 				telefonoSdServicio.ingresarTelefono(telefono5);
 				listaTelefonos.add(telefono5);
@@ -955,14 +955,41 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					&& !VerificarVacios(registro.getTelefonos().getTelefono6().getNroTelefono())) {
 
 				TelefonoSd telefono6 = MapperTelefono(null, null, null, null, null,
-						registro.getTelefonos().getTelefono6(), canalSd, persona);
+						registro.getTelefonos().getTelefono6(), canalSd, persona, null);
 
 				telefonoSdServicio.ingresarTelefono(telefono6);
 				listaTelefonos.add(telefono6);
 			}
 
-			objRetorno.setTelefonoList(listaTelefonos);
+			//CREAR TELEFONO EMPLEO ACTUAL
+			if (!VerificarVacios(registro.getEmpleos().getEmpleoActual().getNro_Telefono())) {
 
+				TelefonoSd crearEmpleoActualTelefono = MapperTelefono(null, null, null, null, null, null, canalSd, persona, registro.getEmpleos().getEmpleoActual().getNro_Telefono());
+
+				telefonoSdServicio.ingresarTelefono(crearEmpleoActualTelefono);
+				listaTelefonos.add(crearEmpleoActualTelefono);
+			}
+
+			//CREAR TELEFONO EMPLEO 1
+			if (!VerificarVacios(registro.getEmpleos().getEmpleo1().getNro_Telefono())) {
+
+				TelefonoSd crearEmpleo1Telefono = MapperTelefono(null, null, null, null, null, null, canalSd, persona, registro.getEmpleos().getEmpleo1().getNro_Telefono());
+
+				telefonoSdServicio.ingresarTelefono(crearEmpleo1Telefono);
+				listaTelefonos.add(crearEmpleo1Telefono);
+			}
+			
+			//CREAR TELEFONO EMPLEO 2
+			if (!VerificarVacios(registro.getEmpleos().getEmpleo2().getNro_Telefono())) {
+
+				TelefonoSd crearEmpleo2Telefono = MapperTelefono(null, null, null, null, null, null, canalSd, persona, registro.getEmpleos().getEmpleo2().getNro_Telefono());
+
+				telefonoSdServicio.ingresarTelefono(crearEmpleo2Telefono);
+				listaTelefonos.add(crearEmpleo2Telefono);
+			}
+			
+			objRetorno.setTelefonoList(listaTelefonos);
+			
 			
 			// CREA DIRECCION ELECTRONICA 1
 			TipoDireccionElectronicaSd tipoDireccionElectronicaSd = new TipoDireccionElectronicaSd();
@@ -1197,7 +1224,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono1 = ActualizaTelefono(existePersona, canalSd,
 						registro.getTelefonos().getTelefono1().getNroTelefono(),
 						registro.getTelefonos().getTelefono1().getCodArea(), registro.getTelefonos().getTelefono1(),
-						null, null, null, null, null);
+						null, null, null, null, null, null);
 
 				retornarListaTelefono.add(telefono1);
 			}
@@ -1207,7 +1234,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono2 = ActualizaTelefono(existePersona, canalSd,
 						registro.getTelefonos().getTelefono2().getNroTelefono(),
 						registro.getTelefonos().getTelefono2().getCodArea(), null,
-						registro.getTelefonos().getTelefono2(), null, null, null, null);
+						registro.getTelefonos().getTelefono2(), null, null, null, null, null);
 
 				retornarListaTelefono.add(telefono2);
 			}
@@ -1217,7 +1244,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono3 = ActualizaTelefono(existePersona, canalSd,
 						registro.getTelefonos().getTelefono3().getNroTelefono(),
 						registro.getTelefonos().getTelefono3().getCodArea(), null, null,
-						registro.getTelefonos().getTelefono3(), null, null, null);
+						registro.getTelefonos().getTelefono3(), null, null, null, null);
 
 				retornarListaTelefono.add(telefono3);
 			}
@@ -1227,7 +1254,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono4 = ActualizaTelefono(existePersona, canalSd,
 						registro.getTelefonos().getTelefono4().getNroTelefono(),
 						registro.getTelefonos().getTelefono4().getCodArea(), null, null, null,
-						registro.getTelefonos().getTelefono4(), null, null);
+						registro.getTelefonos().getTelefono4(), null, null, null);
 
 				retornarListaTelefono.add(telefono4);
 			}
@@ -1237,7 +1264,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono5 = ActualizaTelefono(existePersona, canalSd,
 						registro.getTelefonos().getTelefono5().getNroTelefono(),
 						registro.getTelefonos().getTelefono5().getCodArea(), null, null, null, null,
-						registro.getTelefonos().getTelefono5(), null);
+						registro.getTelefonos().getTelefono5(), null, null);
 
 				retornarListaTelefono.add(telefono5);
 			}
@@ -1247,11 +1274,47 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				TelefonoSd telefono6 = ActualizaTelefono(existePersona, canalSd,
 						registro.getTelefonos().getTelefono6().getNroTelefono(),
 						registro.getTelefonos().getTelefono6().getCodArea(), null, null, null, null, null,
-						registro.getTelefonos().getTelefono6());
+						registro.getTelefonos().getTelefono6(), null);
 
 				retornarListaTelefono.add(telefono6);
 			}
 
+			// TELEFONO EMPLEO ACTUAL
+			if (!VerificarVacios(registro.getEmpleos().getEmpleoActual().getNro_Telefono()) 
+					&& registro.getEmpleos().getEmpleoActual().getNro_Telefono().length() > 2) {
+					
+				TelefonoSd telefonoEmpleoActual = ActualizaTelefono(existePersona, canalSd,
+						registro.getEmpleos().getEmpleoActual().getNro_Telefono(),
+						registro.getEmpleos().getEmpleoActual().getNro_Telefono().substring(0, 2).equals("09") ? "3" : "1", null, null, null, null, null,
+						null, registro.getEmpleos().getEmpleoActual().getNro_Telefono());
+
+				retornarListaTelefono.add(telefonoEmpleoActual);
+			}
+			
+			// TELEFONO EMPLEO1
+			if (!VerificarVacios(registro.getEmpleos().getEmpleo1().getNro_Telefono()) 
+					&& registro.getEmpleos().getEmpleo1().getNro_Telefono().length() > 2) {
+					
+				TelefonoSd telefonoEmpleo1 = ActualizaTelefono(existePersona, canalSd,
+						registro.getEmpleos().getEmpleo1().getNro_Telefono(),
+						registro.getEmpleos().getEmpleo1().getNro_Telefono().substring(0, 2).equals("09") ? "3" : "1", null, null, null, null, null,
+						null, registro.getEmpleos().getEmpleo1().getNro_Telefono());
+
+				retornarListaTelefono.add(telefonoEmpleo1);
+			}
+			
+			// TELEFONO EMPLEO2
+			if (!VerificarVacios(registro.getEmpleos().getEmpleo2().getNro_Telefono()) 
+					&& registro.getEmpleos().getEmpleo2().getNro_Telefono().length() > 2) {
+					
+				TelefonoSd telefonoEmpleo1 = ActualizaTelefono(existePersona, canalSd,
+						registro.getEmpleos().getEmpleo2().getNro_Telefono(),
+						registro.getEmpleos().getEmpleo2().getNro_Telefono().substring(0, 2).equals("09") ? "3" : "1", null, null, null, null, null,
+						null, registro.getEmpleos().getEmpleo2().getNro_Telefono());
+
+				retornarListaTelefono.add(telefonoEmpleo1);
+			}
+			
 			objRetorno.setTelefonoList(retornarListaTelefono);
 
 			// ACTUALIZA DIRECCION ELECTRONICA 1-2
@@ -1656,7 +1719,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 	}
 
 	public TelefonoSd MapperTelefono(Telefono1 telefono1, Telefono2 telefono2, Telefono3 telefono3, Telefono4 telefono4,
-			Telefono5 telefono5, Telefono6 telefono6, CanalSd canalSd, PersonaSd persona) {
+			Telefono5 telefono5, Telefono6 telefono6, CanalSd canalSd, PersonaSd persona, String telefonoEmpleo) {
 		TelefonoSd telefono = new TelefonoSd();
 		TipoTelefonoSd tipoTelefonoSd = new TipoTelefonoSd();
 
@@ -1702,6 +1765,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			tipoTelefonoSd = TraerTipoTelefono(telefono6.getCodTipoTelefono());
 			telefono.setCodArea(telefono6.getCodArea());
 			telefono.setNroTelefono(telefono6.getNroTelefono());
+			telefono.setCodTipoTelefono(tipoTelefonoSd);
+		} else if(telefonoEmpleo != null && telefonoEmpleo.length() > 2) {
+			tipoTelefonoSd.setCodTipoTelefono(telefonoEmpleo.equals("09") ? (short)3 : (short)1);
+			telefono.setCodArea(telefonoEmpleo.substring(0, 2));
+			telefono.setNroTelefono(telefonoEmpleo);
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		}
 		return telefono;
@@ -2005,7 +2073,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 	public TelefonoSd ActualizaTelefono(PersonaSd existePersona, CanalSd canalSd, String numeroTelefono,
 			String codigoArea, Telefono1 telefono1, Telefono2 telefono2, Telefono3 telefono3, Telefono4 telefono4,
-			Telefono5 telefono5, Telefono6 telefono6) {
+			Telefono5 telefono5, Telefono6 telefono6, String telefonoEmpleo) {
 
 		TelefonoSd telefono = telefonoSdServicio.obtenerTelefonoBySecPersonaAndNroTeefono(existePersona.getSecPersona(),
 				numeroTelefono, codigoArea);
@@ -2016,23 +2084,26 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 		}
 
 		if (telefono1 != null)
-			telefono = MapperTelefono(telefono1, null, null, null, null, null, canalSd, existePersona);
+			telefono = MapperTelefono(telefono1, null, null, null, null, null, canalSd, existePersona, null);
 
 		if (telefono2 != null)
-			telefono = MapperTelefono(null, telefono2, null, null, null, null, canalSd, existePersona);
+			telefono = MapperTelefono(null, telefono2, null, null, null, null, canalSd, existePersona, null);
 
 		if (telefono3 != null)
-			telefono = MapperTelefono(null, null, telefono3, null, null, null, canalSd, existePersona);
+			telefono = MapperTelefono(null, null, telefono3, null, null, null, canalSd, existePersona, null);
 
 		if (telefono4 != null)
-			telefono = MapperTelefono(null, null, null, telefono4, null, null, canalSd, existePersona);
+			telefono = MapperTelefono(null, null, null, telefono4, null, null, canalSd, existePersona, null);
 
 		if (telefono5 != null)
-			telefono = MapperTelefono(null, null, null, null, telefono5, null, canalSd, existePersona);
+			telefono = MapperTelefono(null, null, null, null, telefono5, null, canalSd, existePersona, null);
 
 		if (telefono6 != null)
-			telefono = MapperTelefono(null, null, null, null, null, telefono6, canalSd, existePersona);
-
+			telefono = MapperTelefono(null, null, null, null, null, telefono6, canalSd, existePersona, null);
+		
+		if(telefonoEmpleo != null)
+			telefono = MapperTelefono(null, null, null, null, null, null, canalSd, existePersona, telefonoEmpleo);
+		
 		telefono.setSecTelefono(secTelefono);
 		if (telefono.getSecTelefono() == null) {
 			telefonoSdServicio.ingresarTelefono(telefono);
