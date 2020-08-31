@@ -81,4 +81,15 @@ public class DireccionSdServicioImpl extends GenericServiceImpl<DireccionSd, Int
 	public List<DireccionSd> obtenerDireccionByPersonaSecPersona(int secPersona) {
 		return direccionDao.obtenerDireccionByPersonaSecPersona(secPersona);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.servicio.DireccionSdServicio#
+	 * obtenerDireccionBySecPersonaAndDireccion(int secPersona, String direccion)
+	 */
+	@Override
+	public DireccionSd obtenerDireccionBySecPersonaAndDireccion(int secPersona, String direccion) {
+		return direccionDao.obtenerDireccionBySecPersonaAndDireccion(secPersona, direccion);
+	}
 }

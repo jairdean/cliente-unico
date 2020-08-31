@@ -91,4 +91,29 @@ public class DireccionSdDaoEjb extends GenericDaoEjb<DireccionSd, Integer> imple
 
 		return null;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.equivida.smartdata.dao.DireccionSdDao#
+	 * obtenerDireccionBySecPersonaAndDireccion
+	 */
+	@Override
+	public DireccionSd obtenerDireccionBySecPersonaAndDireccion(int secPersona, String direccion) {
+		StringBuffer sql = new StringBuffer(200);
+		sql.append("select d from DireccionSd d where ");
+		sql.append("d.secPersona.secPersona = :secPersona ");
+		sql.append("and d.direccion = :direccion");
+
+		Query query = em.createQuery(sql.toString());
+		query.setParameter("secPersona", secPersona);
+		query.setParameter("direccion", direccion);
+
+		List<DireccionSd> direccionList = query.getResultList();
+
+		if (direccionList != null && !direccionList.isEmpty())
+			return direccionList.get(0);
+
+		return null;
+	}
 }
