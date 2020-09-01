@@ -428,6 +428,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			if (registros.getConyuge() != null && retornar != null && objetoConyugue != null) {
 				try {
+					
+					if(retornar.getRelaciones() != null && retornar.getRelaciones().size() > 0) {
 					RelacionSd r = new RelacionSd();
 
 					TipoParentescoRelacionSd tp = new TipoParentescoRelacionSd();
@@ -443,8 +445,11 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					r.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
 					r.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
 					r.setTsCreacion(new Date());
-
+					
 					relacionServicio.create(r);
+					} else {
+						relacionServicio.CrearRelacion(retornar.getSecPersona(), objetoConyugue.getSecPersona());
+					}
 				} catch (Exception e) {
 					log.error("No se ha posido guardar la relacion para: " + retornar.getIdentificacion()
 							+ " con perosnaR: " + objetoConyugue.getIdentificacion());
