@@ -1,7 +1,7 @@
 /**
 *RelacionservicioImpl.java
 *
-*Thu Feb 18 10:46:12 ECT 2016
+*Tu Sep 01 10:46:12 ECT 2020
 */
 package com.equivida.smartdata.servicio.impl;
 
@@ -54,6 +54,18 @@ public class RelacionSdServicioImpl extends GenericServiceImpl<RelacionSd, Integ
 		}
 
 		return resp;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.equivida.smartdata.servicio.RelacionServicio#CrearRelacion(java.
+	 * lang.Integer, java.lang.Integer)
+	 */
+	@Override
+	public void CrearRelacion(Integer secPersonaP, Integer secPersonaR) {
+		relacionDao.CrearRelacion(secPersonaP, secPersonaR);
 	}
 
 }

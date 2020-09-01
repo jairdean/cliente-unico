@@ -21,4 +21,12 @@ public interface RelacionSdServicio extends GenericService<RelacionSd, Integer> 
 	 * @return
 	 */
 	boolean existeParentesco(Integer idPersonaP, Integer idPersonaR, Short tipoPArentesco);
+
+	/**
+	 * 
+	 * @param secPersonaP
+	 * @param secPersonaR
+	 * @return
+	 */
+	void CrearRelacion(Integer secPersonaP, Integer secPersonaR);
 }

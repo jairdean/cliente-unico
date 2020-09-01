@@ -13,4 +13,12 @@ import com.saviasoft.persistence.util.dao.GenericDao;
 @Local
 public interface RelacionSdDao extends GenericDao<RelacionSd, Integer> {
 
+	/**
+	 * Crear relacion
+	 * 
+	 * @param secPersonaP
+	 * @param secPersonaR
+	 */
+	void CrearRelacion(Integer secPersonaP, Integer secPersonaR);
+
 }
