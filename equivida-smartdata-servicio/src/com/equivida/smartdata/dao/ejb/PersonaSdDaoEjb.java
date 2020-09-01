@@ -61,12 +61,7 @@ public class PersonaSdDaoEjb extends GenericDaoEjb<PersonaSd, Integer> implement
 		String hql = "select p from PersonaSd p where p.identificacion = '".concat(noDocumento).concat("'");
 
 		Query query = em.createQuery(hql);
-
-		log.error(hql);
-
 		List<PersonaSd> respList = query.getResultList();
-
-		log.error("PASA BASE");
 		if (respList != null && !respList.isEmpty()) {
 			return respList.get(0);
 		}

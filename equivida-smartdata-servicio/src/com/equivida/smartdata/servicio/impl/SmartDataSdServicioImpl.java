@@ -1123,8 +1123,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					personaNatural.setInformacionAdicionalList(informacionAdicionalList);
 					objRetorno.setPersonaNatural(personaNatural);
 				} else {
-					log.error(secPesonaNatural + "<---->"
-							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
 					log.error(
 							"Ya existe el registro en la persona natural no se puede duplicar la informacion adicional"
 									+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
@@ -1563,9 +1561,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					} else {
 						informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
 					}
-				} else {
-					log.error(secPesonaNatural + "<---->"
-							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
+				} else {	
 					log.error("Ya existe el registro en la persona natural "
 							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
 				}
@@ -1931,7 +1927,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			telefono.setNroTelefono(telefonoEmpleo);
 			telefono.setCodTipoTelefono(tipoTelefonoSd);
 		}
-		log.error(telefono);
 		return telefono;
 	}
 
