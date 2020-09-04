@@ -428,25 +428,25 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 			if (registros.getConyuge() != null && retornar != null && objetoConyugue != null) {
 				try {
-					
-					if(retornar.getRelaciones() != null && retornar.getRelaciones().size() > 0) {
-					RelacionSd r = new RelacionSd();
 
-					TipoParentescoRelacionSd tp = new TipoParentescoRelacionSd();
-					tp.setCodTipoParentesco((short) TipoParentescoEnum.CONYUGE.getCodigoTipoParentesco());
+					if (retornar.getRelaciones() != null && retornar.getRelaciones().size() > 0) {
+						RelacionSd r = new RelacionSd();
 
-					CanalSd canalSd = new CanalSd();
-					canalSd.setSecCanal((short) 1);
+						TipoParentescoRelacionSd tp = new TipoParentescoRelacionSd();
+						tp.setCodTipoParentesco((short) TipoParentescoEnum.CONYUGE.getCodigoTipoParentesco());
 
-					r.setPersonaP(retornar);
-					r.setPersonaR(objetoConyugue);
-					r.setTipoParentesco(tp);
-					r.setSecCanal(canalSd);
-					r.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-					r.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-					r.setTsCreacion(new Date());
-					
-					relacionServicio.create(r);
+						CanalSd canalSd = new CanalSd();
+						canalSd.setSecCanal((short) 1);
+
+						r.setPersonaP(retornar);
+						r.setPersonaR(objetoConyugue);
+						r.setTipoParentesco(tp);
+						r.setSecCanal(canalSd);
+						r.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+						r.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+						r.setTsCreacion(new Date());
+
+						relacionServicio.create(r);
 					} else {
 						relacionServicio.CrearRelacion(retornar.getSecPersona(), objetoConyugue.getSecPersona());
 					}
@@ -857,7 +857,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		// SE REGISTRA LA PERSONA EN CASO DE NO EXISTIR
 		if (existePersona == null) {
-
+			log.error("MODO CREACION");
 			// CREAR PERSONA
 			PersonaSd persona = MapperPersona(registro.getPersona(), tipoIdentificacion);
 			personaServicio.IngresarPersona(persona);
@@ -903,7 +903,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 						registro.getEmpleos().getEmpleoActual().getDireccion(),
 						registro.getEmpleos().getEmpleoActual().getSec_Provincia(),
 						registro.getEmpleos().getEmpleoActual().getSec_Canton(),
-						registro.getEmpleos().getEmpleoActual().getSec_Parroquia(), canalSd, persona, TipoDireccionEnum.TRABAJO.getCodigoenBase());
+						registro.getEmpleos().getEmpleoActual().getSec_Parroquia(), canalSd, persona,
+						TipoDireccionEnum.TRABAJO.getCodigoenBase());
 				direccionSdServicio.ingresarDireccion(direccionsd);
 				// >>
 
@@ -918,7 +919,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				DireccionSd direccionsd = MapeoDireccioneAdicionales(registro.getEmpleos().getEmpleo1().getDireccion(),
 						registro.getEmpleos().getEmpleo1().getSec_Provincia(),
 						registro.getEmpleos().getEmpleo1().getSec_Canton(),
-						registro.getEmpleos().getEmpleo1().getSec_Parroquia(), canalSd, persona, TipoDireccionEnum.TRABAJO.getCodigoenBase());
+						registro.getEmpleos().getEmpleo1().getSec_Parroquia(), canalSd, persona,
+						TipoDireccionEnum.TRABAJO.getCodigoenBase());
 				direccionSdServicio.ingresarDireccion(direccionsd);
 				// >>
 
@@ -933,7 +935,8 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				DireccionSd direccionsd = MapeoDireccioneAdicionales(registro.getEmpleos().getEmpleo2().getDireccion(),
 						registro.getEmpleos().getEmpleo2().getSec_Provincia(),
 						registro.getEmpleos().getEmpleo2().getSec_Canton(),
-						registro.getEmpleos().getEmpleo2().getSec_Parroquia(), canalSd, persona, TipoDireccionEnum.TRABAJO.getCodigoenBase());
+						registro.getEmpleos().getEmpleo2().getSec_Parroquia(), canalSd, persona,
+						TipoDireccionEnum.TRABAJO.getCodigoenBase());
 				direccionSdServicio.ingresarDireccion(direccionsd);
 				// >>
 
@@ -961,84 +964,165 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			if (!VerificarVacios(registro.getTelefonos().getTelefono2().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono2().getNroTelefono())) {
 
-				TelefonoSd telefono2 = MapperTelefono(null, registro.getTelefonos().getTelefono2(), null, null, null,
-						null, canalSd, persona, null);
+				boolean yaExiste = false;
+				for (int i = 0; i < listaTelefonos.size(); i++) {
+					if (listaTelefonos.get(i).getNroTelefono()
+							.equals(registro.getTelefonos().getTelefono2().getNroTelefono())) {
+						yaExiste = true;
+					}
+				}
 
-				telefonoSdServicio.ingresarTelefono(telefono2);
-				listaTelefonos.add(telefono2);
+				if (yaExiste == false) {
+					TelefonoSd telefono2 = MapperTelefono(null, registro.getTelefonos().getTelefono2(), null, null,
+							null, null, canalSd, persona, null);
+
+					telefonoSdServicio.ingresarTelefono(telefono2);
+					listaTelefonos.add(telefono2);
+				}
 			}
 
 			// CREAR TELEFONO3
 			if (!VerificarVacios(registro.getTelefonos().getTelefono3().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono3().getNroTelefono())) {
 
-				TelefonoSd telefono3 = MapperTelefono(null, null, registro.getTelefonos().getTelefono3(), null, null,
-						null, canalSd, persona, null);
+				boolean yaExiste = false;
+				for (int i = 0; i < listaTelefonos.size(); i++) {
+					if (listaTelefonos.get(i).getNroTelefono()
+							.equals(registro.getTelefonos().getTelefono3().getNroTelefono())) {
+						yaExiste = true;
+					}
+				}
 
-				telefonoSdServicio.ingresarTelefono(telefono3);
-				listaTelefonos.add(telefono3);
+				if (yaExiste == false) {
+					TelefonoSd telefono3 = MapperTelefono(null, null, registro.getTelefonos().getTelefono3(), null,
+							null, null, canalSd, persona, null);
+
+					telefonoSdServicio.ingresarTelefono(telefono3);
+					listaTelefonos.add(telefono3);
+				}
 			}
 
 			// CREAR TELEFONO4
 			if (!VerificarVacios(registro.getTelefonos().getTelefono4().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono4().getNroTelefono())) {
 
-				TelefonoSd telefono4 = MapperTelefono(null, null, null, registro.getTelefonos().getTelefono4(), null,
-						null, canalSd, persona, null);
+				boolean yaExiste = false;
+				for (int i = 0; i < listaTelefonos.size(); i++) {
+					if (listaTelefonos.get(i).getNroTelefono()
+							.equals(registro.getTelefonos().getTelefono4().getNroTelefono())) {
+						yaExiste = true;
+					}
+				}
 
-				telefonoSdServicio.ingresarTelefono(telefono4);
-				listaTelefonos.add(telefono4);
+				if (yaExiste == false) {
+					TelefonoSd telefono4 = MapperTelefono(null, null, null, registro.getTelefonos().getTelefono4(),
+							null, null, canalSd, persona, null);
+
+					telefonoSdServicio.ingresarTelefono(telefono4);
+					listaTelefonos.add(telefono4);
+				}
 			}
 
 			// CREAR TELEFONO5
 			if (!VerificarVacios(registro.getTelefonos().getTelefono5().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono5().getNroTelefono())) {
 
-				TelefonoSd telefono5 = MapperTelefono(null, null, null, null, registro.getTelefonos().getTelefono5(),
-						null, canalSd, persona, null);
+				boolean yaExiste = false;
+				for (int i = 0; i < listaTelefonos.size(); i++) {
+					if (listaTelefonos.get(i).getNroTelefono()
+							.equals(registro.getTelefonos().getTelefono5().getNroTelefono())) {
+						yaExiste = true;
+					}
+				}
 
-				telefonoSdServicio.ingresarTelefono(telefono5);
-				listaTelefonos.add(telefono5);
+				if (yaExiste == false) {
+					TelefonoSd telefono5 = MapperTelefono(null, null, null, null,
+							registro.getTelefonos().getTelefono5(), null, canalSd, persona, null);
+
+					telefonoSdServicio.ingresarTelefono(telefono5);
+					listaTelefonos.add(telefono5);
+				}
 			}
 
 			// CREAR TELEFONO6
 			if (!VerificarVacios(registro.getTelefonos().getTelefono6().getCodArea())
 					&& !VerificarVacios(registro.getTelefonos().getTelefono6().getNroTelefono())) {
 
-				TelefonoSd telefono6 = MapperTelefono(null, null, null, null, null,
-						registro.getTelefonos().getTelefono6(), canalSd, persona, null);
+				boolean yaExiste = false;
+				for (int i = 0; i < listaTelefonos.size(); i++) {
+					if (listaTelefonos.get(i).getNroTelefono()
+							.equals(registro.getTelefonos().getTelefono6().getNroTelefono())) {
+						yaExiste = true;
+					}
+				}
 
-				telefonoSdServicio.ingresarTelefono(telefono6);
-				listaTelefonos.add(telefono6);
+				if (yaExiste == false) {
+					TelefonoSd telefono6 = MapperTelefono(null, null, null, null, null,
+							registro.getTelefonos().getTelefono6(), canalSd, persona, null);
+
+					telefonoSdServicio.ingresarTelefono(telefono6);
+					listaTelefonos.add(telefono6);
+				}
 			}
 
 			// CREAR TELEFONO EMPLEO ACTUAL
 			if (!VerificarVacios(registro.getEmpleos().getEmpleoActual().getNro_Telefono())) {
-				TelefonoSd crearEmpleoActualTelefono = MapperTelefono(null, null, null, null, null, null, canalSd,
-						persona, registro.getEmpleos().getEmpleoActual().getNro_Telefono());
 
-				telefonoSdServicio.ingresarTelefono(crearEmpleoActualTelefono);
-				listaTelefonos.add(crearEmpleoActualTelefono);
+				boolean yaExiste = false;
+				for (int i = 0; i < listaTelefonos.size(); i++) {
+					if (listaTelefonos.get(i).getNroTelefono()
+							.equals(registro.getEmpleos().getEmpleoActual().getNro_Telefono())) {
+						yaExiste = true;
+					}
+				}
+
+				if (yaExiste == false) {
+					TelefonoSd crearEmpleoActualTelefono = MapperTelefono(null, null, null, null, null, null, canalSd,
+							persona, registro.getEmpleos().getEmpleoActual().getNro_Telefono());
+
+					telefonoSdServicio.ingresarTelefono(crearEmpleoActualTelefono);
+					listaTelefonos.add(crearEmpleoActualTelefono);
+				}
 			}
 
 			// CREAR TELEFONO EMPLEO 1
 			if (!VerificarVacios(registro.getEmpleos().getEmpleo1().getNro_Telefono())) {
 
-				TelefonoSd crearEmpleo1Telefono = MapperTelefono(null, null, null, null, null, null, canalSd, persona,
-						registro.getEmpleos().getEmpleo1().getNro_Telefono());
+				boolean yaExiste = false;
+				for (int i = 0; i < listaTelefonos.size(); i++) {
+					if (listaTelefonos.get(i).getNroTelefono()
+							.equals(registro.getEmpleos().getEmpleo1().getNro_Telefono())) {
+						yaExiste = true;
+					}
+				}
 
-				telefonoSdServicio.ingresarTelefono(crearEmpleo1Telefono);
-				listaTelefonos.add(crearEmpleo1Telefono);
+				if (yaExiste == false) {
+					TelefonoSd crearEmpleo1Telefono = MapperTelefono(null, null, null, null, null, null, canalSd,
+							persona, registro.getEmpleos().getEmpleo1().getNro_Telefono());
+
+					telefonoSdServicio.ingresarTelefono(crearEmpleo1Telefono);
+					listaTelefonos.add(crearEmpleo1Telefono);
+				}
 			}
 
 			// CREAR TELEFONO EMPLEO 2
 			if (!VerificarVacios(registro.getEmpleos().getEmpleo2().getNro_Telefono())) {
 
-				TelefonoSd crearEmpleo2Telefono = MapperTelefono(null, null, null, null, null, null, canalSd, persona,
-						registro.getEmpleos().getEmpleo2().getNro_Telefono());
+				boolean yaExiste = false;
+				for (int i = 0; i < listaTelefonos.size(); i++) {
+					if (listaTelefonos.get(i).getNroTelefono()
+							.equals(registro.getEmpleos().getEmpleo2().getNro_Telefono())) {
+						yaExiste = true;
+					}
+				}
 
-				telefonoSdServicio.ingresarTelefono(crearEmpleo2Telefono);
-				listaTelefonos.add(crearEmpleo2Telefono);
+				if (yaExiste == false) {
+					TelefonoSd crearEmpleo2Telefono = MapperTelefono(null, null, null, null, null, null, canalSd,
+							persona, registro.getEmpleos().getEmpleo2().getNro_Telefono());
+
+					telefonoSdServicio.ingresarTelefono(crearEmpleo2Telefono);
+					listaTelefonos.add(crearEmpleo2Telefono);
+				}
 			}
 
 			objRetorno.setTelefonoList(listaTelefonos);
@@ -1183,6 +1267,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		} else {
 			// SE ACTUALIZA LOS DATOS DE LA PERSONA EN CASO DE QUE YA EXISTA
+			log.error("MODO ACTUALIZACION");
 			objRetorno = existePersona;
 
 			// VERIFICO SI EXISTE LA PERSONA NATURAL
@@ -1266,56 +1351,62 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 			 * listaDirec.add(direccionsd2); }
 			 */
 
-			//DIRECCION 1
+			// DIRECCION 1
 			if (!VerificarVacios(registro.getDirecciones().getDireccion1().getDireccion().trim())) {
 
 				DireccionSd direccionSd1 = ActualizaDireccion(registro.getDirecciones().getDireccion1().getDireccion(),
 						registro.getDirecciones().getDireccion1().getSecProvincia(),
 						registro.getDirecciones().getDireccion1().getSecCanton(),
-						registro.getDirecciones().getDireccion1().getSecParroquia(), canalSd, existePersona, TipoDireccionEnum.DOMICILIO.getCodigoenBase());
+						registro.getDirecciones().getDireccion1().getSecParroquia(), canalSd, existePersona,
+						TipoDireccionEnum.DOMICILIO.getCodigoenBase());
 				listaDirec.add(direccionSd1);
 			}
 
-			//DIRECCION 2
+			// DIRECCION 2
 			if (!VerificarVacios(registro.getDirecciones().getDireccion2().getDireccion().trim())) {
 
 				DireccionSd direccionSd2 = ActualizaDireccion(registro.getDirecciones().getDireccion2().getDireccion(),
 						registro.getDirecciones().getDireccion2().getSecProvincia(),
 						registro.getDirecciones().getDireccion2().getSecCanton(),
-						registro.getDirecciones().getDireccion2().getSecParroquia(), canalSd, existePersona, TipoDireccionEnum.DOMICILIO.getCodigoenBase());
+						registro.getDirecciones().getDireccion2().getSecParroquia(), canalSd, existePersona,
+						TipoDireccionEnum.DOMICILIO.getCodigoenBase());
 				listaDirec.add(direccionSd2);
 			}
-			
-			//DIRECCION EMPLEO ACTUAL
+
+			// DIRECCION EMPLEO ACTUAL
 			if (!VerificarVacios(registro.getEmpleos().getEmpleoActual().getDireccion().trim())) {
 
-				DireccionSd direccionEmpleoActual = ActualizaDireccion(registro.getEmpleos().getEmpleoActual().getDireccion(),
+				DireccionSd direccionEmpleoActual = ActualizaDireccion(
+						registro.getEmpleos().getEmpleoActual().getDireccion(),
 						registro.getEmpleos().getEmpleoActual().getSec_Provincia(),
 						registro.getEmpleos().getEmpleoActual().getSec_Canton(),
-						registro.getEmpleos().getEmpleoActual().getSec_Parroquia(), canalSd, existePersona, TipoDireccionEnum.TRABAJO.getCodigoenBase());
+						registro.getEmpleos().getEmpleoActual().getSec_Parroquia(), canalSd, existePersona,
+						TipoDireccionEnum.TRABAJO.getCodigoenBase());
 				listaDirec.add(direccionEmpleoActual);
 			}
-			
-			//DIRECCION EMPLEO 1
+
+			// DIRECCION EMPLEO 1
 			if (!VerificarVacios(registro.getEmpleos().getEmpleo1().getDireccion().trim())) {
 
 				DireccionSd direccionEmpleo1 = ActualizaDireccion(registro.getEmpleos().getEmpleo1().getDireccion(),
 						registro.getEmpleos().getEmpleo1().getSec_Provincia(),
 						registro.getEmpleos().getEmpleo1().getSec_Canton(),
-						registro.getEmpleos().getEmpleo1().getSec_Parroquia(), canalSd, existePersona, TipoDireccionEnum.TRABAJO.getCodigoenBase());
+						registro.getEmpleos().getEmpleo1().getSec_Parroquia(), canalSd, existePersona,
+						TipoDireccionEnum.TRABAJO.getCodigoenBase());
 				listaDirec.add(direccionEmpleo1);
 			}
-			
-			//DIRECCION EMPLEO 2
+
+			// DIRECCION EMPLEO 2
 			if (!VerificarVacios(registro.getEmpleos().getEmpleo2().getDireccion().trim())) {
 
 				DireccionSd direccionEmpleo2 = ActualizaDireccion(registro.getEmpleos().getEmpleo2().getDireccion(),
 						registro.getEmpleos().getEmpleo2().getSec_Provincia(),
 						registro.getEmpleos().getEmpleo2().getSec_Canton(),
-						registro.getEmpleos().getEmpleo2().getSec_Parroquia(), canalSd, existePersona, TipoDireccionEnum.TRABAJO.getCodigoenBase());
+						registro.getEmpleos().getEmpleo2().getSec_Parroquia(), canalSd, existePersona,
+						TipoDireccionEnum.TRABAJO.getCodigoenBase());
 				listaDirec.add(direccionEmpleo2);
 			}
-			
+
 			if (listaDirec.size() == 0)
 				listaDirec.add(null);
 
@@ -1331,94 +1422,190 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 						registro.getTelefonos().getTelefono1().getCodArea(), registro.getTelefonos().getTelefono1(),
 						null, null, null, null, null, null);
 
+				log.error("ACTUALIZA/CREA TELEFONO1");
+				log.error(telefono1);
 				retornarListaTelefono.add(telefono1);
 			}
 
 			// TELEFONO2
 			if (!VerificarVacios(registro.getTelefonos().getTelefono2().getNroTelefono())) {
-				TelefonoSd telefono2 = ActualizaTelefono(existePersona, canalSd,
-						registro.getTelefonos().getTelefono2().getNroTelefono(),
-						registro.getTelefonos().getTelefono2().getCodArea(), null,
-						registro.getTelefonos().getTelefono2(), null, null, null, null, null);
+				boolean yaExiste = false;
+				for (int i = 0; i < retornarListaTelefono.size(); i++) {
+					if (retornarListaTelefono.get(i).getNroTelefono()
+							.equals(registro.getTelefonos().getTelefono2().getNroTelefono())) {
+						yaExiste = true;
+					}
+				}
 
-				retornarListaTelefono.add(telefono2);
+				if (yaExiste == false) {
+					TelefonoSd telefono2 = ActualizaTelefono(existePersona, canalSd,
+							registro.getTelefonos().getTelefono2().getNroTelefono(),
+							registro.getTelefonos().getTelefono2().getCodArea(), null,
+							registro.getTelefonos().getTelefono2(), null, null, null, null, null);
+
+					log.error("ACTUALIZA/CREA TELEFONO2");
+					log.error(telefono2);
+					retornarListaTelefono.add(telefono2);
+				}
+
 			}
 
 			// TELEFONO3
 			if (!VerificarVacios(registro.getTelefonos().getTelefono3().getNroTelefono())) {
-				TelefonoSd telefono3 = ActualizaTelefono(existePersona, canalSd,
-						registro.getTelefonos().getTelefono3().getNroTelefono(),
-						registro.getTelefonos().getTelefono3().getCodArea(), null, null,
-						registro.getTelefonos().getTelefono3(), null, null, null, null);
 
-				retornarListaTelefono.add(telefono3);
+				boolean yaExiste = false;
+				for (int i = 0; i < retornarListaTelefono.size(); i++) {
+					if (retornarListaTelefono.get(i).getNroTelefono()
+							.equals(registro.getTelefonos().getTelefono3().getNroTelefono())) {
+						yaExiste = true;
+					}
+				}
+
+				if (yaExiste == false) {
+					TelefonoSd telefono3 = ActualizaTelefono(existePersona, canalSd,
+							registro.getTelefonos().getTelefono3().getNroTelefono(),
+							registro.getTelefonos().getTelefono3().getCodArea(), null, null,
+							registro.getTelefonos().getTelefono3(), null, null, null, null);
+
+					log.error("ACTUALIZA/CREA TELEFONO3");
+					log.error(telefono3);
+					retornarListaTelefono.add(telefono3);
+				}
 			}
 
 			// TELEFONO4
 			if (!VerificarVacios(registro.getTelefonos().getTelefono4().getNroTelefono())) {
-				TelefonoSd telefono4 = ActualizaTelefono(existePersona, canalSd,
-						registro.getTelefonos().getTelefono4().getNroTelefono(),
-						registro.getTelefonos().getTelefono4().getCodArea(), null, null, null,
-						registro.getTelefonos().getTelefono4(), null, null, null);
 
-				retornarListaTelefono.add(telefono4);
+				boolean yaExiste = false;
+				for (int i = 0; i < retornarListaTelefono.size(); i++) {
+					if (retornarListaTelefono.get(i).getNroTelefono()
+							.equals(registro.getTelefonos().getTelefono4().getNroTelefono())) {
+						yaExiste = true;
+					}
+				}
+
+				if (yaExiste == false) {
+					TelefonoSd telefono4 = ActualizaTelefono(existePersona, canalSd,
+							registro.getTelefonos().getTelefono4().getNroTelefono(),
+							registro.getTelefonos().getTelefono4().getCodArea(), null, null, null,
+							registro.getTelefonos().getTelefono4(), null, null, null);
+					log.error("ACTUALIZA/CREA TELEFONO4");
+					log.error(telefono4);
+					retornarListaTelefono.add(telefono4);
+				}
 			}
 
 			// TELEFONO5
 			if (!VerificarVacios(registro.getTelefonos().getTelefono5().getNroTelefono())) {
-				TelefonoSd telefono5 = ActualizaTelefono(existePersona, canalSd,
-						registro.getTelefonos().getTelefono5().getNroTelefono(),
-						registro.getTelefonos().getTelefono5().getCodArea(), null, null, null, null,
-						registro.getTelefonos().getTelefono5(), null, null);
 
-				retornarListaTelefono.add(telefono5);
+				boolean yaExiste = false;
+				for (int i = 0; i < retornarListaTelefono.size(); i++) {
+					if (retornarListaTelefono.get(i).getNroTelefono()
+							.equals(registro.getTelefonos().getTelefono5().getNroTelefono())) {
+						yaExiste = true;
+					}
+				}
+
+				if (yaExiste == false) {
+					TelefonoSd telefono5 = ActualizaTelefono(existePersona, canalSd,
+							registro.getTelefonos().getTelefono5().getNroTelefono(),
+							registro.getTelefonos().getTelefono5().getCodArea(), null, null, null, null,
+							registro.getTelefonos().getTelefono5(), null, null);
+					log.error("ACTUALIZA/CREA TELEFONO5");
+					log.error(telefono5);
+					retornarListaTelefono.add(telefono5);
+				}
 			}
 
 			// TELEFONO6
 			if (!VerificarVacios(registro.getTelefonos().getTelefono6().getNroTelefono())) {
-				TelefonoSd telefono6 = ActualizaTelefono(existePersona, canalSd,
-						registro.getTelefonos().getTelefono6().getNroTelefono(),
-						registro.getTelefonos().getTelefono6().getCodArea(), null, null, null, null, null,
-						registro.getTelefonos().getTelefono6(), null);
 
-				retornarListaTelefono.add(telefono6);
+				boolean yaExiste = false;
+				for (int i = 0; i < retornarListaTelefono.size(); i++) {
+					if (retornarListaTelefono.get(i).getNroTelefono()
+							.equals(registro.getTelefonos().getTelefono6().getNroTelefono())) {
+						yaExiste = true;
+					}
+				}
+
+				if (yaExiste == false) {
+					TelefonoSd telefono6 = ActualizaTelefono(existePersona, canalSd,
+							registro.getTelefonos().getTelefono6().getNroTelefono(),
+							registro.getTelefonos().getTelefono6().getCodArea(), null, null, null, null, null,
+							registro.getTelefonos().getTelefono6(), null);
+					log.error("ACTUALIZA/CREA TELEFONO6");
+					log.error(telefono6);
+					retornarListaTelefono.add(telefono6);
+				}
 			}
-
 
 			// TELEFONO EMPLEO ACTUAL
 			if (!VerificarVacios(registro.getEmpleos().getEmpleoActual().getNro_Telefono())
 					&& registro.getEmpleos().getEmpleoActual().getNro_Telefono().length() > 2) {
 
-				TelefonoSd telefonoEmpleoActual = ActualizaTelefono(existePersona, canalSd,
-						registro.getEmpleos().getEmpleoActual().getNro_Telefono(),
-						registro.getEmpleos().getEmpleoActual().getNro_Telefono().substring(0, 2),
-						null, null, null, null, null, null, registro.getEmpleos().getEmpleoActual().getNro_Telefono());
+				boolean yaExiste = false;
+				for (int i = 0; i < retornarListaTelefono.size(); i++) {
+					if (retornarListaTelefono.get(i).getNroTelefono()
+							.equals(registro.getEmpleos().getEmpleoActual().getNro_Telefono())) {
+						yaExiste = true;
+					}
+				}
 
-				retornarListaTelefono.add(telefonoEmpleoActual);
+				if (yaExiste == false) {
+					TelefonoSd telefonoEmpleoActual = ActualizaTelefono(existePersona, canalSd,
+							registro.getEmpleos().getEmpleoActual().getNro_Telefono(),
+							registro.getEmpleos().getEmpleoActual().getNro_Telefono().substring(0, 2), null, null, null,
+							null, null, null, registro.getEmpleos().getEmpleoActual().getNro_Telefono());
+					log.error("ACTUALIZA/CREA EMPLEO ACTUAL");
+					log.error(telefonoEmpleoActual);
+					retornarListaTelefono.add(telefonoEmpleoActual);
+				}
 			}
 
 			// TELEFONO EMPLEO1
 			if (!VerificarVacios(registro.getEmpleos().getEmpleo1().getNro_Telefono())
 					&& registro.getEmpleos().getEmpleo1().getNro_Telefono().length() > 2) {
 
-				TelefonoSd telefonoEmpleo1 = ActualizaTelefono(existePersona, canalSd,
-						registro.getEmpleos().getEmpleo1().getNro_Telefono(),
-						registro.getEmpleos().getEmpleo1().getNro_Telefono().substring(0, 2),
-						null, null, null, null, null, null, registro.getEmpleos().getEmpleo1().getNro_Telefono());
+				boolean yaExiste = false;
+				for (int i = 0; i < retornarListaTelefono.size(); i++) {
+					if (retornarListaTelefono.get(i).getNroTelefono()
+							.equals(registro.getEmpleos().getEmpleo1().getNro_Telefono())) {
+						yaExiste = true;
+					}
+				}
 
-				retornarListaTelefono.add(telefonoEmpleo1);
+				if (yaExiste == false) {
+					TelefonoSd telefonoEmpleo1 = ActualizaTelefono(existePersona, canalSd,
+							registro.getEmpleos().getEmpleo1().getNro_Telefono(),
+							registro.getEmpleos().getEmpleo1().getNro_Telefono().substring(0, 2), null, null, null,
+							null, null, null, registro.getEmpleos().getEmpleo1().getNro_Telefono());
+					log.error("ACTUALIZA/CREA EMPLEO 1");
+					log.error(telefonoEmpleo1);
+					retornarListaTelefono.add(telefonoEmpleo1);
+				}
 			}
 
 			// TELEFONO EMPLEO2
 			if (!VerificarVacios(registro.getEmpleos().getEmpleo2().getNro_Telefono())
 					&& registro.getEmpleos().getEmpleo2().getNro_Telefono().length() > 2) {
 
-				TelefonoSd telefonoEmpleo2 = ActualizaTelefono(existePersona, canalSd,
-						registro.getEmpleos().getEmpleo2().getNro_Telefono(),
-						registro.getEmpleos().getEmpleo2().getNro_Telefono().substring(0, 2),
-						null, null, null, null, null, null, registro.getEmpleos().getEmpleo2().getNro_Telefono());
+				boolean yaExiste = false;
+				for (int i = 0; i < retornarListaTelefono.size(); i++) {
+					if (retornarListaTelefono.get(i).getNroTelefono()
+							.equals(registro.getEmpleos().getEmpleo2().getNro_Telefono())) {
+						yaExiste = true;
+					}
+				}
 
-				retornarListaTelefono.add(telefonoEmpleo2);
+				if (yaExiste == false) {
+					TelefonoSd telefonoEmpleo2 = ActualizaTelefono(existePersona, canalSd,
+							registro.getEmpleos().getEmpleo2().getNro_Telefono(),
+							registro.getEmpleos().getEmpleo2().getNro_Telefono().substring(0, 2), null, null, null,
+							null, null, null, registro.getEmpleos().getEmpleo2().getNro_Telefono());
+					log.error("ACTUALIZA/CREA EMPLEO 2");
+					log.error(telefonoEmpleo2);
+					retornarListaTelefono.add(telefonoEmpleo2);
+				}
 			}
 
 			objRetorno.setTelefonoList(retornarListaTelefono);
@@ -1566,7 +1753,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					} else {
 						informacionAdicionalSdServicio.crearInformacionAdicional(informacionAdicionalSd);
 					}
-				} else {	
+				} else {
 					log.error("Ya existe el registro en la persona natural "
 							+ informacionAdicionalSd.getSecPersonaNatural().getSecPersonaNatural());
 				}
