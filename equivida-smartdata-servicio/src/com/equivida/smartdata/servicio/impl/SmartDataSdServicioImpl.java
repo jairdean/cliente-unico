@@ -416,6 +416,7 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 				 * existe</error> </registros>
 				 */
 				log.error("NUT no existe");
+				log.error("No existe la persona o el servicio cu-rest-api no responde");
 				return null;
 			}
 
@@ -857,7 +858,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		// SE REGISTRA LA PERSONA EN CASO DE NO EXISTIR
 		if (existePersona == null) {
-			log.error("MODO CREACION");
 			// CREAR PERSONA
 			PersonaSd persona = MapperPersona(registro.getPersona(), tipoIdentificacion);
 			personaServicio.IngresarPersona(persona);
@@ -1267,7 +1267,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 
 		} else {
 			// SE ACTUALIZA LOS DATOS DE LA PERSONA EN CASO DE QUE YA EXISTA
-			log.error("MODO ACTUALIZACION");
 			objRetorno = existePersona;
 
 			// VERIFICO SI EXISTE LA PERSONA NATURAL
@@ -1421,9 +1420,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 						registro.getTelefonos().getTelefono1().getNroTelefono(),
 						registro.getTelefonos().getTelefono1().getCodArea(), registro.getTelefonos().getTelefono1(),
 						null, null, null, null, null, null);
-
-				log.error("ACTUALIZA/CREA TELEFONO1");
-				log.error(telefono1);
 				retornarListaTelefono.add(telefono1);
 			}
 
@@ -1442,9 +1438,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							registro.getTelefonos().getTelefono2().getNroTelefono(),
 							registro.getTelefonos().getTelefono2().getCodArea(), null,
 							registro.getTelefonos().getTelefono2(), null, null, null, null, null);
-
-					log.error("ACTUALIZA/CREA TELEFONO2");
-					log.error(telefono2);
 					retornarListaTelefono.add(telefono2);
 				}
 
@@ -1466,9 +1459,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							registro.getTelefonos().getTelefono3().getNroTelefono(),
 							registro.getTelefonos().getTelefono3().getCodArea(), null, null,
 							registro.getTelefonos().getTelefono3(), null, null, null, null);
-
-					log.error("ACTUALIZA/CREA TELEFONO3");
-					log.error(telefono3);
 					retornarListaTelefono.add(telefono3);
 				}
 			}
@@ -1489,8 +1479,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							registro.getTelefonos().getTelefono4().getNroTelefono(),
 							registro.getTelefonos().getTelefono4().getCodArea(), null, null, null,
 							registro.getTelefonos().getTelefono4(), null, null, null);
-					log.error("ACTUALIZA/CREA TELEFONO4");
-					log.error(telefono4);
 					retornarListaTelefono.add(telefono4);
 				}
 			}
@@ -1511,8 +1499,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							registro.getTelefonos().getTelefono5().getNroTelefono(),
 							registro.getTelefonos().getTelefono5().getCodArea(), null, null, null, null,
 							registro.getTelefonos().getTelefono5(), null, null);
-					log.error("ACTUALIZA/CREA TELEFONO5");
-					log.error(telefono5);
 					retornarListaTelefono.add(telefono5);
 				}
 			}
@@ -1533,8 +1519,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							registro.getTelefonos().getTelefono6().getNroTelefono(),
 							registro.getTelefonos().getTelefono6().getCodArea(), null, null, null, null, null,
 							registro.getTelefonos().getTelefono6(), null);
-					log.error("ACTUALIZA/CREA TELEFONO6");
-					log.error(telefono6);
 					retornarListaTelefono.add(telefono6);
 				}
 			}
@@ -1556,8 +1540,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							registro.getEmpleos().getEmpleoActual().getNro_Telefono(),
 							registro.getEmpleos().getEmpleoActual().getNro_Telefono().substring(0, 2), null, null, null,
 							null, null, null, registro.getEmpleos().getEmpleoActual().getNro_Telefono());
-					log.error("ACTUALIZA/CREA EMPLEO ACTUAL");
-					log.error(telefonoEmpleoActual);
 					retornarListaTelefono.add(telefonoEmpleoActual);
 				}
 			}
@@ -1579,8 +1561,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							registro.getEmpleos().getEmpleo1().getNro_Telefono(),
 							registro.getEmpleos().getEmpleo1().getNro_Telefono().substring(0, 2), null, null, null,
 							null, null, null, registro.getEmpleos().getEmpleo1().getNro_Telefono());
-					log.error("ACTUALIZA/CREA EMPLEO 1");
-					log.error(telefonoEmpleo1);
 					retornarListaTelefono.add(telefonoEmpleo1);
 				}
 			}
@@ -1602,8 +1582,6 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 							registro.getEmpleos().getEmpleo2().getNro_Telefono(),
 							registro.getEmpleos().getEmpleo2().getNro_Telefono().substring(0, 2), null, null, null,
 							null, null, null, registro.getEmpleos().getEmpleo2().getNro_Telefono());
-					log.error("ACTUALIZA/CREA EMPLEO 2");
-					log.error(telefonoEmpleo2);
 					retornarListaTelefono.add(telefonoEmpleo2);
 				}
 			}
