@@ -433,21 +433,26 @@ public class SmartDataSdServicioImpl implements SmartDataSdServicio, SmartDataSe
 					if (retornar.getRelaciones() != null && retornar.getRelaciones().size() > 0) {
 						RelacionSd r = new RelacionSd();
 
-						TipoParentescoRelacionSd tp = new TipoParentescoRelacionSd();
-						tp.setCodTipoParentesco((short) TipoParentescoEnum.CONYUGE.getCodigoTipoParentesco());
+						boolean encuentraRelacion = relacionServicio.existeParentesco(retornar.getSecPersona(),
+								objetoConyugue.getSecPersona(), TipoParentescoEnum.CONYUGE.getCodigoTipoParentesco());
+						if (encuentraRelacion == false) {
 
-						CanalSd canalSd = new CanalSd();
-						canalSd.setSecCanal((short) 1);
+							TipoParentescoRelacionSd tp = new TipoParentescoRelacionSd();
+							tp.setCodTipoParentesco((short) TipoParentescoEnum.CONYUGE.getCodigoTipoParentesco());
 
-						r.setPersonaP(retornar);
-						r.setPersonaR(objetoConyugue);
-						r.setTipoParentesco(tp);
-						r.setSecCanal(canalSd);
-						r.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
-						r.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
-						r.setTsCreacion(new Date());
+							CanalSd canalSd = new CanalSd();
+							canalSd.setSecCanal((short) 1);
 
-						relacionServicio.create(r);
+							r.setPersonaP(retornar);
+							r.setPersonaR(objetoConyugue);
+							r.setTipoParentesco(tp);
+							r.setSecCanal(canalSd);
+							r.setUsrCreacion(UsuarioEnum.USUARIO_CREACION.getValor());
+							r.setUsrModificacion(UsuarioEnum.USUARIO_MODIFICACION.getValor());
+							r.setTsCreacion(new Date());
+
+							relacionServicio.create(r);
+						}
 					} else {
 						relacionServicio.CrearRelacion(retornar.getSecPersona(), objetoConyugue.getSecPersona());
 					}
